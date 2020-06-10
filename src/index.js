@@ -1,28 +1,52 @@
-const jwt = require('jsonwebtoken');
 require('dotenv').config({ path: 'variables.env' });
 const cors = require('cors');
+const { verify } = require('./utils/auth');
 const createServer = require('./createServer');
-const db = require('./db');
+const { findUserById } = require('./services/user');
 
 (async () => {
-  const { httpServer, server, app } = await createServer();
+  try {
+    const { httpServer, server, app } = await createServer();
 
-  // setup middleware using the app
-  const corsOptions = {
-    credentials: true,
-    origin: process.env.FRONTEND_URL,
-    optionsSuccessStatus: 200
-  };
+    // setup middleware using the app
+    const corsOptions = {
+      credentials: true,
+      origin: process.env.FRONTEND_URL,
+      optionsSuccessStatus: 200
+    };
 
-  app.use(cors(corsOptions));
+    app.use(cors(corsOptions));
 
-  httpServer.listen(
-    {
-      port: process.env.PORT || 4000
-    },
-    () =>
-      console.log(
-        `GraphQL Server running at http://localhost:4000${server.graphqlPath} and socket is running at ws://localhost:4000/graphql`
-      )
-  );
+    // TODO: Use express middleware to populate current user (JWT)
+    app.use(async (req, res, next) => {
+      const { token } = req.headers;
+
+      if (token) {
+        const { id } = await verify(token);
+        req.userId = id;
+      }
+      next();
+    });
+
+    // 2. create a middleware that populates the user in the request
+    app.use(async (req, res, next) => {
+      // if they aren't logged in, skip this
+      if (!req.userId) return next();
+      const user = await findUserById(req.id);
+      req.user = user;
+      next();
+    });
+
+    httpServer.listen(
+      {
+        port: process.env.PORT || 4000
+      },
+      () =>
+        console.log(
+          `GraphQL Server running at http://localhost:${process.env.PORT}${server.graphqlPath} and socket is running at ws://localhost:${process.env.PORT}/graphql`
+        )
+    );
+  } catch (e) {
+    console.log(e.message);
+  }
 })();

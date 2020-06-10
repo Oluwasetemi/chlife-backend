@@ -18,14 +18,14 @@ const mailjet = require('node-mailjet').connect(
   process.env.MAILJET_SECRET_KEY
 );
 
-const transport = nodemailer.createTransport({
+/* const transport = nodemailer.createTransport({
   host: process.env.MAIL_HOST,
   port: process.env.MAIL_PORT,
   auth: {
     user: process.env.MAIL_USER,
     pass: process.env.MAIL_PASS
   }
-});
+}); */
 
 const generateHTML = (filename, options = {}) => {
   const html = pug.renderFile(
@@ -59,7 +59,7 @@ exports.send = async options => {
         Email: process.env.SMTP_FROM_EMAIL,
         Name: process.env.SMTP_FROM_NAME
       },
-      To: [{ Email: options.to, Name: 'Sickfits' }],
+      To: [{ Email: options.to, Name: 'Choose Life' }],
       Subject: options.subject || 'XXXXXXX-XXXX',
       TextPart: text,
       HTMLPart: html
@@ -91,5 +91,5 @@ const makeANiceEmail = text => `
     </div>
 `;
 
-exports.transport = transport;
+// exports.transport = transport;
 exports.makeANiceEmail = makeANiceEmail;

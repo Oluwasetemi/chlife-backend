@@ -1,17 +1,136 @@
-type Greetings {
-	name: String
+scalar DateTime
+
+enum UserEnum {
+	INDIVIDUAL
+	EMPLOYEE
+	COMPANY
+	SUPERADMIN
+	ADMIN
+}
+
+enum UserEnumAlone {
+	INDIVIDUAL
+	EMPLOYEE
+	COMPANY
+}
+
+enum GenderEnum {
+	MALE
+	FEMALE
+}
+
+enum SourceEnum {
+	EMAIL
+	GOOGLE
+}
+
+enum ActivityEnum {
+	HIGH
+	MEDIUM
+	LOW
+	VERYACTIVE
+	SOMEWHATACTIVE
+	LOWACTIVITY
+}
+
+type Message {
 	message: String
 }
 
+type User {
+	name: String!
+	email: String!
+	mobile: String
+	"""
+	A secure password should possess characters (0-9, A-Z alphanumeric symbols
+	"""
+	password: String
+	type: UserEnum!
+	image: String
+	gender: GenderEnum!
+	nationality: String
+	dob: DateTime
+	address: String
+	token: String
+	resetPasswordExpires: Int
+	resetPasswordToken: String
+	invitedBy: User
+	adminVerified: Boolean
+	source: SourceEnum
+	suspended: Boolean
+	company: String
+
+	# total reward point for certain activities
+	# totalRewardPoints: Int
+	# weight: Int
+	# height: Int
+	# activity: ActivityEnum
+	# Health risk assessment(2 per year, 1 every 6 month)
+	# hra: [Hra]!
+	# user schedule apointment (2 only - inBody and Professional)
+	# appointments: [Appointment]
+	# exercises: [Exercise]
+	# mealPlan: MealPlan
+	# inBody: [InBody]
+}
+
 type Query {
-	helloWorld: String
+	me: User
+	users: [User]!
+	usersByType(type: UserEnum): [User]!
+}
+
+input updateUserProfileInput {
+	firstName: String!
+	lastName: String!
+	gender: GenderEnum!
+	dob: DateTime!
+	weight: Int
+	height: Int
+	company: String
+	activity: ActivityEnum
+	password: String!
+}
+
+input signUpEmployeeInput {
+	firstName: String!
+	lastName: String!
+	email: String!
+	gender: GenderEnum!
+	dob: DateTime!
+	weight: Int
+	height: Int
+	company: String
+	activity: ActivityEnum
+	password: String!
+}
+
+input signUpCompanyInput {
+	firstName: String!
+	lastName: String!
+	gender: GenderEnum!
+	dob: DateTime!
+	weight: Int
+	height: Int
+	company: String
+	activity: ActivityEnum
+	password: String!
 }
 
 type Mutation {
-	greetings(name: String): Greetings
-	working: String
+	login(email: String!, password: String!): User!
+	# generateGoogleAuthUrl: String!
+	# signupLoginWithGoogle(email: String): User!
+	"""
+	should only work for a user of type -> employee or individual
+	"""
+	signup(input: signUpEmployeeInput): User!
+	# signout: Message!
+	# addNewAdmin(email: String): Message!
+	# removeNewAdmin(email: String): Message!
+	# onBoardCompany(input: signUpCompanyInput):User!
+	# requestResetPassword(email: String!): Message!
+	# resetPassword: (token: String!, OldPassword: String, NewPassword: String): User!
 }
 
-type Subscription {
-	newGreetings: Greetings
-}
+# type Subscription {}

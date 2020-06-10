@@ -5,6 +5,8 @@ const expressPlayground = require('graphql-playground-middleware-express').defau
 const { readFileSync } = require('fs');
 const { createServer } = require('http');
 const path = require('path');
+const dbConnection = require('./db');
+
 
 const typeDefs = readFileSync(path.join(__dirname, 'typeDefs.graphql'), 'UTF-8');
 if (!typeDefs) {
@@ -14,11 +16,18 @@ if (!typeDefs) {
 const Mutation = require('./resolvers/mutation');
 const Query = require('./resolvers/query');
 const Subscription = require('./resolvers/subscription');
+const Type = require('./resolvers/type');
 
 
 async function startServer() {
 
-  // setup the db
+    // setup the db
+    let dbUrl = process.env.DATABASE_URL;
+    if (process.env.NODE_ENV === 'test') {
+      dbUrl = process.env.DATABASE_TEST_URL;
+    }
+    // setup the database
+    const db = dbConnection(dbUrl);
 
     // set up the express app
     const app = express();
@@ -30,10 +39,11 @@ async function startServer() {
       resolvers: {
         Query,
         Mutation,
-        Subscription
+        // Subscription
       },
       introspection: true,
-      context: () => ({ pubsub })
+      debug: false,
+      context: ({req}) => ({ pubsub, db, req })
     });
 
     server.applyMiddleware({ app });
