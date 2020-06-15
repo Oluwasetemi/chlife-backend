@@ -36,8 +36,8 @@ const userSchema = new mongoose.Schema(
     },
     gender: {
       type: String,
-      enum: ['MALE', 'FEMALE'],
-      required: true
+      enum: ['MALE', 'FEMALE']
+      // required: true
     },
     nationality: { type: String, default: 'nigerian' },
     dob: { type: Date },

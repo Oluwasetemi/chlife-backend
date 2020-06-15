@@ -47,6 +47,7 @@ const { findUserById } = require('./services/user');
         )
     );
   } catch (e) {
+    console.error(e.stack);
     console.log(e.message);
   }
 })();

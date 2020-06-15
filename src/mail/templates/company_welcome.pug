@@ -6,6 +6,15 @@ block content
     br
     p Welcome to the choose life as an #{type}
 
+    strong
+      p ⚠️ Please Reset your password by clicking on the button below or copy the link below
+
+    +button(resetLink, 'Reset Password ->')
+
+    p
+      a(href=`${resetLink}`, target='_blank')= resetLink
+
+
     br
     p If you didn't request this email, please ignore it.
     p Regards.

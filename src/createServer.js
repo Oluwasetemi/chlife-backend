@@ -16,12 +16,13 @@ if (!typeDefs) {
 const Mutation = require('./resolvers/mutation');
 const Query = require('./resolvers/query');
 const Subscription = require('./resolvers/subscription');
-const Type = require('./resolvers/type');
+// const Type = require('./resolvers/type');
 
 
 async function startServer() {
 
-    // setup the db
+    try {
+      // setup the db
     let dbUrl = process.env.DATABASE_URL;
     if (process.env.NODE_ENV === 'test') {
       dbUrl = process.env.DATABASE_TEST_URL;
@@ -40,6 +41,7 @@ async function startServer() {
         Query,
         Mutation,
         // Subscription
+        // Type,
       },
       introspection: true,
       debug: false,
@@ -59,6 +61,10 @@ async function startServer() {
     server.installSubscriptionHandlers(httpServer);
 
     return {httpServer, server, app}
+    } catch (error) {
+      console.log(error.stack)
+      throw new Error(error.message);
+    }
 }
 
 // exports.httpServer = httpServer;

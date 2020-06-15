@@ -42,7 +42,7 @@ type User {
 	email: String!
 	mobile: String
 	"""
-	A secure password should possess characters (0-9, A-Z alphanumeric symbols
+	A secure password should possess characters 0-9, A-Z alphanumeric symbols
 	"""
 	password: String
 	type: UserEnum!
@@ -50,6 +50,8 @@ type User {
 	gender: GenderEnum!
 	nationality: String
 	dob: DateTime
+	createdAt: DateTime
+	updatedAt: DateTime
 	address: String
 	token: String
 	resetPasswordExpires: Int
@@ -59,6 +61,8 @@ type User {
 	source: SourceEnum
 	suspended: Boolean
 	company: String
+	companyUrl: String
+	size: Int!
 
 	# total reward point for certain activities
 	# totalRewardPoints: Int
@@ -108,17 +112,20 @@ input signUpEmployeeInput {
 input signUpCompanyInput {
 	firstName: String!
 	lastName: String!
-	gender: GenderEnum!
-	dob: DateTime!
-	weight: Int
-	height: Int
-	company: String
-	activity: ActivityEnum
-	password: String!
+	organizationName: String!
+	organizationEmail: String!
+	organizationUrl: String
+	organizationAddress: String
+	organizationSize: Int!
+	jobTitle: String!
 }
 
 type Mutation {
-	login(email: String!, password: String!): User!
+	login(
+		email: String!
+		password: String!
+		accountType: UserEnumAlone = INDIVIDUAL
+	): User!
 	# generateGoogleAuthUrl: String!
 	# signupLoginWithGoogle(email: String): User!
 	"""
@@ -128,8 +135,8 @@ type Mutation {
 	# signout: Message!
 	# addNewAdmin(email: String): Message!
 	# removeNewAdmin(email: String): Message!
-	# onBoardCompany(input: signUpCompanyInput):User!
-	# requestResetPassword(email: String!): Message!
+	registerCompany(input: signUpCompanyInput): User!
+	requestResetPassword(email: String!): Message!
 	# resetPassword: (token: String!, OldPassword: String, NewPassword: String): User!
 }
 

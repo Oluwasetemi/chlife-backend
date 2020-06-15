@@ -1,6 +1,8 @@
 /* eslint-disable no-console */
 const mongoose = require('mongoose');
 
+mongoose.Promise = global.Promise;
+
 const mongooseErrorHandler = require('mongoose-mongodb-errors');
 
 // A plugin to transform mongodb like errors (E.G. "11000 - duplicate key") into Mongoose ValidationError instances
@@ -17,7 +19,6 @@ if (process.env.NODE_ENV === 'test' && !process.env.DATABASE_TEST_URL) {
   throw Error('setup a database test variable');
 }
 
-mongoose.Promise = global.Promise;
 // Connecting to the database
 const connection = async url => {
   try {
