@@ -7,7 +7,9 @@
 		"start": "nodemon -e js,graphql -x node src/index.js",
 		"debug": "nodemon -e js,graphql -x node --inspect src/index.js",
 		"playground": "graphql playground --dotenv variables.env",
-		"dev": "npm-run-all --parallel debug playground"
+		"dev": "npm-run-all --parallel debug playground",
+		"seed": "node src/seed/seed.js",
+		"blowitallaway": "node src/seed/seed.js --delete"
 	},
 	"keywords": [
 		"graphql",
@@ -20,11 +22,13 @@
 	"license": "ISC",
 	"dependencies": {
 		"apollo-server-express": "^2.14.2",
+		"axios": "^0.19.2",
 		"bcryptjs": "^2.4.3",
 		"casual": "^1.6.2",
 		"cors": "^2.8.5",
 		"dotenv": "^8.2.0",
 		"express": "^4.17.1",
+		"googleapis": "^52.1.0",
 		"graphql": "^15.0.0",
 		"graphql-cli": "^4.0.0",
 		"graphql-playground-middleware-express": "^1.7.15",
