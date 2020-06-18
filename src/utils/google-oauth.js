@@ -1,6 +1,6 @@
 const { google } = require('googleapis');
-const request = require('request-promise');
-const faker = require('faker');
+const axios = require('axios');
+const casual = require('casual');
 
 /** **************** */
 /** CONFIGURATION * */
@@ -39,7 +39,6 @@ function createConnection(url) {
  */
 function getConnectionUrl(auth) {
   return auth.generateAuthUrl({
-    // eslint-disable-next-line babel/camelcase
     access_type: 'offline',
     prompt: 'consent',
     scope: defaultScope
@@ -59,7 +58,7 @@ function getConnectionUrl(auth) {
  */
 function urlGoogle() {
   let url = '';
-  url = encodeURI('https://geniebycova.com/app');
+  url = encodeURI('https://chooselife.com/app');
   const auth = createConnection(url);
   url = getConnectionUrl(auth);
   return url;
@@ -72,7 +71,7 @@ function urlGoogle() {
  */
 const getGoogleAccountFromCode = async code => {
   try {
-    const url = encodeURI('https://geniebycova.com/app');
+    const url = encodeURI('https://chooselife.com/app');
     const auth = createConnection(url);
     const data = await auth.getToken(code);
     const { tokens } = data;
@@ -84,16 +83,17 @@ const getGoogleAccountFromCode = async code => {
         Authorization: `Bearer ${tokens.access_token}`
       }
     };
-    let me = await request(options);
+    let me = await axios(options);
     me = JSON.parse(me);
     const userGoogleEmail = me.emailAddresses[0].value;
     const userAvatar = me.photos[0].url;
     const { displayName } = me.names[0];
+
     return {
       email: userGoogleEmail,
       image: userAvatar,
       name: displayName,
-      mobile: faker.phone.phoneNumber()
+      source: 'GOOGLE'
     };
   } catch (error) {
     if (error.message === 'invalid_grant')
