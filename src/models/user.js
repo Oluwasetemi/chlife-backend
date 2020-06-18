@@ -28,18 +28,19 @@ const userSchema = new mongoose.Schema(
       type: String,
       enum: ['INDIVIDUAL', 'EMPLOYEE', 'COMPANY', 'SUPERADMIN', 'ADMIN'],
       required:
-        'Specify the type of the user - either : individual, employee, company, super-admin, admin'
+        'Specify the type of the user - either : individual, employee, company, super-admin, admin',
+      default: 'INDIVIDUAL'
     },
     image: {
       type: String,
-      default: 'https://via.placeholder.com/350'
+      default: 'https://via.placeholder.com/350.png'
     },
     gender: {
       type: String,
       enum: ['MALE', 'FEMALE']
       // required: true
     },
-    nationality: { type: String, default: 'nigerian' },
+    nationality: { type: String, default: 'nigeria' },
     dob: { type: Date },
     occupation: { type: String },
     address: { type: String },

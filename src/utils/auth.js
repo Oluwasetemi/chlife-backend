@@ -43,7 +43,7 @@ exports.verify = token =>
  * hashes a user's password
  * @function
  * @param {string} password - user password.
- * @returns {string} hashed - a hashed password
+ * @returns {Promise(string)} hashed - a hashed password
  */
 exports.hash = password => {
   const saltRounds = 10;
@@ -60,7 +60,7 @@ exports.hash = password => {
  *  compares a user's password with the hashed version
  * @param {string} password user password
  * @param {string} hashedPassword
- * @returns {boolean} match - the boolean of the password compare
+ * @returns {Promise(boolean)} match - the boolean of the password compare
  */
 exports.match = (password, hashedPassword) =>
   bcrypt.compare(password, hashedPassword);

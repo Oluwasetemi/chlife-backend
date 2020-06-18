@@ -121,23 +121,32 @@ input signUpCompanyInput {
 }
 
 type Mutation {
-	login(
+	login(email: String!, password: String!): User!
+	loginWithUserType(
 		email: String!
 		password: String!
-		accountType: UserEnumAlone = INDIVIDUAL
+		accountType: UserEnum = INDIVIDUAL
 	): User!
-	# generateGoogleAuthUrl: String!
-	# signupLoginWithGoogle(email: String): User!
+	generateGoogleAuthUrl: String!
+	signupLoginWithGoogleCode(code: String): User!
+	signupLoginWithGoogleAccessToken(access_token: String): User!
 	"""
 	should only work for a user of type -> employee or individual
 	"""
 	signup(input: signUpEmployeeInput): User!
-	# signout: Message!
-	# addNewAdmin(email: String): Message!
-	# removeNewAdmin(email: String): Message!
+	addNewAdmin(email: String): Message!
+	removeNewAdmin(email: String): Message!
+	"""
+	this should only be used by a choose_life admin
+	"""
+	adminOnBoardCompany(input: signUpCompanyInput): User!
 	registerCompany(input: signUpCompanyInput): User!
 	requestResetPassword(email: String!): Message!
-	# resetPassword: (token: String!, OldPassword: String, NewPassword: String): User!
+	resetPassword(
+		resetToken: String!
+		password: String
+		confirmPassword: String
+	): User!
 }
 
 # type Subscription {}

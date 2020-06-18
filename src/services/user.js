@@ -12,3 +12,5 @@ exports.findAllUsers = (query = {}) => User.find(query);
 
 exports.updateUser = (query, data) =>
   User.findOneAndUpdate(query, data, { new: true, runValidators: true });
+
+exports.deleteUserByEmail = email => User.deleteOne({ email });

@@ -2,18 +2,18 @@ extends email-layout
 
 block content
     h2 Welcome to Choose Life
-    p Hello #{name.split(' ')[0]}!
-    br
-    p Welcome to the choose life as an #{type}
+    p Hello #{name.split(' ')[0]}!,
 
-    strong
-      p ⚠️ Please Reset your password by clicking on the button below or copy the link below
+    br
+    p Welcome to the choose life as an #{type}.
+
+    p
+      strong ⚠️ Please Reset your password by clicking on the button below or copy the link below.
 
     +button(resetLink, 'Reset Password ->')
 
     p
       a(href=`${resetLink}`, target='_blank')= resetLink
-
 
     br
     p If you didn't request this email, please ignore it.
