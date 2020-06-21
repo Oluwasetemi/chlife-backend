@@ -33,8 +33,89 @@ enum ActivityEnum {
 	LOWACTIVITY
 }
 
+enum HraInputSectionsEnum {
+	TOS
+	GENERAL
+	COVID
+	BASIC_INFORMATION
+	BLOOD_PRESSURE
+	DIABETES
+	SMOKING
+	DRIVING
+	GENDER_SPECIFIC
+	PREVENTION
+	CHRONIC
+	NUTRITION
+	SUGAR
+	SLEEP
+	SOMATIC
+	MEDICATIONS
+	HEALTH_HISTORY
+	COUGH_AND_HAND_HYGIENE
+	MENTAL_HEALTH
+	STRESS
+	PHYSICAL
+	TACTICAL
+	OTHER
+	DEMOGRAPHICS
+	REVIEW
+	MEDICAL_CONDITIONS
+	FALLS
+	IMMUNIZATIONS
+	ACTIVITIES
+	MOBILITY
+	SUPPORT
+	DENTAL_HEARING_VISION
+	HOME_SAFETY
+	NUTRITIONII
+}
+
 type Message {
 	message: String
+}
+
+type Values {
+	id: String!
+	label: String
+	hide: [String]
+	show: [String]
+}
+
+type ShowHide {
+	low: Int
+	show: [String]
+	high: Int
+	hide: [String]
+	sum: [String]
+}
+
+type QuestionInput {
+	type: String!
+	values: [Values]!
+	units: String
+	min: Int
+	max: Int
+	showhide: [ShowHide]
+	allow_decimals: Boolean
+	maxvariable: Boolean
+}
+
+type Question {
+	id: String!
+	label: String!
+	prompt: String!
+	input: [QuestionInput!]!
+	required: Boolean
+	system_of_measurement: String
+	counterpart: String
+	default_deactive: Boolean
+}
+
+type HRA {
+	id: String!
+	label: String!
+	prompt: String!
+	q: [Question]!
 }
 
 type User {
@@ -150,6 +231,7 @@ type Mutation {
 		password: String
 		confirmPassword: String
 	): User!
+	fetchHraQuestion(input: HraInputSectionsEnum): HRA!
 }
 
 # type Subscription {}

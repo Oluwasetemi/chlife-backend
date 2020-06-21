@@ -4945,7 +4945,7 @@
 			{
 				"id": "er_visits",
 				"label": "ER Visits",
-				"prompt": "How mant times hvae you been to the ER in the last 12 months?",
+				"prompt": "How many times have you been to the ER in the last 12 months?",
 				"input": [
 					{
 						"type": "number",

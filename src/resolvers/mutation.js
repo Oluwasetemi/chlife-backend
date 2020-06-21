@@ -5,6 +5,8 @@ const casual = require('casual');
 const { randomBytes } = require('crypto');
 const { promisify } = require('util');
 const axios = require('axios');
+const { readFileSync } = require('fs');
+const path = require('path');
 
 const {
   urlGoogle,
@@ -523,6 +525,19 @@ const mutation = {
     return {
       message: `You have removed <b>${email}</b> from the choose Life.`
     };
+  },
+  async fetchHraQuestion(_, { input }) {
+    let questions = await readFileSync(
+      path.join(__dirname, '../../ghm-hra-questions.json'),
+      'utf8'
+    );
+
+    questions = JSON.parse(questions);
+    const inputLowerCase = input.toLowerCase();
+
+    const result = questions.find(each => each.id === inputLowerCase);
+
+    return result;
   }
 };
 
