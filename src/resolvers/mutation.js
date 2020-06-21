@@ -18,6 +18,7 @@ const {
   findOneBasedOnQuery,
   deleteUserByEmail
 } = require('../services/user');
+
 const { hash, match, sign } = require('../utils/auth');
 const { send } = require('../mail/mail');
 

@@ -131,7 +131,7 @@ type Mutation {
 	signupLoginWithGoogleCode(code: String): User!
 	signupLoginWithGoogleAccessToken(access_token: String): User!
 	"""
-	should only work for a user of type -> employee or individual
+	OnBoard Employeshould only work for a user of type -> employee
 	"""
 	signup(input: signUpEmployeeInput): User!
 	addNewAdmin(email: String): Message!
@@ -140,7 +140,10 @@ type Mutation {
 	this should only be used by a choose_life admin
 	"""
 	adminOnBoardCompany(input: signUpCompanyInput): User!
-	registerCompany(input: signUpCompanyInput): User!
+	"""
+	OnBoard Company -> this can only be done by chooselife addmin
+	"""
+	registerCompany(input: signUpCompanyInput): Message!
 	requestResetPassword(email: String!): Message!
 	resetPassword(
 		resetToken: String!

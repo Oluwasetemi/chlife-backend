@@ -1,0 +1,8736 @@
+[
+	{
+		"id": "tos",
+		"label": "Terms of Service",
+		"prompt": "Welcome to the HealthyLife health risk appraisal.\nBy continuing, you accept the terms of service.",
+		"q": [
+			{
+				"id": "uconntos",
+				"label": "Please read and agree to the following terms",
+				"prompt": "The purpose of this exercise is for you to explore and learn about your health risks and of health risks faced by others in the population. Participation will take about 20 minutes. Taking part in this assessment is voluntary and you can choose not to participate. The only risk to you is that you might be uncomfortable answering some of the questions. Feel free to skip any question which makes you feel uncomfortable. Your answers will be maintained as confidential. Responses will not be associated with your personal information. If you have any questions about this exercise you can contact Dr. Lawrence K. Silbart at Lawrence.Silbart@uconn.edu ",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "agree",
+								"label": "I Agree"
+							}
+						]
+					}
+				],
+				"required": true
+			}
+		]
+	},
+	{
+		"id": "basic_information",
+		"label": "Basic Information",
+		"prompt": "Please answer the following questions.",
+		"q": [
+			{
+				"id": "sex",
+				"label": "Sex",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not_answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "male",
+								"label": "Male",
+								"hide": [
+									"age_at_menarche",
+									"age_of_bearing_first_child",
+									"last_mammogram",
+									"family_breast_cancer_history",
+									"pap_smear_test",
+									"hysterectomy"
+								],
+								"show": ["prostate_cancer_screening"]
+							},
+							{
+								"id": "female",
+								"label": "Female",
+								"show": [
+									"age_at_menarche",
+									"age_of_bearing_first_child",
+									"last_mammogram",
+									"family_breast_cancer_history",
+									"pap_smear_test",
+									"hysterectomy"
+								],
+								"hide": ["prostate_cancer_screening"]
+							}
+						]
+					}
+				],
+				"required": true
+			},
+			{
+				"id": "age_in_years",
+				"label": "Age",
+				"input": [
+					{
+						"type": "number",
+						"units": "years",
+						"min": 15,
+						"max": 120,
+						"showhide": [
+							{
+								"low": 40,
+								"show": [
+									"diabetes_status",
+									"stroke",
+									"heart_attack",
+									"heart_disease"
+								]
+							},
+							{
+								"high": 40,
+								"hide": [
+									"diabetes_status",
+									"stroke",
+									"heart_attack",
+									"heart_disease",
+									"family_breast_cancer_history",
+									"last_mammogram"
+								]
+							},
+							{
+								"low": 21,
+								"show": []
+							},
+							{
+								"high": 21,
+								"hide": ["pap_smear_test"]
+							},
+							{
+								"low": 50,
+								"show": ["colon_cancer_screening"]
+							},
+							{
+								"high": 50,
+								"hide": ["colon_cancer_screening"]
+							}
+						]
+					}
+				],
+				"required": true
+			},
+			{
+				"id": "height",
+				"label": "Height",
+				"prompt": "Without shoes, no fractions.",
+				"input": [
+					{
+						"type": "number",
+						"units": "feet",
+						"min": 2,
+						"max": 7
+					},
+					{
+						"type": "number",
+						"units": "inches",
+						"min": 0,
+						"max": 11
+					}
+				],
+				"required": true,
+				"system_of_measurement": "us_customary",
+				"counterpart": "height_cm"
+			},
+			{
+				"id": "height_cm",
+				"label": "Height",
+				"prompt": "Without shoes, no fractions.",
+				"input": [
+					{
+						"type": "number",
+						"units": "centemeters",
+						"min": 60,
+						"max": 240
+					}
+				],
+				"required": true,
+				"system_of_measurement": "metric",
+				"counterpart": "height"
+			},
+			{
+				"id": "weight",
+				"label": "Weight",
+				"prompt": "Without shoes, no fractions.",
+				"input": [
+					{
+						"type": "number",
+						"units": "pounds",
+						"min": 50,
+						"max": 700
+					}
+				],
+				"required": true,
+				"system_of_measurement": "us_customary",
+				"counterpart": "weight_kg"
+			},
+			{
+				"id": "weight_kg",
+				"label": "Weight",
+				"prompt": "Without shoes, no fractions.",
+				"input": [
+					{
+						"type": "number",
+						"units": "kilograms",
+						"min": 20,
+						"max": 300
+					}
+				],
+				"required": true,
+				"system_of_measurement": "metric",
+				"counterpart": "weight"
+			},
+			{
+				"id": "body_frame_size",
+				"label": "Describe your body frame size",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not_answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "small",
+								"label": "Small"
+							},
+							{
+								"id": "medium",
+								"label": "Medium"
+							},
+							{
+								"id": "large",
+								"label": "Large"
+							}
+						]
+					}
+				],
+				"required": true
+			},
+			{
+				"id": "diabetes_status",
+				"label": "Diabetes",
+				"prompt": "Have you ever been told that you have diabetes (or sugar diabetes)?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes",
+								"hide": ["blood_glucose"],
+								"show": ["hb1ac_check"]
+							},
+							{
+								"id": "no",
+								"label": "No",
+								"show": ["blood_glucose"],
+								"hide": ["hb1ac_check"]
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "stroke",
+				"label": "Stroke",
+				"prompt": "Have you ever been told that you had a stroke?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "heart_attack",
+				"label": "Heart Attack",
+				"prompt": "Have you ever been told that you had a heart attack?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "heart_disease",
+				"label": "Heart Disease",
+				"prompt": "Have you ever been told that you have heart disease?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			}
+		]
+	},
+	{
+		"id": "blood_pressure",
+		"label": "Blood Pressure",
+		"prompt": "Please answer the following questions.",
+		"q": [
+			{
+				"id": "blood_pressure_medication",
+				"label": "Blood Pressure Medication",
+				"prompt": "Are you taking blood pressure medication?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "0",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "blood_pressure_measured",
+				"label": "Blood Pressure",
+				"prompt": "What is your blood pressure now?  If you don't know, estimate below in the next question.",
+				"input": [
+					{
+						"type": "number",
+						"units": "high number",
+						"min": 70,
+						"max": 200,
+						"showhide": [
+							{
+								"sum": ["blood_pressure_measured.a.low_number"],
+								"low": 130,
+								"hide": ["blood_pressure_estimated"]
+							},
+							{
+								"sum": ["blood_pressure_measured.a.low_number"],
+								"high": 130,
+								"show": ["blood_pressure_estimated"]
+							}
+						]
+					},
+					{
+						"type": "number",
+						"units": "low number",
+						"min": 40,
+						"max": 120
+					}
+				]
+			},
+			{
+				"id": "blood_pressure_estimated",
+				"label": "Estimate Blood Pressure",
+				"prompt": "If you do not know the numbers, choose the option that describes your blood pressure.",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not_answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "high",
+								"label": "High"
+							},
+							{
+								"id": "normal_or_low",
+								"label": "Normal or low"
+							},
+							{
+								"id": "not_known",
+								"label": "Don't know"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "cholesterol_medication",
+				"label": "Cholesterol Medication",
+				"prompt": "During the past month have you taken any medication for cholesterol?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "0",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "cholesterol_check",
+				"label": "Cholesterol Check",
+				"prompt": "Have you had your cholesterol checked in the last five years?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not_answered",
+								"label": "choose an answer",
+								"hide": ["cholesterol_level", "hdl_cholesterol"]
+							},
+							{
+								"id": "yes",
+								"label": "Yes",
+								"show": ["cholesterol_level", "hdl_cholesterol"]
+							},
+							{
+								"id": "no",
+								"label": "No",
+								"hide": ["cholesterol_level", "hdl_cholesterol"]
+							},
+							{
+								"id": "not_known",
+								"label": "Don't know",
+								"hide": ["cholesterol_level", "hdl_cholesterol"]
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "cholesterol_level",
+				"label": "Cholesterol Level",
+				"prompt": "What is your total cholesterol level (based on a blood test)? Leave it blank if you don't remember.",
+				"input": [
+					{
+						"type": "number",
+						"units": "mg/dl",
+						"min": 90,
+						"max": 400,
+						"showhide": [
+							{
+								"low": 90,
+								"hide": ["cholesterol_level_estimated"]
+							},
+							{
+								"high": 90,
+								"show": ["cholesterol_level_estimated"]
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "hdl_cholesterol",
+				"label": "HDL Cholesterol",
+				"prompt": "What is your HDL cholesterol level (based on a blood test)? Leave it blank if you don't remember.",
+				"input": [
+					{
+						"type": "number",
+						"units": "mg/dl",
+						"min": 25,
+						"max": 120,
+						"showhide": [
+							{
+								"low": 25,
+								"hide": ["hdl_cholesterol_estimated"]
+							},
+							{
+								"high": 25,
+								"show": ["hdl_cholesterol_estimated"]
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "cholesterol_level_estimated",
+				"label": "Estimate Cholesterol Level",
+				"prompt": "A physician told me that my total cholesterol was:",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not_answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "low",
+								"label": "Low"
+							},
+							{
+								"id": "normal",
+								"label": "Normal"
+							},
+							{
+								"id": "high",
+								"label": "High"
+							},
+							{
+								"id": "not_known",
+								"label": "I don't know"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "hdl_cholesterol_estimated",
+				"label": "Estimate HDL Cholesterol",
+				"prompt": "A physician told me that my HDL (good) cholesterol was:",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not_answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "low",
+								"label": "Low"
+							},
+							{
+								"id": "normal",
+								"label": "Normal"
+							},
+							{
+								"id": "high",
+								"label": "High"
+							},
+							{
+								"id": "not_known",
+								"label": "I don't know"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "blood_glucose",
+				"label": "Blood sugar",
+				"prompt": "What is the result of your most recent blood sugar test (non-fasting blood glucose)?",
+				"input": [
+					{
+						"type": "number",
+						"units": "mg/dl",
+						"min": 40,
+						"max": 350
+					}
+				]
+			},
+			{
+				"id": "triglycerides",
+				"label": "Triglycerides",
+				"prompt": "What is your most recent triglycerides level?",
+				"input": [
+					{
+						"type": "number",
+						"units": "mg/dl",
+						"min": 40,
+						"max": 500
+					}
+				]
+			}
+		]
+	},
+	{
+		"id": "diabetes",
+		"label": "Diabetes",
+		"prompt": "Please answer the following questions.",
+		"q": [
+			{
+				"id": "hb1ac_check",
+				"label": "Diabetes control (HbA1C)",
+				"prompt": "Have you had a hemoglobin A1C test this year?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not_answered",
+								"label": "choose an answer",
+								"hide": ["hb1ac_level"]
+							},
+							{
+								"id": "yes",
+								"label": "Yes",
+								"show": ["hb1ac_level"]
+							},
+							{
+								"id": "no",
+								"label": "No",
+								"hide": ["hb1ac_level"]
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "hb1ac_level",
+				"label": "Hemoglobin A1C Level",
+				"prompt": "What is the result of your most hemoglobin A1C test?",
+				"input": [
+					{
+						"type": "number",
+						"allow_decimals": true,
+						"units": "%",
+						"min": 3,
+						"max": 14
+					}
+				]
+			}
+		]
+	},
+	{
+		"id": "smoking",
+		"label": "Smoking",
+		"prompt": "Please answer the following questions",
+		"q": [
+			{
+				"id": "smoking",
+				"label": "Smoking",
+				"prompt": "How would you describe your smoking habits?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "never_smoked",
+								"label": "Never Smoked",
+								"hide": [
+									"used_to_smoke",
+									"years_since_quitting",
+									"still_smoke",
+									"daily_cigars",
+									"daily_pipes",
+									"readiness_to_quit_smoking"
+								]
+							},
+							{
+								"id": "used_to_smoke",
+								"label": "Used to Smoke",
+								"hide": [
+									"still_smoke",
+									"daily_cigars",
+									"daily_pipes",
+									"readiness_to_quit_smoking"
+								],
+								"show": [
+									"used_to_smoke",
+									"years_since_quitting"
+								]
+							},
+							{
+								"id": "still_smoke",
+								"label": "Still Smoke",
+								"hide": [
+									"used_to_smoke",
+									"years_since_quitting"
+								],
+								"show": [
+									"still_smoke",
+									"daily_cigars",
+									"daily_pipes",
+									"readiness_to_quit_smoking"
+								]
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "used_to_smoke",
+				"label": "Used to Smoke",
+				"prompt": "What was the average number per day that you smoked in the 2 years before you quit?",
+				"input": [
+					{
+						"type": "number",
+						"units": "cigarettes/day",
+						"min": 0,
+						"max": 80
+					},
+					{
+						"type": "number",
+						"units": "cigars/day",
+						"min": 0,
+						"max": 10
+					},
+					{
+						"type": "number",
+						"units": "pipes/day",
+						"min": 0,
+						"max": 10
+					}
+				]
+			},
+			{
+				"id": "years_since_quitting",
+				"label": "Years since quitting",
+				"prompt": "How many years has it been since you quit smoking?",
+				"input": [
+					{
+						"type": "number",
+						"units": "years",
+						"min": 0,
+						"max": 80
+					},
+					{
+						"type": "number",
+						"units": "months",
+						"min": 0,
+						"max": 11
+					}
+				],
+				"required": true,
+				"default_deactive": true
+			},
+			{
+				"id": "still_smoke",
+				"label": "Still Smoke",
+				"prompt": "How many cigarettes a day do you smoke?",
+				"input": [
+					{
+						"type": "number",
+						"units": "cigarettes/day",
+						"min": 0,
+						"max": 80
+					}
+				]
+			},
+			{
+				"id": "daily_cigars",
+				"label": "Daily cigars",
+				"prompt": "How many cigars do you usually smoke per day?",
+				"input": [
+					{
+						"type": "number",
+						"units": "cigars/day",
+						"min": 0,
+						"max": 10
+					}
+				]
+			},
+			{
+				"id": "daily_pipes",
+				"label": "Daily pipes",
+				"prompt": "How many pipes of tobacco do you usually smoke per day?",
+				"input": [
+					{
+						"type": "number",
+						"units": "pipes/day",
+						"min": 0,
+						"max": 10
+					}
+				]
+			},
+			{
+				"id": "smokeless_tobacco",
+				"label": "Smokeless tobacco",
+				"prompt": "How many times per day do you use smokeless tobacco? (Chewing tobacco, snuff, pouches, etc.)",
+				"input": [
+					{
+						"type": "number",
+						"units": "times/day",
+						"min": 0,
+						"max": 10
+					}
+				]
+			},
+			{
+				"id": "vaping",
+				"label": "Vaping",
+				"prompt": "Have you ever used an electronic vapor product?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes",
+								"show": ["vaping_freq"]
+							},
+							{
+								"id": "no",
+								"label": "No",
+								"hide": ["vaping_freq"]
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "vaping_freq",
+				"label": "Vaping Frequency",
+				"prompt": "During the past 30 days, on how many days did you use an electronic vapor product?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "0 days",
+								"label": "0 days"
+							},
+							{
+								"id": "1-2 days",
+								"label": "1-2 days"
+							},
+							{
+								"id": "3-5 days",
+								"label": "3-5 days"
+							},
+							{
+								"id": "6-9 days",
+								"label": "6-9 days"
+							},
+							{
+								"id": "10-19 days",
+								"label": "10-19 days"
+							},
+							{
+								"id": "20-29 days",
+								"label": "20-29 days"
+							},
+							{
+								"id": "all 30 days",
+								"label": "All 30 Days"
+							}
+						]
+					}
+				]
+			}
+		]
+	},
+	{
+		"id": "driving",
+		"label": "Driving",
+		"prompt": "Please answer the following questions",
+		"q": [
+			{
+				"id": "travel_by_automobile",
+				"label": "Travel Miles by Automobile",
+				"prompt": "In the next 12 months, how many thousands of miles will you probably travel by car, SUV, truck or van? (Average is 12,000 - 15,000 miles)",
+				"input": [
+					{
+						"type": "number",
+						"units": ",000 miles",
+						"min": 0,
+						"max": 300
+					}
+				],
+				"system_of_measurement": "us_customary",
+				"counterpart": "travel_by_automobile_km"
+			},
+			{
+				"id": "travel_by_automobile_km",
+				"label": "Travel Kilometers by Automobile",
+				"prompt": "In the next 12 months, how many thousands of kilometers will you probably travel by car, SUV, truck or van? (Average is 20,000 - 24,000 kilometers)",
+				"input": [
+					{
+						"type": "number",
+						"units": ",000 kilometers",
+						"min": 0,
+						"max": 500
+					}
+				],
+				"system_of_measurement": "metric",
+				"counterpart": "travel_by_automobile"
+			},
+			{
+				"id": "travel_by_motorcycle",
+				"label": "Travel Miles by Motorcycle",
+				"prompt": "In the next 12 months, how many thousands of miles will you probably travel by motorcycle?",
+				"input": [
+					{
+						"type": "number",
+						"units": ",000 miles",
+						"min": 0,
+						"max": 20
+					}
+				],
+				"system_of_measurement": "us_customary",
+				"counterpart": "travel_by_motorcycle_km"
+			},
+			{
+				"id": "travel_by_motorcycle_km",
+				"label": "Travel Kilometers by Motorcycle",
+				"prompt": "In the next 12 months, how many thousands of kilometers will you probably travel by motorcycle?",
+				"input": [
+					{
+						"type": "number",
+						"units": ",000 kilometers",
+						"min": 0,
+						"max": 30
+					}
+				],
+				"system_of_measurement": "metric",
+				"counterpart": "travel_by_motorcycle"
+			},
+			{
+				"id": "typical_travel_method",
+				"label": "Travel Method",
+				"prompt": "On a typical day, how do you usually travel?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not_answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "walk",
+								"label": "Walk"
+							},
+							{
+								"id": "bicycle",
+								"label": "Bicycle"
+							},
+							{
+								"id": "motorcycle",
+								"label": "Motorcycle"
+							},
+							{
+								"id": "sub-compact or compact car",
+								"label": "Sub-compact or compact car"
+							},
+							{
+								"id": "mid-size or full-size car",
+								"label": "Mid-size or full-size car"
+							},
+							{
+								"id": "truck or van",
+								"label": "Truck, van, or SUV"
+							},
+							{
+								"id": "semi",
+								"label": "Semi or other commercial truck"
+							},
+							{
+								"id": "bus, subway, or train",
+								"label": "Bus, subway, or train"
+							},
+							{
+								"id": "mostly stay at home",
+								"label": "Mostly stay at home"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "safety_belt_usage",
+				"label": "Safety Belt Usage",
+				"prompt": "What percent of the time do you usually buckle your safety belt when driving or riding?",
+				"input": [
+					{
+						"type": "number",
+						"units": "%",
+						"min": 0,
+						"max": 100
+					}
+				]
+			},
+			{
+				"id": "distracted_driving",
+				"label": "Distracted Driving",
+				"prompt": "Do you frequently text, e-mail or use a cell phone while driving a car or other vehicle?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "driving_speed",
+				"label": "Driving Speed",
+				"prompt": "On average, how close to the speed limit do you usually drive?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not_answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "do not drive",
+								"label": "Don't drive"
+							},
+							{
+								"id": "within 5 mph of limit",
+								"label": "Within 5 mph of limit"
+							},
+							{
+								"id": "6-10 mph over limit",
+								"label": "6-10 mph over limit"
+							},
+							{
+								"id": "11-15 mph over limit",
+								"label": "11-15 mph over limit"
+							},
+							{
+								"id": "more than 15 mph over limit",
+								"label": "More than 15 mph over limit"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "drinking_and_driving",
+				"label": "Drinking and Driving",
+				"prompt": "How many times in the last month did you drive or ride when the driver had perhaps too much alcohol to drink?",
+				"input": [
+					{
+						"type": "number",
+						"units": "times last month",
+						"min": 0,
+						"max": 50
+					}
+				]
+			},
+			{
+				"id": "weekly_alcohol",
+				"label": "Weekly Alcohol Drinking",
+				"prompt": "How many drinks of an alcoholic beverage do you have in a typical week? (Write the number of each type of drink)",
+				"input": [
+					{
+						"type": "number",
+						"units": "beer",
+						"min": 0,
+						"max": 99,
+						"showhide": [
+							{
+								"sum": [
+									"weekly_alcohol.a.wine",
+									"weekly_alcohol.a.wine_coolers",
+									"weekly_alcohol.a.mixed_drinks"
+								],
+								"low": 5,
+								"show": ["binge_drinking"]
+							},
+							{
+								"sum": [
+									"weekly_alcohol.a.wine",
+									"weekly_alcohol.a.wine_coolers",
+									"weekly_alcohol.a.mixed_drinks"
+								],
+								"high": 5,
+								"hide": ["binge_drinking"]
+							},
+							{
+								"sum": [
+									"weekly_alcohol.a.wine",
+									"weekly_alcohol.a.wine_coolers",
+									"weekly_alcohol.a.mixed_drinks"
+								],
+								"low": 14,
+								"show": ["readiness_to_reduce_alcohol_usage"]
+							},
+							{
+								"sum": [
+									"weekly_alcohol.a.wine",
+									"weekly_alcohol.a.wine_coolers",
+									"weekly_alcohol.a.mixed_drinks"
+								],
+								"high": 14,
+								"hide": ["readiness_to_reduce_alcohol_usage"]
+							}
+						]
+					},
+					{
+						"type": "number",
+						"units": "wine",
+						"min": 0,
+						"max": 99
+					},
+					{
+						"type": "number",
+						"units": "wine coolers",
+						"min": 0,
+						"max": 99
+					},
+					{
+						"type": "number",
+						"units": "mixed drinks",
+						"min": 0,
+						"max": 99
+					}
+				]
+			},
+			{
+				"id": "binge_drinking",
+				"label": "Binge Drinking",
+				"prompt": "In the last month have you had 5 or more drinks in a row?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "arrested_dui",
+				"label": "DUI",
+				"prompt": "Have you ever been arrested for driving under the influence or driving while intoxicated? ",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "road_rage",
+				"label": "Road Rage",
+				"prompt": "Have you ever had a driving-related altercation (road-rage) in which you have exited your vehicle?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "commercial_driver",
+				"label": "Commercial Driver",
+				"prompt": "Are you currently a commercial or professional driver?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes",
+								"show": ["type_of_license", "years_as_driver"]
+							},
+							{
+								"id": "no",
+								"label": "No",
+								"hide": ["type_of_license", "years_as_driver"]
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "gross_weight",
+				"label": "Gross weight of 26,000",
+				"prompt": "Do you operate a vehicle with a gross vehicle weight rating of 26,000 pounds or more? ",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "type_of_license",
+				"label": "Type of Commercial License",
+				"prompt": "What type of commercial driver’s license do you have?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "a",
+								"label": "Class A"
+							},
+							{
+								"id": "b",
+								"label": " Class B"
+							},
+							{
+								"id": "c",
+								"label": " Class C"
+							},
+							{
+								"id": "other",
+								"label": "Other"
+							},
+							{
+								"id": "do not have",
+								"label": "Do not have a commercial driver's license"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "years_as_driver",
+				"label": "Years of Commercial Driver",
+				"prompt": "How many years have you been working as a commercial or professional driver?",
+				"input": [
+					{
+						"type": "number",
+						"units": "years",
+						"min": 0,
+						"max": 80
+					}
+				]
+			}
+		]
+	},
+	{
+		"id": "gender_specific",
+		"label": "Gender Specific",
+		"prompt": "Please Answer the Following Questions",
+		"q": [
+			{
+				"id": "age_at_menarche",
+				"label": "First Menstrual Period Age",
+				"prompt": "At what age did you have your first menstrual period?",
+				"input": [
+					{
+						"type": "number",
+						"units": "years old",
+						"min": 5,
+						"max": 20,
+						"maxvariable": "hra.q.age_in_years.a.years"
+					}
+				]
+			},
+			{
+				"id": "age_of_bearing_first_child",
+				"label": "Age of Bearing First Child",
+				"prompt": "How old were you when your first child was born? (If no children, write 0)",
+				"input": [
+					{
+						"type": "number",
+						"units": "years old",
+						"min": 0,
+						"max": 50,
+						"maxvariable": "hra.q.age_in_years.a.years"
+					}
+				]
+			},
+			{
+				"id": "last_mammogram",
+				"label": "Last Mammogram",
+				"prompt": "How long has it been since your last breast x-ray (mammogram)?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "less than 1 year ago",
+								"label": "Less than 1 year ago"
+							},
+							{
+								"id": "1 year ago",
+								"label": "1 year ago"
+							},
+							{
+								"id": "2 years ago",
+								"label": "2 years ago"
+							},
+							{
+								"id": "3 or more years ago",
+								"label": "3 or more years ago"
+							},
+							{
+								"id": "never",
+								"label": "Never"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "family_breast_cancer_history",
+				"label": "Family Breast Cancer History",
+				"prompt": "How many women in your natural family (mother and sisters only) have had breast cancer?",
+				"input": [
+					{
+						"type": "number",
+						"units": "women",
+						"min": 0,
+						"max": 10
+					}
+				]
+			},
+			{
+				"id": "hysterectomy",
+				"label": "Hysterectomy",
+				"prompt": "Have you had a hysterectomy operation?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							},
+							{
+								"id": "not sure",
+								"label": "Not sure"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "pap_smear_test",
+				"label": "Pap Smear Test",
+				"prompt": "How long has it been since you had a pap test and/or pelvic exam?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "less than 1 year ago",
+								"label": "Less than 1 year ago"
+							},
+							{
+								"id": "1 year ago",
+								"label": "1 year ago"
+							},
+							{
+								"id": "2 years ago",
+								"label": "2 years ago"
+							},
+							{
+								"id": "3 or more years ago",
+								"label": "3 or more years ago"
+							},
+							{
+								"id": "never",
+								"label": "Never"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "colon_cancer_screening",
+				"label": "Colon Cancer Screening",
+				"prompt": "About how long has it been since you had a colorectal cancer screening?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "less than 1 year ago",
+								"label": "Less than 1 year ago"
+							},
+							{
+								"id": "1 year ago",
+								"label": "1 year ago"
+							},
+							{
+								"id": "2 years ago",
+								"label": "2 years ago"
+							},
+							{
+								"id": "3 or more years ago",
+								"label": "3 or more years ago"
+							},
+							{
+								"id": "never",
+								"label": "Never"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "prostate_cancer_screening",
+				"label": "Prostate Cancer Screening",
+				"prompt": "Have you talked to your doctor about being screened for prostate cancer?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "relatives_cancer",
+				"label": "Relatives with cancer",
+				"prompt": "Has one or more of your first degree relatives ever had any form of cancer?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "unprotected_sex",
+				"label": "Unprotected Sex",
+				"prompt": "Have you engaged in unprotected sex with one or more partners of ‘unknown’ or ‘questionable’ STD status?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "street_drugs",
+				"label": "Street Drugs",
+				"prompt": "Have you ever experimented or used recreational (or ‘street’) drugs beyond marijuana?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			}
+		]
+	},
+	{
+		"id": "prevention",
+		"label": "Prevention",
+		"prompt": "Please Answer the Following Questions",
+		"q": [
+			{
+				"id": "annual_checkup",
+				"label": "Annual Checkup",
+				"prompt": "Do you have annual check-ups?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "annual_flu_shot",
+				"label": "Annual Flu Shot",
+				"prompt": "Do you get an annual flu shot?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "teeth_cleaned",
+				"label": "Teeth Cleaned",
+				"prompt": "Do you have your teeth cleaned at least twice per year?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "eye_examed",
+				"label": "Eye Exam",
+				"prompt": "Have you had your eyes examined within the last three years?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "hiv_test",
+				"label": "HIV Test",
+				"prompt": "Have you been tested for HIV?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "declined_vaccine",
+				"label": "Declined Vaccine",
+				"prompt": "Have you ever declined a vaccine (or have your parents declined one on your behalf)?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "hpv_vaccine",
+				"label": "HPV Vaccine",
+				"prompt": "Have you received the HPV vaccine?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "severe_sunburn",
+				"label": "Severe Sunburn",
+				"prompt": "Have you had more than one severe sunburn (skin peals) or used a tanning bed within the last year?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			}
+		]
+	},
+	{
+		"id": "chronic",
+		"label": "Chronic Conditions",
+		"prompt": "Do you have any of the following conditions?",
+		"q": [
+			{
+				"id": "asthma",
+				"label": "Asthma",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "bipolar",
+				"label": "Bipolar mood disease",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "brochiectasis",
+				"label": "Brochiectasis",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "cardiac_failure",
+				"label": "Cardiac failure",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "cardiomyopathy",
+				"label": "Cardiomyopathy",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "copd",
+				"label": "Chronic obstructive pulmonary disease",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "chronic_kidney",
+				"label": "Chronic kidney disease",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "coronary_artery",
+				"label": "Coronary artery disease",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "crohns_disease",
+				"label": "Crohn's disease",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "diabetes_insipidus",
+				"label": "Diabetes insipidus",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "diabetes_mellitus",
+				"label": "Diabetes mellitus (type 1 and type 2)",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "dysrhythmia",
+				"label": "Dysrhythmia (irregular heartbeat)",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "epilepsy",
+				"label": "Epilepsy",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "glaucoma",
+				"label": "Glaucoma",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "haemophilia",
+				"label": "Haemophilia",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "hiv",
+				"label": "HIV",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "hyperlipidaemia",
+				"label": "Hyperlipidaemia (high cholesterol)",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "hypertension",
+				"label": "Hypertension (high blood pressure)",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "hypothyroidism",
+				"label": "Hypothyroidism (inactive thyroid gland)",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "multiple_sclerosis",
+				"label": "Multiple sclerosis",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "parkinsons",
+				"label": "Parkinson's disease",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "rheumatoid_arthritis",
+				"label": "Rheumatoid arthritis",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "schizophrenia",
+				"label": "Schizophrenia",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "systemic_lupus_erythematosis",
+				"label": "Systemic lupus erythematosis",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "ulcerative_colitis",
+				"label": "Ulcerative colitis",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			}
+		]
+	},
+	{
+		"id": "nutrition",
+		"label": "Food and Nutrition",
+		"prompt": "",
+		"q": [
+			{
+				"id": "fruits_and_vegetables",
+				"label": "Healthy Food",
+				"prompt": "Do you eat at least 5 servings of fruits and/or vegetables per day?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes",
+								"hide": "readiness_to_eat_healthier"
+							},
+							{
+								"id": "no",
+								"label": "No",
+								"show": "readiness_to_eat_healthier"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "high_cholesterol_food",
+				"label": "High Cholesterol Food",
+				"prompt": "Do you eat foods every day that are high in cholesterol or fat, such as fatty meat, cheese, or fried food?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "fast_food",
+				"label": "Fast Food",
+				"prompt": "How many times a week did you eat fast food meals or snacks?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "0",
+								"label": "Less than 1 time"
+							},
+							{
+								"id": "1",
+								"label": "1-3 times"
+							},
+							{
+								"id": "2",
+								"label": "4 or more"
+							}
+						],
+						"showhide": [
+							{
+								"sum": [
+									"fruit.a",
+									"vegetables.a",
+									"soft_drinks.a",
+									"protein.a",
+									"junk_food.a",
+									"desserts.a",
+									"butter.a"
+								],
+								"low": 5,
+								"show": ["readiness_to_eat_healthier"]
+							},
+							{
+								"sum": [
+									"fruit.a",
+									"vegetables.a",
+									"soft_drinks.a",
+									"protein.a",
+									"junk_food.a",
+									"desserts.a",
+									"butter.a"
+								],
+								"high": 5,
+								"hide": ["readiness_to_eat_healthier"]
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "fruit",
+				"label": "Fruit",
+				"prompt": "How many servings of fruit did you eat each day?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "0",
+								"label": "5 or more"
+							},
+							{
+								"id": "1",
+								"label": "3-4 times"
+							},
+							{
+								"id": "2",
+								"label": "2 or less"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "vegetables",
+				"label": "Vegetables",
+				"prompt": "How many servings of vegetables did you eat each day?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "0",
+								"label": "5 or more"
+							},
+							{
+								"id": "1",
+								"label": "3-4 times"
+							},
+							{
+								"id": "2",
+								"label": "2 or less"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "soft_drinks",
+				"label": "Soft Drinks",
+				"prompt": "How many regular sodas, energy drinks or glasses of sweet tea did you drink each day?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "0",
+								"label": "Less than 1"
+							},
+							{
+								"id": "1",
+								"label": "1-2 times"
+							},
+							{
+								"id": "2",
+								"label": "3 or more"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "protein",
+				"label": "High Protein Foods",
+				"prompt": "How many times a week did you eat beans (like pinto or black beans), chicken or fish?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "0",
+								"label": "3 or more times"
+							},
+							{
+								"id": "1",
+								"label": "1-2 times"
+							},
+							{
+								"id": "2",
+								"label": "Less than 1 time"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "junk_food",
+				"label": "Junk Food",
+				"prompt": "How many times a week did you eat chips, cookies, crackers or other unhealthy snacks (high salt or high fat)?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "0",
+								"label": "1 time or less"
+							},
+							{
+								"id": "1",
+								"label": "2-3 times"
+							},
+							{
+								"id": "2",
+								"label": "4 or more"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "desserts",
+				"label": "Desserts",
+				"prompt": "How many times a week did you eat desserts and other sweets that are unhealthy (high sugar, high fat)?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "0",
+								"label": "1 time or less"
+							},
+							{
+								"id": "1",
+								"label": "2-3 times"
+							},
+							{
+								"id": "2",
+								"label": "4 or more"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "butter",
+				"label": "Butter",
+				"prompt": "How much butter or margarine (or meat fat) do you use to season or put on vegetables, potatoes, or bread?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "0",
+								"label": "Very Little"
+							},
+							{
+								"id": "1",
+								"label": "Some"
+							},
+							{
+								"id": "2",
+								"label": "A lot"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "sugar_beverage",
+				"label": "Sugar-Sweetened Beverage",
+				"prompt": "Do you drink more than two sugar-sweetened beverages per week?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "caffeine",
+				"label": "Caffeine",
+				"prompt": "Do you consume more than two doses of caffeine per day (in soft drinks, coffee, chocolate or other products)?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "fish",
+				"label": "Fish Meals",
+				"prompt": "Do you eat more than two fish meals per week?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "charcoal_broiled",
+				"label": "Charcoal Broiled Burgers",
+				"prompt": "Do you eat more than one charcoal broiled meal per week (on average) including Burger King or Dairy Queen Burgers?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "cross_contamination",
+				"label": "Cross Contamination",
+				"prompt": "Are you meticulous in preventing cross-contamination in the kitchen/barbeque grill (e.g. chicken juice)?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			}
+		]
+	},
+	{
+		"id": "sugar",
+		"label": "Sugar consumed daily",
+		"prompt": "",
+		"q": [
+			{
+				"id": "sweeteners",
+				"label": "",
+				"prompt": "I add sugar, jams, honey, syrup or other sweeteners to food or drinks.",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "sweetened_foods",
+				"label": "",
+				"prompt": "I eat one of more servings of sweetened desserts, candy, granola bars or cereals.",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "meals_per_day",
+				"label": "",
+				"prompt": "How many meals per day do you eat?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "1"
+							},
+							{
+								"id": "2",
+								"label": "2"
+							},
+							{
+								"id": "3 or more",
+								"label": "3 or more"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "snacks_per_day",
+				"label": "",
+				"prompt": "How many times do you snack per day?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "1"
+							},
+							{
+								"id": "2",
+								"label": "2"
+							},
+							{
+								"id": "3 or more",
+								"label": "3 or more"
+							}
+						]
+					}
+				]
+			}
+		]
+	},
+	{
+		"id": "sleep",
+		"label": "Sleep",
+		"prompt": "",
+		"q": [
+			{
+				"id": "sleep1",
+				"label": "",
+				"prompt": "In the past 7 days my sleep quality was",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "5",
+								"label": "Very poor"
+							},
+							{
+								"id": "4",
+								"label": "Poor"
+							},
+							{
+								"id": "3",
+								"label": "Fair"
+							},
+							{
+								"id": "2",
+								"label": "Good"
+							},
+							{
+								"id": "1",
+								"label": "Very good"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "sleep2",
+				"label": "",
+				"prompt": "In the past 7 days my sleep was refreshing",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "5",
+								"label": "Not at all"
+							},
+							{
+								"id": "4",
+								"label": "A little bit"
+							},
+							{
+								"id": "3",
+								"label": "Somewhat"
+							},
+							{
+								"id": "2",
+								"label": "Quite a bit"
+							},
+							{
+								"id": "1",
+								"label": "Very Much"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "sleep3",
+				"label": "",
+				"prompt": "I had a problem with my sleep",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "1",
+								"label": "Not at all"
+							},
+							{
+								"id": "2",
+								"label": "A little bit"
+							},
+							{
+								"id": "3",
+								"label": "Somewhat"
+							},
+							{
+								"id": "4",
+								"label": "Quite a bit"
+							},
+							{
+								"id": "5",
+								"label": "Very Much"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "sleep4",
+				"label": "",
+				"prompt": "I had difficulty falling asleep",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "1",
+								"label": "Not at all"
+							},
+							{
+								"id": "2",
+								"label": "A little bit"
+							},
+							{
+								"id": "3",
+								"label": "Somewhat"
+							},
+							{
+								"id": "4",
+								"label": "Quite a bit"
+							},
+							{
+								"id": "5",
+								"label": "Very Much"
+							}
+						]
+					}
+				]
+			}
+		]
+	},
+	{
+		"id": "somatic",
+		"label": "Somatic Symptoms",
+		"prompt": "",
+		"q": [
+			{
+				"id": "somatic1",
+				"label": "",
+				"prompt": "During the past 7 days, how much have you been bothered by stomach or bowel problems?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "0",
+								"label": "Not at all"
+							},
+							{
+								"id": "1",
+								"label": "A little bit"
+							},
+							{
+								"id": "2",
+								"label": "Somewhat"
+							},
+							{
+								"id": "3",
+								"label": "Quite a bit"
+							},
+							{
+								"id": "4",
+								"label": "Very much"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "somatic2",
+				"label": "",
+				"prompt": "During the past 7 days, how much have you been bothered by back pain?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "0",
+								"label": "Not at all"
+							},
+							{
+								"id": "1",
+								"label": "A little bit"
+							},
+							{
+								"id": "2",
+								"label": "Somewhat"
+							},
+							{
+								"id": "3",
+								"label": "Quite a bit"
+							},
+							{
+								"id": "4",
+								"label": "Very much"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "somatic3",
+				"label": "",
+				"prompt": "During the past 7 days, how much have you been bothered by pain in your arms, legs or joints?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "0",
+								"label": "Not at all"
+							},
+							{
+								"id": "1",
+								"label": "A little bit"
+							},
+							{
+								"id": "2",
+								"label": "Somewhat"
+							},
+							{
+								"id": "3",
+								"label": "Quite a bit"
+							},
+							{
+								"id": "4",
+								"label": "Very much"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "somatic4",
+				"label": "",
+				"prompt": "During the past 7 days, how much have you been bothered by headaches?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "0",
+								"label": "Not at all"
+							},
+							{
+								"id": "1",
+								"label": "A little bit"
+							},
+							{
+								"id": "2",
+								"label": "Somewhat"
+							},
+							{
+								"id": "3",
+								"label": "Quite a bit"
+							},
+							{
+								"id": "4",
+								"label": "Very much"
+							}
+						]
+					}
+				]
+			}
+		]
+	},
+	{
+		"id": "medications",
+		"label": "Medications",
+		"prompt": "",
+		"q": [
+			{
+				"id": "arthritis_medication",
+				"label": "",
+				"prompt": "During the past month have you taken any medication for arthritis?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "1",
+								"label": "yes"
+							},
+							{
+								"id": "0",
+								"label": "no"
+							}
+						],
+						"showhide": [
+							{
+								"sum": [
+									"asthma_medication.a",
+									"cholesterol_medication.a",
+									"diabetes_medication.a",
+									"stomach_problems_medication.a",
+									"other_medications.a",
+									"blood_pressure_medication.a"
+								],
+								"low": 1,
+								"show": ["medadhere"]
+							},
+							{
+								"sum": [
+									"asthma_medication.a",
+									"cholesterol_medication.a",
+									"diabetes_medication.a",
+									"stomach_problems_medication.a",
+									"other_medications.a",
+									"blood_pressure_medication.a"
+								],
+								"high": 1,
+								"hide": ["medadhere"]
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "asthma_medication",
+				"label": "",
+				"prompt": "During the past month have you taken any medication for asthma?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "1",
+								"label": "yes"
+							},
+							{
+								"id": "0",
+								"label": "no"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "cholesterol_medication",
+				"label": "",
+				"prompt": "During the past month have you taken any medication for cholesterol?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "1",
+								"label": "yes"
+							},
+							{
+								"id": "0",
+								"label": "no"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "diabetes_medication",
+				"label": "",
+				"prompt": "During the past month have you taken medication for diabetes?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "1",
+								"label": "yes"
+							},
+							{
+								"id": "0",
+								"label": "no"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "stomach_problems_medication",
+				"label": "",
+				"prompt": "During the past month have you taken medication for stomach problems?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "1",
+								"label": "yes"
+							},
+							{
+								"id": "0",
+								"label": "no"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "other_medications",
+				"label": "",
+				"prompt": "During the past month have you taken any other types of medications?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "1",
+								"label": "yes"
+							},
+							{
+								"id": "0",
+								"label": "no"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "medadhere",
+				"label": "",
+				"prompt": "Do you take all of your medications as instructed by your doctor?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "yes",
+								"label": "yes"
+							},
+							{
+								"id": "no",
+								"label": "no"
+							}
+						]
+					}
+				]
+			}
+		]
+	},
+	{
+		"id": "health_history",
+		"label": "Health History",
+		"prompt": "Have you been told by a health care provider you have or were:",
+		"q": [
+			{
+				"id": "ahdi_asthma",
+				"label": "",
+				"prompt": "Asthma",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "yes",
+								"label": "yes"
+							},
+							{
+								"id": "no",
+								"label": "no"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "ahdi_atrial_fibrillation",
+				"label": "",
+				"prompt": "Atrial Fibrillation",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "yes",
+								"label": "yes"
+							},
+							{
+								"id": "no",
+								"label": "no"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "ahdi_chronic_obstructive_pulmonary_disease",
+				"label": "",
+				"prompt": "Chronic Obstructive Pulmonary Disease",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "yes",
+								"label": "yes"
+							},
+							{
+								"id": "no",
+								"label": "no"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "ahdi_chronic_venous_thrombotic_disease",
+				"label": "",
+				"prompt": "Chronic Venous Thrombotic Disease",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "yes",
+								"label": "yes"
+							},
+							{
+								"id": "no",
+								"label": "no"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "ahdi_copd",
+				"label": "",
+				"prompt": "COPD with Pulmonary Hypertension/Cor Pulmonale",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "yes",
+								"label": "yes"
+							},
+							{
+								"id": "no",
+								"label": "no"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "ahdi_chronic_kidney_disease",
+				"label": "",
+				"prompt": "Chronic Kidney Disease",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "yes",
+								"label": "yes"
+							},
+							{
+								"id": "no",
+								"label": "no"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "ahdi_congestive_heart_failure",
+				"label": "",
+				"prompt": "Congestive Heart Failure",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "yes",
+								"label": "yes"
+							},
+							{
+								"id": "no",
+								"label": "no"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "ahdi_coronary_artery_disease",
+				"label": "",
+				"prompt": "Coronary Artery Disease",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "yes",
+								"label": "yes"
+							},
+							{
+								"id": "no",
+								"label": "no"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "ahdi_depression",
+				"label": "",
+				"prompt": "Depression",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "yes",
+								"label": "yes"
+							},
+							{
+								"id": "no",
+								"label": "no"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "ahdi_epilepsy",
+				"label": "",
+				"prompt": "Epilepsy",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "yes",
+								"label": "yes"
+							},
+							{
+								"id": "no",
+								"label": "no"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "ahdi_hiv",
+				"label": "",
+				"prompt": "Human Immunodeficiency Virus Infection",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "yes",
+								"label": "yes"
+							},
+							{
+								"id": "no",
+								"label": "no"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "ahdi_hyperlipidemia",
+				"label": "",
+				"prompt": "Hyperlipidemia",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "yes",
+								"label": "yes"
+							},
+							{
+								"id": "no",
+								"label": "no"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "ahdi_hypertension",
+				"label": "",
+				"prompt": "Hypertension",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "yes",
+								"label": "yes"
+							},
+							{
+								"id": "no",
+								"label": "no"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "ahdi_hyperthyroidism",
+				"label": "",
+				"prompt": "Hyperthyroidism",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "yes",
+								"label": "yes"
+							},
+							{
+								"id": "no",
+								"label": "no"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "ahdi_hypothyroidism",
+				"label": "",
+				"prompt": "Hypothyroidism",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "yes",
+								"label": "yes"
+							},
+							{
+								"id": "no",
+								"label": "no"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "ahdi_metabolic_syndrome",
+				"label": "",
+				"prompt": "Metabolic Syndrome",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "yes",
+								"label": "yes"
+							},
+							{
+								"id": "no",
+								"label": "no"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "ahdi_multiple_sclerosis",
+				"label": "",
+				"prompt": "Multiple Sclerosis",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "yes",
+								"label": "yes"
+							},
+							{
+								"id": "no",
+								"label": "no"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "ahdi_parkinsons_disease",
+				"label": "",
+				"prompt": "Parkinson's Disease",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "yes",
+								"label": "yes"
+							},
+							{
+								"id": "no",
+								"label": "no"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "ahdi_peripheral_arterial_disease",
+				"label": "",
+				"prompt": "Peripheral Arterial Disease (Atherosclerosis)",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "yes",
+								"label": "yes"
+							},
+							{
+								"id": "no",
+								"label": "no"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "ahdi_pre_diabetes",
+				"label": "",
+				"prompt": "Pre-Diabetes",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "yes",
+								"label": "yes"
+							},
+							{
+								"id": "no",
+								"label": "no"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "ahdi_polymyalgia_rheumatica",
+				"label": "",
+				"prompt": "Polymyalgia Rheumatica",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "yes",
+								"label": "yes"
+							},
+							{
+								"id": "no",
+								"label": "no"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "ahdi_pulmonary_hypertension",
+				"label": "",
+				"prompt": "Pulmonary Hypertension (unrelated to COPD)",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "yes",
+								"label": "yes"
+							},
+							{
+								"id": "no",
+								"label": "no"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "ahdi_regional_enteritis",
+				"label": "",
+				"prompt": "Regional Enteritis (Inflammatory Bowel Disease)",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "yes",
+								"label": "yes"
+							},
+							{
+								"id": "no",
+								"label": "no"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "ahdi_rheumatoid_arthritis",
+				"label": "",
+				"prompt": "Rheumatoid Arthritis",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "yes",
+								"label": "yes"
+							},
+							{
+								"id": "no",
+								"label": "no"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "ahdi_sleep_apnea",
+				"label": "",
+				"prompt": "Sleep Apnea",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "yes",
+								"label": "yes"
+							},
+							{
+								"id": "no",
+								"label": "no"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "ahdi_ulcerative_colitis",
+				"label": "",
+				"prompt": "Ulcerative Colitis",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "yes",
+								"label": "yes"
+							},
+							{
+								"id": "no",
+								"label": "no"
+							}
+						]
+					}
+				]
+			}
+		]
+	},
+	{
+		"id": "cough_and_hand_hygiene",
+		"label": "Cough and Hand Hygiene",
+		"prompt": "Everyone can use a straightforward approach to protect themselves and their families from infectious diseases that are spread through contact with droplets containing pathogens (harmful viruses and bacteria).",
+		"q": [
+			{
+				"id": "chh_hands",
+				"label": "",
+				"prompt": "How many times have you washed your hands today?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not_answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "not_at_all",
+								"label": "not at all"
+							},
+							{
+								"id": "once_or_twice",
+								"label": "once or twice"
+							},
+							{
+								"id": "many_times",
+								"label": "many times"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "chh_cough",
+				"label": "",
+				"prompt": "Do you have a cough?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "yes",
+								"label": "yes"
+							},
+							{
+								"id": "no",
+								"label": "no"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "chh_fever",
+				"label": "",
+				"prompt": "Do you have a fever (a fever is a higher than normal body temperature taken with an accurate thermometer)?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "yes",
+								"label": "yes"
+							},
+							{
+								"id": "no",
+								"label": "no"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "chh_sbreath",
+				"label": "",
+				"prompt": "Are you short of breath?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "yes",
+								"label": "yes"
+							},
+							{
+								"id": "no",
+								"label": "no"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "chh_interact",
+				"label": "",
+				"prompt": "Do work or other activities require you to interact with other people in person? ",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "yes",
+								"label": "yes"
+							},
+							{
+								"id": "no",
+								"label": "no"
+							}
+						]
+					}
+				]
+			}
+		]
+	},
+	{
+		"id": "mental_health",
+		"label": "Mental Health",
+		"prompt": "Over the last 2 weeks, how often have you been bothered by any of the following problems?",
+		"q": [
+			{
+				"id": "PHQa",
+				"label": "",
+				"prompt": "Little interest or pleasure in doing things.",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "0",
+								"label": "Not at all"
+							},
+							{
+								"id": "1",
+								"label": "Several days"
+							},
+							{
+								"id": "2",
+								"label": "More than half the days"
+							},
+							{
+								"id": "3",
+								"label": "Nearly every day"
+							}
+						],
+						"showhide": [
+							{
+								"sum": ["PHQb.a"],
+								"low": 3,
+								"show": [
+									"PHQc",
+									"PHQd",
+									"PHQe",
+									"PHQf",
+									"PHQg",
+									"PHQh",
+									"PHQi"
+								]
+							},
+							{
+								"sum": ["PHQb.a"],
+								"high": 3,
+								"hide": [
+									"PHQc",
+									"PHQd",
+									"PHQe",
+									"PHQf",
+									"PHQg",
+									"PHQh",
+									"PHQi"
+								]
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "PHQb",
+				"label": "",
+				"prompt": "Feeling down, depressed, or hopeless.",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "0",
+								"label": "Not at all"
+							},
+							{
+								"id": "1",
+								"label": "Several days"
+							},
+							{
+								"id": "2",
+								"label": "More than half the days"
+							},
+							{
+								"id": "3",
+								"label": "Nearly every day"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "PHQc",
+				"label": "",
+				"prompt": "Trouble falling or staying asleep, or sleeping too much.",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "0",
+								"label": "Not at all"
+							},
+							{
+								"id": "1",
+								"label": "Several days"
+							},
+							{
+								"id": "2",
+								"label": "More than half the days"
+							},
+							{
+								"id": "3",
+								"label": "Nearly every day"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "PHQd",
+				"label": "",
+				"prompt": "Feeling tired or having little energy.",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "0",
+								"label": "Not at all"
+							},
+							{
+								"id": "1",
+								"label": "Several days"
+							},
+							{
+								"id": "2",
+								"label": "More than half the days"
+							},
+							{
+								"id": "3",
+								"label": "Nearly every day"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "PHQe",
+				"label": "",
+				"prompt": "Poor appetite or overeating.",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "0",
+								"label": "Not at all"
+							},
+							{
+								"id": "1",
+								"label": "Several days"
+							},
+							{
+								"id": "2",
+								"label": "More than half the days"
+							},
+							{
+								"id": "3",
+								"label": "Nearly every day"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "PHQf",
+				"label": "",
+				"prompt": "Feeling bad about yourself or that you are a failure or have let yourself or your family down.",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "0",
+								"label": "Not at all"
+							},
+							{
+								"id": "1",
+								"label": "Several days"
+							},
+							{
+								"id": "2",
+								"label": "More than half the days"
+							},
+							{
+								"id": "3",
+								"label": "Nearly every day"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "PHQg",
+				"label": "",
+				"prompt": "Trouble concentrating on things, such as reading the newspaper or watching television.",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "0",
+								"label": "Not at all"
+							},
+							{
+								"id": "1",
+								"label": "Several days"
+							},
+							{
+								"id": "2",
+								"label": "More than half the days"
+							},
+							{
+								"id": "3",
+								"label": "Nearly every day"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "PHQh",
+				"label": "",
+				"prompt": "Moving or speaking so slowly that other people could have noticed. Or the opposite, being so fidgety or restless that you have been moving around a lot more than usual.",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "0",
+								"label": "Not at all"
+							},
+							{
+								"id": "1",
+								"label": "Several days"
+							},
+							{
+								"id": "2",
+								"label": "More than half the days"
+							},
+							{
+								"id": "3",
+								"label": "Nearly every day"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "PHQi",
+				"label": "",
+				"prompt": "Thoughts that you would be better off dead, or of hurting yourself.",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "0",
+								"label": "Not at all"
+							},
+							{
+								"id": "1",
+								"label": "Several days"
+							},
+							{
+								"id": "2",
+								"label": "More than half the days"
+							},
+							{
+								"id": "3",
+								"label": "Nearly every day"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "GADa",
+				"label": "",
+				"prompt": "Feeling nervous, anxious or on edge.",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "0",
+								"label": "Not at all"
+							},
+							{
+								"id": "1",
+								"label": "Several days"
+							},
+							{
+								"id": "2",
+								"label": "More than half the days"
+							},
+							{
+								"id": "3",
+								"label": "Nearly every day"
+							}
+						],
+						"showhide": [
+							{
+								"sum": ["GADb.a"],
+								"low": 3,
+								"show": ["GADc", "GADd", "GADe", "GADf", "GADg"]
+							},
+							{
+								"sum": ["GADb.a"],
+								"high": 3,
+								"hide": ["GADc", "GADd", "GADe", "GADf", "GADg"]
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "GADb",
+				"label": "",
+				"prompt": "Not being able to stop or control worrying.",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "0",
+								"label": "Not at all"
+							},
+							{
+								"id": "1",
+								"label": "Several days"
+							},
+							{
+								"id": "2",
+								"label": "More than half the days"
+							},
+							{
+								"id": "3",
+								"label": "Nearly every day"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "GADc",
+				"label": "",
+				"prompt": "Worrying too much about different things.",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "0",
+								"label": "Not at all"
+							},
+							{
+								"id": "1",
+								"label": "Several days"
+							},
+							{
+								"id": "2",
+								"label": "More than half the days"
+							},
+							{
+								"id": "3",
+								"label": "Nearly every day"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "GADd",
+				"label": "",
+				"prompt": "Trouble relaxing.",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "0",
+								"label": "Not at all"
+							},
+							{
+								"id": "1",
+								"label": "Several days"
+							},
+							{
+								"id": "2",
+								"label": "More than half the days"
+							},
+							{
+								"id": "3",
+								"label": "Nearly every day"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "GADe",
+				"label": "",
+				"prompt": "Being so restless that it is hard to sit still.",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "0",
+								"label": "Not at all"
+							},
+							{
+								"id": "1",
+								"label": "Several days"
+							},
+							{
+								"id": "2",
+								"label": "More than half the days"
+							},
+							{
+								"id": "3",
+								"label": "Nearly every day"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "GADf",
+				"label": "",
+				"prompt": "Becoming easily annoyed or irritable.",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "0",
+								"label": "Not at all"
+							},
+							{
+								"id": "1",
+								"label": "Several days"
+							},
+							{
+								"id": "2",
+								"label": "More than half the days"
+							},
+							{
+								"id": "3",
+								"label": "Nearly every day"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "GADg",
+				"label": "",
+				"prompt": "Feeling afraid as if something awful might happen.",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "0",
+								"label": "Not at all"
+							},
+							{
+								"id": "1",
+								"label": "Several days"
+							},
+							{
+								"id": "2",
+								"label": "More than half the days"
+							},
+							{
+								"id": "3",
+								"label": "Nearly every day"
+							}
+						]
+					}
+				]
+			}
+		]
+	},
+	{
+		"id": "stress",
+		"label": "Stress",
+		"prompt": "Please answer the following questions",
+		"q": [
+			{
+				"id": "unable_to_control",
+				"label": "",
+				"prompt": "In the last month, how often have you felt that you were unable to control the important things in your life?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "0",
+								"label": "Never"
+							},
+							{
+								"id": "1",
+								"label": "Almost Never"
+							},
+							{
+								"id": "2",
+								"label": "Sometimes"
+							},
+							{
+								"id": "3",
+								"label": "Fairly Often"
+							},
+							{
+								"id": "4",
+								"label": "Very Often"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "felt_confident",
+				"label": "",
+				"prompt": "In the last month, how often have you felt confident about your ability to handle your personal problems?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "4",
+								"label": "Never"
+							},
+							{
+								"id": "3",
+								"label": "Almost Never"
+							},
+							{
+								"id": "2",
+								"label": "Sometimes"
+							},
+							{
+								"id": "1",
+								"label": "Fairly Often"
+							},
+							{
+								"id": "0",
+								"label": "Very Often"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "going_your_way",
+				"label": "",
+				"prompt": "In the last month, how often have you felt that things were going your way?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "4",
+								"label": "Never"
+							},
+							{
+								"id": "3",
+								"label": "Almost Never"
+							},
+							{
+								"id": "2",
+								"label": "Sometimes"
+							},
+							{
+								"id": "1",
+								"label": "Fairly Often"
+							},
+							{
+								"id": "0",
+								"label": "Very Often"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "difficulties_piling_up",
+				"label": "",
+				"prompt": "In the last month, how often have you felt difficulties were piling up so high that you could not overcome them?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "0",
+								"label": "Never"
+							},
+							{
+								"id": "1",
+								"label": "Almost Never"
+							},
+							{
+								"id": "2",
+								"label": "Sometimes"
+							},
+							{
+								"id": "3",
+								"label": "Fairly Often"
+							},
+							{
+								"id": "4",
+								"label": "Very Often"
+							}
+						]
+					}
+				]
+			}
+		]
+	},
+	{
+		"id": "physical",
+		"label": "Activity and Environment",
+		"prompt": "Please answer the following questions",
+		"q": [
+			{
+				"id": "home_safety",
+				"label": "Home Safety",
+				"prompt": "Do you feel safe in your home?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "overall_health",
+				"label": "Overall Health",
+				"prompt": "How would you describe your overall physical health?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "excellent",
+								"label": "Excellent"
+							},
+							{
+								"id": "very good",
+								"label": "Very good"
+							},
+							{
+								"id": "good",
+								"label": "Good"
+							},
+							{
+								"id": "fair",
+								"label": "Fair"
+							},
+							{
+								"id": "poor",
+								"label": "Poor"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "weekly_physical_activity",
+				"label": "Weekly Physical Activity",
+				"prompt": "How many times do you engage in physical activity (exercise or work which lasts at least 20 minutes without stopping and makes you breathe heavier and your heart beat faster)?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer",
+								"show": ["readiness_to_exercise_more"]
+							},
+							{
+								"id": "less than 1 time per week",
+								"label": "Less than 1 time per week",
+								"show": ["readiness_to_exercise_more"]
+							},
+							{
+								"id": "1 or 2 times per week",
+								"label": "1 or 2 times per week",
+								"show": ["readiness_to_exercise_more"]
+							},
+							{
+								"id": "at least 3 times per week",
+								"label": "At least 3 times per week",
+								"hide": ["readiness_to_exercise_more"]
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "helmet_usage",
+				"label": "Helmet Usage",
+				"prompt": "If you ride a motorcycle or all-terrain vehicle (ATV), what percent of the time do you wear a helmet?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "75% to 100%",
+								"label": "75% to 100%"
+							},
+							{
+								"id": "25% to 74%",
+								"label": "25% to 74%"
+							},
+							{
+								"id": "less than 25%",
+								"label": "less than 25%"
+							},
+							{
+								"id": "does not apply to me",
+								"label": "does not apply to me"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "bicycle_helmet_usage",
+				"label": "Bicycle Helmet Usage",
+				"prompt": "If you ride a Bicycle, what percent of the time do you wear a helmet?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "75% to 100%",
+								"label": "75% to 100%"
+							},
+							{
+								"id": "25% to 74%",
+								"label": "25% to 74%"
+							},
+							{
+								"id": "less than 25%",
+								"label": "less than 25%"
+							},
+							{
+								"id": "does not apply to me",
+								"label": "does not apply to me"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "resting_heart_rate",
+				"label": "Resting Heart Rate",
+				"prompt": "What is your resting heart rate in beats per minute?(If you don't know it, you can measure it now! Using two fingers, locate your pulse on your neck or your wrist. Count the beats until one minute is up on a watch or clock.)",
+				"input": [
+					{
+						"type": "number",
+						"units": "bpm",
+						"min": 40,
+						"max": 100
+					}
+				]
+			},
+			{
+				"id": "rollerblades",
+				"label": "Rollerblades, Scooters, or Skateboards",
+				"prompt": "Do you frequently use rollerblades, motor scooters or skateboards to get around?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "headphones_in_traffic",
+				"label": "Headphones in Traffic",
+				"prompt": "Do you walk in heavy traffic areas while using headphones or earbuds?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "thrill_seeker",
+				"label": "Thrill Seeker",
+				"prompt": "Are you a thrill seeker? (Hang-gliding, sky-diving, bungee jumping, motocross etc.)",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			}
+		]
+	},
+	{
+		"id": "tactical",
+		"label": "Tatical Questions",
+		"prompt": "Please answer the following questions",
+		"q": [
+			{
+				"id": "prescription_medications",
+				"label": "Prescription Medications",
+				"prompt": "How many prescription medications do you take on a daily basis?",
+				"input": [
+					{
+						"type": "number",
+						"units": "prescriptions",
+						"min": 0,
+						"max": 100
+					}
+				]
+			},
+			{
+				"id": "overnight_hospital",
+				"label": "Overnight Hospital Visit",
+				"prompt": "Have you spent time in a hospital overngiht in the last 12 months?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "er_visits",
+				"label": "ER Visits",
+				"prompt": "How mant times hvae you been to the ER in the last 12 months?",
+				"input": [
+					{
+						"type": "number",
+						"units": "visits",
+						"min": 0,
+						"max": 100
+					}
+				]
+			}
+		]
+	},
+	{
+		"id": "other",
+		"label": "Other",
+		"prompt": "Please answer the following questions.",
+		"q": [
+			{
+				"id": "readiness_to_quit_smoking",
+				"label": "Readiness to Quit Smoking",
+				"prompt": "Describe your readiness to quit smoking.",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "1",
+								"label": "No present interest in quitting smoking"
+							},
+							{
+								"id": "2",
+								"label": "Plan to quit smoking in the next 6 months"
+							},
+							{
+								"id": "3",
+								"label": "Plan to quit smoking this month"
+							},
+							{
+								"id": "4",
+								"label": "Recently began quitting smoking"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "readiness_to_reduce_alcohol_usage",
+				"label": "Readiness to Reduce Alcohol Usage",
+				"prompt": "Describe your readiness to reduce your use of alcohol.",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "1",
+								"label": "No present interest in reducing alcohol"
+							},
+							{
+								"id": "2",
+								"label": "Plan to reduce alcohol use in the next 6 months"
+							},
+							{
+								"id": "3",
+								"label": "Plan to reduce alcohol use this month"
+							},
+							{
+								"id": "4",
+								"label": "Recently began reducing alcohol use"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "readiness_to_eat_healthier",
+				"label": "Readiness to Eat Healthier",
+				"prompt": "Describe your readiness to eat healthier.",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "1",
+								"label": "No present interest in improving nutrition"
+							},
+							{
+								"id": "2",
+								"label": "Plan to improve nutrition in the next 6 months"
+							},
+							{
+								"id": "3",
+								"label": "Plan to improve nutrition this month"
+							},
+							{
+								"id": "4",
+								"label": "Recently began improving nutrition"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "readiness_to_exercise_more",
+				"label": "Readiness to Exercise More",
+				"prompt": "Describe your readiness to exercise more.",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "1",
+								"label": "No present interest in exercising more"
+							},
+							{
+								"id": "2",
+								"label": "Plan to start exercising more in the next 6 months"
+							},
+							{
+								"id": "3",
+								"label": "Plan to start exercising more this month"
+							},
+							{
+								"id": "4",
+								"label": "Recently began exercising more"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "misfortune",
+				"label": "Misfortune or Life Impact",
+				"prompt": "Have you suffered a personal loss or misfortune in the past year that had a serious impact on your life? (For example, a job loss, disability, separation, jail term, or death of someone close to you.)",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "yes, 1 serious loss or misfortune",
+								"label": "Yes, 1 serious loss or misfortune"
+							},
+							{
+								"id": "yes, 2 or more",
+								"label": "Yes, 2 or more"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "misfortune_swwc",
+				"label": "Misfortune or Life Impact",
+				"prompt": "Have you suffered a personal loss or misfortune in the past year that had a serious impact on your life? (For example, a job loss, disability, separation, or death of someone close to you.)",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "yes, 1 serious loss or misfortune",
+								"label": "Yes, 1 serious loss or misfortune"
+							},
+							{
+								"id": "yes, 2 or more",
+								"label": "Yes, 2 or more"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "race",
+				"label": "Race",
+				"prompt": "",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "aleutian, alaska native, eskimo, or american indian",
+								"label": "Aleutian, Alaska native, Eskimo, or American Indian"
+							},
+							{
+								"id": "asian",
+								"label": "Asian"
+							},
+							{
+								"id": "black",
+								"label": "Black"
+							},
+							{
+								"id": "pacific islander",
+								"label": "Pacific Islander"
+							},
+							{
+								"id": "white",
+								"label": "White"
+							},
+							{
+								"id": "other",
+								"label": "Other"
+							},
+							{
+								"id": "don't know",
+								"label": "Don't know"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "hispanic_origin",
+				"label": "Hispanic Origin",
+				"prompt": "Are you of Hispanic origin, such as Mexican-American, Puerto Rican, or Cuban?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not_answered",
+								"label": "Choose an Answer"
+							},
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "filling_forms",
+				"label": "Filling Forms",
+				"prompt": "How confident are you filling out medical or hospital forms by yourself?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "1",
+								"label": "Not at all confident"
+							},
+							{
+								"id": "2",
+								"label": "A little bit confident"
+							},
+							{
+								"id": "3",
+								"label": "Somewhat confident"
+							},
+							{
+								"id": "4",
+								"label": "Quite confident"
+							},
+							{
+								"id": "5",
+								"label": "Extremely confident"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "education",
+				"label": "Education",
+				"prompt": "What is the highest grade you completed in school?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "grade school or less",
+								"label": "Grade school or less"
+							},
+							{
+								"id": "some high school",
+								"label": "Some high school"
+							},
+							{
+								"id": "high school graduate",
+								"label": "High school graduate"
+							},
+							{
+								"id": "some college",
+								"label": "Some college"
+							},
+							{
+								"id": "college graduate",
+								"label": "College graduate"
+							},
+							{
+								"id": "post graduate or professional degree",
+								"label": "Post graduate or professional degree"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "education_swwc",
+				"label": "Education",
+				"prompt": "What is the highest grade you completed in school?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "high school graduate",
+								"label": "High school graduate"
+							},
+							{
+								"id": "some college",
+								"label": "Some college"
+							},
+							{
+								"id": "college graduate",
+								"label": "College graduate"
+							},
+							{
+								"id": "post graduate or professional degree",
+								"label": "Post graduate or professional degree"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "education_optimal",
+				"label": "Education",
+				"prompt": "What is the highest grade you completed in school?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "JHS/JSS",
+								"label": "JHS/JSS"
+							},
+							{
+								"id": "SHS/SSS",
+								"label": "SHS/SSS"
+							},
+							{
+								"id": "College",
+								"label": "College"
+							},
+							{
+								"id": "Graduate",
+								"label": "Graduate"
+							},
+							{
+								"id": "Postgraduate",
+								"label": "Postgraduate"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "firearm",
+				"label": "Access to Firearm",
+				"prompt": "Do you own or have access to a firearm?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "phone_helplesness",
+				"label": "Phone Helplessness",
+				"prompt": "Do you experience a feeling of helplessness if you can’t interact with your phone (e.g. dead battery or loss of signal)?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "dietary_supplement",
+				"label": "Dietary Supplement",
+				"prompt": "Do you use one or more dietary supplements or nutraceutical products? ",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "annual_physical",
+				"label": "Annual Physical",
+				"prompt": "How long has it been since you had a checkup or follow-up with a doctor?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "less_than_6_months",
+								"label": "Less than 6 months"
+							},
+							{
+								"id": "6_months_to_a_year",
+								"label": "6 months to a year"
+							},
+							{
+								"id": "more_than_1_year",
+								"label": "More than 1 year ago"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "drinking_water",
+				"label": "Drinking Water",
+				"prompt": "How many glasses of water do you drink in a day?",
+				"input": [
+					{
+						"type": "number",
+						"units": "glasses",
+						"min": 0,
+						"max": 10
+					}
+				]
+			},
+			{
+				"id": "marital_status",
+				"label": "What is your current marital status?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "married",
+								"label": "Married"
+							},
+							{
+								"id": "separated",
+								"label": "Separated"
+							},
+							{
+								"id": "divorced",
+								"label": "Divorced"
+							},
+							{
+								"id": "widowed",
+								"label": "Widowed"
+							},
+							{
+								"id": "never married",
+								"label": "Never Married"
+							}
+						]
+					}
+				]
+			}
+		]
+	},
+	{
+		"id": "demographics",
+		"label": "Demographics",
+		"prompt": "For each item below, fill in or select the best answer.",
+		"q": [
+			{
+				"id": "state_of_residence",
+				"label": "What state do you live in?",
+				"prompt": "Select the two-letter abbreviation.",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "al",
+								"label": "AL"
+							},
+							{
+								"id": "ak",
+								"label": "AK"
+							},
+							{
+								"id": "az",
+								"label": "AZ"
+							},
+							{
+								"id": "ar",
+								"label": "AR"
+							},
+							{
+								"id": "ca",
+								"label": "CA"
+							},
+							{
+								"id": "co",
+								"label": "CO"
+							},
+							{
+								"id": "ct",
+								"label": "CT"
+							},
+							{
+								"id": "de",
+								"label": "DE"
+							},
+							{
+								"id": "fl",
+								"label": "FL"
+							},
+							{
+								"id": "ga",
+								"label": "GA"
+							},
+							{
+								"id": "hi",
+								"label": "HI"
+							},
+							{
+								"id": "id",
+								"label": "ID"
+							},
+							{
+								"id": "il",
+								"label": "IL"
+							},
+							{
+								"id": "in",
+								"label": "IN"
+							},
+							{
+								"id": "ia",
+								"label": "IA"
+							},
+							{
+								"id": "ks",
+								"label": "KS"
+							},
+							{
+								"id": "ky",
+								"label": "KY"
+							},
+							{
+								"id": "la",
+								"label": "LA"
+							},
+							{
+								"id": "me",
+								"label": "ME"
+							},
+							{
+								"id": "md",
+								"label": "MD"
+							},
+							{
+								"id": "ma",
+								"label": "MA"
+							},
+							{
+								"id": "mi",
+								"label": "MI"
+							},
+							{
+								"id": "mn",
+								"label": "MN"
+							},
+							{
+								"id": "ms",
+								"label": "MS"
+							},
+							{
+								"id": "mo",
+								"label": "MO"
+							},
+							{
+								"id": "mt",
+								"label": "MT"
+							},
+							{
+								"id": "ne",
+								"label": "NE"
+							},
+							{
+								"id": "nv",
+								"label": "NV"
+							},
+							{
+								"id": "nh",
+								"label": "NH"
+							},
+							{
+								"id": "nj",
+								"label": "NJ"
+							},
+							{
+								"id": "nm",
+								"label": "NM"
+							},
+							{
+								"id": "ny",
+								"label": "NY"
+							},
+							{
+								"id": "nc",
+								"label": "NC"
+							},
+							{
+								"id": "nd",
+								"label": "ND"
+							},
+							{
+								"id": "oh",
+								"label": "OH"
+							},
+							{
+								"id": "ok",
+								"label": "OK"
+							},
+							{
+								"id": "or",
+								"label": "OR"
+							},
+							{
+								"id": "pa",
+								"label": "PA"
+							},
+							{
+								"id": "ri",
+								"label": "RI"
+							},
+							{
+								"id": "sc",
+								"label": "SC"
+							},
+							{
+								"id": "sd",
+								"label": "SD"
+							},
+							{
+								"id": "tn",
+								"label": "TN"
+							},
+							{
+								"id": "tx",
+								"label": "TX"
+							},
+							{
+								"id": "ut",
+								"label": "UT"
+							},
+							{
+								"id": "vt",
+								"label": "VT"
+							},
+							{
+								"id": "va",
+								"label": "VA"
+							},
+							{
+								"id": "wa",
+								"label": "WA"
+							},
+							{
+								"id": "wv",
+								"label": "WV"
+							},
+							{
+								"id": "wi",
+								"label": "WI"
+							},
+							{
+								"id": "wy",
+								"label": "WY"
+							},
+							{
+								"id": "as",
+								"label": "AS"
+							},
+							{
+								"id": "dc",
+								"label": "DC"
+							},
+							{
+								"id": "fm",
+								"label": "FM"
+							},
+							{
+								"id": "gu",
+								"label": "GU"
+							},
+							{
+								"id": "mh",
+								"label": "MH"
+							},
+							{
+								"id": "mp",
+								"label": "MP"
+							},
+							{
+								"id": "pw",
+								"label": "PW"
+							},
+							{
+								"id": "pr",
+								"label": "PR"
+							},
+							{
+								"id": "vi",
+								"label": "VI"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "marital_status",
+				"label": "What is your current marital status?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "married",
+								"label": "Married"
+							},
+							{
+								"id": "separated",
+								"label": "Separated"
+							},
+							{
+								"id": "divorced",
+								"label": "Divorced"
+							},
+							{
+								"id": "widowed",
+								"label": "Widowed"
+							},
+							{
+								"id": "never married",
+								"label": "Never Married"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "marital_status_optimal",
+				"label": "What is your current marital status?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "single",
+								"label": "Single"
+							},
+							{
+								"id": "married",
+								"label": "Married"
+							},
+							{
+								"id": "divorced/separated",
+								"label": "Divorced/Separated"
+							},
+							{
+								"id": "widowed",
+								"label": "Widowed"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "household_income",
+				"label": "What is your annual household income?",
+				"prompt": "(This item is optional.)",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "Less than $10,000",
+								"label": "Less than $10,000"
+							},
+							{
+								"id": "$10,000-$19,999",
+								"label": "$10,000-$19,999"
+							},
+							{
+								"id": "$20,000-$29,999",
+								"label": "$20,000-$29,999"
+							},
+							{
+								"id": "$30,000-$39,999",
+								"label": "$30,000-$39,999"
+							},
+							{
+								"id": "$40,000-$49,999",
+								"label": "$40,000-$49,999"
+							},
+							{
+								"id": "$50,000-$59,999",
+								"label": "$50,000-$59,999"
+							},
+							{
+								"id": "$60,000-$69,999",
+								"label": "$60,000-$69,999"
+							},
+							{
+								"id": "$70,000-$79,999",
+								"label": "$70,000-$79,999"
+							},
+							{
+								"id": "$80,000-$89,999",
+								"label": "$80,000-$89,999"
+							},
+							{
+								"id": "$90,000-$99,999",
+								"label": "$90,000-$99,999"
+							},
+							{
+								"id": "$100,000-$149,999",
+								"label": "$100,000-$149,999"
+							},
+							{
+								"id": "More than $150,000",
+								"label": "More than $150,000"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "gainful_employment",
+				"label": "Do you work for pay at a job or business?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "insurance_coverage",
+				"label": "What is your primary health insurance coverage?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "not answered"
+							},
+							{
+								"id": "no coverage",
+								"label": "no coverage"
+							},
+							{
+								"id": "medicare only",
+								"label": "Medicare only"
+							},
+							{
+								"id": "medicare advantage",
+								"label": "Medicare Advantage"
+							},
+							{
+								"id": "medicaid only",
+								"label": "Medicaid only"
+							},
+							{
+								"id": "medicaid hmo",
+								"label": "Medicaid HMO"
+							},
+							{
+								"id": "both medicare and medicaid",
+								"label": "both Medicare and Medicaid"
+							},
+							{
+								"id": "Veterans, TRICARE",
+								"label": "Veterans, TRICARE"
+							},
+							{
+								"id": "private insurance",
+								"label": "private insurance"
+							},
+							{
+								"id": "employer insurance",
+								"label": "employer insurance"
+							},
+							{
+								"id": "health share",
+								"label": "health share"
+							},
+							{
+								"id": "other",
+								"label": "other"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "uconn_coverage",
+				"label": "Insurance Coverage",
+				"prompt": "As you know, all full time UConn students are required by the University to maintain health insurance coverage (beyond that offered via Student Health and Wellness). Which of the following applies to your situation:",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "self",
+								"label": "I carry my own private health insurance"
+							},
+							{
+								"id": "parents",
+								"label": "I am under age 26 and am covered on my parents’ health insurance policy"
+							},
+							{
+								"id": "uconn",
+								"label": "I have purchased insurance through the UConn group policy (Wellfleet-Cigna Health Plan)"
+							},
+							{
+								"id": "none",
+								"label": "I do not have any health insurance coverage beyond that offered through UConn Student Health and Wellness"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "health_information_interest",
+				"label": "Would you be interested in free information on how to prepare for difficult health decisions?",
+				"prompt": "(e.g. living wills)",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "questions",
+				"label": "Questions",
+				"prompt": "Do you have any questions or concerns for your corporate nurse?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			}
+		]
+	},
+	{
+		"id": "review",
+		"label": "Answer Review",
+		"prompt": "Please review your answers.  If you want to change your answers, use the review button to return to a section of the questionnaire.",
+		"dynamic": "hra.app.render_response_review",
+		"options": {
+			"top_submit_button": true
+		}
+	},
+	{
+		"id": "65medical_conditions",
+		"label": "Medical Conditions",
+		"prompt": "Have you ever been told by a health care provider that you have...",
+		"q": [
+			{
+				"id": "breast_cancer",
+				"label": "Breast cancer?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "copd",
+				"label": "Emphysema or chromic lung disease (COPD)?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "urine_control",
+				"label": "Loss of urine control?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "0",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "arthritis",
+				"label": "Arthritis?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "parkinsons_disease",
+				"label": "Parkinson's disease?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "depression",
+				"label": "Depresssion?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "hearing_impairment",
+				"label": "Hearing Impariment?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "vision_impairment",
+				"label": "Vision Impairment?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "blindness",
+				"label": "Blindness?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "deafness",
+				"label": "Deafness?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			}
+		]
+	},
+	{
+		"id": "65falls",
+		"label": "Falls",
+		"prompt": "For each item below, choose the best answer.",
+		"q": [
+			{
+				"id": "fallen_three_times",
+				"label": "Have you fallen three or more times in the last year?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "injured_fall",
+				"label": "Have you been injured by a fall one or more times in the past year?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "difficulty_walking",
+				"label": "Do you have difficulty walking, such as hobbling, shuffling, or not being able to walk in a straight line?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "yes",
+								"label": "Yes"
+							},
+							{
+								"id": "no",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "depth_perception",
+				"label": "Do you have difficulty telling how far things are away from you?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "medication_reactions",
+				"label": "Have you ever had a serious reaction to any medication, nonprescribed or prescribed?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "sedating_drug",
+				"label": "Do you use drugs with a relaxing or sedating effect?",
+				"prompt": "(For example, valium or antidepressants.)",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "different_medications",
+				"label": "In an average week, how many different types of medicines, drugs, and vitamins do you take?",
+				"prompt": "(types, NOT number of pills - include both prescription and non-prescription drugs.)",
+				"input": [
+					{
+						"type": "number",
+						"units": "types per week",
+						"min": 0,
+						"max": 20
+					}
+				]
+			},
+			{
+				"id": "holding_urine",
+				"label": "Do you ever have difficulty holding your urine until you get to a toilet?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "0",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "leak_urine",
+				"label": "Do you ever leak or lose urine when you cough, sneeze or laugh?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "0",
+								"label": "No"
+							}
+						]
+					}
+				]
+			}
+		]
+	},
+	{
+		"id": "65immunizations",
+		"label": "Immunizations and Checkups",
+		"prompt": "For each item below, select the best answer.",
+		"q": [
+			{
+				"id": "pneumonia",
+				"label": "Have you had a pneumonia shot since turning age 55?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "flu_shot",
+				"label": "Within the last 12 months, have you had a flu shot?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "tdap_shot",
+				"label": "About how long has it been since you have had a tetanus-diphtheria-pertussis (Tdap) shot?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "1",
+								"label": "Eleven or more years ago"
+							},
+							{
+								"id": "2",
+								"label": "One to ten years"
+							},
+							{
+								"id": "1",
+								"label": "Don't know"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "checkup",
+				"label": "About when was the last time you had a check up or wellness visit with your health provider?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "less than 1 year ago",
+								"label": "Less than 1 year ago"
+							},
+							{
+								"id": "one year ago",
+								"label": "One year ago"
+							},
+							{
+								"id": "two years ago",
+								"label": "Two years ago"
+							},
+							{
+								"id": "three or more years ago",
+								"label": "Three or more years ago"
+							},
+							{
+								"id": "never",
+								"label": "Never"
+							}
+						]
+					}
+				]
+			}
+		]
+	},
+	{
+		"id": "65activities",
+		"label": "Activities and Function",
+		"prompt": "Because of health or physical problems, do you have any difficulty...",
+		"q": [
+			{
+				"id": "bathing",
+				"label": "Bathing or showering?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "dressing",
+				"label": "Dressing?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "eating",
+				"label": "Eating?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "out_of_bed",
+				"label": "Getting in and out of bed or chairs?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "walking",
+				"label": "Walking?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "getting_outside",
+				"label": "Getting Outside?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "using_toilet",
+				"label": "Using the toilet, including getting to the toilet?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "meals",
+				"label": "Preparing your own meals?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "shopping",
+				"label": "Shopping for personal items, such as toilet items or medicine?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "managing_money",
+				"label": "Managing your money, such as keeping track of expenses or paying bills?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "telephone",
+				"label": "Using the telephone?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "heavy_housework",
+				"label": "Doing heavy housework, like scrubbing floors, or washing windows?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "light_housework",
+				"label": "Doing light housework, like doing dishes, straightening up, or light cleaning?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "out_of_house",
+				"label": "How often do you get out of the house?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "1",
+								"label": "Once a day or more"
+							},
+							{
+								"id": "2",
+								"label": "At least three times a week"
+							},
+							{
+								"id": "3",
+								"label": "Once or twice per week"
+							},
+							{
+								"id": "4",
+								"label": "Less than once a week"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "limit_crime",
+				"label": "How often do you limit your activities because of crime in your neighborhood?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "1",
+								"label": "Frequently"
+							},
+							{
+								"id": "2",
+								"label": "Sometimes/occasionally"
+							},
+							{
+								"id": "3",
+								"label": "Almost Never"
+							}
+						]
+					}
+				]
+			}
+		]
+	},
+	{
+		"id": "65mobility",
+		"label": "Mobility",
+		"prompt": "By yourself and not using aids,",
+		"q": [
+			{
+				"id": "mile_walk",
+				"label": "Do you ever walk a mile?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes",
+								"hide": ["half_mile", "quarter_mile"]
+							},
+							{
+								"id": "2",
+								"label": "No",
+								"show": ["half_mile", "quarter_mile"]
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "half_mile",
+				"label": "Do you have any difficulty walking a half-mile?",
+				"prompt": "(about 8 blocks)",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes",
+								"show": ["quarter_mile"]
+							},
+							{
+								"id": "2",
+								"label": "No",
+								"hide": ["quarter_mile"]
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "quarter_mile",
+				"label": "Do you have any difficulty walking for a quarter of a mile?",
+				"prompt": "(about 2 or 3 blocks)",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "stairs",
+				"label": "Do you have any difficulty walking up and down the stairs to the second floor without help?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes",
+								"show": ["10_steps_resting", "10_steps"]
+							},
+							{
+								"id": "2",
+								"label": "No",
+								"hide": ["10_steps_resting", "10_steps"]
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "10_steps_resting",
+				"label": "Do you have any difficulty walking up 10 stairs without resting?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes",
+								"show": ["10_steps"]
+							},
+							{
+								"id": "2",
+								"label": "No",
+								"hide": ["10_steps"]
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "10_steps",
+				"label": "Do you have any difficulty walking up 10 stairs?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "25_pounds",
+				"label": "Do you have any difficulty lifting or carrying something as heavy as 25 pounds?",
+				"prompt": "(such as two full bags of groceries)",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			}
+		]
+	},
+	{
+		"id": "65support",
+		"label": "Social Support",
+		"prompt": "For each item below, select the best answer.",
+		"q": [
+			{
+				"id": "needed_support",
+				"label": "How often do you get the social and emotional support you need?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "1",
+								"label": "Always"
+							},
+							{
+								"id": "2",
+								"label": "Usually"
+							},
+							{
+								"id": "3",
+								"label": "Rarely"
+							},
+							{
+								"id": "4",
+								"label": "Never"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "seeing_relatives",
+				"label": "How many relatives do you see or hear from at least once a month?",
+				"prompt": "(NOTE: Include in-laws with relatives)",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "1",
+								"label": "Zero"
+							},
+							{
+								"id": "2",
+								"label": "One"
+							},
+							{
+								"id": "3",
+								"label": "Two"
+							},
+							{
+								"id": "4",
+								"label": "Three or Four"
+							},
+							{
+								"id": "5",
+								"label": "Five to Eight"
+							},
+							{
+								"id": "6",
+								"label": "Nine or more"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "most_relatives",
+				"label": "How often do you see or hear from the relative with whom you have the most contact?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "1",
+								"label": "Less than monthly"
+							},
+							{
+								"id": "2",
+								"label": "Monthly"
+							},
+							{
+								"id": "3",
+								"label": "A few times a month"
+							},
+							{
+								"id": "4",
+								"label": "Weekly"
+							},
+							{
+								"id": "5",
+								"label": "A few times a week"
+							},
+							{
+								"id": "6",
+								"label": "Daily"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "close_relatives",
+				"label": "How many relatives do you feel close to?",
+				"prompt": "That is, how many of them do you feel at ease with, can talk to about private matters, or can call on for help?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "1",
+								"label": "Zero"
+							},
+							{
+								"id": "2",
+								"label": "One"
+							},
+							{
+								"id": "3",
+								"label": "Two"
+							},
+							{
+								"id": "4",
+								"label": "Three or Four"
+							},
+							{
+								"id": "5",
+								"label": "Five to Eight"
+							},
+							{
+								"id": "6",
+								"label": "Nine or more"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "ease_friends",
+				"label": "How many close friends with whom you feel at ease, can you talk to about private matters, or can call on for help?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "1",
+								"label": "Zero"
+							},
+							{
+								"id": "2",
+								"label": "One"
+							},
+							{
+								"id": "3",
+								"label": "Two"
+							},
+							{
+								"id": "4",
+								"label": "Three or Four"
+							},
+							{
+								"id": "5",
+								"label": "Five to Eight"
+							},
+							{
+								"id": "6",
+								"label": "Nine or more"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "seeing_friends",
+				"label": "How many of these friends do you see or hear from at least once a month?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "1",
+								"label": "Zero"
+							},
+							{
+								"id": "2",
+								"label": "One"
+							},
+							{
+								"id": "3",
+								"label": "Two"
+							},
+							{
+								"id": "4",
+								"label": "Three or Four"
+							},
+							{
+								"id": "5",
+								"label": "Five to Eight"
+							},
+							{
+								"id": "6",
+								"label": "Nine or more"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "most_contact_friends",
+				"label": "How often do you hear from the friend with whom you have the most contact?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "1",
+								"label": "Less than monthly"
+							},
+							{
+								"id": "2",
+								"label": "Monthly"
+							},
+							{
+								"id": "3",
+								"label": "A few times a month"
+							},
+							{
+								"id": "4",
+								"label": "Weekly"
+							},
+							{
+								"id": "5",
+								"label": "A few times a week"
+							},
+							{
+								"id": "6",
+								"label": "Daily"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "important_decisions",
+				"label": "When you have an important decision to make, do you have someone you can talk to about it?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "1",
+								"label": "Always"
+							},
+							{
+								"id": "2",
+								"label": "Very Often"
+							},
+							{
+								"id": "3",
+								"label": "Often"
+							},
+							{
+								"id": "4",
+								"label": "Sometimes"
+							},
+							{
+								"id": "5",
+								"label": "Seldom"
+							},
+							{
+								"id": "6",
+								"label": "Never"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "know_important_decisions",
+				"label": "When other people you know have an important decision to make, do they talk to you about it?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "1",
+								"label": "Always"
+							},
+							{
+								"id": "2",
+								"label": "Very Often"
+							},
+							{
+								"id": "3",
+								"label": "Often"
+							},
+							{
+								"id": "4",
+								"label": "Sometimes"
+							},
+							{
+								"id": "5",
+								"label": "Seldom"
+							},
+							{
+								"id": "6",
+								"label": "Never"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "relied_on",
+				"label": "Does anybody rely on you to do something for them each day?",
+				"prompt": "(For example: shopping, cooking dinner, doing repairs, cleaning house, providing childcare, etc.)",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "help_with_things",
+				"label": "Do you help anybody with things like shopping, filling out forms, doing repairs, providing childcare, etc.?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "1",
+								"label": "Always"
+							},
+							{
+								"id": "2",
+								"label": "Very Often"
+							},
+							{
+								"id": "3",
+								"label": "Often"
+							},
+							{
+								"id": "4",
+								"label": "Sometimes"
+							},
+							{
+								"id": "5",
+								"label": "Seldom"
+							},
+							{
+								"id": "6",
+								"label": "Never"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "live_alone",
+				"label": "Do you live alone or with other people?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "1",
+								"label": "Live with spouse, and perhaps others"
+							},
+							{
+								"id": "2",
+								"label": "Live with other relatives or friends"
+							},
+							{
+								"id": "3",
+								"label": "Live with other unrelated help (e.g. paid help)"
+							},
+							{
+								"id": "4",
+								"label": "Live alone"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "home_alone",
+				"label": "How many hours a day are you home alone?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "0",
+								"label": "Zero to four hours"
+							},
+							{
+								"id": "1",
+								"label": "Five to ten hours"
+							},
+							{
+								"id": "2",
+								"label": "Eleven to fifteen hours"
+							},
+							{
+								"id": "3",
+								"label": "Sixteen hours"
+							}
+						]
+					}
+				]
+			}
+		]
+	},
+	{
+		"id": "65dental_hearing_vision",
+		"label": "Dental, Hearing, Vision Checkups",
+		"prompt": "For each item below, select the answer that best describes when you had checkups.",
+		"q": [
+			{
+				"id": "dentist_exam",
+				"label": "About when was the last time you saw a dentist about your teeth?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "less than 1 year ago",
+								"label": "Less than 1 year ago"
+							},
+							{
+								"id": "1 year ago",
+								"label": "1 year ago"
+							},
+							{
+								"id": "2 years ago",
+								"label": "2 years ago"
+							},
+							{
+								"id": "3 or more years ago",
+								"label": "3 or more years ago"
+							},
+							{
+								"id": "never",
+								"label": "Never"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "hearing_exam",
+				"label": "About when was the last time you had your hearing checked?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "less than 1 year ago",
+								"label": "Less than 1 year ago"
+							},
+							{
+								"id": "1 year ago",
+								"label": "1 year ago"
+							},
+							{
+								"id": "2 years ago",
+								"label": "2 years ago"
+							},
+							{
+								"id": "3 or more years ago",
+								"label": "3 or more years ago"
+							},
+							{
+								"id": "never",
+								"label": "Never"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "eye_exam",
+				"label": "About when was the last time you had an eye exam?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{
+								"id": "less than 1 year ago",
+								"label": "Less than 1 year ago"
+							},
+							{
+								"id": "1 year ago",
+								"label": "1 year ago"
+							},
+							{
+								"id": "2 years ago",
+								"label": "2 years ago"
+							},
+							{
+								"id": "3 or more years ago",
+								"label": "3 or more years ago"
+							},
+							{
+								"id": "never",
+								"label": "Never"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "recognize_friend_street",
+				"label": "Can you see well enough to recognize a friend across the street?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "recognize_friend_room",
+				"label": "Can you see well enough to recognize a friend across a room?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "recognize_friend_arm",
+				"label": "Can you see well enough to recognize a friend who is at arm’s length away?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "recognize_friend_face",
+				"label": "Can you see well enough to recognize a friend if you get close to his/her face?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "large_newspapers",
+				"label": "Can you see well enough to read large print, such as newspaper headlines?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "regular_newspapers",
+				"label": "Can you see well enough to read ordinary newspapers?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "glasses_up_to_date",
+				"label": "If you wear glasses, is your prescription up-to-date?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "seeing_beside_you",
+				"label": "When looking straight ahead, can you see well enough to realize if a friend is standing directly on either side of you?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "hearing_embarassed",
+				"label": "Does a hearing problem cause you to feel embarrassed when you meet new people?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "hearing_frustrated",
+				"label": "Does a hearing problem cause you to feel frustrated when talking to members of your family?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "hearing_whisper",
+				"label": "Do you have difficulty hearing when someone speaks in a whisper?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "handicapped_hearing",
+				"label": "Do you feel handicapped by a hearing problem?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "hearing_visiting",
+				"label": "Does a hearing problem cause you difficulty when visiting friends, relatives, or neighbors?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "hearing_religious",
+				"label": "Does a hearing problem cause you to attend religious services less often than you would like?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "0",
+								"label": "Yes"
+							},
+							{
+								"id": "1",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "hearing_argument",
+				"label": "Does a hearing problem cause you to have arguments with family members?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "hearing_radio",
+				"label": "Does a hearing problem cause you difficulty when listening to television and radio?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "hearing_social_life",
+				"label": "Do you feel that any difficulty with your hearing limits or hampers your personal or social life?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "hearing_restaurant",
+				"label": "Does a hearing problem cause you difficulty when in a restaurant with relatives or friends?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			}
+		]
+	},
+	{
+		"id": "65home_safety",
+		"label": "Home Safety",
+		"prompt": "For each item below, select the best answer for your home setting.",
+		"q": [
+			{
+				"id": "shadow_areas",
+				"label": "Do you have enough lighting to get rid of shadowy areas?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "skid_backing",
+				"label": "Do all rugs, runners, and mats have non-skid backing?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "carpet_edges",
+				"label": "Do you have any carpet edges which are curling, uneven, or loose?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "objects_put_away",
+				"label": "Are all small objects always put away, so that they are never out in walkways and stairways?",
+				"prompt": "(For example: glasses, magazines, cords, tools, etc.)",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "slippery_areas",
+				"label": "Do you have any areas where you normally go around your house, which can be slippery when wet or icy?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "bath_slippery",
+				"label": "Do you normally use any bathtubs or showers with slippery surfaces or without non-skid mats?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "grab_bars",
+				"label": "Do bathtubs or showers that you normally use have grab bars?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "poor_lighting",
+				"label": "Do any stairs or steps that you normally use have poor lighting?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "loose_steps",
+				"label": "Are any of the stairs or steps that you normally use loose, crumbling or uneven?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "handrails",
+				"label": "Do all of the stairs or steps you normally use have sturdy handrails?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "ladders",
+				"label": "Are all ladders and step stools you normally use sturdy?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "smoke_detector",
+				"label": "Does your home have a smoke detector?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "hot_water_burn",
+				"label": "Is the hot water in your house hot enough so that it could burn you?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			}
+		]
+	},
+	{
+		"id": "65nutrition",
+		"label": "Nutrition",
+		"prompt": "For each item below, select the best answer.",
+		"q": [
+			{
+				"id": "interferes_eating",
+				"label": "Do you now have an illness or condition that interferes with your eating?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "cut_appetite",
+				"label": "Do you have an illness that has cut down on your appetite?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "trouble_chewing",
+				"label": "Do you have trouble biting or chewing any kind of food?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "disagree_foods",
+				"label": "Are there any kinds of foods that you don’t eat because they disagree with you?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "dentures",
+				"label": "Do you wear dentures?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "pain_abdomen",
+				"label": "Last month, for three days or more, did you have any spells of pain or discomfort in your abdomen?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "trouble_swallowing",
+				"label": "Last month, for three days or more, did you have any trouble swallowing?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "vomiting",
+				"label": "Last month, for three days or more, did you have any vomiting?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "diarrhea",
+				"label": "Do you have any bowel trouble that makes you constipated or gives you diarrhea?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "gained_weight",
+				"label": "Have you gained or lost any weight in the last 30 days?",
+				"prompt": "(Note: Net gain or loss must exceed 10 lbs.)",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "abdomen_operation",
+				"label": "Have you ever had an operation on your abdomen?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "anemic",
+				"label": "Have you ever been told by a doctor that you were “anemic” (had iron-poor blood)?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "prescribed_medicines",
+				"label": "In the past month, have you taken any medicines prescribed by a doctor?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "nonprescribed_medicines",
+				"label": "In the past month, have you taken any other medicines that were not prescribed by a doctor?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "special_diet",
+				"label": "Are you now on any kind of a special diet?",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "change_food",
+				"label": "I have an illness or condition that made me change the kind and/or amount of food I eat.",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "fewer_two_meals",
+				"label": "I eat fewer than two meals per day.",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "few_fruits",
+				"label": "I eat few fruits, vegetables, or milk products.",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "hard_to_eat",
+				"label": "I have tooth or mouth problems that make it hard for me to eat.",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "money_for_food",
+				"label": "I don’t always have enough money to buy the food I need.",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "eat_alone",
+				"label": "I eat alone most of the time.",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "three_drugs",
+				"label": "I take three or more different prescribed or over-the-counter drugs a day",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "unwanted_weight",
+				"label": "Without wanting to, I have lost or gained 10 pounds in the last 6 months.",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "able_to_shop",
+				"label": "I am not always physically able to shop, cook and/or feed myself.",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "1",
+								"label": "Yes"
+							},
+							{
+								"id": "2",
+								"label": "No"
+							}
+						]
+					}
+				]
+			}
+		]
+	}
+]
