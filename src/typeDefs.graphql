@@ -91,7 +91,7 @@ type ShowHide {
 
 type QuestionInput {
 	type: String!
-	values: [Values]!
+	values: [Values]
 	units: String
 	min: Int
 	max: Int
@@ -111,11 +111,18 @@ type Question {
 	default_deactive: Boolean
 }
 
+type Options {
+	top_submit_button: Boolean
+}
+
 type HRA {
 	id: String!
-	label: String!
-	prompt: String!
-	q: [Question]!
+	label: String
+	dynamic: String
+	options: Options
+	prompt: String
+	q: [Question]
+	qCount: Int
 }
 
 type User {
@@ -160,8 +167,17 @@ type User {
 }
 
 type Query {
+	"""
+	Query to get the authenticated user
+	"""
 	me: User
+	"""
+	Fetch users
+	"""
 	users: [User]!
+	"""
+	Fetch users by their type: should be accessible
+	"""
 	usersByType(type: UserEnum): [User]!
 }
 
@@ -202,20 +218,41 @@ input signUpCompanyInput {
 }
 
 type Mutation {
+	"""
+	Mutation to login a user
+	"""
 	login(email: String!, password: String!): User!
+	"""
+	Mutation to login a user putting into consideration userType
+	"""
 	loginWithUserType(
 		email: String!
 		password: String!
 		accountType: UserEnum = INDIVIDUAL
 	): User!
+	"""
+	Mutation to generate the google auth url the frontend can user to handle the google sign on for an individual
+	"""
 	generateGoogleAuthUrl: String!
+	"""
+	Mutation to complete the individual signup process by passing in a google code
+	"""
 	signupLoginWithGoogleCode(code: String): User!
+	"""
+	Mutation to complete the individual signup process by passing in a google access_token
+	"""
 	signupLoginWithGoogleAccessToken(access_token: String): User!
 	"""
-	OnBoard Employeshould only work for a user of type -> employee
+	OnBoard Employes, Individual should use this as their signup page
 	"""
 	signup(input: signUpEmployeeInput): User!
+	"""
+	Mutation to add new admin
+	"""
 	addNewAdmin(email: String): Message!
+	"""
+	Mutation to remove new admin
+	"""
 	removeNewAdmin(email: String): Message!
 	"""
 	this should only be used by a choose_life admin
@@ -225,12 +262,21 @@ type Mutation {
 	OnBoard Company -> this can only be done by chooselife addmin
 	"""
 	registerCompany(input: signUpCompanyInput): Message!
+	"""
+	Mutation to initiate a password reset request
+	"""
 	requestResetPassword(email: String!): Message!
+	"""
+	Mutation to reset password
+	"""
 	resetPassword(
 		resetToken: String!
 		password: String
 		confirmPassword: String
 	): User!
+	"""
+	Mutation to fetch HRA question based on
+	"""
 	fetchHraQuestion(input: HraInputSectionsEnum): HRA!
 }
 

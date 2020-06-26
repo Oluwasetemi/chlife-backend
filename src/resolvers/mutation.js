@@ -129,7 +129,8 @@ const mutation = {
         resetLink: `${process.env.FRONTEND_URL}/reset?resetToken=${resetPasswordToken}`
       });
 
-      const result = { ...user._doc, password: null };
+      // const result = { ...user._doc, password: null };
+      const result = { message: 'Company registered successfully' };
 
       // console.log(args);
       return result;
@@ -535,9 +536,14 @@ const mutation = {
     questions = JSON.parse(questions);
     const inputLowerCase = input.toLowerCase();
 
-    const result = questions.find(each => each.id === inputLowerCase);
+    const result = questions.find(each => {
+      if (inputLowerCase === 'nutritionii') {
+        return each.id === '65nutrition';
+      }
+      return each.id === inputLowerCase || each.id === `65${inputLowerCase}`;
+    });
 
-    return result;
+    return { ...result, qCount: (result.q && result.q.length) || null };
   }
 };
 
