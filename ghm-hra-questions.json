@@ -11,17 +11,18 @@
 				"input": [
 					{
 						"type": "radio",
-						"values": [
-							{
-								"id": "agree",
-								"label": "I Agree"
-							}
-						]
+						"values": [{ "id": "agree", "label": "I Agree" }]
 					}
 				],
 				"required": true
 			}
 		]
+	},
+	{
+		"id": "tos_fitnessfair",
+		"label": "Terms of Service",
+		"prompt": "Welcome to the ChooseLife health risk appraisal.\nBy continuing, you accept the terms of service. This is a mini version of the full HRA which consists of a certain number of questions.",
+		"q": []
 	},
 	{
 		"id": "basic_information",
@@ -34,6 +35,7 @@
 				"input": [
 					{
 						"type": "select",
+
 						"values": [
 							{
 								"id": "not_answered",
@@ -100,22 +102,10 @@
 									"last_mammogram"
 								]
 							},
-							{
-								"low": 21,
-								"show": []
-							},
-							{
-								"high": 21,
-								"hide": ["pap_smear_test"]
-							},
-							{
-								"low": 50,
-								"show": ["colon_cancer_screening"]
-							},
-							{
-								"high": 50,
-								"hide": ["colon_cancer_screening"]
-							}
+							{ "low": 21, "show": [] },
+							{ "high": 21, "hide": ["pap_smear_test"] },
+							{ "low": 50, "show": ["colon_cancer_screening"] },
+							{ "high": 50, "hide": ["colon_cancer_screening"] }
 						]
 					}
 				],
@@ -132,6 +122,7 @@
 						"min": 2,
 						"max": 7
 					},
+
 					{
 						"type": "number",
 						"units": "inches",
@@ -202,23 +193,15 @@
 								"id": "not_answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "small",
-								"label": "Small"
-							},
-							{
-								"id": "medium",
-								"label": "Medium"
-							},
-							{
-								"id": "large",
-								"label": "Large"
-							}
+							{ "id": "small", "label": "Small" },
+							{ "id": "medium", "label": "Medium" },
+							{ "id": "large", "label": "Large" }
 						]
 					}
 				],
 				"required": true
 			},
+
 			{
 				"id": "diabetes_status",
 				"label": "Diabetes",
@@ -251,14 +234,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -271,14 +248,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -291,14 +262,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -318,14 +283,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "0",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "0", "label": "No" }
 						]
 					}
 				]
@@ -373,18 +332,9 @@
 								"id": "not_answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "high",
-								"label": "High"
-							},
-							{
-								"id": "normal_or_low",
-								"label": "Normal or low"
-							},
-							{
-								"id": "not_known",
-								"label": "Don't know"
-							}
+							{ "id": "high", "label": "High" },
+							{ "id": "normal_or_low", "label": "Normal or low" },
+							{ "id": "not_known", "label": "Don't know" }
 						]
 					}
 				]
@@ -397,14 +347,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "0",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "0", "label": "No" }
 						]
 					}
 				]
@@ -420,22 +364,42 @@
 							{
 								"id": "not_answered",
 								"label": "choose an answer",
-								"hide": ["cholesterol_level", "hdl_cholesterol"]
+								"hide": [
+									"cholesterol_level",
+									"cholesterol_level_mml",
+									"hdl_cholesterol",
+									"hdl_cholesterol_mml"
+								]
 							},
 							{
 								"id": "yes",
 								"label": "Yes",
-								"show": ["cholesterol_level", "hdl_cholesterol"]
+								"show": [
+									"cholesterol_level",
+									"cholesterol_level_mml",
+									"hdl_cholesterol",
+									"hdl_cholesterol_mml"
+								]
 							},
 							{
 								"id": "no",
 								"label": "No",
-								"hide": ["cholesterol_level", "hdl_cholesterol"]
+								"hide": [
+									"cholesterol_level",
+									"cholesterol_level_mml",
+									"hdl_cholesterol",
+									"hdl_cholesterol_mml"
+								]
 							},
 							{
 								"id": "not_known",
 								"label": "Don't know",
-								"hide": ["cholesterol_level", "hdl_cholesterol"]
+								"hide": [
+									"cholesterol_level",
+									"cholesterol_level_mml",
+									"hdl_cholesterol",
+									"hdl_cholesterol_mml"
+								]
 							}
 						]
 					}
@@ -462,7 +426,25 @@
 							}
 						]
 					}
-				]
+				],
+				"system_of_measurement": "mg/dl",
+				"counterpart": "cholesterol_level_mml"
+			},
+			{
+				"id": "cholesterol_level_mml",
+				"label": "Cholesterol Level",
+				"prompt": "What is your total cholesterol level (based on a blood test)? Leave it blank if you don't remember.",
+				"input": [
+					{
+						"type": "number",
+						"units": "mm/l",
+						"min": 5,
+						"max": 20,
+						"allow_decimals": true
+					}
+				],
+				"system_of_measurement": "mm/l",
+				"counterpart": "cholesterol_level"
 			},
 			{
 				"id": "hdl_cholesterol",
@@ -485,7 +467,25 @@
 							}
 						]
 					}
-				]
+				],
+				"system_of_measurement": "mg/dl",
+				"counterpart": "hdl_cholesterol_mml"
+			},
+			{
+				"id": "hdl_cholesterol_mml",
+				"label": "HDL Cholesterol",
+				"prompt": "What is your HDL cholesterol level (based on a blood test)? Leave it blank if you don't remember.",
+				"input": [
+					{
+						"type": "number",
+						"units": "mm/l",
+						"min": 1,
+						"max": 7,
+						"allow_decimals": true
+					}
+				],
+				"system_of_measurement": "mm/l",
+				"counterpart": "hdl_cholesterol"
 			},
 			{
 				"id": "cholesterol_level_estimated",
@@ -499,22 +499,10 @@
 								"id": "not_answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "low",
-								"label": "Low"
-							},
-							{
-								"id": "normal",
-								"label": "Normal"
-							},
-							{
-								"id": "high",
-								"label": "High"
-							},
-							{
-								"id": "not_known",
-								"label": "I don't know"
-							}
+							{ "id": "low", "label": "Low" },
+							{ "id": "normal", "label": "Normal" },
+							{ "id": "high", "label": "High" },
+							{ "id": "not_known", "label": "I don't know" }
 						]
 					}
 				]
@@ -531,22 +519,10 @@
 								"id": "not_answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "low",
-								"label": "Low"
-							},
-							{
-								"id": "normal",
-								"label": "Normal"
-							},
-							{
-								"id": "high",
-								"label": "High"
-							},
-							{
-								"id": "not_known",
-								"label": "I don't know"
-							}
+							{ "id": "low", "label": "Low" },
+							{ "id": "normal", "label": "Normal" },
+							{ "id": "high", "label": "High" },
+							{ "id": "not_known", "label": "I don't know" }
 						]
 					}
 				]
@@ -562,7 +538,25 @@
 						"min": 40,
 						"max": 350
 					}
-				]
+				],
+				"system_of_measurement": "mg/dl",
+				"counterpart": "blood_glucose_mml"
+			},
+			{
+				"id": "blood_glucose_mml",
+				"label": "Blood sugar",
+				"prompt": "What is the result of your most recent blood sugar test (non-fasting blood glucose)?",
+				"input": [
+					{
+						"type": "number",
+						"units": "mm/l",
+						"min": 2,
+						"max": 20,
+						"allow_decimals": true
+					}
+				],
+				"system_of_measurement": "mm/l",
+				"counterpart": "blood_glucose"
 			},
 			{
 				"id": "triglycerides",
@@ -701,6 +695,7 @@
 						"min": 0,
 						"max": 10
 					},
+
 					{
 						"type": "number",
 						"units": "pipes/day",
@@ -770,6 +765,32 @@
 				]
 			},
 			{
+				"id": "daily_shisha",
+				"label": "Daily Shisha",
+				"prompt": "How many times do you smoke shisha per day?",
+				"input": [
+					{
+						"type": "number",
+						"units": "times/day",
+						"min": 0,
+						"max": 10
+					}
+				]
+			},
+			{
+				"id": "daily_marajuana",
+				"label": "Daily Shisha",
+				"prompt": "How many times do you smoke shisha per day?",
+				"input": [
+					{
+						"type": "number",
+						"units": "times/day",
+						"min": 0,
+						"max": 10
+					}
+				]
+			},
+			{
 				"id": "smokeless_tobacco",
 				"label": "Smokeless tobacco",
 				"prompt": "How many times per day do you use smokeless tobacco? (Chewing tobacco, snuff, pouches, etc.)",
@@ -812,34 +833,13 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "0 days",
-								"label": "0 days"
-							},
-							{
-								"id": "1-2 days",
-								"label": "1-2 days"
-							},
-							{
-								"id": "3-5 days",
-								"label": "3-5 days"
-							},
-							{
-								"id": "6-9 days",
-								"label": "6-9 days"
-							},
-							{
-								"id": "10-19 days",
-								"label": "10-19 days"
-							},
-							{
-								"id": "20-29 days",
-								"label": "20-29 days"
-							},
-							{
-								"id": "all 30 days",
-								"label": "All 30 Days"
-							}
+							{ "id": "0 days", "label": "0 days" },
+							{ "id": "1-2 days", "label": "1-2 days" },
+							{ "id": "3-5 days", "label": "3-5 days" },
+							{ "id": "6-9 days", "label": "6-9 days" },
+							{ "id": "10-19 days", "label": "10-19 days" },
+							{ "id": "20-29 days", "label": "20-29 days" },
+							{ "id": "all 30 days", "label": "All 30 Days" }
 						]
 					}
 				]
@@ -923,18 +923,9 @@
 								"id": "not_answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "walk",
-								"label": "Walk"
-							},
-							{
-								"id": "bicycle",
-								"label": "Bicycle"
-							},
-							{
-								"id": "motorcycle",
-								"label": "Motorcycle"
-							},
+							{ "id": "walk", "label": "Walk" },
+							{ "id": "bicycle", "label": "Bicycle" },
+							{ "id": "motorcycle", "label": "Motorcycle" },
 							{
 								"id": "sub-compact or compact car",
 								"label": "Sub-compact or compact car"
@@ -984,14 +975,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -1008,25 +993,34 @@
 								"id": "not_answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "do not drive",
-								"label": "Don't drive"
-							},
+							{ "id": "do not drive", "label": "Don't drive" },
 							{
 								"id": "within 5 mph of limit",
-								"label": "Within 5 mph of limit"
+								"unitlabel": {
+									"us_customary": "Within 5 mph of limit",
+									"metric": "Within 10 kph of limit"
+								}
 							},
 							{
 								"id": "6-10 mph over limit",
-								"label": "6-10 mph over limit"
+								"unitlabel": {
+									"us_customary": "6-10 mph over limit",
+									"metric": "11-15 kph of limit"
+								}
 							},
 							{
 								"id": "11-15 mph over limit",
-								"label": "11-15 mph over limit"
+								"unitlabel": {
+									"us_customary": "11-15 mph over limit",
+									"metric": "15-25 kph over limit"
+								}
 							},
 							{
 								"id": "more than 15 mph over limit",
-								"label": "More than 15 mph over limit"
+								"unitlabel": {
+									"us_customary": "More than 15 mph over limit",
+									"metric": "More than 25 kph over limit"
+								}
 							}
 						]
 					}
@@ -1106,6 +1100,7 @@
 						"min": 0,
 						"max": 99
 					},
+
 					{
 						"type": "number",
 						"units": "mixed drinks",
@@ -1122,14 +1117,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -1142,14 +1131,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -1162,14 +1145,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -1204,14 +1181,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -1224,22 +1195,10 @@
 					{
 						"type": "select",
 						"values": [
-							{
-								"id": "a",
-								"label": "Class A"
-							},
-							{
-								"id": "b",
-								"label": " Class B"
-							},
-							{
-								"id": "c",
-								"label": " Class C"
-							},
-							{
-								"id": "other",
-								"label": "Other"
-							},
+							{ "id": "a", "label": "Class A" },
+							{ "id": "b", "label": " Class B" },
+							{ "id": "c", "label": " Class C" },
+							{ "id": "other", "label": "Other" },
 							{
 								"id": "do not have",
 								"label": "Do not have a commercial driver's license"
@@ -1282,6 +1241,7 @@
 					}
 				]
 			},
+
 			{
 				"id": "age_of_bearing_first_child",
 				"label": "Age of Bearing First Child",
@@ -1296,6 +1256,7 @@
 					}
 				]
 			},
+
 			{
 				"id": "last_mammogram",
 				"label": "Last Mammogram",
@@ -1312,22 +1273,13 @@
 								"id": "less than 1 year ago",
 								"label": "Less than 1 year ago"
 							},
-							{
-								"id": "1 year ago",
-								"label": "1 year ago"
-							},
-							{
-								"id": "2 years ago",
-								"label": "2 years ago"
-							},
+							{ "id": "1 year ago", "label": "1 year ago" },
+							{ "id": "2 years ago", "label": "2 years ago" },
 							{
 								"id": "3 or more years ago",
 								"label": "3 or more years ago"
 							},
-							{
-								"id": "never",
-								"label": "Never"
-							}
+							{ "id": "never", "label": "Never" }
 						]
 					}
 				]
@@ -1357,18 +1309,9 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							},
-							{
-								"id": "not sure",
-								"label": "Not sure"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" },
+							{ "id": "not sure", "label": "Not sure" }
 						]
 					}
 				]
@@ -1389,22 +1332,13 @@
 								"id": "less than 1 year ago",
 								"label": "Less than 1 year ago"
 							},
-							{
-								"id": "1 year ago",
-								"label": "1 year ago"
-							},
-							{
-								"id": "2 years ago",
-								"label": "2 years ago"
-							},
+							{ "id": "1 year ago", "label": "1 year ago" },
+							{ "id": "2 years ago", "label": "2 years ago" },
 							{
 								"id": "3 or more years ago",
 								"label": "3 or more years ago"
 							},
-							{
-								"id": "never",
-								"label": "Never"
-							}
+							{ "id": "never", "label": "Never" }
 						]
 					}
 				]
@@ -1425,22 +1359,13 @@
 								"id": "less than 1 year ago",
 								"label": "Less than 1 year ago"
 							},
-							{
-								"id": "1 year ago",
-								"label": "1 year ago"
-							},
-							{
-								"id": "2 years ago",
-								"label": "2 years ago"
-							},
+							{ "id": "1 year ago", "label": "1 year ago" },
+							{ "id": "2 years ago", "label": "2 years ago" },
 							{
 								"id": "3 or more years ago",
 								"label": "3 or more years ago"
 							},
-							{
-								"id": "never",
-								"label": "Never"
-							}
+							{ "id": "never", "label": "Never" }
 						]
 					}
 				]
@@ -1453,14 +1378,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -1473,14 +1392,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -1493,14 +1406,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -1513,14 +1420,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -1540,14 +1441,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -1560,14 +1455,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -1580,14 +1469,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -1600,14 +1483,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -1620,14 +1497,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -1640,14 +1511,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -1660,14 +1525,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -1680,14 +1539,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -1707,14 +1560,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -1727,14 +1574,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -1747,14 +1588,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -1767,14 +1602,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -1787,14 +1616,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -1807,14 +1630,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -1827,14 +1644,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -1847,14 +1658,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -1867,14 +1672,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -1887,14 +1686,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -1907,14 +1700,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -1927,14 +1714,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -1947,14 +1728,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -1967,14 +1742,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -1987,14 +1756,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -2007,14 +1770,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -2027,14 +1784,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -2047,14 +1798,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -2067,14 +1812,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -2087,14 +1826,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -2107,14 +1840,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -2127,14 +1854,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -2147,14 +1868,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -2167,14 +1882,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -2187,14 +1896,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -2236,14 +1939,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -2260,18 +1957,9 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "0",
-								"label": "Less than 1 time"
-							},
-							{
-								"id": "1",
-								"label": "1-3 times"
-							},
-							{
-								"id": "2",
-								"label": "4 or more"
-							}
+							{ "id": "0", "label": "Less than 1 time" },
+							{ "id": "1", "label": "1-3 times" },
+							{ "id": "2", "label": "4 or more" }
 						],
 						"showhide": [
 							{
@@ -2316,18 +2004,9 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "0",
-								"label": "5 or more"
-							},
-							{
-								"id": "1",
-								"label": "3-4 times"
-							},
-							{
-								"id": "2",
-								"label": "2 or less"
-							}
+							{ "id": "0", "label": "5 or more" },
+							{ "id": "1", "label": "3-4 times" },
+							{ "id": "2", "label": "2 or less" }
 						]
 					}
 				]
@@ -2344,18 +2023,9 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "0",
-								"label": "5 or more"
-							},
-							{
-								"id": "1",
-								"label": "3-4 times"
-							},
-							{
-								"id": "2",
-								"label": "2 or less"
-							}
+							{ "id": "0", "label": "5 or more" },
+							{ "id": "1", "label": "3-4 times" },
+							{ "id": "2", "label": "2 or less" }
 						]
 					}
 				]
@@ -2372,18 +2042,9 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "0",
-								"label": "Less than 1"
-							},
-							{
-								"id": "1",
-								"label": "1-2 times"
-							},
-							{
-								"id": "2",
-								"label": "3 or more"
-							}
+							{ "id": "0", "label": "Less than 1" },
+							{ "id": "1", "label": "1-2 times" },
+							{ "id": "2", "label": "3 or more" }
 						]
 					}
 				]
@@ -2400,18 +2061,9 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "0",
-								"label": "3 or more times"
-							},
-							{
-								"id": "1",
-								"label": "1-2 times"
-							},
-							{
-								"id": "2",
-								"label": "Less than 1 time"
-							}
+							{ "id": "0", "label": "3 or more times" },
+							{ "id": "1", "label": "1-2 times" },
+							{ "id": "2", "label": "Less than 1 time" }
 						]
 					}
 				]
@@ -2428,18 +2080,9 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "0",
-								"label": "1 time or less"
-							},
-							{
-								"id": "1",
-								"label": "2-3 times"
-							},
-							{
-								"id": "2",
-								"label": "4 or more"
-							}
+							{ "id": "0", "label": "1 time or less" },
+							{ "id": "1", "label": "2-3 times" },
+							{ "id": "2", "label": "4 or more" }
 						]
 					}
 				]
@@ -2456,18 +2099,9 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "0",
-								"label": "1 time or less"
-							},
-							{
-								"id": "1",
-								"label": "2-3 times"
-							},
-							{
-								"id": "2",
-								"label": "4 or more"
-							}
+							{ "id": "0", "label": "1 time or less" },
+							{ "id": "1", "label": "2-3 times" },
+							{ "id": "2", "label": "4 or more" }
 						]
 					}
 				]
@@ -2484,18 +2118,9 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "0",
-								"label": "Very Little"
-							},
-							{
-								"id": "1",
-								"label": "Some"
-							},
-							{
-								"id": "2",
-								"label": "A lot"
-							}
+							{ "id": "0", "label": "Very Little" },
+							{ "id": "1", "label": "Some" },
+							{ "id": "2", "label": "A lot" }
 						]
 					}
 				]
@@ -2508,14 +2133,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -2528,14 +2147,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -2548,14 +2161,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -2568,14 +2175,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -2588,14 +2189,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -2615,14 +2210,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -2635,14 +2224,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -2655,18 +2238,9 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "1"
-							},
-							{
-								"id": "2",
-								"label": "2"
-							},
-							{
-								"id": "3 or more",
-								"label": "3 or more"
-							}
+							{ "id": "1", "label": "1" },
+							{ "id": "2", "label": "2" },
+							{ "id": "3 or more", "label": "3 or more" }
 						]
 					}
 				]
@@ -2679,18 +2253,9 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "1"
-							},
-							{
-								"id": "2",
-								"label": "2"
-							},
-							{
-								"id": "3 or more",
-								"label": "3 or more"
-							}
+							{ "id": "1", "label": "1" },
+							{ "id": "2", "label": "2" },
+							{ "id": "3 or more", "label": "3 or more" }
 						]
 					}
 				]
@@ -2714,26 +2279,11 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "5",
-								"label": "Very poor"
-							},
-							{
-								"id": "4",
-								"label": "Poor"
-							},
-							{
-								"id": "3",
-								"label": "Fair"
-							},
-							{
-								"id": "2",
-								"label": "Good"
-							},
-							{
-								"id": "1",
-								"label": "Very good"
-							}
+							{ "id": "5", "label": "Very poor" },
+							{ "id": "4", "label": "Poor" },
+							{ "id": "3", "label": "Fair" },
+							{ "id": "2", "label": "Good" },
+							{ "id": "1", "label": "Very good" }
 						]
 					}
 				]
@@ -2750,26 +2300,11 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "5",
-								"label": "Not at all"
-							},
-							{
-								"id": "4",
-								"label": "A little bit"
-							},
-							{
-								"id": "3",
-								"label": "Somewhat"
-							},
-							{
-								"id": "2",
-								"label": "Quite a bit"
-							},
-							{
-								"id": "1",
-								"label": "Very Much"
-							}
+							{ "id": "5", "label": "Not at all" },
+							{ "id": "4", "label": "A little bit" },
+							{ "id": "3", "label": "Somewhat" },
+							{ "id": "2", "label": "Quite a bit" },
+							{ "id": "1", "label": "Very Much" }
 						]
 					}
 				]
@@ -2786,26 +2321,11 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "1",
-								"label": "Not at all"
-							},
-							{
-								"id": "2",
-								"label": "A little bit"
-							},
-							{
-								"id": "3",
-								"label": "Somewhat"
-							},
-							{
-								"id": "4",
-								"label": "Quite a bit"
-							},
-							{
-								"id": "5",
-								"label": "Very Much"
-							}
+							{ "id": "1", "label": "Not at all" },
+							{ "id": "2", "label": "A little bit" },
+							{ "id": "3", "label": "Somewhat" },
+							{ "id": "4", "label": "Quite a bit" },
+							{ "id": "5", "label": "Very Much" }
 						]
 					}
 				]
@@ -2822,26 +2342,11 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "1",
-								"label": "Not at all"
-							},
-							{
-								"id": "2",
-								"label": "A little bit"
-							},
-							{
-								"id": "3",
-								"label": "Somewhat"
-							},
-							{
-								"id": "4",
-								"label": "Quite a bit"
-							},
-							{
-								"id": "5",
-								"label": "Very Much"
-							}
+							{ "id": "1", "label": "Not at all" },
+							{ "id": "2", "label": "A little bit" },
+							{ "id": "3", "label": "Somewhat" },
+							{ "id": "4", "label": "Quite a bit" },
+							{ "id": "5", "label": "Very Much" }
 						]
 					}
 				]
@@ -2865,26 +2370,11 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "0",
-								"label": "Not at all"
-							},
-							{
-								"id": "1",
-								"label": "A little bit"
-							},
-							{
-								"id": "2",
-								"label": "Somewhat"
-							},
-							{
-								"id": "3",
-								"label": "Quite a bit"
-							},
-							{
-								"id": "4",
-								"label": "Very much"
-							}
+							{ "id": "0", "label": "Not at all" },
+							{ "id": "1", "label": "A little bit" },
+							{ "id": "2", "label": "Somewhat" },
+							{ "id": "3", "label": "Quite a bit" },
+							{ "id": "4", "label": "Very much" }
 						]
 					}
 				]
@@ -2901,26 +2391,11 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "0",
-								"label": "Not at all"
-							},
-							{
-								"id": "1",
-								"label": "A little bit"
-							},
-							{
-								"id": "2",
-								"label": "Somewhat"
-							},
-							{
-								"id": "3",
-								"label": "Quite a bit"
-							},
-							{
-								"id": "4",
-								"label": "Very much"
-							}
+							{ "id": "0", "label": "Not at all" },
+							{ "id": "1", "label": "A little bit" },
+							{ "id": "2", "label": "Somewhat" },
+							{ "id": "3", "label": "Quite a bit" },
+							{ "id": "4", "label": "Very much" }
 						]
 					}
 				]
@@ -2937,26 +2412,11 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "0",
-								"label": "Not at all"
-							},
-							{
-								"id": "1",
-								"label": "A little bit"
-							},
-							{
-								"id": "2",
-								"label": "Somewhat"
-							},
-							{
-								"id": "3",
-								"label": "Quite a bit"
-							},
-							{
-								"id": "4",
-								"label": "Very much"
-							}
+							{ "id": "0", "label": "Not at all" },
+							{ "id": "1", "label": "A little bit" },
+							{ "id": "2", "label": "Somewhat" },
+							{ "id": "3", "label": "Quite a bit" },
+							{ "id": "4", "label": "Very much" }
 						]
 					}
 				]
@@ -2973,26 +2433,11 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "0",
-								"label": "Not at all"
-							},
-							{
-								"id": "1",
-								"label": "A little bit"
-							},
-							{
-								"id": "2",
-								"label": "Somewhat"
-							},
-							{
-								"id": "3",
-								"label": "Quite a bit"
-							},
-							{
-								"id": "4",
-								"label": "Very much"
-							}
+							{ "id": "0", "label": "Not at all" },
+							{ "id": "1", "label": "A little bit" },
+							{ "id": "2", "label": "Somewhat" },
+							{ "id": "3", "label": "Quite a bit" },
+							{ "id": "4", "label": "Very much" }
 						]
 					}
 				]
@@ -3016,14 +2461,8 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "1",
-								"label": "yes"
-							},
-							{
-								"id": "0",
-								"label": "no"
-							}
+							{ "id": "1", "label": "yes" },
+							{ "id": "0", "label": "no" }
 						],
 						"showhide": [
 							{
@@ -3066,14 +2505,8 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "1",
-								"label": "yes"
-							},
-							{
-								"id": "0",
-								"label": "no"
-							}
+							{ "id": "1", "label": "yes" },
+							{ "id": "0", "label": "no" }
 						]
 					}
 				]
@@ -3090,14 +2523,8 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "1",
-								"label": "yes"
-							},
-							{
-								"id": "0",
-								"label": "no"
-							}
+							{ "id": "1", "label": "yes" },
+							{ "id": "0", "label": "no" }
 						]
 					}
 				]
@@ -3114,14 +2541,8 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "1",
-								"label": "yes"
-							},
-							{
-								"id": "0",
-								"label": "no"
-							}
+							{ "id": "1", "label": "yes" },
+							{ "id": "0", "label": "no" }
 						]
 					}
 				]
@@ -3138,14 +2559,8 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "1",
-								"label": "yes"
-							},
-							{
-								"id": "0",
-								"label": "no"
-							}
+							{ "id": "1", "label": "yes" },
+							{ "id": "0", "label": "no" }
 						]
 					}
 				]
@@ -3162,14 +2577,8 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "1",
-								"label": "yes"
-							},
-							{
-								"id": "0",
-								"label": "no"
-							}
+							{ "id": "1", "label": "yes" },
+							{ "id": "0", "label": "no" }
 						]
 					}
 				]
@@ -3186,14 +2595,8 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "yes",
-								"label": "yes"
-							},
-							{
-								"id": "no",
-								"label": "no"
-							}
+							{ "id": "yes", "label": "yes" },
+							{ "id": "no", "label": "no" }
 						]
 					}
 				]
@@ -3217,14 +2620,8 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "yes",
-								"label": "yes"
-							},
-							{
-								"id": "no",
-								"label": "no"
-							}
+							{ "id": "yes", "label": "yes" },
+							{ "id": "no", "label": "no" }
 						]
 					}
 				]
@@ -3241,14 +2638,8 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "yes",
-								"label": "yes"
-							},
-							{
-								"id": "no",
-								"label": "no"
-							}
+							{ "id": "yes", "label": "yes" },
+							{ "id": "no", "label": "no" }
 						]
 					}
 				]
@@ -3265,14 +2656,8 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "yes",
-								"label": "yes"
-							},
-							{
-								"id": "no",
-								"label": "no"
-							}
+							{ "id": "yes", "label": "yes" },
+							{ "id": "no", "label": "no" }
 						]
 					}
 				]
@@ -3289,14 +2674,8 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "yes",
-								"label": "yes"
-							},
-							{
-								"id": "no",
-								"label": "no"
-							}
+							{ "id": "yes", "label": "yes" },
+							{ "id": "no", "label": "no" }
 						]
 					}
 				]
@@ -3313,14 +2692,8 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "yes",
-								"label": "yes"
-							},
-							{
-								"id": "no",
-								"label": "no"
-							}
+							{ "id": "yes", "label": "yes" },
+							{ "id": "no", "label": "no" }
 						]
 					}
 				]
@@ -3337,14 +2710,8 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "yes",
-								"label": "yes"
-							},
-							{
-								"id": "no",
-								"label": "no"
-							}
+							{ "id": "yes", "label": "yes" },
+							{ "id": "no", "label": "no" }
 						]
 					}
 				]
@@ -3361,14 +2728,8 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "yes",
-								"label": "yes"
-							},
-							{
-								"id": "no",
-								"label": "no"
-							}
+							{ "id": "yes", "label": "yes" },
+							{ "id": "no", "label": "no" }
 						]
 					}
 				]
@@ -3385,14 +2746,8 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "yes",
-								"label": "yes"
-							},
-							{
-								"id": "no",
-								"label": "no"
-							}
+							{ "id": "yes", "label": "yes" },
+							{ "id": "no", "label": "no" }
 						]
 					}
 				]
@@ -3409,14 +2764,8 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "yes",
-								"label": "yes"
-							},
-							{
-								"id": "no",
-								"label": "no"
-							}
+							{ "id": "yes", "label": "yes" },
+							{ "id": "no", "label": "no" }
 						]
 					}
 				]
@@ -3433,14 +2782,8 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "yes",
-								"label": "yes"
-							},
-							{
-								"id": "no",
-								"label": "no"
-							}
+							{ "id": "yes", "label": "yes" },
+							{ "id": "no", "label": "no" }
 						]
 					}
 				]
@@ -3457,14 +2800,8 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "yes",
-								"label": "yes"
-							},
-							{
-								"id": "no",
-								"label": "no"
-							}
+							{ "id": "yes", "label": "yes" },
+							{ "id": "no", "label": "no" }
 						]
 					}
 				]
@@ -3481,14 +2818,8 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "yes",
-								"label": "yes"
-							},
-							{
-								"id": "no",
-								"label": "no"
-							}
+							{ "id": "yes", "label": "yes" },
+							{ "id": "no", "label": "no" }
 						]
 					}
 				]
@@ -3505,14 +2836,8 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "yes",
-								"label": "yes"
-							},
-							{
-								"id": "no",
-								"label": "no"
-							}
+							{ "id": "yes", "label": "yes" },
+							{ "id": "no", "label": "no" }
 						]
 					}
 				]
@@ -3529,14 +2854,8 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "yes",
-								"label": "yes"
-							},
-							{
-								"id": "no",
-								"label": "no"
-							}
+							{ "id": "yes", "label": "yes" },
+							{ "id": "no", "label": "no" }
 						]
 					}
 				]
@@ -3553,14 +2872,8 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "yes",
-								"label": "yes"
-							},
-							{
-								"id": "no",
-								"label": "no"
-							}
+							{ "id": "yes", "label": "yes" },
+							{ "id": "no", "label": "no" }
 						]
 					}
 				]
@@ -3577,14 +2890,8 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "yes",
-								"label": "yes"
-							},
-							{
-								"id": "no",
-								"label": "no"
-							}
+							{ "id": "yes", "label": "yes" },
+							{ "id": "no", "label": "no" }
 						]
 					}
 				]
@@ -3601,14 +2908,8 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "yes",
-								"label": "yes"
-							},
-							{
-								"id": "no",
-								"label": "no"
-							}
+							{ "id": "yes", "label": "yes" },
+							{ "id": "no", "label": "no" }
 						]
 					}
 				]
@@ -3625,14 +2926,8 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "yes",
-								"label": "yes"
-							},
-							{
-								"id": "no",
-								"label": "no"
-							}
+							{ "id": "yes", "label": "yes" },
+							{ "id": "no", "label": "no" }
 						]
 					}
 				]
@@ -3649,14 +2944,8 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "yes",
-								"label": "yes"
-							},
-							{
-								"id": "no",
-								"label": "no"
-							}
+							{ "id": "yes", "label": "yes" },
+							{ "id": "no", "label": "no" }
 						]
 					}
 				]
@@ -3673,14 +2962,8 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "yes",
-								"label": "yes"
-							},
-							{
-								"id": "no",
-								"label": "no"
-							}
+							{ "id": "yes", "label": "yes" },
+							{ "id": "no", "label": "no" }
 						]
 					}
 				]
@@ -3697,14 +2980,8 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "yes",
-								"label": "yes"
-							},
-							{
-								"id": "no",
-								"label": "no"
-							}
+							{ "id": "yes", "label": "yes" },
+							{ "id": "no", "label": "no" }
 						]
 					}
 				]
@@ -3721,14 +2998,8 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "yes",
-								"label": "yes"
-							},
-							{
-								"id": "no",
-								"label": "no"
-							}
+							{ "id": "yes", "label": "yes" },
+							{ "id": "no", "label": "no" }
 						]
 					}
 				]
@@ -3745,14 +3016,8 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "yes",
-								"label": "yes"
-							},
-							{
-								"id": "no",
-								"label": "no"
-							}
+							{ "id": "yes", "label": "yes" },
+							{ "id": "no", "label": "no" }
 						]
 					}
 				]
@@ -3769,14 +3034,8 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "yes",
-								"label": "yes"
-							},
-							{
-								"id": "no",
-								"label": "no"
-							}
+							{ "id": "yes", "label": "yes" },
+							{ "id": "no", "label": "no" }
 						]
 					}
 				]
@@ -3793,14 +3052,8 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "yes",
-								"label": "yes"
-							},
-							{
-								"id": "no",
-								"label": "no"
-							}
+							{ "id": "yes", "label": "yes" },
+							{ "id": "no", "label": "no" }
 						]
 					}
 				]
@@ -3817,14 +3070,183 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "yes",
-								"label": "yes"
-							},
-							{
-								"id": "no",
-								"label": "no"
-							}
+							{ "id": "yes", "label": "yes" },
+							{ "id": "no", "label": "no" }
+						]
+					}
+				]
+			}
+		]
+	},
+	{
+		"id": "ffh_information",
+		"label": "Further Information",
+		"prompt": "Would you like information on the further fields?",
+		"q": [
+			{
+				"id": "nutrition",
+				"label": "Nutrition",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
+						]
+					}
+				]
+			},
+			{
+				"id": "fitness",
+				"label": "Fitness",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
+						]
+					}
+				]
+			},
+			{
+				"id": "disparities",
+				"label": "Disparities",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
+						]
+					}
+				]
+			},
+			{
+				"id": "emergency_planning",
+				"label": "Safety and Emergency Planning",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
+						]
+					}
+				]
+			},
+			{
+				"id": "anatomy",
+				"label": "Your bodies anatomy and physiology or its form and function.",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
+						]
+					}
+				]
+			},
+			{
+				"id": "opioid",
+				"label": "Opioid issues",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
+						]
+					}
+				]
+			},
+			{
+				"id": "first_aid",
+				"label": "Basic First Aid",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
+						]
+					}
+				]
+			},
+			{
+				"id": "cpr",
+				"label": "How to do CPR",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
+						]
+					}
+				]
+			},
+			{
+				"id": "aed",
+				"label": "How to use an A.E.D.",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
+						]
+					}
+				]
+			},
+			{
+				"id": "monitor_blood_pressure",
+				"label": "How to monitor blood pressure",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
+						]
+					}
+				]
+			},
+			{
+				"id": "monitor_blood_sugar",
+				"label": "How to monitor blood sugar",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
+						]
+					}
+				]
+			},
+			{
+				"id": "pulmonary_rehab",
+				"label": "Cardio or Pulmonary Rehab",
+				"prompt": "",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -3848,18 +3270,9 @@
 								"id": "not_answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "not_at_all",
-								"label": "not at all"
-							},
-							{
-								"id": "once_or_twice",
-								"label": "once or twice"
-							},
-							{
-								"id": "many_times",
-								"label": "many times"
-							}
+							{ "id": "not_at_all", "label": "not at all" },
+							{ "id": "once_or_twice", "label": "once or twice" },
+							{ "id": "many_times", "label": "many times" }
 						]
 					}
 				]
@@ -3876,14 +3289,8 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "yes",
-								"label": "yes"
-							},
-							{
-								"id": "no",
-								"label": "no"
-							}
+							{ "id": "yes", "label": "yes" },
+							{ "id": "no", "label": "no" }
 						]
 					}
 				]
@@ -3900,14 +3307,8 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "yes",
-								"label": "yes"
-							},
-							{
-								"id": "no",
-								"label": "no"
-							}
+							{ "id": "yes", "label": "yes" },
+							{ "id": "no", "label": "no" }
 						]
 					}
 				]
@@ -3915,7 +3316,7 @@
 			{
 				"id": "chh_sbreath",
 				"label": "",
-				"prompt": "Are you short of breath?",
+				"prompt": "Are you having new or increased shortness of breath?",
 				"input": [
 					{
 						"type": "select",
@@ -3924,14 +3325,8 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "yes",
-								"label": "yes"
-							},
-							{
-								"id": "no",
-								"label": "no"
-							}
+							{ "id": "yes", "label": "yes" },
+							{ "id": "no", "label": "no" }
 						]
 					}
 				]
@@ -3948,14 +3343,715 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
+							{ "id": "yes", "label": "yes" },
+							{ "id": "no", "label": "no" }
+						]
+					}
+				]
+			}
+		]
+	},
+	{
+		"id": "circuit_30",
+		"label": "Circuit 30 Questions",
+		"prompt": "Please answer the following questions.",
+		"q": [
+			{
+				"id": "exercise_program",
+				"label": "",
+				"prompt": "What exercise program are you doing now?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not_answered",
+								"label": "choose an answer"
+							},
+							{ "id": "none", "label": "None" },
+							{
+								"id": "running_spinning",
+								"label": "Running/Spinning"
+							},
+							{ "id": "crossfit", "label": "CrossFit" },
+							{ "id": "personal", "label": "Personal Training" },
+							{
+								"id": "pilates_yoga_barre",
+								"label": "Pilates/Yoga/Barre"
+							},
+							{ "id": "hiit", "label": "HIIT" },
+							{
+								"id": "otf_9round_burnbootcamp",
+								"label": "OTF/9Round/Burn Boot Camp"
+							},
+							{ "id": "bigboxgym", "label": "Big Box Gym" },
+							{ "id": "n/a", "label": "None of the above" }
+						]
+					}
+				],
+				"required": true
+			},
+			{
+				"id": "accomplishing_goals",
+				"label": "",
+				"prompt": "On a scale of 1-10 (with 10 being the greatest) how serious are you about accomplishing your fitness goals?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not_answered",
+								"label": "choose an answer"
+							},
+							{ "id": "1", "label": "1" },
+							{ "id": "2", "label": "2" },
+							{ "id": "3", "label": "3" },
+							{ "id": "4", "label": "4" },
+							{ "id": "5", "label": "5" },
+							{ "id": "6", "label": "6" },
+							{ "id": "7", "label": "7" },
+							{ "id": "8", "label": "8" },
+							{ "id": "9", "label": "9" },
+							{ "id": "10", "label": "10" }
+						]
+					}
+				],
+				"required": true
+			},
+			{
+				"id": "activity_tracker",
+				"label": "",
+				"prompt": "Do you wear a tracker of any type?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not_answered",
+								"label": "choose an answer"
+							},
+							{ "id": "none", "label": "None" },
+							{ "id": "apple_watch", "label": "Apple Watch" },
+							{ "id": "fitbit", "label": "FitBit" },
+							{ "id": "garmin", "label": "Garmin" },
+							{ "id": "other", "label": "Other" }
+						]
+					}
+				],
+				"required": true
+			},
+			{
+				"id": "workout_time",
+				"label": "",
+				"prompt": "What time of day do you prefer to workout?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{ "id": "morning", "label": "Morning" },
+							{ "id": "afternoon", "label": "Afternoon" },
+							{ "id": "evening", "label": "Evening" }
+						]
+					}
+				],
+				"required": true
+			},
+			{
+				"id": "barbell",
+				"label": "",
+				"prompt": "Have you used a barbell before?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
+						]
+					}
+				],
+				"required": true
+			},
+			{
+				"id": "job_activity",
+				"label": "",
+				"prompt": "Describe Your Job",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{ "id": "sedentary", "label": "Sedentary" },
+							{ "id": "active", "label": "Active" },
+							{
+								"id": "demanding",
+								"label": "Physically Demanding"
+							}
+						]
+					}
+				],
+				"required": true
+			},
+			{
+				"id": "glasses_of_water",
+				"label": "",
+				"prompt": "How many glasses of water to you drink per day?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not_answered",
+								"label": "choose an answer"
+							},
+							{ "id": "1-2", "label": "1-2" },
+							{ "id": "2-4", "label": "2-4" },
+							{ "id": "4-6", "label": "4-6" },
+							{ "id": "8-12", "label": "8-12" }
+						]
+					}
+				],
+				"required": true
+			},
+			{
+				"id": "nutriton_level",
+				"label": "",
+				"prompt": "On a scale of 1-10 (with 10 being the greatest) how would you rate your nutrition?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not_answered",
+								"label": "choose an answer"
+							},
+							{ "id": "1", "label": "1" },
+							{ "id": "2", "label": "2" },
+							{ "id": "3", "label": "3" },
+							{ "id": "4", "label": "4" },
+							{ "id": "5", "label": "5" },
+							{ "id": "6", "label": "6" },
+							{ "id": "7", "label": "7" },
+							{ "id": "8", "label": "8" },
+							{ "id": "9", "label": "9" },
+							{ "id": "10", "label": "10" }
+						]
+					}
+				],
+				"required": true
+			},
+			{
+				"id": "times_you_eat",
+				"label": "",
+				"prompt": "How many times do you eat throughout the day?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{ "id": "1", "label": "Once a day" },
+							{ "id": "2-3", "label": "2-3 times per day" },
+							{ "id": "4", "label": "4+ times per day" }
+						]
+					}
+				],
+				"required": true
+			},
+			{
+				"id": "calories",
+				"label": "",
+				"prompt": "Do you know how many calories you eat per day?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
+						]
+					}
+				],
+				"required": true
+			},
+			{
+				"id": "food_intake",
+				"label": "",
+				"prompt": "Have you ever tracked your food intake?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
+						]
+					}
+				],
+				"required": true
+			},
+			{
+				"id": "eat_out",
+				"label": "",
+				"prompt": "How often do you eat out?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not_answered",
+								"label": "choose an answer"
+							},
+							{ "id": "almost_never", "label": "Almost Never" },
+							{ "id": "1", "label": "Once per week" },
+							{ "id": "2-3", "label": "2-3 times per week" },
+							{ "id": "4", "label": "4+ times per week" }
+						]
+					}
+				],
+				"required": true
+			},
+			{
+				"id": "enjoy_cooking",
+				"label": "",
+				"prompt": "Do you enjoy cooking?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
+						]
+					}
+				],
+				"required": true
+			},
+			{
+				"id": "nutritionist",
+				"label": "",
+				"prompt": "Would you be open to seeing our nutritionist if your insurance would cover it?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
+						]
+					}
+				],
+				"required": true
+			},
+			{
+				"id": "8_sleep",
+				"label": "",
+				"prompt": "Do you get 8 hours of sleep per night?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
+						]
+					}
+				],
+				"required": true
+			}
+		]
+	},
+	{
+		"id": "circuit_30_goals",
+		"label": "Goals",
+		"prompt": "Select below your goals",
+		"q": [
+			{
+				"id": "lose_weight",
+				"label": "",
+				"prompt": "Lose Weight",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
+						]
+					}
+				]
+			},
+			{
+				"id": "gain_muscle",
+				"label": "",
+				"prompt": "Gain Muscle",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
+						]
+					}
+				]
+			},
+			{
+				"id": "improve_overall_health",
+				"label": "",
+				"prompt": "Improve Overall Health",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
+						]
+					}
+				]
+			},
+			{
+				"id": "shape_tone",
+				"label": "",
+				"prompt": "Shape and Tone",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
+						]
+					}
+				]
+			},
+			{
+				"id": "improve_performance",
+				"label": "",
+				"prompt": "Improve Performance",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
+						]
+					}
+				]
+			}
+		]
+	},
+	{
+		"id": "fitnessfair_demo",
+		"label": "Engagement & Follow Up",
+		"prompt": "Please answer the following questions.",
+		"q": [
+			{
+				"id": "corporate_wellfare",
+				"label": "",
+				"prompt": "Does your company have a current corporate wellness programme?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
 							{
 								"id": "yes",
-								"label": "yes"
+								"label": "Yes",
+								"show": ["sustainable_progarm"]
 							},
 							{
 								"id": "no",
-								"label": "no"
+								"label": "No",
+								"hide": ["sustainable_progarm"]
 							}
+						]
+					}
+				]
+			},
+			{
+				"id": "sustainable_progarm",
+				"label": "",
+				"prompt": "Is it a sustainable programme that gives your company annual reports on the health progress of your staff?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
+						]
+					}
+				]
+			},
+			{
+				"id": "online_programme",
+				"label": "",
+				"prompt": "Would you like to have an online programme that can reach and empower your staff through Individualized Health Solutions, Fitness Tracking, Personalized Meal Plans, Community Support, Mental & Behavioural Health Support, Rewards, and Verifiable Progress Reports",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
+						]
+					}
+				],
+				"required": true
+			}
+		]
+	},
+	{
+		"id": "resolutions",
+		"label": "Resolutions & Beyond Questions",
+		"prompt": "Please answer the following questions.",
+		"q": [
+			{
+				"id": "onsite_fitness",
+				"label": "",
+				"prompt": "If offered, how likely are you to participate in an onsite fitness program offered at your work location?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not_answered",
+								"label": "choose an answer"
+							},
+							{ "id": "very", "label": "Very" },
+							{ "id": "somewhat", "label": "Somewhat" },
+							{ "id": "unlikely", "label": "Unlikely" },
+							{ "id": "not at all", "label": "Not At All" }
+						]
+					}
+				]
+			},
+			{
+				"id": "motivated",
+				"label": "",
+				"prompt": "Are you motivated by working out in a group or alone?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{ "id": "group", "label": "Group" },
+							{ "id": "alone", "label": "Alone" }
+						]
+					}
+				]
+			},
+			{
+				"id": "work_life_balance",
+				"label": "",
+				"prompt": "If offered, how interested would you be in learning new techniques for managing stress and creating work-life balance? ",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not_answered",
+								"label": "choose an answer"
+							},
+							{ "id": "very", "label": "Very" },
+							{ "id": "somewhat", "label": "Somewhat" },
+							{ "id": "unlikely", "label": "Unlikely" },
+							{ "id": "not at all", "label": "Not At All" }
+						]
+					}
+				]
+			},
+			{
+				"id": "treatment_method",
+				"label": "",
+				"prompt": "When you seek medical treatment, do you typically seek conventional treatments (medical doctor) or alternative therapies (chiropractic care)?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{
+								"id": "medical",
+								"label": "Conventional Treatments"
+							},
+							{
+								"id": "chiropractic",
+								"label": "Alternative Therapies"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "weight_loss_program",
+				"label": "",
+				"prompt": "On a scale of 1-10, how helpful would a weight loss/management structured program and wellness coach be to helping you reach your goals? 1=not helpful at all 10 very helpful",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not_answered",
+								"label": "choose an answer"
+							},
+							{ "id": "1", "label": "1" },
+							{ "id": "2", "label": "2" },
+							{ "id": "3", "label": "3" },
+							{ "id": "4", "label": "4" },
+							{ "id": "5", "label": "5" },
+							{ "id": "6", "label": "6" },
+							{ "id": "7", "label": "7" },
+							{ "id": "8", "label": "8" },
+							{ "id": "9", "label": "9" },
+							{ "id": "10", "label": "10" }
+						]
+					}
+				]
+			},
+			{
+				"id": "health_coaching",
+				"label": "",
+				"prompt": "How likely would you be to participate in one on one health coaching with a certified professional to help you achieve specific health outcomes?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not_answered",
+								"label": "choose an answer"
+							},
+							{ "id": "very", "label": "Very" },
+							{ "id": "somewhat", "label": "Somewhat" },
+							{ "id": "unlikely", "label": "Unlikely" },
+							{ "id": "not at all", "label": "Not At All" }
+						]
+					}
+				]
+			},
+			{
+				"id": "wellness_workshop",
+				"label": "",
+				"prompt": "If offered, how likely would you be interested in  participating in wellness workshops specific to certain concerns such as diabetes, heart health,  tobacco cessation, etc.",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not_answered",
+								"label": "choose an answer"
+							},
+							{ "id": "very", "label": "Very" },
+							{ "id": "somewhat", "label": "Somewhat" },
+							{ "id": "unlikely", "label": "Unlikely" },
+							{ "id": "not at all", "label": "Not At All" }
+						]
+					}
+				]
+			},
+			{
+				"id": "take_control_of_health",
+				"label": "",
+				"prompt": "If offered, how likely would you be willing to participate in programs offered at work to help you take control of your health (such as exercise, stress management, nutrition, etc).",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not_answered",
+								"label": "choose an answer"
+							},
+							{ "id": "very", "label": "Very" },
+							{ "id": "somewhat", "label": "Somewhat" },
+							{ "id": "not at all", "label": "Not At All" },
+							{
+								"id": "onsite",
+								"label": "Interested only if offered onsite"
+							},
+							{
+								"id": "virtually",
+								"label": "Interested only if offered virtually"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "share_cost",
+				"label": "",
+				"prompt": "If programs above were offered by your employer, how likely would you be willing to share in the cost of these programs?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not_answered",
+								"label": "choose an answer"
+							},
+							{ "id": "very", "label": "Very" },
+							{ "id": "somewhat", "label": "Somewhat" },
+							{ "id": "not at all", "label": "Not At All" },
+							{
+								"id": "not completed",
+								"label": "Would be willing to share only if I sign up but do not complete participation "
+							},
+							{
+								"id": "no interest",
+								"label": "Not interested in programs"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "lead_by_example",
+				"label": "",
+				"prompt": "On a scale from 1-5 (5 being most important), how important is it for you to lead by example and pass on good healthy habits to your family and friends.",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not_answered",
+								"label": "choose an answer"
+							},
+							{ "id": "1", "label": "1" },
+							{ "id": "2", "label": "2" },
+							{ "id": "3", "label": "3" },
+							{ "id": "4", "label": "4" },
+							{ "id": "5", "label": "5" }
+						]
+					}
+				]
+			}
+		]
+	},
+	{
+		"id": "resolutions_impact",
+		"label": "",
+		"prompt": "During the past 6 months, has your health had an impact on your performance at (select at that apply):",
+		"q": [
+			{
+				"id": "impact_home",
+				"label": "",
+				"prompt": "Home",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
+						]
+					}
+				]
+			},
+			{
+				"id": "impact_office",
+				"label": "",
+				"prompt": "Office",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
+						]
+					}
+				]
+			},
+			{
+				"id": "imapct_social",
+				"label": "",
+				"prompt": "Social Event with friends/family",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -3979,22 +4075,10 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "0",
-								"label": "Not at all"
-							},
-							{
-								"id": "1",
-								"label": "Several days"
-							},
-							{
-								"id": "2",
-								"label": "More than half the days"
-							},
-							{
-								"id": "3",
-								"label": "Nearly every day"
-							}
+							{ "id": "0", "label": "Not at all" },
+							{ "id": "1", "label": "Several days" },
+							{ "id": "2", "label": "More than half the days" },
+							{ "id": "3", "label": "Nearly every day" }
 						],
 						"showhide": [
 							{
@@ -4039,22 +4123,10 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "0",
-								"label": "Not at all"
-							},
-							{
-								"id": "1",
-								"label": "Several days"
-							},
-							{
-								"id": "2",
-								"label": "More than half the days"
-							},
-							{
-								"id": "3",
-								"label": "Nearly every day"
-							}
+							{ "id": "0", "label": "Not at all" },
+							{ "id": "1", "label": "Several days" },
+							{ "id": "2", "label": "More than half the days" },
+							{ "id": "3", "label": "Nearly every day" }
 						]
 					}
 				]
@@ -4071,22 +4143,10 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "0",
-								"label": "Not at all"
-							},
-							{
-								"id": "1",
-								"label": "Several days"
-							},
-							{
-								"id": "2",
-								"label": "More than half the days"
-							},
-							{
-								"id": "3",
-								"label": "Nearly every day"
-							}
+							{ "id": "0", "label": "Not at all" },
+							{ "id": "1", "label": "Several days" },
+							{ "id": "2", "label": "More than half the days" },
+							{ "id": "3", "label": "Nearly every day" }
 						]
 					}
 				]
@@ -4103,22 +4163,10 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "0",
-								"label": "Not at all"
-							},
-							{
-								"id": "1",
-								"label": "Several days"
-							},
-							{
-								"id": "2",
-								"label": "More than half the days"
-							},
-							{
-								"id": "3",
-								"label": "Nearly every day"
-							}
+							{ "id": "0", "label": "Not at all" },
+							{ "id": "1", "label": "Several days" },
+							{ "id": "2", "label": "More than half the days" },
+							{ "id": "3", "label": "Nearly every day" }
 						]
 					}
 				]
@@ -4135,22 +4183,10 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "0",
-								"label": "Not at all"
-							},
-							{
-								"id": "1",
-								"label": "Several days"
-							},
-							{
-								"id": "2",
-								"label": "More than half the days"
-							},
-							{
-								"id": "3",
-								"label": "Nearly every day"
-							}
+							{ "id": "0", "label": "Not at all" },
+							{ "id": "1", "label": "Several days" },
+							{ "id": "2", "label": "More than half the days" },
+							{ "id": "3", "label": "Nearly every day" }
 						]
 					}
 				]
@@ -4167,22 +4203,10 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "0",
-								"label": "Not at all"
-							},
-							{
-								"id": "1",
-								"label": "Several days"
-							},
-							{
-								"id": "2",
-								"label": "More than half the days"
-							},
-							{
-								"id": "3",
-								"label": "Nearly every day"
-							}
+							{ "id": "0", "label": "Not at all" },
+							{ "id": "1", "label": "Several days" },
+							{ "id": "2", "label": "More than half the days" },
+							{ "id": "3", "label": "Nearly every day" }
 						]
 					}
 				]
@@ -4199,22 +4223,10 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "0",
-								"label": "Not at all"
-							},
-							{
-								"id": "1",
-								"label": "Several days"
-							},
-							{
-								"id": "2",
-								"label": "More than half the days"
-							},
-							{
-								"id": "3",
-								"label": "Nearly every day"
-							}
+							{ "id": "0", "label": "Not at all" },
+							{ "id": "1", "label": "Several days" },
+							{ "id": "2", "label": "More than half the days" },
+							{ "id": "3", "label": "Nearly every day" }
 						]
 					}
 				]
@@ -4231,22 +4243,10 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "0",
-								"label": "Not at all"
-							},
-							{
-								"id": "1",
-								"label": "Several days"
-							},
-							{
-								"id": "2",
-								"label": "More than half the days"
-							},
-							{
-								"id": "3",
-								"label": "Nearly every day"
-							}
+							{ "id": "0", "label": "Not at all" },
+							{ "id": "1", "label": "Several days" },
+							{ "id": "2", "label": "More than half the days" },
+							{ "id": "3", "label": "Nearly every day" }
 						]
 					}
 				]
@@ -4263,22 +4263,10 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "0",
-								"label": "Not at all"
-							},
-							{
-								"id": "1",
-								"label": "Several days"
-							},
-							{
-								"id": "2",
-								"label": "More than half the days"
-							},
-							{
-								"id": "3",
-								"label": "Nearly every day"
-							}
+							{ "id": "0", "label": "Not at all" },
+							{ "id": "1", "label": "Several days" },
+							{ "id": "2", "label": "More than half the days" },
+							{ "id": "3", "label": "Nearly every day" }
 						]
 					}
 				]
@@ -4295,22 +4283,10 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "0",
-								"label": "Not at all"
-							},
-							{
-								"id": "1",
-								"label": "Several days"
-							},
-							{
-								"id": "2",
-								"label": "More than half the days"
-							},
-							{
-								"id": "3",
-								"label": "Nearly every day"
-							}
+							{ "id": "0", "label": "Not at all" },
+							{ "id": "1", "label": "Several days" },
+							{ "id": "2", "label": "More than half the days" },
+							{ "id": "3", "label": "Nearly every day" }
 						],
 						"showhide": [
 							{
@@ -4339,22 +4315,10 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "0",
-								"label": "Not at all"
-							},
-							{
-								"id": "1",
-								"label": "Several days"
-							},
-							{
-								"id": "2",
-								"label": "More than half the days"
-							},
-							{
-								"id": "3",
-								"label": "Nearly every day"
-							}
+							{ "id": "0", "label": "Not at all" },
+							{ "id": "1", "label": "Several days" },
+							{ "id": "2", "label": "More than half the days" },
+							{ "id": "3", "label": "Nearly every day" }
 						]
 					}
 				]
@@ -4371,22 +4335,10 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "0",
-								"label": "Not at all"
-							},
-							{
-								"id": "1",
-								"label": "Several days"
-							},
-							{
-								"id": "2",
-								"label": "More than half the days"
-							},
-							{
-								"id": "3",
-								"label": "Nearly every day"
-							}
+							{ "id": "0", "label": "Not at all" },
+							{ "id": "1", "label": "Several days" },
+							{ "id": "2", "label": "More than half the days" },
+							{ "id": "3", "label": "Nearly every day" }
 						]
 					}
 				]
@@ -4403,22 +4355,10 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "0",
-								"label": "Not at all"
-							},
-							{
-								"id": "1",
-								"label": "Several days"
-							},
-							{
-								"id": "2",
-								"label": "More than half the days"
-							},
-							{
-								"id": "3",
-								"label": "Nearly every day"
-							}
+							{ "id": "0", "label": "Not at all" },
+							{ "id": "1", "label": "Several days" },
+							{ "id": "2", "label": "More than half the days" },
+							{ "id": "3", "label": "Nearly every day" }
 						]
 					}
 				]
@@ -4435,22 +4375,10 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "0",
-								"label": "Not at all"
-							},
-							{
-								"id": "1",
-								"label": "Several days"
-							},
-							{
-								"id": "2",
-								"label": "More than half the days"
-							},
-							{
-								"id": "3",
-								"label": "Nearly every day"
-							}
+							{ "id": "0", "label": "Not at all" },
+							{ "id": "1", "label": "Several days" },
+							{ "id": "2", "label": "More than half the days" },
+							{ "id": "3", "label": "Nearly every day" }
 						]
 					}
 				]
@@ -4467,22 +4395,10 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "0",
-								"label": "Not at all"
-							},
-							{
-								"id": "1",
-								"label": "Several days"
-							},
-							{
-								"id": "2",
-								"label": "More than half the days"
-							},
-							{
-								"id": "3",
-								"label": "Nearly every day"
-							}
+							{ "id": "0", "label": "Not at all" },
+							{ "id": "1", "label": "Several days" },
+							{ "id": "2", "label": "More than half the days" },
+							{ "id": "3", "label": "Nearly every day" }
 						]
 					}
 				]
@@ -4499,22 +4415,10 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "0",
-								"label": "Not at all"
-							},
-							{
-								"id": "1",
-								"label": "Several days"
-							},
-							{
-								"id": "2",
-								"label": "More than half the days"
-							},
-							{
-								"id": "3",
-								"label": "Nearly every day"
-							}
+							{ "id": "0", "label": "Not at all" },
+							{ "id": "1", "label": "Several days" },
+							{ "id": "2", "label": "More than half the days" },
+							{ "id": "3", "label": "Nearly every day" }
 						]
 					}
 				]
@@ -4538,26 +4442,11 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "0",
-								"label": "Never"
-							},
-							{
-								"id": "1",
-								"label": "Almost Never"
-							},
-							{
-								"id": "2",
-								"label": "Sometimes"
-							},
-							{
-								"id": "3",
-								"label": "Fairly Often"
-							},
-							{
-								"id": "4",
-								"label": "Very Often"
-							}
+							{ "id": "0", "label": "Never" },
+							{ "id": "1", "label": "Almost Never" },
+							{ "id": "2", "label": "Sometimes" },
+							{ "id": "3", "label": "Fairly Often" },
+							{ "id": "4", "label": "Very Often" }
 						]
 					}
 				]
@@ -4574,26 +4463,11 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "4",
-								"label": "Never"
-							},
-							{
-								"id": "3",
-								"label": "Almost Never"
-							},
-							{
-								"id": "2",
-								"label": "Sometimes"
-							},
-							{
-								"id": "1",
-								"label": "Fairly Often"
-							},
-							{
-								"id": "0",
-								"label": "Very Often"
-							}
+							{ "id": "4", "label": "Never" },
+							{ "id": "3", "label": "Almost Never" },
+							{ "id": "2", "label": "Sometimes" },
+							{ "id": "1", "label": "Fairly Often" },
+							{ "id": "0", "label": "Very Often" }
 						]
 					}
 				]
@@ -4610,26 +4484,11 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "4",
-								"label": "Never"
-							},
-							{
-								"id": "3",
-								"label": "Almost Never"
-							},
-							{
-								"id": "2",
-								"label": "Sometimes"
-							},
-							{
-								"id": "1",
-								"label": "Fairly Often"
-							},
-							{
-								"id": "0",
-								"label": "Very Often"
-							}
+							{ "id": "4", "label": "Never" },
+							{ "id": "3", "label": "Almost Never" },
+							{ "id": "2", "label": "Sometimes" },
+							{ "id": "1", "label": "Fairly Often" },
+							{ "id": "0", "label": "Very Often" }
 						]
 					}
 				]
@@ -4646,26 +4505,11 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "0",
-								"label": "Never"
-							},
-							{
-								"id": "1",
-								"label": "Almost Never"
-							},
-							{
-								"id": "2",
-								"label": "Sometimes"
-							},
-							{
-								"id": "3",
-								"label": "Fairly Often"
-							},
-							{
-								"id": "4",
-								"label": "Very Often"
-							}
+							{ "id": "0", "label": "Never" },
+							{ "id": "1", "label": "Almost Never" },
+							{ "id": "2", "label": "Sometimes" },
+							{ "id": "3", "label": "Fairly Often" },
+							{ "id": "4", "label": "Very Often" }
 						]
 					}
 				]
@@ -4685,14 +4529,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -4709,26 +4547,11 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "excellent",
-								"label": "Excellent"
-							},
-							{
-								"id": "very good",
-								"label": "Very good"
-							},
-							{
-								"id": "good",
-								"label": "Good"
-							},
-							{
-								"id": "fair",
-								"label": "Fair"
-							},
-							{
-								"id": "poor",
-								"label": "Poor"
-							}
+							{ "id": "excellent", "label": "Excellent" },
+							{ "id": "very good", "label": "Very good" },
+							{ "id": "good", "label": "Good" },
+							{ "id": "fair", "label": "Fair" },
+							{ "id": "poor", "label": "Poor" }
 						]
 					}
 				]
@@ -4777,18 +4600,9 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "75% to 100%",
-								"label": "75% to 100%"
-							},
-							{
-								"id": "25% to 74%",
-								"label": "25% to 74%"
-							},
-							{
-								"id": "less than 25%",
-								"label": "less than 25%"
-							},
+							{ "id": "75% to 100%", "label": "75% to 100%" },
+							{ "id": "25% to 74%", "label": "25% to 74%" },
+							{ "id": "less than 25%", "label": "less than 25%" },
 							{
 								"id": "does not apply to me",
 								"label": "does not apply to me"
@@ -4809,18 +4623,9 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "75% to 100%",
-								"label": "75% to 100%"
-							},
-							{
-								"id": "25% to 74%",
-								"label": "25% to 74%"
-							},
-							{
-								"id": "less than 25%",
-								"label": "less than 25%"
-							},
+							{ "id": "75% to 100%", "label": "75% to 100%" },
+							{ "id": "25% to 74%", "label": "25% to 74%" },
+							{ "id": "less than 25%", "label": "less than 25%" },
 							{
 								"id": "does not apply to me",
 								"label": "does not apply to me"
@@ -4850,14 +4655,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -4870,14 +4669,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -4890,14 +4683,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -4930,14 +4717,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -4945,7 +4726,7 @@
 			{
 				"id": "er_visits",
 				"label": "ER Visits",
-				"prompt": "How many times have you been to the ER in the last 12 months?",
+				"prompt": "How mant times hvae you been to the ER in the last 12 months?",
 				"input": [
 					{
 						"type": "number",
@@ -5110,10 +4891,7 @@
 								"id": "yes, 2 or more",
 								"label": "Yes, 2 or more"
 							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -5138,10 +4916,7 @@
 								"id": "yes, 2 or more",
 								"label": "Yes, 2 or more"
 							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -5162,30 +4937,15 @@
 								"id": "aleutian, alaska native, eskimo, or american indian",
 								"label": "Aleutian, Alaska native, Eskimo, or American Indian"
 							},
-							{
-								"id": "asian",
-								"label": "Asian"
-							},
-							{
-								"id": "black",
-								"label": "Black"
-							},
+							{ "id": "asian", "label": "Asian" },
+							{ "id": "black", "label": "Black" },
 							{
 								"id": "pacific islander",
 								"label": "Pacific Islander"
 							},
-							{
-								"id": "white",
-								"label": "White"
-							},
-							{
-								"id": "other",
-								"label": "Other"
-							},
-							{
-								"id": "don't know",
-								"label": "Don't know"
-							}
+							{ "id": "white", "label": "White" },
+							{ "id": "other", "label": "Other" },
+							{ "id": "don't know", "label": "Don't know" }
 						]
 					}
 				]
@@ -5202,14 +4962,8 @@
 								"id": "not_answered",
 								"label": "Choose an Answer"
 							},
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -5226,26 +4980,11 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "1",
-								"label": "Not at all confident"
-							},
-							{
-								"id": "2",
-								"label": "A little bit confident"
-							},
-							{
-								"id": "3",
-								"label": "Somewhat confident"
-							},
-							{
-								"id": "4",
-								"label": "Quite confident"
-							},
-							{
-								"id": "5",
-								"label": "Extremely confident"
-							}
+							{ "id": "1", "label": "Not at all confident" },
+							{ "id": "2", "label": "A little bit confident" },
+							{ "id": "3", "label": "Somewhat confident" },
+							{ "id": "4", "label": "Quite confident" },
+							{ "id": "5", "label": "Extremely confident" }
 						]
 					}
 				]
@@ -5274,10 +5013,7 @@
 								"id": "high school graduate",
 								"label": "High school graduate"
 							},
-							{
-								"id": "some college",
-								"label": "Some college"
-							},
+							{ "id": "some college", "label": "Some college" },
 							{
 								"id": "college graduate",
 								"label": "College graduate"
@@ -5306,10 +5042,7 @@
 								"id": "high school graduate",
 								"label": "High school graduate"
 							},
-							{
-								"id": "some college",
-								"label": "Some college"
-							},
+							{ "id": "some college", "label": "Some college" },
 							{
 								"id": "college graduate",
 								"label": "College graduate"
@@ -5334,26 +5067,11 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "JHS/JSS",
-								"label": "JHS/JSS"
-							},
-							{
-								"id": "SHS/SSS",
-								"label": "SHS/SSS"
-							},
-							{
-								"id": "College",
-								"label": "College"
-							},
-							{
-								"id": "Graduate",
-								"label": "Graduate"
-							},
-							{
-								"id": "Postgraduate",
-								"label": "Postgraduate"
-							}
+							{ "id": "JHS/JSS", "label": "JHS/JSS" },
+							{ "id": "SHS/SSS", "label": "SHS/SSS" },
+							{ "id": "College", "label": "College" },
+							{ "id": "Graduate", "label": "Graduate" },
+							{ "id": "Postgraduate", "label": "Postgraduate" }
 						]
 					}
 				]
@@ -5366,14 +5084,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -5386,14 +5098,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -5406,14 +5112,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -5467,26 +5167,11 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "married",
-								"label": "Married"
-							},
-							{
-								"id": "separated",
-								"label": "Separated"
-							},
-							{
-								"id": "divorced",
-								"label": "Divorced"
-							},
-							{
-								"id": "widowed",
-								"label": "Widowed"
-							},
-							{
-								"id": "never married",
-								"label": "Never Married"
-							}
+							{ "id": "married", "label": "Married" },
+							{ "id": "separated", "label": "Separated" },
+							{ "id": "divorced", "label": "Divorced" },
+							{ "id": "widowed", "label": "Widowed" },
+							{ "id": "never married", "label": "Never Married" }
 						]
 					}
 				]
@@ -5510,242 +5195,65 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "al",
-								"label": "AL"
-							},
-							{
-								"id": "ak",
-								"label": "AK"
-							},
-							{
-								"id": "az",
-								"label": "AZ"
-							},
-							{
-								"id": "ar",
-								"label": "AR"
-							},
-							{
-								"id": "ca",
-								"label": "CA"
-							},
-							{
-								"id": "co",
-								"label": "CO"
-							},
-							{
-								"id": "ct",
-								"label": "CT"
-							},
-							{
-								"id": "de",
-								"label": "DE"
-							},
-							{
-								"id": "fl",
-								"label": "FL"
-							},
-							{
-								"id": "ga",
-								"label": "GA"
-							},
-							{
-								"id": "hi",
-								"label": "HI"
-							},
-							{
-								"id": "id",
-								"label": "ID"
-							},
-							{
-								"id": "il",
-								"label": "IL"
-							},
-							{
-								"id": "in",
-								"label": "IN"
-							},
-							{
-								"id": "ia",
-								"label": "IA"
-							},
-							{
-								"id": "ks",
-								"label": "KS"
-							},
-							{
-								"id": "ky",
-								"label": "KY"
-							},
-							{
-								"id": "la",
-								"label": "LA"
-							},
-							{
-								"id": "me",
-								"label": "ME"
-							},
-							{
-								"id": "md",
-								"label": "MD"
-							},
-							{
-								"id": "ma",
-								"label": "MA"
-							},
-							{
-								"id": "mi",
-								"label": "MI"
-							},
-							{
-								"id": "mn",
-								"label": "MN"
-							},
-							{
-								"id": "ms",
-								"label": "MS"
-							},
-							{
-								"id": "mo",
-								"label": "MO"
-							},
-							{
-								"id": "mt",
-								"label": "MT"
-							},
-							{
-								"id": "ne",
-								"label": "NE"
-							},
-							{
-								"id": "nv",
-								"label": "NV"
-							},
-							{
-								"id": "nh",
-								"label": "NH"
-							},
-							{
-								"id": "nj",
-								"label": "NJ"
-							},
-							{
-								"id": "nm",
-								"label": "NM"
-							},
-							{
-								"id": "ny",
-								"label": "NY"
-							},
-							{
-								"id": "nc",
-								"label": "NC"
-							},
-							{
-								"id": "nd",
-								"label": "ND"
-							},
-							{
-								"id": "oh",
-								"label": "OH"
-							},
-							{
-								"id": "ok",
-								"label": "OK"
-							},
-							{
-								"id": "or",
-								"label": "OR"
-							},
-							{
-								"id": "pa",
-								"label": "PA"
-							},
-							{
-								"id": "ri",
-								"label": "RI"
-							},
-							{
-								"id": "sc",
-								"label": "SC"
-							},
-							{
-								"id": "sd",
-								"label": "SD"
-							},
-							{
-								"id": "tn",
-								"label": "TN"
-							},
-							{
-								"id": "tx",
-								"label": "TX"
-							},
-							{
-								"id": "ut",
-								"label": "UT"
-							},
-							{
-								"id": "vt",
-								"label": "VT"
-							},
-							{
-								"id": "va",
-								"label": "VA"
-							},
-							{
-								"id": "wa",
-								"label": "WA"
-							},
-							{
-								"id": "wv",
-								"label": "WV"
-							},
-							{
-								"id": "wi",
-								"label": "WI"
-							},
-							{
-								"id": "wy",
-								"label": "WY"
-							},
-							{
-								"id": "as",
-								"label": "AS"
-							},
-							{
-								"id": "dc",
-								"label": "DC"
-							},
-							{
-								"id": "fm",
-								"label": "FM"
-							},
-							{
-								"id": "gu",
-								"label": "GU"
-							},
-							{
-								"id": "mh",
-								"label": "MH"
-							},
-							{
-								"id": "mp",
-								"label": "MP"
-							},
-							{
-								"id": "pw",
-								"label": "PW"
-							},
-							{
-								"id": "pr",
-								"label": "PR"
-							},
-							{
-								"id": "vi",
-								"label": "VI"
-							}
+							{ "id": "al", "label": "AL" },
+							{ "id": "ak", "label": "AK" },
+							{ "id": "az", "label": "AZ" },
+							{ "id": "ar", "label": "AR" },
+							{ "id": "ca", "label": "CA" },
+							{ "id": "co", "label": "CO" },
+							{ "id": "ct", "label": "CT" },
+							{ "id": "de", "label": "DE" },
+							{ "id": "fl", "label": "FL" },
+							{ "id": "ga", "label": "GA" },
+							{ "id": "hi", "label": "HI" },
+							{ "id": "id", "label": "ID" },
+							{ "id": "il", "label": "IL" },
+							{ "id": "in", "label": "IN" },
+							{ "id": "ia", "label": "IA" },
+							{ "id": "ks", "label": "KS" },
+							{ "id": "ky", "label": "KY" },
+							{ "id": "la", "label": "LA" },
+							{ "id": "me", "label": "ME" },
+							{ "id": "md", "label": "MD" },
+							{ "id": "ma", "label": "MA" },
+							{ "id": "mi", "label": "MI" },
+							{ "id": "mn", "label": "MN" },
+							{ "id": "ms", "label": "MS" },
+							{ "id": "mo", "label": "MO" },
+							{ "id": "mt", "label": "MT" },
+							{ "id": "ne", "label": "NE" },
+							{ "id": "nv", "label": "NV" },
+							{ "id": "nh", "label": "NH" },
+							{ "id": "nj", "label": "NJ" },
+							{ "id": "nm", "label": "NM" },
+							{ "id": "ny", "label": "NY" },
+							{ "id": "nc", "label": "NC" },
+							{ "id": "nd", "label": "ND" },
+							{ "id": "oh", "label": "OH" },
+							{ "id": "ok", "label": "OK" },
+							{ "id": "or", "label": "OR" },
+							{ "id": "pa", "label": "PA" },
+							{ "id": "ri", "label": "RI" },
+							{ "id": "sc", "label": "SC" },
+							{ "id": "sd", "label": "SD" },
+							{ "id": "tn", "label": "TN" },
+							{ "id": "tx", "label": "TX" },
+							{ "id": "ut", "label": "UT" },
+							{ "id": "vt", "label": "VT" },
+							{ "id": "va", "label": "VA" },
+							{ "id": "wa", "label": "WA" },
+							{ "id": "wv", "label": "WV" },
+							{ "id": "wi", "label": "WI" },
+							{ "id": "wy", "label": "WY" },
+							{ "id": "as", "label": "AS" },
+							{ "id": "dc", "label": "DC" },
+							{ "id": "fm", "label": "FM" },
+							{ "id": "gu", "label": "GU" },
+							{ "id": "mh", "label": "MH" },
+							{ "id": "mp", "label": "MP" },
+							{ "id": "pw", "label": "PW" },
+							{ "id": "pr", "label": "PR" },
+							{ "id": "vi", "label": "VI" }
 						]
 					}
 				]
@@ -5762,26 +5270,11 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "married",
-								"label": "Married"
-							},
-							{
-								"id": "separated",
-								"label": "Separated"
-							},
-							{
-								"id": "divorced",
-								"label": "Divorced"
-							},
-							{
-								"id": "widowed",
-								"label": "Widowed"
-							},
-							{
-								"id": "never married",
-								"label": "Never Married"
-							}
+							{ "id": "married", "label": "Married" },
+							{ "id": "separated", "label": "Separated" },
+							{ "id": "divorced", "label": "Divorced" },
+							{ "id": "widowed", "label": "Widowed" },
+							{ "id": "never married", "label": "Never Married" }
 						]
 					}
 				]
@@ -5798,22 +5291,13 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "single",
-								"label": "Single"
-							},
-							{
-								"id": "married",
-								"label": "Married"
-							},
+							{ "id": "single", "label": "Single" },
+							{ "id": "married", "label": "Married" },
 							{
 								"id": "divorced/separated",
 								"label": "Divorced/Separated"
 							},
-							{
-								"id": "widowed",
-								"label": "Widowed"
-							}
+							{ "id": "widowed", "label": "Widowed" }
 						]
 					}
 				]
@@ -5890,14 +5374,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -5910,30 +5388,15 @@
 					{
 						"type": "select",
 						"values": [
-							{
-								"id": "not answered",
-								"label": "not answered"
-							},
-							{
-								"id": "no coverage",
-								"label": "no coverage"
-							},
-							{
-								"id": "medicare only",
-								"label": "Medicare only"
-							},
+							{ "id": "not answered", "label": "not answered" },
+							{ "id": "no coverage", "label": "no coverage" },
+							{ "id": "medicare only", "label": "Medicare only" },
 							{
 								"id": "medicare advantage",
 								"label": "Medicare Advantage"
 							},
-							{
-								"id": "medicaid only",
-								"label": "Medicaid only"
-							},
-							{
-								"id": "medicaid hmo",
-								"label": "Medicaid HMO"
-							},
+							{ "id": "medicaid only", "label": "Medicaid only" },
+							{ "id": "medicaid hmo", "label": "Medicaid HMO" },
 							{
 								"id": "both medicare and medicaid",
 								"label": "both Medicare and Medicaid"
@@ -5950,14 +5413,8 @@
 								"id": "employer insurance",
 								"label": "employer insurance"
 							},
-							{
-								"id": "health share",
-								"label": "health share"
-							},
-							{
-								"id": "other",
-								"label": "other"
-							}
+							{ "id": "health share", "label": "health share" },
+							{ "id": "other", "label": "other" }
 						]
 					}
 				]
@@ -5998,14 +5455,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -6018,14 +5469,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -6035,7 +5480,7 @@
 	{
 		"id": "review",
 		"label": "Answer Review",
-		"prompt": "Please review your answers.  If you want to change your answers, use the review button to return to a section of the questionnaire.",
+		"prompt": "Please review your answers.\nIf you want to change your answers, use the review button to return to a section of the questionnaire.",
 		"dynamic": "hra.app.render_response_review",
 		"options": {
 			"top_submit_button": true
@@ -6054,14 +5499,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -6074,14 +5513,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -6094,14 +5527,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "0",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "0", "label": "No" }
 						]
 					}
 				]
@@ -6114,14 +5541,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -6134,14 +5555,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -6154,14 +5569,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -6174,14 +5583,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -6194,14 +5597,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -6214,14 +5611,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -6234,14 +5625,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -6261,14 +5646,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -6281,14 +5660,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -6301,14 +5674,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "yes",
-								"label": "Yes"
-							},
-							{
-								"id": "no",
-								"label": "No"
-							}
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
 						]
 					}
 				]
@@ -6321,14 +5688,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -6341,14 +5702,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -6361,14 +5716,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -6394,14 +5743,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "0",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "0", "label": "No" }
 						]
 					}
 				]
@@ -6414,14 +5757,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "0",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "0", "label": "No" }
 						]
 					}
 				]
@@ -6441,14 +5778,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -6461,14 +5792,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -6485,18 +5810,9 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "1",
-								"label": "Eleven or more years ago"
-							},
-							{
-								"id": "2",
-								"label": "One to ten years"
-							},
-							{
-								"id": "1",
-								"label": "Don't know"
-							}
+							{ "id": "1", "label": "Eleven or more years ago" },
+							{ "id": "2", "label": "One to ten years" },
+							{ "id": "1", "label": "Don't know" }
 						]
 					}
 				]
@@ -6517,22 +5833,13 @@
 								"id": "less than 1 year ago",
 								"label": "Less than 1 year ago"
 							},
-							{
-								"id": "one year ago",
-								"label": "One year ago"
-							},
-							{
-								"id": "two years ago",
-								"label": "Two years ago"
-							},
+							{ "id": "one year ago", "label": "One year ago" },
+							{ "id": "two years ago", "label": "Two years ago" },
 							{
 								"id": "three or more years ago",
 								"label": "Three or more years ago"
 							},
-							{
-								"id": "never",
-								"label": "Never"
-							}
+							{ "id": "never", "label": "Never" }
 						]
 					}
 				]
@@ -6552,14 +5859,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -6572,14 +5873,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -6592,14 +5887,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -6612,14 +5901,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -6632,14 +5915,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -6652,14 +5929,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -6672,14 +5943,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -6692,14 +5957,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -6712,14 +5971,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -6732,14 +5985,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -6752,14 +5999,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -6772,14 +6013,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -6792,14 +6027,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -6816,22 +6045,13 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "1",
-								"label": "Once a day or more"
-							},
+							{ "id": "1", "label": "Once a day or more" },
 							{
 								"id": "2",
 								"label": "At least three times a week"
 							},
-							{
-								"id": "3",
-								"label": "Once or twice per week"
-							},
-							{
-								"id": "4",
-								"label": "Less than once a week"
-							}
+							{ "id": "3", "label": "Once or twice per week" },
+							{ "id": "4", "label": "Less than once a week" }
 						]
 					}
 				]
@@ -6848,18 +6068,9 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "1",
-								"label": "Frequently"
-							},
-							{
-								"id": "2",
-								"label": "Sometimes/occasionally"
-							},
-							{
-								"id": "3",
-								"label": "Almost Never"
-							}
+							{ "id": "1", "label": "Frequently" },
+							{ "id": "2", "label": "Sometimes/occasionally" },
+							{ "id": "3", "label": "Almost Never" }
 						]
 					}
 				]
@@ -6923,14 +6134,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -6965,16 +6170,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes",
-								"show": ["10_steps"]
-							},
-							{
-								"id": "2",
-								"label": "No",
-								"hide": ["10_steps"]
-							}
+							{ "id": "1", "label": "Yes", "show": ["10_steps"] },
+							{ "id": "2", "label": "No", "hide": ["10_steps"] }
 						]
 					}
 				]
@@ -6987,14 +6184,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -7007,14 +6198,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -7038,22 +6223,10 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "1",
-								"label": "Always"
-							},
-							{
-								"id": "2",
-								"label": "Usually"
-							},
-							{
-								"id": "3",
-								"label": "Rarely"
-							},
-							{
-								"id": "4",
-								"label": "Never"
-							}
+							{ "id": "1", "label": "Always" },
+							{ "id": "2", "label": "Usually" },
+							{ "id": "3", "label": "Rarely" },
+							{ "id": "4", "label": "Never" }
 						]
 					}
 				]
@@ -7070,30 +6243,12 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "1",
-								"label": "Zero"
-							},
-							{
-								"id": "2",
-								"label": "One"
-							},
-							{
-								"id": "3",
-								"label": "Two"
-							},
-							{
-								"id": "4",
-								"label": "Three or Four"
-							},
-							{
-								"id": "5",
-								"label": "Five to Eight"
-							},
-							{
-								"id": "6",
-								"label": "Nine or more"
-							}
+							{ "id": "1", "label": "Zero" },
+							{ "id": "2", "label": "One" },
+							{ "id": "3", "label": "Two" },
+							{ "id": "4", "label": "Three or Four" },
+							{ "id": "5", "label": "Five to Eight" },
+							{ "id": "6", "label": "Nine or more" }
 						]
 					}
 				]
@@ -7110,30 +6265,12 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "1",
-								"label": "Less than monthly"
-							},
-							{
-								"id": "2",
-								"label": "Monthly"
-							},
-							{
-								"id": "3",
-								"label": "A few times a month"
-							},
-							{
-								"id": "4",
-								"label": "Weekly"
-							},
-							{
-								"id": "5",
-								"label": "A few times a week"
-							},
-							{
-								"id": "6",
-								"label": "Daily"
-							}
+							{ "id": "1", "label": "Less than monthly" },
+							{ "id": "2", "label": "Monthly" },
+							{ "id": "3", "label": "A few times a month" },
+							{ "id": "4", "label": "Weekly" },
+							{ "id": "5", "label": "A few times a week" },
+							{ "id": "6", "label": "Daily" }
 						]
 					}
 				]
@@ -7150,30 +6287,12 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "1",
-								"label": "Zero"
-							},
-							{
-								"id": "2",
-								"label": "One"
-							},
-							{
-								"id": "3",
-								"label": "Two"
-							},
-							{
-								"id": "4",
-								"label": "Three or Four"
-							},
-							{
-								"id": "5",
-								"label": "Five to Eight"
-							},
-							{
-								"id": "6",
-								"label": "Nine or more"
-							}
+							{ "id": "1", "label": "Zero" },
+							{ "id": "2", "label": "One" },
+							{ "id": "3", "label": "Two" },
+							{ "id": "4", "label": "Three or Four" },
+							{ "id": "5", "label": "Five to Eight" },
+							{ "id": "6", "label": "Nine or more" }
 						]
 					}
 				]
@@ -7190,30 +6309,12 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "1",
-								"label": "Zero"
-							},
-							{
-								"id": "2",
-								"label": "One"
-							},
-							{
-								"id": "3",
-								"label": "Two"
-							},
-							{
-								"id": "4",
-								"label": "Three or Four"
-							},
-							{
-								"id": "5",
-								"label": "Five to Eight"
-							},
-							{
-								"id": "6",
-								"label": "Nine or more"
-							}
+							{ "id": "1", "label": "Zero" },
+							{ "id": "2", "label": "One" },
+							{ "id": "3", "label": "Two" },
+							{ "id": "4", "label": "Three or Four" },
+							{ "id": "5", "label": "Five to Eight" },
+							{ "id": "6", "label": "Nine or more" }
 						]
 					}
 				]
@@ -7230,30 +6331,12 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "1",
-								"label": "Zero"
-							},
-							{
-								"id": "2",
-								"label": "One"
-							},
-							{
-								"id": "3",
-								"label": "Two"
-							},
-							{
-								"id": "4",
-								"label": "Three or Four"
-							},
-							{
-								"id": "5",
-								"label": "Five to Eight"
-							},
-							{
-								"id": "6",
-								"label": "Nine or more"
-							}
+							{ "id": "1", "label": "Zero" },
+							{ "id": "2", "label": "One" },
+							{ "id": "3", "label": "Two" },
+							{ "id": "4", "label": "Three or Four" },
+							{ "id": "5", "label": "Five to Eight" },
+							{ "id": "6", "label": "Nine or more" }
 						]
 					}
 				]
@@ -7270,30 +6353,12 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "1",
-								"label": "Less than monthly"
-							},
-							{
-								"id": "2",
-								"label": "Monthly"
-							},
-							{
-								"id": "3",
-								"label": "A few times a month"
-							},
-							{
-								"id": "4",
-								"label": "Weekly"
-							},
-							{
-								"id": "5",
-								"label": "A few times a week"
-							},
-							{
-								"id": "6",
-								"label": "Daily"
-							}
+							{ "id": "1", "label": "Less than monthly" },
+							{ "id": "2", "label": "Monthly" },
+							{ "id": "3", "label": "A few times a month" },
+							{ "id": "4", "label": "Weekly" },
+							{ "id": "5", "label": "A few times a week" },
+							{ "id": "6", "label": "Daily" }
 						]
 					}
 				]
@@ -7310,30 +6375,12 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "1",
-								"label": "Always"
-							},
-							{
-								"id": "2",
-								"label": "Very Often"
-							},
-							{
-								"id": "3",
-								"label": "Often"
-							},
-							{
-								"id": "4",
-								"label": "Sometimes"
-							},
-							{
-								"id": "5",
-								"label": "Seldom"
-							},
-							{
-								"id": "6",
-								"label": "Never"
-							}
+							{ "id": "1", "label": "Always" },
+							{ "id": "2", "label": "Very Often" },
+							{ "id": "3", "label": "Often" },
+							{ "id": "4", "label": "Sometimes" },
+							{ "id": "5", "label": "Seldom" },
+							{ "id": "6", "label": "Never" }
 						]
 					}
 				]
@@ -7350,30 +6397,12 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "1",
-								"label": "Always"
-							},
-							{
-								"id": "2",
-								"label": "Very Often"
-							},
-							{
-								"id": "3",
-								"label": "Often"
-							},
-							{
-								"id": "4",
-								"label": "Sometimes"
-							},
-							{
-								"id": "5",
-								"label": "Seldom"
-							},
-							{
-								"id": "6",
-								"label": "Never"
-							}
+							{ "id": "1", "label": "Always" },
+							{ "id": "2", "label": "Very Often" },
+							{ "id": "3", "label": "Often" },
+							{ "id": "4", "label": "Sometimes" },
+							{ "id": "5", "label": "Seldom" },
+							{ "id": "6", "label": "Never" }
 						]
 					}
 				]
@@ -7386,14 +6415,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -7410,30 +6433,12 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "1",
-								"label": "Always"
-							},
-							{
-								"id": "2",
-								"label": "Very Often"
-							},
-							{
-								"id": "3",
-								"label": "Often"
-							},
-							{
-								"id": "4",
-								"label": "Sometimes"
-							},
-							{
-								"id": "5",
-								"label": "Seldom"
-							},
-							{
-								"id": "6",
-								"label": "Never"
-							}
+							{ "id": "1", "label": "Always" },
+							{ "id": "2", "label": "Very Often" },
+							{ "id": "3", "label": "Often" },
+							{ "id": "4", "label": "Sometimes" },
+							{ "id": "5", "label": "Seldom" },
+							{ "id": "6", "label": "Never" }
 						]
 					}
 				]
@@ -7462,10 +6467,7 @@
 								"id": "3",
 								"label": "Live with other unrelated help (e.g. paid help)"
 							},
-							{
-								"id": "4",
-								"label": "Live alone"
-							}
+							{ "id": "4", "label": "Live alone" }
 						]
 					}
 				]
@@ -7482,22 +6484,10 @@
 								"id": "not answered",
 								"label": "choose an answer"
 							},
-							{
-								"id": "0",
-								"label": "Zero to four hours"
-							},
-							{
-								"id": "1",
-								"label": "Five to ten hours"
-							},
-							{
-								"id": "2",
-								"label": "Eleven to fifteen hours"
-							},
-							{
-								"id": "3",
-								"label": "Sixteen hours"
-							}
+							{ "id": "0", "label": "Zero to four hours" },
+							{ "id": "1", "label": "Five to ten hours" },
+							{ "id": "2", "label": "Eleven to fifteen hours" },
+							{ "id": "3", "label": "Sixteen hours" }
 						]
 					}
 				]
@@ -7525,22 +6515,13 @@
 								"id": "less than 1 year ago",
 								"label": "Less than 1 year ago"
 							},
-							{
-								"id": "1 year ago",
-								"label": "1 year ago"
-							},
-							{
-								"id": "2 years ago",
-								"label": "2 years ago"
-							},
+							{ "id": "1 year ago", "label": "1 year ago" },
+							{ "id": "2 years ago", "label": "2 years ago" },
 							{
 								"id": "3 or more years ago",
 								"label": "3 or more years ago"
 							},
-							{
-								"id": "never",
-								"label": "Never"
-							}
+							{ "id": "never", "label": "Never" }
 						]
 					}
 				]
@@ -7561,22 +6542,13 @@
 								"id": "less than 1 year ago",
 								"label": "Less than 1 year ago"
 							},
-							{
-								"id": "1 year ago",
-								"label": "1 year ago"
-							},
-							{
-								"id": "2 years ago",
-								"label": "2 years ago"
-							},
+							{ "id": "1 year ago", "label": "1 year ago" },
+							{ "id": "2 years ago", "label": "2 years ago" },
 							{
 								"id": "3 or more years ago",
 								"label": "3 or more years ago"
 							},
-							{
-								"id": "never",
-								"label": "Never"
-							}
+							{ "id": "never", "label": "Never" }
 						]
 					}
 				]
@@ -7597,22 +6569,13 @@
 								"id": "less than 1 year ago",
 								"label": "Less than 1 year ago"
 							},
-							{
-								"id": "1 year ago",
-								"label": "1 year ago"
-							},
-							{
-								"id": "2 years ago",
-								"label": "2 years ago"
-							},
+							{ "id": "1 year ago", "label": "1 year ago" },
+							{ "id": "2 years ago", "label": "2 years ago" },
 							{
 								"id": "3 or more years ago",
 								"label": "3 or more years ago"
 							},
-							{
-								"id": "never",
-								"label": "Never"
-							}
+							{ "id": "never", "label": "Never" }
 						]
 					}
 				]
@@ -7625,14 +6588,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -7645,14 +6602,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -7665,14 +6616,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -7685,14 +6630,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -7705,14 +6644,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -7725,14 +6658,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -7745,14 +6672,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -7765,14 +6686,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -7785,14 +6700,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -7805,14 +6714,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -7825,14 +6728,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -7845,14 +6742,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -7865,14 +6756,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -7885,14 +6770,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "0",
-								"label": "Yes"
-							},
-							{
-								"id": "1",
-								"label": "No"
-							}
+							{ "id": "0", "label": "Yes" },
+							{ "id": "1", "label": "No" }
 						]
 					}
 				]
@@ -7905,14 +6784,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -7925,14 +6798,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -7945,14 +6812,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -7965,14 +6826,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -7992,14 +6847,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -8012,14 +6861,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -8032,14 +6875,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -8052,14 +6889,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -8072,14 +6903,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -8092,14 +6917,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -8112,14 +6931,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -8132,14 +6945,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -8152,14 +6959,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -8172,14 +6973,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -8192,14 +6987,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -8212,14 +7001,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -8232,14 +7015,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -8259,14 +7036,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -8279,14 +7050,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -8299,14 +7064,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -8319,14 +7078,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -8339,14 +7092,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -8359,14 +7106,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -8379,14 +7120,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -8399,14 +7134,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -8419,14 +7148,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -8439,14 +7162,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -8459,14 +7176,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -8479,14 +7190,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -8499,14 +7204,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -8519,14 +7218,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -8539,14 +7232,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -8559,14 +7246,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -8579,14 +7260,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -8599,14 +7274,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -8619,14 +7288,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -8639,14 +7302,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -8659,14 +7316,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -8679,14 +7330,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -8699,14 +7344,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]
@@ -8719,14 +7358,8 @@
 					{
 						"type": "radio",
 						"values": [
-							{
-								"id": "1",
-								"label": "Yes"
-							},
-							{
-								"id": "2",
-								"label": "No"
-							}
+							{ "id": "1", "label": "Yes" },
+							{ "id": "2", "label": "No" }
 						]
 					}
 				]

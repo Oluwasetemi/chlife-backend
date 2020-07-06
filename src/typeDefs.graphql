@@ -34,40 +34,40 @@ enum ActivityEnum {
 }
 
 enum HraInputSectionsEnum {
-	TOS
-	GENERAL
-	COVID
+	ACTIVITIES
 	BASIC_INFORMATION
 	BLOOD_PRESSURE
-	DIABETES
-	SMOKING
-	DRIVING
-	GENDER_SPECIFIC
-	PREVENTION
 	CHRONIC
-	NUTRITION
-	SUGAR
-	SLEEP
-	SOMATIC
-	MEDICATIONS
-	HEALTH_HISTORY
 	COUGH_AND_HAND_HYGIENE
-	MENTAL_HEALTH
-	STRESS
-	PHYSICAL
-	TACTICAL
-	OTHER
 	DEMOGRAPHICS
-	REVIEW
-	MEDICAL_CONDITIONS
-	FALLS
-	IMMUNIZATIONS
-	ACTIVITIES
-	MOBILITY
-	SUPPORT
 	DENTAL_HEARING_VISION
+	DIABETES
+	DRIVING
+	FALLS
+	GENDER_SPECIFIC
+	GENERAL
+	HEALTH_HISTORY
 	HOME_SAFETY
+	IMMUNIZATIONS
+	MEDICAL_CONDITIONS
+	MEDICATIONS
+	MENTAL_HEALTH
+	MOBILITY
+	NUTRITION
 	NUTRITIONII
+	OTHER
+	PHYSICAL
+	PREVENTION
+	REVIEW
+	SLEEP
+	SMOKING
+	SOMATIC
+	STRESS
+	SUGAR
+	SUPPORT
+	TACTICAL
+	TOS
+	TOS_FITNESSFAIR
 }
 
 type Message {
@@ -101,10 +101,10 @@ type QuestionInput {
 }
 
 type Question {
-	id: String!
-	label: String!
-	prompt: String!
-	input: [QuestionInput!]!
+	id: String
+	label: String
+	prompt: String
+	input: [QuestionInput]
 	required: Boolean
 	system_of_measurement: String
 	counterpart: String
@@ -125,7 +125,75 @@ type HRA {
 	qCount: Int
 }
 
+type QuestionAndResponse {
+	value: String!
+}
+
+type Hra {
+	_id: String!
+	questionAndResponse: QuestionAndResponse
+	ghmReference: String
+	createdAt: DateTime
+	updatedAtAt: DateTime
+}
+
+type InBodyStructure {
+	value: String!
+}
+
+type InBody {
+	_id: String!
+	inBodyData: InBodyStructure
+	inBodyReference: String
+	createdAt: DateTime
+	updatedAtAt: DateTime
+}
+
+type Appointment {
+	_id: String!
+	subject: String
+	description: String
+	appointmentTime: String
+	type: String
+	professsional: String
+	createdAt: DateTime
+	updatedAtAt: DateTime
+}
+
+type ExerciseBody {
+	value: String!
+}
+
+type Exercise {
+	_id: String!
+	title: String
+	description: String
+	body: ExerciseBody
+	type: String
+	category: String
+	advice: String
+	createdAt: DateTime
+	updatedAtAt: DateTime
+}
+
+type MealPlanStructure {
+	value: String!
+}
+
+type MealPlan {
+	_id: String!
+	title: String
+	description: String
+	meealPlanStructure: MealPlanStructure
+	type: String
+	category: String
+	advice: String
+	createdAt: DateTime
+	updatedAtAt: DateTime
+}
+
 type User {
+	_id: String!
 	name: String!
 	email: String!
 	mobile: String
@@ -151,19 +219,40 @@ type User {
 	company: String
 	companyUrl: String
 	size: Int!
+	"""
+	total reward point for certain activities
+	"""
+	totalRewardPoints: Int
+	weight: Int
+	height: Int
+	activity: ActivityEnum
+	"""
+	Health risk assessment(2 per year, 1 every 6 month)
+	"""
+	hra: [Hra]!
+	"""
+	user schedule apointment (2 only - inBody and Professional)
+	"""
+	appointments: [Appointment]
+	exercises: Exercise
+	mealPlan: MealPlan
+	inBody: [InBody]
+}
 
-	# total reward point for certain activities
-	# totalRewardPoints: Int
-	# weight: Int
-	# height: Int
-	# activity: ActivityEnum
-	# Health risk assessment(2 per year, 1 every 6 month)
-	# hra: [Hra]!
-	# user schedule apointment (2 only - inBody and Professional)
-	# appointments: [Appointment]
-	# exercises: [Exercise]
-	# mealPlan: MealPlan
-	# inBody: [InBody]
+type Asset {
+	name: String
+	url: String
+}
+
+type Contentful {
+	id: String!
+	title: String!
+	body: String!
+	createdAt: DateTime
+	tags: String
+	author: String!
+	authorRole: String
+	asset: Asset
 }
 
 type Query {
@@ -179,6 +268,34 @@ type Query {
 	Fetch users by their type: should be accessible
 	"""
 	usersByType(type: UserEnum): [User]!
+	"""
+	Fetch user by id: should be accessible
+	"""
+	userById(id: String): User!
+	"""
+	Fetch All Blogpost
+	"""
+	fetchAllBlogPostByCount(first: Int!): [Contentful]
+	"""
+	Fetch contentful blog post by count
+	"""
+	fetchBlogPostByCount: [Contentful]
+	"""
+	Fetch contentful blog post by latest
+	"""
+	fetchBlogPostByLatest(count: Int!): [Contentful]
+	"""
+	Fetch similar contentful blog post by tags
+	"""
+	fetchSimilarBlogPostByLatest(tag: String!): [Contentful]
+	"""
+	Fetch a single blogpost
+	"""
+	fetchOneBlogPost: Contentful
+	"""
+	Mutation to fetch HRA question based on
+	"""
+	fetchHraQuestion(input: HraInputSectionsEnum): HRA!
 }
 
 input updateUserProfileInput {
@@ -274,10 +391,14 @@ type Mutation {
 		password: String
 		confirmPassword: String
 	): User!
+
 	"""
-	Mutation to fetch HRA question based on
+	resend reset password email
 	"""
-	fetchHraQuestion(input: HraInputSectionsEnum): HRA!
+	resendResetPasswordRequestMail(
+		email: String
+		resetPasswordToken: String
+	): Message!
 }
 
 # type Subscription {}

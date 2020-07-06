@@ -55,7 +55,7 @@ async function startServer() {
       // setup middleware using the app
     const corsOptions = {
       credentials: true,
-      origin: process.env.FRONTEND_URL,
+      origin: '*',
       optionsSuccessStatus: 200
     };
 

@@ -4,9 +4,11 @@ const validator = require('validator');
 const casual = require('casual');
 const { randomBytes } = require('crypto');
 const { promisify } = require('util');
-const axios = require('axios');
+const axios = require('axios').default;
 const { readFileSync } = require('fs');
 const path = require('path');
+const FormData = require('form-data');
+const request = require('request');
 
 const {
   urlGoogle,
@@ -298,6 +300,32 @@ const mutation = {
       throw new Error(error.message);
     }
   },
+  async resendResetPasswordRequestMail(_, { email, resetPasswordToken }) {
+    try {
+      const user = await findOneBasedOnQuery({
+        email,
+        resetPasswordToken,
+        resetPasswordExpires: { $gt: Date.now() }
+      });
+
+      if (!user) {
+        throw new Error(`No such user found for email ${email}`);
+      }
+
+      // resend email
+      await send({
+        filename: 'request-reset',
+        to: user.email,
+        subject: 'Your Password Reset Token Resent',
+        name: user.name,
+        resetLink: `${process.env.FRONTEND_URL}/reset?resetToken=${resetPasswordToken}`
+      });
+
+      return { message: 'Thanks.Successful' };
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  },
   async resetPassword(parent, { resetToken, password, confirmPassword }) {
     try {
       // 1.check if the passwords match
@@ -526,24 +554,6 @@ const mutation = {
     return {
       message: `You have removed <b>${email}</b> from the choose Life.`
     };
-  },
-  async fetchHraQuestion(_, { input }) {
-    let questions = await readFileSync(
-      path.join(__dirname, '../../ghm-hra-questions.json'),
-      'utf8'
-    );
-
-    questions = JSON.parse(questions);
-    const inputLowerCase = input.toLowerCase();
-
-    const result = questions.find(each => {
-      if (inputLowerCase === 'nutritionii') {
-        return each.id === '65nutrition';
-      }
-      return each.id === inputLowerCase || each.id === `65${inputLowerCase}`;
-    });
-
-    return { ...result, qCount: (result.q && result.q.length) || null };
   }
 };
 
