@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       enum: ['INDIVIDUAL', 'EMPLOYEE', 'COMPANY', 'SUPERADMIN', 'ADMIN'],
       required:
-        'Specify the type of the user - either : individual, employee, company, super-admin, admin',
+        'Specify the type of the user - either : INDIVIDUAL, EMPLOYEE, COMPANY, SUPER-ADMIN, ADMIN',
       default: 'INDIVIDUAL'
     },
     image: {

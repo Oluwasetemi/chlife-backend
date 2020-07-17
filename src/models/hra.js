@@ -10,6 +10,10 @@ const hraSchema = new mongoose.Schema(
     ghmReference: {
       type: String,
       trim: true
+    },
+    stage: {
+      type: String,
+      enum: ['RESPONSE', 'UPDATE_RESPONSE', 'PREVIEW', 'SUBMIT', 'SUBMITTED']
     }
   },
   {

@@ -9,6 +9,7 @@ const { readFileSync } = require('fs');
 const path = require('path');
 const FormData = require('form-data');
 const request = require('request');
+const hra = require('../models/hra');
 
 const {
   urlGoogle,
@@ -554,6 +555,53 @@ const mutation = {
     return {
       message: `You have removed <b>${email}</b> from the choose Life.`
     };
+  },
+  async submitHRAResponse(_, { input }, { req }) {
+    console.log(input);
+    // check whether the user is logged in
+    if (!req.userId) {
+      throw new Error('You must be logged In');
+    }
+
+    if (input.stage === 'RESPONSE') {
+      const hraData = await hra.create({
+        stage: input.stage,
+        questionAndResponse: { ...input, stage: null },
+        ghmReference: req.userId
+      });
+
+      // update the user with his current hra
+      await updateUser({ _id: req.userId }, { $push: { hra: hraData._id } });
+
+      return { message: 'Response Saved Successfully' };
+    }
+
+    if (input.stage === 'UPDATE_RESPONSE') {
+      await hra.findOneAndUpdate(
+        { ghmReference: req.userId },
+        {
+          stage: input.stage,
+          questionAndResponse: { ...input, stage: null }
+        },
+        { new: true, runValidators: true }
+      );
+
+      return { message: 'Response Updated Successfully' };
+    }
+
+    if (input.stage === 'PREVIEW') {
+      // find by ghmReference
+      // loop thru the data
+      // add the prefix '' and suffix '' to the `questionAndResponse`
+      // update the data using `ghmReference`
+      return { message: 'All Response Reviewed', input };
+    }
+
+    if (input.stage === 'SUBMIT') {
+      // confirm if the data is clean enough to be submitted
+      // post it to ghm appraise_risk endpoint
+      return { message: 'Response submitted', input };
+    }
   }
 };
 

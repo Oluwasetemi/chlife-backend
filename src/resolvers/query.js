@@ -2,6 +2,7 @@ const { readFileSync } = require('fs');
 const path = require('path');
 const { verify } = require('../utils/auth');
 const { findUserById, findAllUsers } = require('../services/user');
+const hra = require('../models/hra');
 
 // all the query
 const query = {
@@ -133,6 +134,16 @@ const query = {
       console.log(error);
       throw new Error(error.message);
     }
+  },
+  async currentUserResponse(_, args, { req }) {
+    // check whether the user is logged in
+    if (!req.userId) {
+      throw new Error('You must be logged In');
+    }
+
+    const userHraId = req.user.hra[0]._id.toString();
+
+    return hra.findById(userHraId);
   }
 };
 

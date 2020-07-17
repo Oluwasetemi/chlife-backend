@@ -126,7 +126,93 @@ type HRA {
 }
 
 type QuestionAndResponse {
-	value: String!
+	save_key: String
+	sex: String
+	body_frame_size: String
+	height_feet: String
+	height_inches: String
+	height_cm: String
+	weight_pounds: String
+	weight_kg: String
+	diabetes_status_yes: String
+	diabetes_status: String
+	stroke_yes: String
+	stroke: String
+	heart_attack_yes: String
+	heart_attack: String
+	heart_disease_yes: String
+	heart_disease: String
+	chh_hands: String
+	chh_cough: String
+	chh_fever: String
+	chh_sbreath: String
+	chh_interact: String
+	blood_pressure_estimated: String
+	cholesterol_check: String
+	blood_pressure_medication: String
+	blood_pressure_medication_1: String
+	blood_pressure_measured_high_number: String
+	blood_pressure_measured_low_number: String
+	hb1ac_check: String
+	hb1ac_level_percent: String
+	smoking: String
+	smoking_still_smoke: String
+	still_smoke_cigarettes_day: String
+	typical_travel_method: String
+	driving_speed: String
+	last_mammogram: String
+	hysterectomy: String
+	pap_smear_test: String
+	colon_cancer_screening: String
+	fast_food: String
+	fruit: String
+	vegetables: String
+	soft_drinks: String
+	protein: String
+	junk_food: String
+	desserts: String
+	butter: String
+	sleep1: String
+	sleep2: String
+	sleep3: String
+	sleep4: String
+	PHQa: String
+	PHQb: String
+	PHQc: String
+	PHQd: String
+	PHQe: String
+	PHQf: String
+	PHQg: String
+	PHQh: String
+	PHQi: String
+	GADa: String
+	GADb: String
+	GADc: String
+	GADd: String
+	GADe: String
+	GADf: String
+	GADg: String
+	felt_confident: String
+	going_your_way: String
+	unable_to_control: String
+	difficulties_piling_up: String
+	overall_health: String
+	weekly_physical_activity: String
+	bicycle_helmet_usage: String
+	helmet_usage: String
+	readiness_to_quit_smoking: String
+	readiness_to_reduce_alcohol_usage: String
+	readiness_to_eat_healthier: String
+	readiness_to_exercise_more: String
+	misfortune: String
+	race: String
+	hispanic_origin: String
+	filling_forms: String
+	education: String
+	state_of_residence: String
+	marital_status: String
+	household_income: String
+	insurance_coverage: String
 }
 
 type Hra {
@@ -296,6 +382,10 @@ type Query {
 	Mutation to fetch HRA question based on
 	"""
 	fetchHraQuestion(input: HraInputSectionsEnum): HRA!
+	"""
+	Fetch the current response of the user currently logged in
+	"""
+	currentUserResponse: Hra
 }
 
 input updateUserProfileInput {
@@ -332,6 +422,105 @@ input signUpCompanyInput {
 	organizationAddress: String
 	organizationSize: Int!
 	jobTitle: String!
+}
+
+enum stageEnum {
+	RESPONSE
+	UPDATE_RESPONSE
+	PREVIEW
+	SUBMIT
+	SUBMITTED
+}
+
+input HRAResponseInput {
+	stage: stageEnum!
+	save_key: String
+	sex: String
+	body_frame_size: String
+	height_feet: String
+	height_inches: String
+	height_cm: String
+	weight_pounds: String
+	weight_kg: String
+	diabetes_status_yes: String
+	diabetes_status: String
+	stroke_yes: String
+	stroke: String
+	heart_attack_yes: String
+	heart_attack: String
+	heart_disease_yes: String
+	heart_disease: String
+	chh_hands: String
+	chh_cough: String
+	chh_fever: String
+	chh_sbreath: String
+	chh_interact: String
+	blood_pressure_estimated: String
+	cholesterol_check: String
+	blood_pressure_medication: String
+	blood_pressure_medication_1: String
+	blood_pressure_measured_high_number: String
+	blood_pressure_measured_low_number: String
+	hb1ac_check: String
+	hb1ac_level_percent: String
+	smoking: String
+	smoking_still_smoke: String
+	still_smoke_cigarettes_day: String
+	typical_travel_method: String
+	driving_speed: String
+	last_mammogram: String
+	hysterectomy: String
+	pap_smear_test: String
+	colon_cancer_screening: String
+	fast_food: String
+	fruit: String
+	vegetables: String
+	soft_drinks: String
+	protein: String
+	junk_food: String
+	desserts: String
+	butter: String
+	sleep1: String
+	sleep2: String
+	sleep3: String
+	sleep4: String
+	PHQa: String
+	PHQb: String
+	PHQc: String
+	PHQd: String
+	PHQe: String
+	PHQf: String
+	PHQg: String
+	PHQh: String
+	PHQi: String
+	GADa: String
+	GADb: String
+	GADc: String
+	GADd: String
+	GADe: String
+	GADf: String
+	GADg: String
+	felt_confident: String
+	going_your_way: String
+	unable_to_control: String
+	difficulties_piling_up: String
+	overall_health: String
+	weekly_physical_activity: String
+	bicycle_helmet_usage: String
+	helmet_usage: String
+	readiness_to_quit_smoking: String
+	readiness_to_reduce_alcohol_usage: String
+	readiness_to_eat_healthier: String
+	readiness_to_exercise_more: String
+	misfortune: String
+	race: String
+	hispanic_origin: String
+	filling_forms: String
+	education: String
+	state_of_residence: String
+	marital_status: String
+	household_income: String
+	insurance_coverage: String
 }
 
 type Mutation {
@@ -399,6 +588,10 @@ type Mutation {
 		email: String
 		resetPasswordToken: String
 	): Message!
+	"""
+	submit HRA response
+	"""
+	submitHRAResponse(input: HRAResponseInput): Message!
 }
 
 # type Subscription {}
