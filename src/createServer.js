@@ -74,11 +74,19 @@ async function startServer() {
 
     // 2. create a middleware that populates the user in the request
     app.use(async (req, res, next) => {
-      // if they aren't logged in, skip this
+      try {
+        // if they aren't logged in, skip this
       if (!req.userId) return next();
-      const user = await findUserById(req.userId);
-      req.user = user;
-      next();
+        const user = await findUserById(req.userId);
+
+        if (user) {
+          req.user = user._doc;
+          next();
+
+        }
+      } catch (error) {
+        throw new Error(error.message)
+      }
     });
 
     server.applyMiddleware({ app });

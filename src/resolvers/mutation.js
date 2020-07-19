@@ -577,14 +577,23 @@ const mutation = {
     }
 
     if (input.stage === 'UPDATE_RESPONSE') {
-      await hra.findOneAndUpdate(
-        { ghmReference: req.userId },
-        {
-          stage: input.stage,
-          questionAndResponse: { ...input, stage: null }
-        },
-        { new: true, runValidators: true }
-      );
+      // await hra.findOneAndUpdate(
+      //   { ghmReference: req.userId },
+      //   {
+      //     stage: input.stage,
+      //     questionAndResponse: { ...input, stage: null }
+      //   },
+      //   { new: true, runValidators: true }
+      // );
+      const hraData = await hra.findOne({ ghmReference: req.userId });
+      hraData.questionAndResponse = {
+        ...hraData.questionAndResponse,
+        ...input,
+        stage: null
+      };
+      hraData.input = input.stage;
+
+      await hraData.save();
 
       return { message: 'Response Updated Successfully' };
     }
