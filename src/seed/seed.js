@@ -37,6 +37,7 @@ async function seedAdminData() {
     totalRewardPoints: 0,
     weight: 0,
     height: 0,
+    gender: 'MALE',
     hra: [],
     appointments: [],
     exercises: [],
@@ -49,7 +50,7 @@ async function seedAdminData() {
     type: 'SUPERADMIN',
     mobile: '+2348055112244',
     createdAt: '2020-06-15T18:49:12.756Z',
-    updatedAt: '2020-06-15T18:49:12.756Z'
+    updatedAt: '2020-06-15T18:49:12.756Z',
   };
 
   // create data
@@ -87,7 +88,7 @@ async function createUserJSON() {
       occupation: casual.title,
       gender: i % 2 === 0 ? gender[0] : gender[1],
       mobile: casual.phone,
-      dob: casual.date('YYYY-MM-DD')
+      dob: casual.date('YYYY-MM-DD'),
     };
 
     user.push(obj);

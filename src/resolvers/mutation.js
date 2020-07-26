@@ -7,13 +7,15 @@ const { promisify } = require('util');
 const axios = require('axios').default;
 const { readFileSync } = require('fs');
 const path = require('path');
-const FormData = require('form-data');
 const request = require('request');
+
+const requestPromise = promisify(request);
+
 const hra = require('../models/hra');
 
 const {
   urlGoogle,
-  getGoogleAccountFromCode
+  getGoogleAccountFromCode,
 } = require('../utils/google-oauth');
 
 const {
@@ -21,7 +23,7 @@ const {
   createUser,
   updateUser,
   findOneBasedOnQuery,
-  deleteUserByEmail
+  deleteUserByEmail,
 } = require('../services/user');
 
 const { hash, match, sign } = require('../utils/auth');
@@ -53,7 +55,7 @@ const mutation = {
         ...args.input,
         name,
         password,
-        type: 'INDIVIDUAL'
+        type: 'INDIVIDUAL',
       });
 
       if (!user) {
@@ -66,7 +68,7 @@ const mutation = {
         to: user.email,
         subject: 'Welcome to Choose Life',
         type: user.type,
-        name: user.name
+        name: user.name,
       });
 
       const result = { ...user._doc, password: null };
@@ -114,7 +116,7 @@ const mutation = {
         password,
         resetPasswordExpires,
         resetPasswordToken,
-        type: 'COMPANY'
+        type: 'COMPANY',
       });
 
       if (!user) {
@@ -129,7 +131,9 @@ const mutation = {
         type: user.type,
         name: user.name,
         resetPasswordExpires,
-        resetLink: `${process.env.FRONTEND_URL}/reset?resetToken=${resetPasswordToken}`
+        resetLink: `${
+          process.env.FRONTEND_URL
+        }/reset?resetToken=${resetPasswordToken}`,
       });
 
       // const result = { ...user._doc, password: null };
@@ -178,7 +182,7 @@ const mutation = {
         password,
         resetPasswordExpires,
         resetPasswordToken,
-        type: 'COMPANY'
+        type: 'COMPANY',
       });
 
       if (!user) {
@@ -193,7 +197,9 @@ const mutation = {
         type: user.type,
         name: user.name,
         resetPasswordExpires,
-        resetLink: `${process.env.FRONTEND_URL}/reset?resetToken=${resetPasswordToken}`
+        resetLink: `${
+          process.env.FRONTEND_URL
+        }/reset?resetToken=${resetPasswordToken}`,
       });
 
       const result = { ...user._doc, password: null };
@@ -207,7 +213,7 @@ const mutation = {
   async login(_, args) {
     try {
       const userExist = await findOneBasedOnQuery({
-        email: args.email
+        email: args.email,
       });
 
       if (!userExist) {
@@ -241,7 +247,7 @@ const mutation = {
     try {
       const userExist = await findOneBasedOnQuery({
         email: args.email,
-        type: args.accountType
+        type: args.accountType,
       });
 
       if (!userExist) {
@@ -293,7 +299,9 @@ const mutation = {
         to: user.email,
         subject: 'Your Password Reset Token',
         name: user.name,
-        resetLink: `${process.env.FRONTEND_URL}/reset?resetToken=${resetPasswordToken}`
+        resetLink: `${
+          process.env.FRONTEND_URL
+        }/reset?resetToken=${resetPasswordToken}`,
       });
 
       return { message: 'Thanks. Request for Password Reset successful' };
@@ -306,7 +314,7 @@ const mutation = {
       const user = await findOneBasedOnQuery({
         email,
         resetPasswordToken,
-        resetPasswordExpires: { $gt: Date.now() }
+        resetPasswordExpires: { $gt: Date.now() },
       });
 
       if (!user) {
@@ -319,7 +327,9 @@ const mutation = {
         to: user.email,
         subject: 'Your Password Reset Token Resent',
         name: user.name,
-        resetLink: `${process.env.FRONTEND_URL}/reset?resetToken=${resetPasswordToken}`
+        resetLink: `${
+          process.env.FRONTEND_URL
+        }/reset?resetToken=${resetPasswordToken}`,
       });
 
       return { message: 'Thanks.Successful' };
@@ -338,7 +348,7 @@ const mutation = {
       // 3. check if its expired
       const user = await findOneBasedOnQuery({
         resetPasswordToken: resetToken,
-        resetPasswordExpires: { $gt: Date.now() }
+        resetPasswordExpires: { $gt: Date.now() },
       });
 
       if (!user) {
@@ -354,7 +364,7 @@ const mutation = {
         {
           resetPasswordToken: null,
           resetPasswordExpires: null,
-          password: hashedPassword
+          password: hashedPassword,
         }
       );
       // 6. Generate JWT
@@ -365,7 +375,7 @@ const mutation = {
         filename: 'reset-successful',
         to: user.email,
         subject: 'Password Reset Successful',
-        name: user.name
+        name: user.name,
       });
 
       // 8. return the new user
@@ -389,7 +399,7 @@ const mutation = {
     let user;
     user = await findOneBasedOnQuery({
       email: gUser.email,
-      source: 'GOOGLE'
+      source: 'GOOGLE',
     });
 
     if (user) {
@@ -426,8 +436,8 @@ const mutation = {
       uri:
         'https://people.googleapis.com/v1/people/me?personFields=addresses,emailAddresses,photos,names,phoneNumbers',
       headers: {
-        Authorization: `Bearer ${access_token}`
-      }
+        Authorization: `Bearer ${access_token}`,
+      },
     };
 
     let me = await axios(options);
@@ -441,7 +451,7 @@ const mutation = {
     let user;
     user = await findOneBasedOnQuery({
       email: gUser.email,
-      source: 'GOOGLE'
+      source: 'GOOGLE',
     });
 
     if (user) {
@@ -505,7 +515,7 @@ const mutation = {
       resetPasswordExpires,
       type: 'ADMIN',
       adminverified: true,
-      invitedBy: req.userId
+      invitedBy: req.userId,
     };
 
     // create the new admin
@@ -517,12 +527,14 @@ const mutation = {
       to: user.email,
       subject: 'Added to Choose Life as an Admin',
       name: user.name,
-      resetLink: `${process.env.FRONTEND_URL}/reset?resetToken=${resetPasswordToken}`
+      resetLink: `${
+        process.env.FRONTEND_URL
+      }/reset?resetToken=${resetPasswordToken}`,
     });
 
     return {
       message:
-        'You have added a new admin to the choose Life. Tell him/her to Check his/her mail'
+        'You have added a new admin to the choose Life. Tell him/her to Check his/her mail',
     };
   },
   async removeNewAdmin(_, { email }, { req }) {
@@ -553,65 +565,285 @@ const mutation = {
     await deleteUserByEmail(email);
 
     return {
-      message: `You have removed <b>${email}</b> from the choose Life.`
+      message: `You have removed <b>${email}</b> from the choose Life.`,
     };
   },
   async submitHRAResponse(_, { input }, { req }) {
-    console.log(input);
-    // check whether the user is logged in
-    if (!req.userId) {
-      throw new Error('You must be logged In');
+    try {
+      console.log(input);
+      // check whether the user is logged in
+      if (!req.userId) {
+        throw new Error('You must be logged In');
+      }
+
+      if (input.stage === 'RESPONSE') {
+        const responseToBeSubmitted = { ...input, stage: null };
+        delete responseToBeSubmitted.stage;
+        //   calc the % of the submitted response(total: 111)
+        //   length of the responseToBeSubmitted object / total * 100
+        const percentageProgress = Math.round(
+          (Number(Object.keys(responseToBeSubmitted).length) / 111) * 100
+        );
+
+        const hraData = await hra.create({
+          stage: input.stage,
+          questionAndResponse: { ...input, stage: null },
+          ghmReference: req.userId,
+          percentageProgress,
+        });
+
+        // update the user with his current hra
+        await updateUser({ _id: req.userId }, { $push: { hra: hraData._id } });
+
+        return { message: 'Response Saved Successfully', percentageProgress };
+      }
+
+      if (input.stage === 'UPDATE_RESPONSE') {
+        const hraData = await hra.findOne({ ghmReference: req.userId });
+
+        if (!hraData) {
+          throw new Error('Error while updating');
+        }
+        const responseToBeSubmitted = {
+          ...hraData.questionAndResponse,
+          ...input,
+          stage: null,
+        };
+
+        delete responseToBeSubmitted.stage;
+        //   calc the % of the submitted response(total: 111)
+        //   length of the responseToBeSubmitted object / total * 100
+        const percentageProgress = Math.round(
+          (Number(Object.keys(responseToBeSubmitted).length) / 111) * 100
+        );
+
+        hraData.questionAndResponse = responseToBeSubmitted;
+        hraData.input = input.stage;
+        hraData.percentageProgress = percentageProgress;
+
+        await hraData.save();
+
+        return { message: 'Response Updated Successfully', percentageProgress };
+      }
+
+      if (input.stage === 'PREVIEW') {
+        // find by ghmReference
+        // loop thru the data
+        // add the prefix '' and suffix '' to the `questionAndResponse`
+        // update the data using `ghmReference`
+        return { message: 'All Response Reviewed', input };
+      }
+
+      if (input.stage === 'SUBMIT') {
+        // fetch current response
+        let currentResponse = await hra.findById(
+          req.user.hra[0]._id.toString()
+        );
+
+        currentResponse = currentResponse.questionAndResponse;
+        // confirm if the data is clean enough to be submitted
+        const options = {
+          method: 'POST',
+          url: 'https://hra-api.ghmcorp.com/api/v2/appraise_risks',
+          headers: {},
+          formData: {
+            json: `{"appraise_risks.client_id": "fitnessfair",
+    "appraise_risks.user_id": "${req.userId}",
+    "hra.app.units": "us_customary",
+    "hra.app.cholunits": "mg/dl",
+    "hra.app.hra_id": "midlife",
+    "save_key": "${req.userId || ''}",
+    "hra.q.sex.a": "${currentResponse.sex || 'not answered'}",
+    "hra.q.body_frame_size.a": "${currentResponse.body_frame_size ||
+      'not answered'}",
+    "hra.q.age_in_years.a.years": "${currentResponse.age_in_years ||
+      'not answered'}",
+    "hra.q.height.a.feet": "${currentResponse.height || 'not answered'}",
+    "hra.q.height.a.inches": "${currentResponse.height || 'not answered'}",
+    "hra.q.height_cm.a.centemeters": "${currentResponse.height_cm ||
+      'not answered'}",
+    "hra.q.weight.a.pounds": "${currentResponse.weight || 'not answered'}",
+    "hra.q.weight_kg.a.kilograms": "${currentResponse.weight_kg ||
+      'not answered'}",
+    "hra.q.diabetes_status.a.no": "${currentResponse.diabetes_status ||
+      'not answered'}",
+    "hra.q.diabetes_status.a": "${currentResponse.diabetes_status ||
+      'not answered'}",
+    "hra.q.stroke.a.no": "${currentResponse.stroke || 'not answered'}",
+    "hra.q.stroke.a": "${currentResponse.stroke || 'not answered'}",
+    "hra.q.heart_attack.a.no": "${currentResponse.heart_attack ||
+      'not answered'}",
+    "hra.q.heart_attack.a": "${currentResponse.heart_attack || 'not answered'}",
+    "hra.q.heart_disease.a.no": "${currentResponse.heart_disease ||
+      'not answered'}",
+    "hra.q.heart_disease.a": "${currentResponse.heart_disease ||
+      'not answered'}",
+    "hra.q.chh_hands.a": "${currentResponse.chh_hands || 'not answered'}",
+    "hra.q.chh_cough.a": "${currentResponse.chh_cough || 'not answered'}",
+    "hra.q.chh_fever.a": "${currentResponse.chh_fever || 'not answered'}",
+    "hra.q.chh_sbreath.a": "${currentResponse.chh_sbreath || 'not answered'}",
+    "hra.q.chh_interact.a": "${currentResponse.chh_interact || 'not answered'}",
+    "hra.q.blood_pressure_medication.a.0": "${currentResponse.blood_pressure_medication ||
+      'not answered'}",
+    "hra.q.blood_pressure_estimated.a": "${currentResponse.blood_pressure_estimated ||
+      'not answered'}",
+    "hra.q.cholesterol_check.a": "${currentResponse.cholesterol_check ||
+      'not answered'}",
+    "hra.q.blood_pressure_medication.a": "${currentResponse.blood_pressure_medication ||
+      'not answered'}",
+    "hra.q.blood_pressure_measured.a.high_number": "${currentResponse.blood_pressure_measured_high ||
+      'not answered'}",
+    "hra.q.blood_pressure_measured.a.low_number": "${currentResponse.blood_pressure_measured_low ||
+      'not answered'}",
+    "hra.q.hb1ac_check.a": "${currentResponse.hb1ac_check || 'not answered'}",
+    "hra.q.smoking.a.never_smoked": "${currentResponse.smoking ||
+      'not answered'}",
+    "hra.q.smoking.a": "${currentResponse.smoking || 'not answered'}",
+    "hra.q.smokeless_tobacco.a.times_day": "${currentResponse.smokeless_tobacco ||
+      'not answered'}",
+    "hra.q.vaping.a.no": "${currentResponse.vaping || 'not answered'}",
+    "hra.q.vaping.a": "${currentResponse.vaping || 'not answered'}",
+    "hra.q.travel_by_automobile.a.,000_miles": "${currentResponse.travel_by_automobile ||
+      'not answered'}",
+    "hra.q.typical_travel_method.a": "${currentResponse.typical_travel_method ||
+      'not answered'}",
+    "hra.q.driving_speed.a": "more than 15 mph over ${currentResponse.driving_speed ||
+      'not answered'}",
+    "hra.q.travel_by_automobile_km.a.,000 kilometers": "${currentResponse.travel_by_automobile_km ||
+      'not answered'}",
+    "hra.q.travel_by_automobile_km.a.,000_kilometers": "${currentResponse.travel_by_automobile_km ||
+      'not answered'}",
+    "hra.q.travel_by_motorcycle.a.,000_miles": "${currentResponse.travel_by_motorcycle ||
+      'not answered'}",
+    "hra.q.travel_by_motorcycle_km.a.,000 kilometers": "${currentResponse.travel_by_motorcycle_km ||
+      'not answered'}.82802",
+    "hra.q.travel_by_motorcycle_km.a.,000_kilometers": "${currentResponse.travel_by_motorcycle_km ||
+      'not answered'}.82802",
+    "hra.q.safety_belt_usage.a.%": "${currentResponse.safety_belt_usage ||
+      'not answered'}",
+    "hra.q.distracted_driving.a.no": "${currentResponse.distracted_driving ||
+      'not answered'}",
+    "hra.q.distracted_driving.a": "${currentResponse.distracted_driving ||
+      'not answered'}",
+    "hra.q.drinking_and_driving.a.times_last month": "${currentResponse.drinking_and_driving ||
+      'not answered'}",
+    "hra.q.weekly_alcohol.a.beer": "${currentResponse.weekly_alcohol_beer ||
+      'not answered'}",
+    "hra.q.weekly_alcohol.a.wine": "${currentResponse.weekly_alcohol_wine ||
+      'not answered'}",
+    "hra.q.weekly_alcohol.a.wine_coolers": "${currentResponse.weekly_alcohol_wine_coolers ||
+      'not answered'}",
+    "hra.q.weekly_alcohol.a.mixed_drinks": "${currentResponse.weekly_alcohol_mixed_drinks ||
+      'not answered'}",
+    "hra.q.binge_drinking.a": "${currentResponse.binge_drinking ||
+      'not answered'}",
+    "hra.q.binge_drinking.a.no": "${currentResponse.binge_drinking ||
+      'not answered'}",
+    "hra.q.last_mammogram.a": "${currentResponse.last_mammogram ||
+      'not answered'}",
+    "hra.q.hysterectomy.a": "${currentResponse.hysterectomy || 'not answered'}",
+    "hra.q.pap_smear_test.a": "${currentResponse.pap_smear_test ||
+      'not answered'}",
+    "hra.q.colon_cancer_screening.a": "${currentResponse.colon_cancer_screening ||
+      'not answered'}",
+    "hra.q.fast_food.a": "${currentResponse.fast_food || 'not answered'}",
+    "hra.q.fruit.a": "${currentResponse.fruit || 'not answered'}",
+    "hra.q.vegetables.a": "${currentResponse.vegetables || 'not answered'}",
+    "hra.q.soft_drinks.a": "${currentResponse.soft_drinks || 'not answered'}",
+    "hra.q.protein.a": "${currentResponse.protein || 'not answered'}",
+    "hra.q.junk_food.a": "${currentResponse.junk_food || 'not answered'}",
+    "hra.q.desserts.a": "${currentResponse.desserts || 'not answered'}",
+    "hra.q.butter.a": "${currentResponse.butter || 'not answered'}",
+    "hra.q.sleep1.a": "${currentResponse.sleep1 || 'not answered'}",
+    "hra.q.sleep2.a": "${currentResponse.sleep2 || 'not answered'}",
+    "hra.q.sleep3.a": "${currentResponse.sleep3 || 'not answered'}",
+    "hra.q.sleep4.a": "${currentResponse.sleep4 || 'not answered'}",
+    "hra.q.PHQa.a": "${currentResponse.PHQa || 'not answered'}",
+    "hra.q.PHQb.a": "${currentResponse.PHQb || 'not answered'}",
+    "hra.q.PHQc.a": "${currentResponse.PHQc || 'not answered'}",
+    "hra.q.PHQd.a": "${currentResponse.PHQd || 'not answered'}",
+    "hra.q.PHQe.a": "${currentResponse.PHQe || 'not answered'}",
+    "hra.q.PHQf.a": "${currentResponse.PHQf || 'not answered'}",
+    "hra.q.PHQg.a": "${currentResponse.PHQg || 'not answered'}",
+    "hra.q.PHQh.a": "${currentResponse.PHQh || 'not answered'}",
+    "hra.q.PHQi.a": "${currentResponse.PHQi || 'not answered'}",
+    "hra.q.GADa.a": "${currentResponse.GADa || 'not answered'}",
+    "hra.q.GADb.a": "${currentResponse.GADb || 'not answered'}",
+    "hra.q.GADc.a": "${currentResponse.GADc || 'not answered'}",
+    "hra.q.GADd.a": "${currentResponse.GADd || 'not answered'}",
+    "hra.q.GADe.a": "${currentResponse.GADe || 'not answered'}",
+    "hra.q.GADf.a": "${currentResponse.GADf || 'not answered'}",
+    "hra.q.GADg.a": "${currentResponse.GADg || 'not answered'}",
+    "hra.q.felt_confident.a": "${currentResponse.felt_confident ||
+      'not answered'}",
+    "hra.q.going_your_way.a": "${currentResponse.going_your_way ||
+      'not answered'}",
+    "hra.q.unable_to_control.a": "${currentResponse.unable_to_control ||
+      'not answered'}",
+    "hra.q.difficulties_piling_up.a": "${currentResponse.difficulties_piling_up ||
+      'not answered'}",
+    "hra.q.overall_health.a": "${currentResponse.overall_health ||
+      'not answered'}",
+    "hra.q.weekly_physical_activity.a": "${currentResponse.weekly_physical_activity ||
+      'not answered'}",
+    "hra.q.bicycle_helmet_usage.a": "${currentResponse.bicycle_helmet_usage ||
+      'not answered'}",
+    "hra.q.helmet_usage.a": "${currentResponse.helmet_usage || 'not answered'}",
+    "hra.q.home_safety.a": "${currentResponse.home_safety || 'not answered'}",
+    "hra.q.home_safety.a.yes": "${currentResponse.home_safety ||
+      'not answered'}",
+    "hra.q.resting_heart_rate.a.bpm": "${currentResponse.resting_heart_rate ||
+      'not answered'}",
+    "hra.q.readiness_to_quit_smoking.a": "${currentResponse.readiness_to_quit_smoking ||
+      'not answered'}",
+    "hra.q.readiness_to_reduce_alcohol_usage.a": "${currentResponse.readiness_to_reduce_alcohol_usage ||
+      'not answered'}",
+    "hra.q.readiness_to_eat_healthier.a": "${currentResponse.readiness_to_eat_healthier ||
+      'not answered'}",
+    "hra.q.readiness_to_exercise_more.a": "${currentResponse.readiness_to_exercise_more ||
+      'not answered'}",
+    "hra.q.misfortune.a": "${currentResponse.misfortune || 'not answered'}",
+    "hra.q.race.a": "${currentResponse.race || 'not answered'}",
+    "hra.q.hispanic_origin.a": "${currentResponse.hispanic_origin ||
+      'not answered'}",
+    "hra.q.filling_forms.a": "${currentResponse.filling_forms ||
+      'not answered'}",
+    "hra.q.education.a": "${currentResponse.education || 'not answered'}",
+    "hra.q.state_of_residence.a": "${currentResponse.state_of_residence ||
+      'not answered'}",
+    "hra.q.marital_status.a": "${currentResponse.marital_status ||
+      'not answered'}",
+    "hra.q.household_income.a": "${currentResponse.household_income ||
+      'not answered'}",
+    "hra.q.insurance_coverage.a": "${currentResponse.insurance_coverage ||
+      'not answered'}",
+    "hra.q.gainful_employment.a": "${currentResponse.gainful_employment ||
+      'not answered'}",
+    "hra.q.gainful_employment.a.no": "${currentResponse.gainful_employment ||
+      'not answered'}",
+    "hra.q.health_information_interest.a": "${currentResponse.health_information_interest ||
+      'not answered'}",
+    "hra.q.health_information_interest.a.yes": "${currentResponse.health_information_interest ||
+      'not answered'}"}`,
+          },
+        };
+
+        // promisifying the request
+
+        const result = await requestPromise(options);
+
+        if (result.statusCode !== 200) {
+          throw new Error('api request failed');
+        }
+
+        //   save the response somewhere
+        // post it to ghm appraise_risk endpoint
+        return { message: 'Response submitted', percentageProgress: 100 };
+      }
+    } catch (error) {
+      throw new Error('Error during submission');
     }
-
-    if (input.stage === 'RESPONSE') {
-      const hraData = await hra.create({
-        stage: input.stage,
-        questionAndResponse: { ...input, stage: null },
-        ghmReference: req.userId
-      });
-
-      // update the user with his current hra
-      await updateUser({ _id: req.userId }, { $push: { hra: hraData._id } });
-
-      return { message: 'Response Saved Successfully' };
-    }
-
-    if (input.stage === 'UPDATE_RESPONSE') {
-      // await hra.findOneAndUpdate(
-      //   { ghmReference: req.userId },
-      //   {
-      //     stage: input.stage,
-      //     questionAndResponse: { ...input, stage: null }
-      //   },
-      //   { new: true, runValidators: true }
-      // );
-      const hraData = await hra.findOne({ ghmReference: req.userId });
-      hraData.questionAndResponse = {
-        ...hraData.questionAndResponse,
-        ...input,
-        stage: null
-      };
-      hraData.input = input.stage;
-
-      await hraData.save();
-
-      return { message: 'Response Updated Successfully' };
-    }
-
-    if (input.stage === 'PREVIEW') {
-      // find by ghmReference
-      // loop thru the data
-      // add the prefix '' and suffix '' to the `questionAndResponse`
-      // update the data using `ghmReference`
-      return { message: 'All Response Reviewed', input };
-    }
-
-    if (input.stage === 'SUBMIT') {
-      // confirm if the data is clean enough to be submitted
-      // post it to ghm appraise_risk endpoint
-      return { message: 'Response submitted', input };
-    }
-  }
+  },
 };
 
 module.exports = mutation;

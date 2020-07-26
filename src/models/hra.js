@@ -5,19 +5,23 @@ const hraSchema = new mongoose.Schema(
   {
     questionAndResponse: {
       type: mongoose.Schema.Types.Mixed,
-      required: true
+      required: true,
     },
     ghmReference: {
       type: String,
-      trim: true
+      trim: true,
+    },
+    percentageProgress: {
+      type: Number,
+      default: 0,
     },
     stage: {
       type: String,
-      enum: ['RESPONSE', 'UPDATE_RESPONSE', 'PREVIEW', 'SUBMIT', 'SUBMITTED']
-    }
+      enum: ['RESPONSE', 'UPDATE_RESPONSE', 'PREVIEW', 'SUBMIT', 'SUBMITTED'],
+    },
   },
   {
-    timestamps: true
+    timestamps: true,
   }
 );
 

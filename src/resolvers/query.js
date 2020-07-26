@@ -122,8 +122,8 @@ const query = {
           }"\n}`,
           signer: 'e650303e-e1e1-11e6-b68a-42010af00005@api.ghmcorp.com',
           signature:
-            '9f1c026cb6795e7a0a53ab33c7304053cae51eea5653d6faed59e9a5c0547aa8'
-        }
+            '9f1c026cb6795e7a0a53ab33c7304053cae51eea5653d6faed59e9a5c0547aa8',
+        },
       };
 
       // promisifying the request
@@ -146,7 +146,7 @@ const query = {
 
       return {
         ...resultData,
-        qCount: (resultData.q && resultData.q.length) || null
+        qCount: (resultData.q && resultData.q.length) || null,
       };
     } catch (error) {
       console.log(error);
@@ -162,7 +162,7 @@ const query = {
     const userHraId = req.user.hra[0]._id.toString();
 
     return hra.findById(userHraId);
-  }
+  },
 };
 
 module.exports = query;
