@@ -89,7 +89,7 @@ const query = {
   async fetchHraQuestion(_, { input }, { req }) {
     try {
       // check whether the user is logged in
-      if (!req.userId) {
+      if (!req.user || !req.userId) {
         throw new Error('You must be logged In');
       }
 

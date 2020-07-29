@@ -6,11 +6,11 @@ const color = [
   ['c', 6],
   ['m', 5],
   ['y', 3],
-  ['k', 0]
+  ['k', 0],
 ].reduce(
   (cols, col) => ({
     ...cols,
-    [col[0]]: f => `\x1b[3${col[1]}m${f}\x1b[0m`
+    [col[0]]: f => `\x1b[3${col[1]}m${f}\x1b[0m`,
   }),
   {}
 );

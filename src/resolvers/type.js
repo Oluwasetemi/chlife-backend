@@ -6,6 +6,6 @@ module.exports = {
     description: 'A valid date time value.',
     parseValue: value => new Date(value),
     serialize: value => new Date(value).toISOString(),
-    parseLiteral: ast => ast.value
-  })
+    parseLiteral: ast => ast.value,
+  }),
 };

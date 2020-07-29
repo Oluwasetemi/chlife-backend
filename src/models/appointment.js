@@ -5,28 +5,28 @@ const appointmentSchema = new mongoose.Schema(
   {
     subject: {
       type: String,
-      required: true
+      required: true,
     },
     description: {
       type: String,
-      required: true
+      required: true,
     },
     appointmentTime: {
       type: Date,
-      required: true
+      required: true,
     },
     type: {
       type: String,
       enum: ['INBODY', 'PROFESSIONAL'],
-      required: true
+      required: true,
     },
     professional: {
       type: String,
-      trim: true
-    }
+      trim: true,
+    },
   },
   {
-    timestamps: true
+    timestamps: true,
   }
 );
 

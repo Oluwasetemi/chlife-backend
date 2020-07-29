@@ -57,12 +57,12 @@ exports.send = async options => {
     const mailOptions = {
       From: {
         Email: process.env.SMTP_FROM_EMAIL,
-        Name: process.env.SMTP_FROM_NAME
+        Name: process.env.SMTP_FROM_NAME,
       },
       To: [{ Email: options.to, Name: 'Choose Life' }],
       Subject: options.subject || 'XXXXXXX-XXXX',
       TextPart: text,
-      HTMLPart: html
+      HTMLPart: html,
     };
 
     const result = await mailjet

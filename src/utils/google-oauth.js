@@ -9,7 +9,7 @@ const casual = require('casual');
 const defaultScope = [
   'https://www.googleapis.com/auth/user.phonenumbers.read',
   'https://www.googleapis.com/auth/userinfo.email',
-  'https://www.googleapis.com/auth/userinfo.profile'
+  'https://www.googleapis.com/auth/userinfo.profile',
 ];
 
 /** ********** */
@@ -41,7 +41,7 @@ function getConnectionUrl(auth) {
   return auth.generateAuthUrl({
     access_type: 'offline',
     prompt: 'consent',
-    scope: defaultScope
+    scope: defaultScope,
   });
 }
 
@@ -80,8 +80,8 @@ const getGoogleAccountFromCode = async code => {
       uri:
         'https://people.googleapis.com/v1/people/me?personFields=emailAddresses,names,photos,phoneNumbers,addresses',
       headers: {
-        Authorization: `Bearer ${tokens.access_token}`
-      }
+        Authorization: `Bearer ${tokens.access_token}`,
+      },
     };
     let me = await axios(options);
     me = JSON.parse(me);
@@ -93,7 +93,7 @@ const getGoogleAccountFromCode = async code => {
       email: userGoogleEmail,
       image: userAvatar,
       name: displayName,
-      source: 'GOOGLE'
+      source: 'GOOGLE',
     };
   } catch (error) {
     if (error.message === 'invalid_grant')
@@ -106,5 +106,5 @@ const getGoogleAccountFromCode = async code => {
 
 module.exports = {
   urlGoogle,
-  getGoogleAccountFromCode
+  getGoogleAccountFromCode,
 };

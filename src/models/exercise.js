@@ -5,34 +5,34 @@ const exerciseSchema = new mongoose.Schema(
   {
     title: {
       type: String,
-      required: true
+      required: true,
     },
     description: {
       type: String,
-      required: true
+      required: true,
     },
     body: {
       // the object of name, videolink, imagelink
       type: mongoose.Schema.Types.Mixed,
-      required: true
+      required: true,
     },
     type: {
       type: String,
       enum: ['INBODY', 'PROFESSIONAL'],
-      required: true
+      required: true,
     },
     category: {
       type: String,
       enum: ['INBODY', 'PROFESSIONAL'],
-      required: true
+      required: true,
     },
     advice: {
       type: String,
-      trim: true
-    }
+      trim: true,
+    },
   },
   {
-    timestamps: true
+    timestamps: true,
   }
 );
 

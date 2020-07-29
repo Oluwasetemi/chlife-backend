@@ -7,37 +7,37 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
-      index: true
+      index: true,
     },
     email: {
       type: String,
       required: true,
-      unique: true
+      unique: true,
     },
     mobile: {
-      type: String
+      type: String,
       // required: true,
       // unique: true
     },
     // A secure password should possess characters (0-9, A-Z alphanumeric symbols
     password: {
       type: String,
-      required: true
+      required: true,
     },
     type: {
       type: String,
       enum: ['INDIVIDUAL', 'EMPLOYEE', 'COMPANY', 'SUPERADMIN', 'ADMIN'],
       required:
         'Specify the type of the user - either : INDIVIDUAL, EMPLOYEE, COMPANY, SUPER-ADMIN, ADMIN',
-      default: 'INDIVIDUAL'
+      default: 'INDIVIDUAL',
     },
     image: {
       type: String,
-      default: 'https://via.placeholder.com/350.png'
+      default: 'https://via.placeholder.com/350.png',
     },
     gender: {
       type: String,
-      enum: ['MALE', 'FEMALE']
+      enum: ['MALE', 'FEMALE'],
       // required: true
     },
     nationality: { type: String, default: 'nigeria' },
@@ -61,23 +61,23 @@ const userSchema = new mongoose.Schema(
     source: {
       type: String,
       default: 'EMAIL',
-      enum: ['EMAIL', 'GOOGLE']
+      enum: ['EMAIL', 'GOOGLE'],
     },
     suspended: {
       type: Boolean,
-      default: false
+      default: false,
     },
     totalRewardPoints: {
       type: Number,
-      default: 0
+      default: 0,
     },
     weight: {
       type: Number,
-      default: 0
+      default: 0,
     },
     height: {
       type: Number,
-      default: 0
+      default: 0,
     },
     activity: {
       type: String,
@@ -87,8 +87,8 @@ const userSchema = new mongoose.Schema(
         'LOW',
         'VERYACTIVE',
         'SOMEWHATACTIVE',
-        'LOWACTIVITY'
-      ]
+        'LOWACTIVITY',
+      ],
     },
     /**
      * The company of the employee if any
@@ -96,7 +96,7 @@ const userSchema = new mongoose.Schema(
     company: {
       // type: mongoose.Schema.Types.ObjectId,
       // ref: 'User'
-      type: String
+      type: String,
     },
     /**
      * The array of the id of the HRA taken
@@ -104,8 +104,8 @@ const userSchema = new mongoose.Schema(
     hra: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Hra'
-      }
+        ref: 'Hra',
+      },
     ],
     /**
      * The array of the appointment with a medical professional
@@ -113,8 +113,8 @@ const userSchema = new mongoose.Schema(
     appointments: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Appointment'
-      }
+        ref: 'Appointment',
+      },
     ],
     /**
      * The array of the exercises recommended to a user
@@ -122,15 +122,15 @@ const userSchema = new mongoose.Schema(
     exercises: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Exercise'
-      }
+        ref: 'Exercise',
+      },
     ],
     /**
      * The meal plan recommended to a user
      */
     mealPlan: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'MealPlan'
+      ref: 'MealPlan',
     },
     /**
      * The array of the id of the inBody data fetch via thr cloud api
@@ -138,12 +138,12 @@ const userSchema = new mongoose.Schema(
     inBody: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'InBody'
-      }
-    ]
+        ref: 'InBody',
+      },
+    ],
   },
   {
-    timestamps: true
+    timestamps: true,
   }
 );
 

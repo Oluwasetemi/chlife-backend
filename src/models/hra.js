@@ -15,6 +15,7 @@ const hraSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    reportId: String,
     stage: {
       type: String,
       enum: ['RESPONSE', 'UPDATE_RESPONSE', 'PREVIEW', 'SUBMIT', 'SUBMITTED'],

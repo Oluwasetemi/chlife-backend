@@ -5,11 +5,11 @@ const mealPlanSchema = new mongoose.Schema(
   {
     title: {
       type: String,
-      required: true
+      required: true,
     },
     description: {
       type: String,
-      required: true
+      required: true,
     },
     mealPlanStructure: {
       // the object of day timeOfTheDay food
@@ -20,21 +20,21 @@ const mealPlanSchema = new mongoose.Schema(
       sunday: {breakfast: '', lunch: '', dinner: '' }
       */
       type: mongoose.Schema.Types.Mixed,
-      required: true
+      required: true,
     },
     type: {
       type: String,
       enum: ['INBODY', 'PROFESSIONAL'],
-      required: true
+      required: true,
     },
     category: {
       type: String,
       enum: ['INBODY', 'PROFESSIONAL'],
-      required: true
-    }
+      required: true,
+    },
   },
   {
-    timestamps: true
+    timestamps: true,
   }
 );
 

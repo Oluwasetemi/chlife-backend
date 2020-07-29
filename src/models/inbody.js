@@ -5,15 +5,15 @@ const inBodySchema = new mongoose.Schema(
   {
     inBodyData: {
       type: mongoose.Schema.Types.Mixed,
-      required: true
+      required: true,
     },
     inBodyReference: {
       type: String,
-      trim: true
-    }
+      trim: true,
+    },
   },
   {
-    timestamps: true
+    timestamps: true,
   }
 );
 
