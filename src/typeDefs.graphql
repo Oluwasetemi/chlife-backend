@@ -138,8 +138,8 @@ type QuestionAndResponse {
     blood_glucose_mml: String
     blood_glucose: String
     blood_pressure_estimated: String
-    blood_pressure_measured_high: String
-    blood_pressure_measured_low: String
+    blood_pressure_measured_high_number: String
+    blood_pressure_measured_low_number: String
     blood_pressure_medication: String
     body_frame_size: String
     butter: String
@@ -493,8 +493,8 @@ input HRAResponseInput {
     blood_glucose_mml: String
     blood_glucose: String
     blood_pressure_estimated: String
-    blood_pressure_measured_high: String
-    blood_pressure_measured_low: String
+    blood_pressure_measured_high_number: String
+    blood_pressure_measured_low_number: String
     blood_pressure_medication: String
     body_frame_size: String
     butter: String

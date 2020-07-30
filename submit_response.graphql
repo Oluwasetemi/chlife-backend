@@ -1,33 +1,395 @@
-mutation SUBMIT_RESPONSE{
-  submitHRAResponse(input: {
-    stage: RESPONSE, sex: "male", body_frame_size: "small", height_cm: "180", weight_kg: "90",
-  }){
-    message
-  }
-}
-mutation SUBMIT_RESPONSE_2{
-  submitHRAResponse(input: {
-    stage: UPDATE_RESPONSE, fruit: "2", PHQa: "1", health_information_interest: "yes", height: "5", junk_food: "2", gainful_employment: "no", chh_sbreath: "no", sleep2: "2", weight_kg: "30.39",PHQb: "0", bicycle_helmet_usage: "less than 25%", hispanic_origin: "no", blood_pressure_medication: "0", binge_drinking: "no", safety_belt_usage: "47", travel_by_motorcycle_km: "4.8", vaping: "no", diabetes_status: "no",marital_status: "widowed", desserts: "0", sleep3: "3", weekly_alcohol_beer:"3", weekly_alcohol_wine:"3", weekly_alcohol_wine_coolers:"3", weekly_alcohol_mixed_drinks:"3", GADa: "1", resting_heart_rate: "90", readiness_to_eat_healthier: "4", GADb: "1", misfortune: "no", soft_drinks: "1", smoking: "never_smoked", travel_by_motorcycle: "3", cholesterol_check: "no",chh_cough: "no", home_safety: "yes", distracted_driving: "no", chh_interact: "yes", household_income: "$30,000-$39,999", unable_to_control: "4", stroke: "no",butter: "0", overall_health: "poor", typical_travel_method: "walk", height_cm: "165.1", weight: "67", education: "high school graduate", weekly_physical_activity:"at least 3 times per week", smokeless_tobacco: "0", filling_forms: "2", sleep4:"1", race: "african", going_your_way: "3", drinking_and_driving: "2",
-  }){
-    message
-    percentageProgress
-  }
+mutation LOGIN_MUTATION {
+    login(email: "temi2@mailinator.com", password: "123456") {
+        _id
+        name
+        email
+        mobile
+        password
+        type
+        image
+        nationality
+        dob
+        createdAt
+        updatedAt
+        address
+        token
+        resetPasswordExpires
+        resetPasswordToken
+        adminVerified
+        source
+        suspended
+        company
+        companyUrl
+        totalRewardPoints
+        weight
+        height
+        activity
+        gender
+        hra {
+            ghmReference
+        }
+    }
 }
 
-mutation SUBMIT_RESPONSE_3{
-  submitHRAResponse(input: {
-    stage: UPDATE_RESPONSE, helmet_usage: "less than 25%", sleep1: "1", protein: "2", driving_speed: "more than 15 mph over limit",  heart_disease: "no", blood_pressure_measured_low: "70", blood_pressure_measured_high: "100", age_in_years: "27", heart_attack: "no",fast_food: "0", readiness_to_reduce_alcohol_usage: "2", state_of_residence: "ks", travel_by_automobile: "104", vegetables: "1", chh_fever: "no", insurance_coverage: "Veterans, TRICARE", chh_hands: "many_times", blood_pressure_medication: "0"
-  }){
-    message
-    percentageProgress
-  }
+query ALL_USERS {
+    users {
+        _id
+        name
+        email
+        mobile
+        password
+        type
+        image
+        nationality
+        dob
+        createdAt
+        updatedAt
+        address
+        token
+        resetPasswordToken
+        adminVerified
+        source
+        suspended
+        company
+        companyUrl
+        totalRewardPoints
+        weight
+        height
+        activity
+        gender
+    }
 }
 
-mutation SUBMIT_RESPONSE_4 {
-  submitHRAResponse(input: {
-    stage: SUBMIT
-  }){
-    message
-    percentageProgress
-  }
-}grap
+query ME_QUERY {
+    me {
+        _id
+        email
+        dob
+        gender
+        name
+    }
+}
+
+query FECH_QUESTION_MUTATION {
+    fetchHraQuestion(input: DRIVING) {
+        id
+        label
+        dynamic
+        q {
+            id
+            label
+            prompt
+            input {
+                type
+                values {
+                    id
+                    label
+                    hide
+                    show
+                }
+            }
+        }
+    }
+}
+mutation SIGNUP_MUTATION {
+    signup(
+        input: {
+            firstName: "Temi"
+            lastName: "Ope"
+            email: "temi2@mailinator.com"
+            gender: MALE
+            dob: "12/02/1993"
+            weight: 200
+            height: 300
+            company: "RBM"
+            activity: LOW
+            password: "123456"
+        }
+    ) {
+        _id
+        name
+        email
+        mobile
+        password
+        type
+        image
+        nationality
+        dob
+        createdAt
+        updatedAt
+        address
+        token
+        resetPasswordExpires
+        resetPasswordToken
+        adminVerified
+        source
+        suspended
+        company
+        companyUrl
+        totalRewardPoints
+        weight
+        height
+        activity
+    }
+}
+
+mutation SUBMIT_RESPONSE_1 {
+    submitHRAResponse(
+        input: {
+            stage: RESPONSE
+            save_key: "1"
+            sex: "male"
+            body_frame_size: "small"
+            height_cm: "180"
+            weight_kg: "90"
+        }
+    ) {
+        message
+    }
+}
+
+mutation SUBMIT_RESPONSE {
+    submitHRAResponse(
+        input: {
+            stage: UPDATE_RESPONSE
+            fruit: "2"
+            PHQa: "1"
+            health_information_interest: "yes"
+            height: "5"
+            junk_food: "2"
+            gainful_employment: "no"
+            chh_sbreath: "no"
+            sleep2: "2"
+            weight_kg: "30.39"
+            PHQb: "0"
+            bicycle_helmet_usage: "less than 25%"
+            hispanic_origin: "no"
+            blood_pressure_medication: "0"
+            binge_drinking: "no"
+            safety_belt_usage: "47"
+            travel_by_motorcycle_km: "4.8"
+            vaping: "no"
+            diabetes_status: "no"
+            marital_status: "widowed"
+            desserts: "0"
+            sleep3: "3"
+            weekly_alcohol_beer: "3"
+            weekly_alcohol_wine: "3"
+            weekly_alcohol_wine_coolers: "3"
+            weekly_alcohol_mixed_drinks: "3"
+            GADa: "1"
+            resting_heart_rate: "90"
+            readiness_to_eat_healthier: "4"
+            GADb: "1"
+            misfortune: "no"
+            soft_drinks: "1"
+            smoking: "never_smoked"
+            travel_by_motorcycle: "3"
+            cholesterol_check: "no"
+            chh_cough: "no"
+            home_safety: "yes"
+            distracted_driving: "no"
+            chh_interact: "yes"
+            household_income: "$30,000-$39,999"
+            unable_to_control: "4"
+            stroke: "no"
+            butter: "0"
+            overall_health: "poor"
+            typical_travel_method: "walk"
+            height_cm: "165.1"
+            weight: "67"
+            education: "high school graduate"
+            weekly_physical_activity: "at least 3 times per week"
+            smokeless_tobacco: "0"
+            filling_forms: "2"
+            sleep4: "1"
+            race: "african"
+            going_your_way: "3"
+            drinking_and_driving: "2"
+        }
+    ) {
+        message
+        percentageProgress
+    }
+}
+
+mutation SUBMIT_RESPONSE_2 {
+    submitHRAResponse(
+        input: {
+            stage: UPDATE_RESPONSE
+            helmet_usage: "less than 25%"
+            sleep1: "1"
+            protein: "2"
+            driving_speed: "more than 15 mph over limit"
+            heart_disease: "no"
+            blood_pressure_measured_low: "70"
+            blood_pressure_measured_high: "100"
+            age_in_years: "27"
+            heart_attack: "no"
+            fast_food: "0"
+            readiness_to_reduce_alcohol_usage: "2"
+            state_of_residence: "ks"
+            travel_by_automobile: "104"
+            vegetables: "1"
+            chh_fever: "no"
+            insurance_coverage: "Veterans, TRICARE"
+            chh_hands: "many_times"
+            blood_pressure_medication: "0"
+        }
+    ) {
+        message
+        percentageProgress
+    }
+}
+
+mutation SUBMIT_RESPONSE_3 {
+    submitHRAResponse(input: { stage: SUBMIT }) {
+        message
+        percentageProgress
+    }
+}
+
+query CURRENT_RESPONSE_QUERY {
+    currentUserResponse {
+        _id
+        questionAndResponse {
+            age_in_years
+            arrested_dui
+            bicycle_helmet_usage
+            binge_drinking
+            blood_glucose_mml
+            blood_glucose
+            blood_pressure_estimated
+            blood_pressure_measured_high_number
+            blood_pressure_measured_low_number
+            blood_pressure_medication
+            body_frame_size
+            butter
+            caffeine
+            charcoal_broiled
+            chh_cough
+            chh_fever
+            chh_hands
+            chh_interact
+            chh_sbreath
+            cholesterol_check
+            cholesterol_level_mml
+            cholesterol_level
+            cholesterol_level_estimated
+            cholesterol_medication
+            colon_cancer_screening
+            commercial_driver
+            cross_contamination
+            daily_cigars
+            daily_marajuana
+            daily_pipes
+            daily_shisha
+            desserts
+            diabetes_status
+            difficulties_piling_up
+            distracted_driving
+            drinking_and_driving
+            driving_speed
+            education
+            fast_food
+            felt_confident
+            filling_forms
+            fish
+            fruit
+            fruits_and_vegetables
+            GADa
+            GADb
+            GADc
+            GADd
+            GADe
+            GADf
+            GADg
+            gainful_employment
+            going_your_way
+            gross_weight
+            hb1ac_check
+            hdl_cholesterol_estimated
+            hdl_cholesterol_mml
+            hdl_cholesterol
+            health_information_interest
+            heart_attack
+            heart_disease
+            height_cm
+            height_feet
+            height_inches
+            height
+            helmet_usage
+            high_cholesterol_food
+            hispanic_origin
+            home_safety
+            household_income
+            hysterectomy
+            insurance_coverage
+            junk_food
+            last_mammogram
+            marital_status
+            misfortune
+            overall_health
+            pap_smear_test
+            PHQa
+            PHQb
+            PHQc
+            PHQd
+            PHQe
+            PHQf
+            PHQg
+            PHQh
+            PHQi
+            protein
+            race
+            readiness_to_eat_healthier
+            readiness_to_exercise_more
+            readiness_to_quit_smoking
+            readiness_to_reduce_alcohol_usage
+            resting_heart_rate
+            road_rage
+            safety_belt_usage
+            save_key
+            sex
+            sleep1
+            sleep2
+            sleep3
+            sleep4
+            smokeless_tobacco
+            smoking
+            soft_drinks
+            state_of_residence
+            still_smoke
+            stroke
+            sugar_beverage
+            travel_by_automobile_km
+            travel_by_automobile
+            travel_by_motorcycle_km
+            travel_by_motorcycle
+            triglycerides
+            type_of_license
+            typical_travel_method
+            unable_to_control
+            used_to_smoke_cigarettes_day
+            used_to_smoke_cigars_day
+            used_to_smoke_pipes_day
+            vaping_freq
+            vaping
+            vegetables
+            weekly_alcohol_beer
+            weekly_alcohol_mixed_drinks
+            weekly_alcohol_wine_coolers
+            weekly_alcohol_wine
+            weekly_physical_activity
+            weight_kg
+            weight
+            years_as_driver
+            years_since_quitting_months
+            years_since_quitting_years
+        }
+        ghmReference
+        percentageProgress
+        createdAt
+        updatedAtAt
+    }
+}
