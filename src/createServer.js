@@ -48,7 +48,10 @@ async function startServer() {
       },
       introspection: true,
       debug: false,
-      context: ({req}) => ({ pubsub, db, req })
+      context: ({req}) => ({ pubsub, db, req }),
+      engine: {
+        reportSchema: true
+        }
     });
 
 

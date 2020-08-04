@@ -673,7 +673,7 @@ const mutation = {
 
         //   save the response somewhere
         // post it to ghm appraise_risk endpoint
-        return { message: 'Response submitted', percentageProgress };
+        return { message: 'Response submitted', percentageProgress, reportId: hraData.reportId };
       }
     } catch (error) {
       throw new Error(error.message);
