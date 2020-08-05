@@ -694,4 +694,6 @@ type Mutation {
     submitHRAResponse(input: HRAResponseInput): HraMessage!
 }
 
-# type Subscription {}
+type Subscription {
+    notification: Message
+}

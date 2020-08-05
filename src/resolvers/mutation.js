@@ -566,9 +566,8 @@ const mutation = {
       message: `You have removed <b>${email}</b> from the choose Life.`,
     };
   },
-  async submitHRAResponse(_, { input }, { req }) {
+  async submitHRAResponse(_, { input }, { req, pubsub }) {
     try {
-      console.log(input);
       // check whether the user is logged in
       if (!req.userId) {
         throw new Error('You must be logged In');
@@ -673,7 +672,18 @@ const mutation = {
 
         //   save the response somewhere
         // post it to ghm appraise_risk endpoint
-        return { message: 'Response submitted', percentageProgress, reportId: hraData.reportId };
+        const notification = {
+          message: 'hra submitted successfully',
+        };
+        // send notification with socket
+        pubsub.publish('new-notification', {
+          notification,
+        });
+        return {
+          message: 'Response submitted',
+          percentageProgress,
+          reportId: hraData.reportId,
+        };
       }
     } catch (error) {
       throw new Error(error.message);

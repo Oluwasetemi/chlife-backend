@@ -108,6 +108,13 @@ const userSchema = new mongoose.Schema(
       },
     ],
     /**
+     * if currentHra?the id of the HRA currently
+     */
+    currentHra: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Hra',
+    },
+    /**
      * The array of the appointment with a medical professional
      */
     appointments: [

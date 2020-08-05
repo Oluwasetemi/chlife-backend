@@ -43,7 +43,7 @@ async function startServer() {
       resolvers: {
         Query,
         Mutation,
-        // Subscription
+        Subscription
         // Type,
       },
       introspection: true,
@@ -54,8 +54,10 @@ async function startServer() {
         }
     });
 
+    httpServer = createServer(app);
+    server.installSubscriptionHandlers(httpServer);
 
-      // setup middleware using the app
+    // setup middleware using the app
     const corsOptions = {
       credentials: true,
       origin: '*',
@@ -104,10 +106,6 @@ async function startServer() {
     });
 
     app.get('/graphiql', expressPlayground({ endpoint: '/graphql' }));
-
-
-    httpServer = createServer(app);
-    server.installSubscriptionHandlers(httpServer);
 
     return {httpServer, server, app}
   } catch (error) {
