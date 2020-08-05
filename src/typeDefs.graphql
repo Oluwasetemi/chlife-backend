@@ -272,6 +272,7 @@ type Hra {
     questionAndResponse: QuestionAndResponse
     ghmReference: String
     reportId: String
+    stage: String
     percentageProgress: Int
     createdAt: DateTime
     updatedAtAt: DateTime
@@ -370,6 +371,7 @@ type User {
     Health risk assessment(2 per year, 1 every 6 month)
     """
     hra: [Hra]
+    currentHra: Hra
     """
     user schedule apointment (2 only - inBody and Professional)
     """

@@ -10,6 +10,7 @@ const dbConnection = require('./db');
 const cors = require('cors');
 const { verify } = require('./utils/auth');
 const { findUserById } = require('./services/user');
+const resolvers = require('./resolvers')
 
 
 const typeDefs = readFileSync(path.join(__dirname, 'typeDefs.graphql'), 'UTF-8');
@@ -17,10 +18,6 @@ if (!typeDefs) {
   console.log('Set up your typeDefs')
   return;
 }
-const Mutation = require('./resolvers/mutation');
-const Query = require('./resolvers/query');
-const Subscription = require('./resolvers/subscription');
-// const Type = require('./resolvers/type');
 
 
 async function startServer() {
@@ -40,12 +37,7 @@ async function startServer() {
     const pubsub = new PubSub();
     const server = new ApolloServer({
       typeDefs,
-      resolvers: {
-        Query,
-        Mutation,
-        Subscription
-        // Type,
-      },
+      resolvers,
       introspection: true,
       debug: false,
       context: ({req}) => ({ pubsub, db, req }),

@@ -26,7 +26,7 @@ const connection = async url => {
       useNewUrlParser: true,
       useFindAndModify: false,
       useCreateIndex: true,
-      useUnifiedTopology: true
+      useUnifiedTopology: true,
     });
 
     const db = con.connection;
