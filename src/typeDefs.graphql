@@ -471,6 +471,7 @@ input signUpEmployeeInput {
     height: Int
     company: String
     activity: ActivityEnum
+    password: String
 }
 
 input signUpCompanyInput {
