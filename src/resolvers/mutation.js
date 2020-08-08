@@ -703,8 +703,27 @@ const mutation = {
         throw new Error('You must be logged In');
       }
 
+      let name;
+      // split former name
+      const [first, last] = req.user.name.split(' ');
+
+      if (input.firstName) {
+        name = `${input.firstName} ${last}`;
+      }
+
+      if (input.lastName) {
+        name = `${first} ${input.lastName}`;
+      }
+
+      if (input.firstName && input.lastName) {
+        name = `${input.firstName} ${input.lastName}`;
+      }
+
       // validate data
-      const updatedUser = await updateUser({ _id: req.userId }, { ...input });
+      const updatedUser = await updateUser(
+        { _id: req.userId },
+        { ...input, name }
+      );
 
       return updatedUser;
     } catch (error) {
