@@ -445,10 +445,10 @@ type Query {
 }
 
 input updateUserInput {
-    firstName: String!
-    lastName: String!
-    gender: GenderEnum!
-    dob: DateTime!
+    firstName: String
+    lastName: String
+    gender: GenderEnum
+    dob: DateTime
     weight: Int
     height: Int
     company: String
