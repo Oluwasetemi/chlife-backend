@@ -275,7 +275,7 @@ type Hra {
     stage: String
     percentageProgress: Int
     createdAt: DateTime
-    updatedAtAt: DateTime
+    updatedAt: DateTime
 }
 
 type InBodyStructure {
@@ -444,7 +444,7 @@ type Query {
     currentUserResponse: Hra
 }
 
-input updateUserProfileInput {
+input updateUserInput {
     firstName: String!
     lastName: String!
     gender: GenderEnum!
@@ -453,7 +453,12 @@ input updateUserProfileInput {
     height: Int
     company: String
     activity: ActivityEnum
-    password: String!
+}
+
+input updateUserPasswordInput {
+    oldPassword: String!
+    newPassword: String!
+    confirmPassword: String!
 }
 
 input signUpEmployeeInput {
@@ -466,7 +471,6 @@ input signUpEmployeeInput {
     height: Int
     company: String
     activity: ActivityEnum
-    password: String!
 }
 
 input signUpCompanyInput {
@@ -694,6 +698,14 @@ type Mutation {
     submit HRA response
     """
     submitHRAResponse(input: HRAResponseInput): HraMessage!
+    """
+    Update the user profile
+    """
+    updateUser(input: updateUserInput): User
+    """
+    Update the user's password
+    """
+    updateUserPassword(input: updateUserPasswordInput): Message!
 }
 
 type Subscription {

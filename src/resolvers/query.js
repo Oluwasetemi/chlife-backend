@@ -159,7 +159,7 @@ const query = {
       throw new Error('You must be logged In');
     }
 
-    const userHraId = req.user.hra[0]._id.toString();
+    const userHraId = req.user.currentHra;
 
     return hra.findById(userHraId);
   },
