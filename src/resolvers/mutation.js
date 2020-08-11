@@ -640,6 +640,10 @@ const mutation = {
         // fetch current response
         const hraData = await hra.findById(req.user.currentHra);
 
+        if (!hraData) {
+          throw new Error('You cannot submit without starting accessment')
+        }
+
         const currentResponse = hraData.questionAndResponse;
         // confirm if the data is clean enough to be submitted
         const options = {
