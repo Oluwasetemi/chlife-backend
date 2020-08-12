@@ -287,7 +287,7 @@ type InBody {
     inBodyData: InBodyStructure
     inBodyReference: String
     createdAt: DateTime
-    updatedAtAt: DateTime
+    updatedAt: DateTime
 }
 
 type Appointment {
@@ -298,7 +298,7 @@ type Appointment {
     type: String
     professsional: String
     createdAt: DateTime
-    updatedAtAt: DateTime
+    updatedAt: DateTime
 }
 
 type ExerciseBody {
@@ -314,7 +314,7 @@ type Exercise {
     category: String
     advice: String
     createdAt: DateTime
-    updatedAtAt: DateTime
+    updatedAt: DateTime
 }
 
 type MealPlanStructure {
@@ -330,7 +330,7 @@ type MealPlan {
     category: String
     advice: String
     createdAt: DateTime
-    updatedAtAt: DateTime
+    updatedAt: DateTime
 }
 
 type User {
