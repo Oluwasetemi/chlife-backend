@@ -27,6 +27,10 @@ async function startServer() {
     if (process.env.NODE_ENV === 'test') {
       dbUrl = process.env.DATABASE_TEST_URL;
     }
+
+    if (process.env.NODE_ENV === 'development') {
+      process.env.FRONTEND_URL = 'http://localhost:9998';
+    }
     // setup the database
     const db = dbConnection(dbUrl);
 
@@ -59,18 +63,18 @@ async function startServer() {
     app.use(cors(corsOptions));
 
     // TODO: Use express middleware to populate current user (JWT)
-      app.use(async (req, res, next) => {
-        try {
-            const { authorization: token } = req.headers;
+    app.use(async (req, res, next) => {
+      try {
+          const { authorization: token } = req.headers;
 
-            if (token) {
-              const { id } = await verify(token);
-                req.userId = id;
-            }
-            next();
-        } catch (error) {
-            throw new Error(error.message)
-        }
+          if (token) {
+            const { id } = await verify(token);
+              req.userId = id;
+          }
+          next();
+      } catch (error) {
+          throw new Error(error.message)
+      }
     });
 
     // 2. create a middleware that populates the user in the request

@@ -8,12 +8,14 @@ block content
     p Welcome to the choose life as an #{type}.
 
     p
-      strong ⚠️ Please Reset your password by clicking on the button below or copy the link below.
+      strong ⚠️ Please activate your account by clicking on the button below or copy the link below.
 
-    +button(resetLink, 'Reset Password ->')
+    +button(activationLink, 'Reset Password ->')
 
     p
-      a(href=`${resetLink}`, target='_blank')= resetLink
+      a(href=`${activationLink}`, target='_blank')= activationLink
+
+    p Our team should reach out to you  for information.
 
     br
     p If you didn't request this email, please ignore it.

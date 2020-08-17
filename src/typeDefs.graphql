@@ -337,6 +337,7 @@ type User {
     _id: String!
     name: String!
     email: String!
+    representativeEmail: String
     mobile: String
     """
     A secure password should possess characters 0-9, A-Z alphanumeric symbols
@@ -347,19 +348,16 @@ type User {
     gender: GenderEnum!
     nationality: String
     dob: DateTime
-    createdAt: DateTime
-    updatedAt: DateTime
+    occupation: String
     address: String
     token: String
     resetPasswordExpires: String
+    activationToken: String
     resetPasswordToken: String
     invitedBy: User
     adminVerified: Boolean
     source: SourceEnum
     suspended: Boolean
-    company: String
-    companyUrl: String
-    size: Int!
     """
     total reward point for certain activities
     """
@@ -367,6 +365,13 @@ type User {
     weight: Int
     height: Int
     activity: ActivityEnum
+    department: String
+    branch: String
+    company: User
+    companyName: String
+    companyUrl: String
+    companySize: Int!
+    employeeLimit: Int!
     """
     Health risk assessment(2 per year, 1 every 6 month)
     """
@@ -376,9 +381,11 @@ type User {
     user schedule apointment (2 only - inBody and Professional)
     """
     appointments: [Appointment]
-    exercises: Exercise
+    exercises: [Exercise]
     mealPlan: MealPlan
     inBody: [InBody]
+    createdAt: DateTime
+    updatedAt: DateTime
 }
 
 type Asset {
@@ -395,6 +402,22 @@ type Contentful {
     author: String!
     authorRole: String
     asset: Asset
+}
+
+type Reward {
+    title: String!
+    description: String
+    startDate: DateTime
+    endDate: DateTime
+    isClosed: Boolean
+}
+
+type Leaderboard {
+    id: String
+    name: String
+    department: String
+    branch: String
+    points: Int
 }
 
 type Query {
@@ -442,6 +465,26 @@ type Query {
     Fetch the current response of the user currently logged in
     """
     currentUserResponse: Hra
+    """
+    Fetch the employee who registered under a company
+    """
+    fetchEmployeeOfACompany: [User]
+    """
+    search employee
+    """
+    searchEmployee(searchInput: String): [User]
+    """
+    fetch one active reward
+    """
+    fetchCurrentReward: Reward
+    """
+    fetch all closed reward
+    """
+    fetchAllClosedReward: [Reward]
+    """
+    fetch a company current leaderboard
+    """
+    fetchLeaderBoardCompany: [Leaderboard]
 }
 
 input updateUserInput {
@@ -470,19 +513,56 @@ input signUpEmployeeInput {
     weight: Int
     height: Int
     company: String
+    department: String
+    branch: String
     activity: ActivityEnum
     password: String
 }
 
+"""
+The full definition of the register company input
+"""
 input signUpCompanyInput {
     firstName: String!
     lastName: String!
-    organizationName: String!
+    jobTitle: String
+    designation: String
+    """
+    This should be used for signin
+    """
     organizationEmail: String!
+    """
+    This should be used for contact purpose
+    """
+    representativeEmail: String!
+    organizationName: String!
     organizationUrl: String
     organizationAddress: String
     organizationSize: Int!
-    jobTitle: String!
+    password: String!
+}
+
+input addEmployeeInput {
+    firstName: String!
+    lastName: String!
+    email: String!
+    department: String
+    branch: String
+}
+
+input createRewardInput {
+    title: String!
+    description: String!
+    startDate: DateTime!
+    endDate: DateTime!
+}
+
+input createRewardInput {
+    id: String!
+    title: String!
+    description: String
+    startDate: DateTime
+    endDate: DateTime
 }
 
 enum stageEnum {
@@ -644,6 +724,14 @@ type Mutation {
         accountType: UserEnum = INDIVIDUAL
     ): User!
     """
+    Admin - activate a company account
+    """
+    activateCompany(activationToken: String!): Message!
+    """
+    Admin - set the company limit
+    """
+    setEmployeeLimit(amount: Int!): Message!
+    """
     Mutation to generate the google auth url the frontend can user to handle the google sign on for an individual
     """
     generateGoogleAuthUrl: String!
@@ -674,7 +762,12 @@ type Mutation {
     """
     OnBoard Company -> this can only be done by chooselife addmin
     """
-    registerCompany(input: signUpCompanyInput): Message!
+    registerCompany(
+        """
+        Input that is needed to register a company
+        """
+        input: signUpCompanyInput
+    ): Message!
     """
     Mutation to initiate a password reset request
     """
@@ -707,6 +800,16 @@ type Mutation {
     Update the user's password
     """
     updateUserPassword(input: updateUserPasswordInput): Message!
+    """
+    Add a new users to a company
+    """
+    addEmployeeToACompany(input: [addEmployeeInput]): Message!
+    """
+
+    """
+    companyCreateReward(input: createRewardInput): Message!
+    companyUpdateReward(input: createRewardInput): Reward!
+    closeOneReward(id: String): Message!
 }
 
 type Subscription {

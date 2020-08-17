@@ -5,18 +5,22 @@ const userSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: true,
-      index: true,
+      trim: true,
     },
     email: {
       type: String,
       required: true,
       unique: true,
+      trim: true,
+    },
+    representativeEmail: {
+      type: String,
+      trim: true,
     },
     mobile: {
       type: String,
       // required: true,
-      // unique: true
+      trim: true,
     },
     // A secure password should possess characters (0-9, A-Z alphanumeric symbols
     password: {
@@ -45,13 +49,14 @@ const userSchema = new mongoose.Schema(
     address: { type: String },
     // reset password details
     resetPasswordExpires: { type: Number },
+    activationToken: { type: String },
     resetPasswordToken: { type: String },
     /**
      * Store the objectId of the company or choose_life_admin that invited the user
      */
     invitedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     /**
-     * For agent to initial wallet payout, he must be verified by the admin
+     * verify a company by an admin
      */
     adminVerified: { type: Boolean, default: false },
     /**
@@ -89,13 +94,48 @@ const userSchema = new mongoose.Schema(
         'LOWACTIVITY',
       ],
     },
+    department: {
+      type: String,
+    },
+    branch: {
+      type: String,
+    },
     /**
-     * The company of the employee if any
+     * The company ref of the employee if any
      */
     company: {
-      // type: mongoose.Schema.Types.ObjectId,
-      // ref: 'User'
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      // type: String,
+    },
+    /**
+     * The company name of the employee if any
+     */
+    companyName: {
       type: String,
+      trim: true,
+    },
+    /**
+     * The company url of the employee if any
+     */
+    companyUrl: {
+      type: String,
+      trim: true,
+    },
+    /**
+     * The company size of the employee if any
+     */
+    companySize: {
+      type: Number,
+      default: 0,
+    },
+    /**
+     * The company size limit of the employee set by the chooselife plan you subscribed for
+     * Only an admin can alter field
+     */
+    employeeLimit: {
+      type: Number,
+      default: 0,
     },
     /**
      * The array of the id of the HRA taken
@@ -112,6 +152,13 @@ const userSchema = new mongoose.Schema(
     currentHra: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Hra',
+    },
+    /**
+     * if currentReward?the id of the HRA currently
+     */
+    currentReward: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Reward',
     },
     /**
      * The array of the appointment with a medical professional
@@ -152,6 +199,8 @@ const userSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+userSchema.index({ name: 'text', email: 'text' });
 
 // Export the model
 module.exports = mongoose.model('User', userSchema);

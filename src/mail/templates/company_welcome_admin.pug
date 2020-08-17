@@ -1,0 +1,22 @@
+extends email-layout
+
+block content
+    h2 A new company just registered
+    p Hello Admin!,
+
+    br
+    p A new company
+    | b #{companyName}
+    | just registered on the platform.
+
+    p complete the company onboarding by click the button below or copy the link below into your browser.
+
+    +button(loginLink, 'Login Link ->')
+
+    p
+      a(href=`${loginLink}`, target='_blank')= loginLink
+
+    br
+    p If you didn't request this email, please ignore it.
+    p Regards.
+    p Choose Life Team

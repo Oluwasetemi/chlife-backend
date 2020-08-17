@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable no-shadow */
 /* eslint-disable camelcase */
 const validator = require('validator');
@@ -23,6 +24,12 @@ const {
   findOneBasedOnQuery,
   deleteUserByEmail,
 } = require('../services/user');
+
+const {
+  createReward,
+  updateReward,
+  findAllRewards,
+} = require('../services/reward');
 
 const { hash, match, sign } = require('../utils/auth');
 const { send } = require('../mail/mail');
@@ -77,43 +84,53 @@ const mutation = {
       throw new Error(error.message);
     }
   },
-  async registerCompany(_, args) {
+  async registerCompany(_, { input }) {
     try {
+      // loop thru all values of input and trim the white spaces
+      for (const each in input) {
+        if (each in input) {
+          if (typeof input[each] === 'string') {
+            input[each] = input[each].trim();
+          }
+        }
+      }
       // validate the input that graphql will not validate
-      const isEmail = validator.isEmail(args.input.organizationEmail);
+      const isEmail = validator.isEmail(input.organizationEmail);
+      const isEmail2 = validator.isEmail(input.representativeEmail);
 
       if (!isEmail) {
         throw new Error('The email input is not a valid email');
       }
-      // check if user exist on the platform before
-      const userExists = await findOneByEmail(args.input.organizationEmail);
+      if (!isEmail2) {
+        throw new Error('The email input is not a valid email');
+      }
+      // check if user(company) exist on the platform before
+      const userExists = await findOneByEmail(input.organizationEmail);
 
       if (userExists) {
         throw new Error('Email taken, Please try another email');
       }
 
       // create user
-      const name = `${args.input.firstName.trim()} ${args.input.lastName.trim()}`;
+      const name = `${input.firstName} ${input.lastName}`;
+      const password = await hash(input.password);
 
-      const password = await hash(casual.password);
-
-      // request reset password
+      // set activation token
       const randomBytesPromisified = promisify(randomBytes);
-      const resetPasswordToken = (await randomBytesPromisified(20)).toString(
+      const activationToken = (await randomBytesPromisified(20)).toString(
         'hex'
       );
-      const resetPasswordExpires = Date.now() + 3600000; // 1 hr from now
 
       const user = await createUser({
-        email: args.input.organizationEmail,
-        company: args.input.organizationName,
-        companyUrl: args.input.organizationUrl,
-        address: args.input.organizationAddress,
-        size: args.input.organizationSize,
+        email: input.organizationEmail,
+        representativeEmail: input.representativeEmail,
+        companyName: input.organizationName,
+        companyUrl: input.organizationUrl,
+        address: input.organizationAddress,
+        companySize: input.organizationSize,
         name,
         password,
-        resetPasswordExpires,
-        resetPasswordToken,
+        activationToken,
         type: 'COMPANY',
       });
 
@@ -121,21 +138,32 @@ const mutation = {
         throw new Error('User creation was not successful');
       }
 
-      // send email to the new company and reset their password
+      // send email to the new company
       await send({
         filename: 'company_welcome',
         to: user.email,
         subject: 'Welcome to Choose Life',
         type: user.type,
         name: user.name,
-        resetPasswordExpires,
-        resetLink: `${
+        activationLink: `${
           process.env.FRONTEND_URL
-        }/reset?resetToken=${resetPasswordToken}`,
+        }/activate/${activationToken}`,
+      });
+
+      // send email to chooselife admin
+      await send({
+        filename: 'company_welcome_admin',
+        to: process.env.CHOOSELIFE_ADMIN_EMAIL,
+        subject: 'A new company just registered',
+        name: user.name,
+        loginLink: `${process.env.FRONTEND_URL}/login`,
       });
 
       // const result = { ...user._doc, password: null };
-      const result = { message: 'Company registered successfully' };
+      const result = {
+        message:
+          'Company registered successfully? Check your email for further process',
+      };
 
       // console.log(args);
       return result;
@@ -143,8 +171,56 @@ const mutation = {
       throw new Error(error.message);
     }
   },
+  async activateCompany(_, { activationToken }, { req }) {
+    // must be  done by an admin
+    if (!req.userId) {
+      throw new Error('You must be logged In');
+    }
+
+    if (!req.user.type === 'SUPERADMIN') {
+      throw new Error('You do not have the permission to do this');
+    }
+    // confirm the validity of the activationToken
+    const userExists = await findOneBasedOnQuery({ activationToken });
+    if (!userExists) {
+      throw new Error('Invalid activation');
+    }
+    // update the user
+    userExists.activationToken = null;
+    userExists.adminverified = true;
+    await userExists.save();
+    // return a message
+    return { message: 'User Activated' };
+  },
+  async setEmployeeLimit(_, { amount, id }, { req }) {
+    // must be done by an admin
+    if (!req.userId) {
+      throw new Error('You must be logged In');
+    }
+
+    if (!req.user.type === 'SUPERADMIN') {
+      throw new Error('You do not have the permission to do this');
+    }
+
+    // confirm the id belongs to a valid company
+    // update the company
+    const updatedUser = await updateUser(
+      { _id: id },
+      { employeeLimit: amount }
+    );
+    // return a message
+    return { message: `Limit set for Company ${updatedUser.companyName}` };
+  },
   async adminOnBoardCompany(_, args, { req }) {
     try {
+      // must be done by an admin
+      if (!req.userId) {
+        throw new Error('You must be logged In');
+      }
+
+      if (!req.user.type === 'SUPERADMIN') {
+        throw new Error('You do not have the permission to do this');
+      }
       // validate the input that graphql will not validate
       const isEmail = validator.isEmail(args.input.organizationEmail);
 
@@ -641,7 +717,7 @@ const mutation = {
         const hraData = await hra.findById(req.user.currentHra);
 
         if (!hraData) {
-          throw new Error('You cannot submit without starting accessment')
+          throw new Error('You cannot submit without starting accessment');
         }
 
         const currentResponse = hraData.questionAndResponse;
@@ -772,6 +848,153 @@ const mutation = {
     } catch (error) {
       console.log(error.message);
       throw new Error('Server Error');
+    }
+  },
+  async addEmployeeToACompany(_, { input }, { req }) {
+    // must be done by an admin
+    if (!req.userId) {
+      throw new Error('You must be logged In');
+    }
+
+    if (!req.user.type === 'COMPANY') {
+      throw new Error('You do not have the permission to do this');
+    }
+
+    // create the user with their email and set their company details
+    const newUsers = [];
+    for (const each of input) {
+      const password = await hash(casual.password);
+
+      // request reset password
+      const randomBytesPromisified = promisify(randomBytes);
+      const resetPasswordToken = (await randomBytesPromisified(20)).toString(
+        'hex'
+      );
+      const resetPasswordExpires = Date.now() + 3600000; // 1 hr from now
+
+      const user = await createUser({
+        name: `${each.firstName.trim()} ${each.lastName.trim()}`,
+        email: each.email.trim(),
+        company: req.userId,
+        companyName: req.user.companyName,
+        companyUrl: `${req.user.companyUrl || ''}`,
+        branch: each.branch,
+        department: each.department,
+        type: 'EMPLOYEE',
+        invitedBy: req.userId,
+        adminverified: true,
+        password,
+        resetPasswordExpires,
+        resetPasswordToken,
+      });
+
+      // save the newly created user in an array
+      newUsers.push(user);
+
+      // send email to new user
+      await send({
+        filename: 'company_add_new',
+        to: user.email,
+        subject: 'Welcome to Choose Life',
+        type: user.type,
+        resetPasswordExpires,
+        resetLink: `${
+          process.env.FRONTEND_URL
+        }/reset?resetToken=${resetPasswordToken}`,
+      });
+    }
+
+    // send email to add the newly added users
+    return {
+      message: `${input.length} employee has been added to your company`,
+    };
+  },
+  async companyCreateReward(parent, { input }, { req }) {
+    try {
+      // must be done by an admin
+      if (!req.userId) {
+        throw new Error('You must be logged In');
+      }
+
+      if (!req.user.type === 'COMPANY') {
+        throw new Error('You do not have the permission to do this');
+      }
+
+      // check if any open reward still exist
+      const openedRewards = await findAllRewards({
+        createdBy: req.userId,
+        isClosed: false,
+      });
+
+      if (openedRewards && openedRewards.length !== 0) {
+        throw new Error(
+          'You must closed the current reward before you are permitted to create another'
+        );
+      }
+      const reward = await createReward({ ...input, createdBy: req.userId });
+
+      if (!reward) {
+        throw new Error('Problem creating reward');
+      }
+
+      // set the current reward by updating the company with her current reward
+      await updateUser({ _id: req.userId }, { currentReward: reward._id });
+
+      return { message: 'Reward created successfully' };
+    } catch (error) {
+      console.log(error);
+      throw new Error(error.message);
+    }
+  },
+  async companyUpdateReward(parent, { input }, { req }) {
+    try {
+      // must be done by an admin
+      if (!req.userId) {
+        throw new Error('You must be logged In');
+      }
+
+      if (!req.user.type === 'COMPANY') {
+        throw new Error('You do not have the permission to do this');
+      }
+
+      const dataToUpdate = Object.defineProperties(
+        {},
+        Object.getOwnPropertyDescriptors(input)
+      );
+
+      delete dataToUpdate.id;
+
+      const reward = await updateReward({ _id: input.id }, { ...dataToUpdate });
+
+      if (!reward) {
+        throw new Error('Problem creating reward');
+      }
+      return reward;
+    } catch (error) {
+      console.log(error);
+      throw new Error(error.message);
+    }
+  },
+  async closeOneReward(parent, { id }, { req }) {
+    try {
+      // must be done by an admin
+      if (!req.userId) {
+        throw new Error('You must be logged In');
+      }
+
+      if (!req.user.type === 'COMPANY') {
+        throw new Error('You do not have the permission to do this');
+      }
+
+      const reward = await updateReward({ _id: id }, { isClosed: true });
+
+      if (!reward) {
+        throw new Error('Problem creating reward');
+      }
+      return { message: 'Reward closed successfully' };
+    } catch (error) {
+      console.log(error);
+      throw new Error(error.message);
     }
   },
 };

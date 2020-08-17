@@ -5,7 +5,16 @@ const { promisify } = require('util');
 const dateFns = require('date-fns');
 const request = require('request');
 const { verify } = require('../utils/auth');
-const { findUserById, findAllUsers } = require('../services/user');
+const {
+  findUserById,
+  findAllUsers,
+  findBasedOnQuery,
+  search,
+} = require('../services/user');
+const {
+  findAllRewards,
+  findOneRewardBasedOnQuery,
+} = require('../services/reward');
 const hra = require('../models/hra');
 
 const requestPromise = promisify(request);
@@ -41,15 +50,10 @@ const query = {
   },
   async userById(_, { id }, { req }) {
     try {
-      // console.log(req);
-      // console.log(req.headers.authorization);
-      // const token = req.headers.authorization;
-
-      // if (!id) {
-      //   throw new Error("You're not logged in");
-      // }
-
-      // const { id } = await verify(token);
+      // must be done by an admin
+      if (!req.userId) {
+        throw new Error('You must be logged In');
+      }
 
       if (id) {
         const user = await findUserById(id);
@@ -66,7 +70,12 @@ const query = {
       throw new Error(e.message);
     }
   },
-  async users() {
+  async users(parent, args, { req }) {
+    // must be done by an admin
+    if (!req.userId) {
+      throw new Error('You must be logged In');
+    }
+
     // this should be protected for only admin
     const users = await findAllUsers({});
 
@@ -76,7 +85,12 @@ const query = {
 
     return users;
   },
-  async usersByType(_, { type }) {
+  async usersByType(_, { type }, { req }) {
+    // must be done by an admin
+    if (!req.userId) {
+      throw new Error('You must be logged In');
+    }
+
     // this should be protected for only admin
     const users = await findAllUsers({ type });
 
@@ -162,6 +176,122 @@ const query = {
     const userHraId = req.user.currentHra;
 
     return hra.findById(userHraId);
+  },
+  async fetchEmployeeOfACompany(_, args, { req }) {
+    try {
+      // must be done by an admin
+      if (!req.userId) {
+        throw new Error('You must be logged In');
+      }
+
+      if (!req.user.type === 'COMPANY') {
+        throw new Error('You do not have the permission to do this');
+      }
+
+      const companyEmployees = await findBasedOnQuery({ company: req.userId });
+
+      return companyEmployees;
+    } catch (error) {
+      console.log(error);
+      throw new Error(error.message);
+    }
+  },
+  async searchEmployee(_, { searchTerm }, { req }) {
+    try {
+      // must be done by an admin
+      if (!req.userId) {
+        throw new Error('You must be logged In');
+      }
+
+      if (!req.user.type === 'COMPANY') {
+        throw new Error('You do not have the permission to do this');
+      }
+
+      const searchedCompanyEmployees = await search(searchTerm);
+
+      return searchedCompanyEmployees;
+    } catch (error) {
+      console.log(error);
+      throw new Error(error.message);
+    }
+  },
+  async fetchCurrentReward(_, args, { req }) {
+    try {
+      // must be done by an admin
+      if (!req.userId) {
+        throw new Error('You must be logged In');
+      }
+
+      if (!req.user.type === 'COMPANY') {
+        throw new Error('You do not have the permission to do this');
+      }
+
+      const currentReward = await findOneRewardBasedOnQuery({
+        _id: req.user.currentReward,
+      });
+
+      return currentReward;
+    } catch (error) {
+      console.log(error);
+      throw new Error(error.message);
+    }
+  },
+  async fetchAllClosedReward(_, args, { req }) {
+    try {
+      // must be done by an admin
+      if (!req.userId) {
+        throw new Error('You must be logged In');
+      }
+
+      if (!req.user.type === 'COMPANY') {
+        throw new Error('You do not have the permission to do this');
+      }
+
+      const closedRewards = await findAllRewards({
+        createdBy: req.userId,
+        isClosed: false,
+      });
+
+      return closedRewards;
+    } catch (error) {
+      console.log(error);
+      throw new Error(error.message);
+    }
+  },
+  async fetchLeaderBoardCompany(_, args, { req }) {
+    try {
+      // must be done by an admin
+      if (!req.userId) {
+        throw new Error('You must be logged In');
+      }
+
+      if (!req.user.type === 'COMPANY') {
+        throw new Error('You do not have the permission to do this');
+      }
+
+      const allEmployee = await findAllUsers({
+        company: req.userId,
+      });
+
+      const cleanAllEmployee = JSON.parse(JSON.stringify(allEmployee));
+
+      const leaderBoard = [];
+      for (const each of cleanAllEmployee) {
+        const copy = {};
+        copy.id = each._id;
+        copy.name = each.name;
+        copy.department = each.department;
+        copy.branch = each.branch;
+        copy.points = each.totalRewardPoints;
+
+        leaderBoard.push(copy);
+      }
+
+      return leaderBoard;
+    } catch (error) {
+      console.log(error);
+      throw new Error(error.message);
+    }
   },
 };
 

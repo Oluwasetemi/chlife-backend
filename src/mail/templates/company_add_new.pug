@@ -1,0 +1,26 @@
+extends email-layout
+
+block content
+    h2 Your Company Added you to Choose Life
+    p Hello Newest member!,
+
+    br
+    p You're welcome.
+
+    p Please change your password and update your profile with you name and other relevant in formation.
+
+    p Please click the button or copy the link below to choose a new password. Please bare in mind that the new password option expires in 1 hr.
+
+    +button(resetLink, 'Choose a new Password ->')
+
+    p
+      a(href=`${resetLink}`, target='_blank')= resetLink
+
+    p The password will be used to access your account.
+
+    p Don't forget to store your password safely.
+
+    br
+    p If you didn't request this email, please ignore it.
+    p Regards.
+    p Choose Life Team.
