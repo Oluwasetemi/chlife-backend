@@ -12,7 +12,6 @@ const rewardSchema = new mongoose.Schema(
     description: {
       type: String,
       required: true,
-      unique: true,
     },
     startDate: {
       type: Date,
@@ -35,7 +34,7 @@ const rewardSchema = new mongoose.Schema(
     },
   },
   {
-    ,timestamps: true,
+    timestamps: true,
   }
 );
 

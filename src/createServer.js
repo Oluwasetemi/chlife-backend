@@ -63,35 +63,25 @@ async function startServer() {
     app.use(cors(corsOptions));
 
     // TODO: Use express middleware to populate current user (JWT)
+  // 2. create a middleware that populates the user in the request
     app.use(async (req, res, next) => {
       try {
           const { authorization: token } = req.headers;
 
           if (token) {
             const { id } = await verify(token);
+
+            // check validity of the user id
+            const user = await findUserById(id);
+
+            if (!user) return next()
+
               req.userId = id;
+              req.user = user;
           }
           next();
       } catch (error) {
           throw new Error(error.message)
-      }
-    });
-
-    // 2. create a middleware that populates the user in the request
-    app.use(async (req, res, next) => {
-      try {
-        // if they aren't logged in, skip this
-      if (!req.userId) return next();
-        const user = await findUserById(req.userId);
-
-        if (user) {
-          req.user = user._doc;
-          return next();
-
-        }
-        next()
-      } catch (error) {
-        throw new Error(error.message)
       }
     });
 

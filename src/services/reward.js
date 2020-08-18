@@ -22,5 +22,5 @@ exports.search = searchParams =>
     $text: {
       $search: searchParams,
     },
-    { score : { $meta: "textScore" } },
-  }).sort({ score : { $meta : 'textScore' } })
+    score: { $meta: 'textScore' },
+  }).sort({ score: { $meta: 'textScore' } });

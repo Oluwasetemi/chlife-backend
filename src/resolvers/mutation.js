@@ -177,7 +177,7 @@ const mutation = {
       throw new Error('You must be logged In');
     }
 
-    if (!req.user.type === 'SUPERADMIN') {
+    if (req.user.type !== 'SUPERADMIN') {
       throw new Error('You do not have the permission to do this');
     }
     // confirm the validity of the activationToken
@@ -198,7 +198,7 @@ const mutation = {
       throw new Error('You must be logged In');
     }
 
-    if (!req.user.type === 'SUPERADMIN') {
+    if (req.user.type !== 'SUPERADMIN') {
       throw new Error('You do not have the permission to do this');
     }
 
@@ -218,7 +218,7 @@ const mutation = {
         throw new Error('You must be logged In');
       }
 
-      if (!req.user.type === 'SUPERADMIN') {
+      if (req.user.type !== 'SUPERADMIN') {
         throw new Error('You do not have the permission to do this');
       }
       // validate the input that graphql will not validate
@@ -562,7 +562,7 @@ const mutation = {
       throw new Error('You must be logged In');
     }
 
-    if (!req.user.type === 'SUPERADMIN') {
+    if (req.user.type !== 'SUPERADMIN') {
       throw new Error('You do not have the permission to do this');
     }
 
@@ -617,7 +617,7 @@ const mutation = {
       throw new Error('You must be logged In');
     }
 
-    if (!req.user.type === 'SUPERADMIN') {
+    if (req.user.type !== 'SUPERADMIN') {
       throw new Error('You do not have the permission to do this');
     }
 
@@ -851,63 +851,68 @@ const mutation = {
     }
   },
   async addEmployeeToACompany(_, { input }, { req }) {
-    // must be done by an admin
-    if (!req.userId) {
-      throw new Error('You must be logged In');
+    try {
+      // must be done by an admin
+      if (!req.userId) {
+        throw new Error('You must be logged In');
+      }
+
+      if (req.user.type !== 'COMPANY') {
+        throw new Error('You do not have the permission to do this');
+      }
+
+      // create the user with their email and set their company details
+      const newUsers = [];
+      for (const each of input) {
+        const password = await hash(casual.password);
+
+        // request reset password
+        const randomBytesPromisified = promisify(randomBytes);
+        const resetPasswordToken = (await randomBytesPromisified(20)).toString(
+          'hex'
+        );
+        const resetPasswordExpires = Date.now() + 3600000; // 1 hr from now
+
+        const user = await createUser({
+          name: `${each.firstName.trim()} ${each.lastName.trim()}`,
+          email: each.email.trim(),
+          company: req.userId,
+          companyName: req.user.companyName,
+          companyUrl: `${req.user.companyUrl || ''}`,
+          branch: each.branch,
+          department: each.department,
+          type: 'EMPLOYEE',
+          invitedBy: req.userId,
+          adminverified: true,
+          password,
+          resetPasswordExpires,
+          resetPasswordToken,
+        });
+
+        // save the newly created user in an array
+        newUsers.push(user);
+
+        // send email to new user
+        await send({
+          filename: 'company_add_new',
+          to: user.email,
+          subject: 'Welcome to Choose Life',
+          type: user.type,
+          resetPasswordExpires,
+          resetLink: `${
+            process.env.FRONTEND_URL
+          }/reset?resetToken=${resetPasswordToken}`,
+        });
+      }
+
+      // send email to add the newly added users
+      return {
+        message: `${input.length} employee has been added to your company`,
+      };
+    } catch (error) {
+      console.log(error);
+      throw new Error(error.message);
     }
-
-    if (!req.user.type === 'COMPANY') {
-      throw new Error('You do not have the permission to do this');
-    }
-
-    // create the user with their email and set their company details
-    const newUsers = [];
-    for (const each of input) {
-      const password = await hash(casual.password);
-
-      // request reset password
-      const randomBytesPromisified = promisify(randomBytes);
-      const resetPasswordToken = (await randomBytesPromisified(20)).toString(
-        'hex'
-      );
-      const resetPasswordExpires = Date.now() + 3600000; // 1 hr from now
-
-      const user = await createUser({
-        name: `${each.firstName.trim()} ${each.lastName.trim()}`,
-        email: each.email.trim(),
-        company: req.userId,
-        companyName: req.user.companyName,
-        companyUrl: `${req.user.companyUrl || ''}`,
-        branch: each.branch,
-        department: each.department,
-        type: 'EMPLOYEE',
-        invitedBy: req.userId,
-        adminverified: true,
-        password,
-        resetPasswordExpires,
-        resetPasswordToken,
-      });
-
-      // save the newly created user in an array
-      newUsers.push(user);
-
-      // send email to new user
-      await send({
-        filename: 'company_add_new',
-        to: user.email,
-        subject: 'Welcome to Choose Life',
-        type: user.type,
-        resetPasswordExpires,
-        resetLink: `${
-          process.env.FRONTEND_URL
-        }/reset?resetToken=${resetPasswordToken}`,
-      });
-    }
-
-    // send email to add the newly added users
-    return {
-      message: `${input.length} employee has been added to your company`,
-    };
   },
   async companyCreateReward(parent, { input }, { req }) {
     try {
@@ -916,7 +921,7 @@ const mutation = {
         throw new Error('You must be logged In');
       }
 
-      if (!req.user.type === 'COMPANY') {
+      if (req.user.type !== 'COMPANY') {
         throw new Error('You do not have the permission to do this');
       }
 
@@ -953,7 +958,7 @@ const mutation = {
         throw new Error('You must be logged In');
       }
 
-      if (!req.user.type === 'COMPANY') {
+      if (req.user.type !== 'COMPANY') {
         throw new Error('You do not have the permission to do this');
       }
 
@@ -982,7 +987,7 @@ const mutation = {
         throw new Error('You must be logged In');
       }
 
-      if (!req.user.type === 'COMPANY') {
+      if (req.user.type !== 'COMPANY') {
         throw new Error('You do not have the permission to do this');
       }
 

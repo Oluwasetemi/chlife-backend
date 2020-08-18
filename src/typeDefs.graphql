@@ -345,7 +345,7 @@ type User {
     password: String
     type: UserEnum!
     image: String
-    gender: GenderEnum!
+    gender: GenderEnum
     nationality: String
     dob: DateTime
     occupation: String
@@ -377,6 +377,7 @@ type User {
     """
     hra: [Hra]
     currentHra: Hra
+    currentReward: Reward
     """
     user schedule apointment (2 only - inBody and Professional)
     """
@@ -405,6 +406,7 @@ type Contentful {
 }
 
 type Reward {
+    _id: String
     title: String!
     description: String
     startDate: DateTime
@@ -557,7 +559,7 @@ input createRewardInput {
     endDate: DateTime!
 }
 
-input createRewardInput {
+input updateRewardInput {
     id: String!
     title: String!
     description: String
@@ -730,7 +732,7 @@ type Mutation {
     """
     Admin - set the company limit
     """
-    setEmployeeLimit(amount: Int!): Message!
+    setEmployeeLimit(amount: Int!, id: String!): Message!
     """
     Mutation to generate the google auth url the frontend can user to handle the google sign on for an individual
     """
@@ -808,7 +810,7 @@ type Mutation {
 
     """
     companyCreateReward(input: createRewardInput): Message!
-    companyUpdateReward(input: createRewardInput): Reward!
+    companyUpdateReward(input: updateRewardInput): Reward!
     closeOneReward(id: String): Message!
 }
 

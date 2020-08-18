@@ -4,11 +4,30 @@
 
 -   Add support for email templates to show links in email to contain localhost
     (appropriate development environment)
--   Re-structure the company register flow
--   Add activation support for when a company add a new employee
+-   Re-structure the company register flow. CHeck the
+    [Whimsical](https://whimsical.com/Vv6zHqCBLuYiME7UDYVEHk)
+-   Add activation support for when a company add a new employee. The admin get
+    notified to activate the company account and set the limit based on the
+    agreement with the client.
 -   Admin can set the limit of size of a company
--   Add new fields to user model and update existing.
--   Add a new model for the reward created by a company
+-   Add new fields to user model and update existing.fields added include
+    (representativeEmail, activationToken, totalRewardPoints, department,
+    branch, company, companyName, companyUrl, companySize, employeeLimit, hra,
+    currentHra, currentReward).
+-   Add a new model for the reward created by a company(title, description,
+    startDate, endDate, createdBy, isClosed)
 -   Update the seeding data for the admin and 20 users
 -   update mutation with new resolvers
+
+1. `addEmployeeToACompany`
+2. `companyCreateReward`
+3. `companyUpdateReward`
+4. `closeOneReward`
+
 -   update query with new resolvers
+
+1. `fetchEmployeeOfACompany`
+2. `searchEmployee`
+3. `fetchCurrentReward`
+4. `fetchAllClosedReward`
+5. `fetchLeaderBoardCompany`

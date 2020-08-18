@@ -52,10 +52,6 @@ const userSchema = new mongoose.Schema(
     activationToken: { type: String },
     resetPasswordToken: { type: String },
     /**
-     * Store the objectId of the company or choose_life_admin that invited the user
-     */
-    invitedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    /**
      * verify a company by an admin
      */
     adminVerified: { type: Boolean, default: false },
