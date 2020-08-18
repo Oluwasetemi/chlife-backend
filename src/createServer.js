@@ -2,6 +2,10 @@
 const { ApolloServer, PubSub } = require('apollo-server-express');
 const express = require('express');
 const expressPlayground = require('graphql-playground-middleware-express').default;
+const remark = require('remark')
+const recommended = require('remark-preset-lint-recommended')
+const html = require('remark-html')
+const report = require('vfile-reporter')
 const { readFileSync } = require('fs');
 const { createServer } = require('http');
 const path = require('path');
@@ -92,6 +96,22 @@ async function startServer() {
     });
 
     app.get('/graphiql', expressPlayground({ endpoint: '/graphql' }));
+
+    app.get('/changelog', async (req, res) => {
+      // read file
+      const changeLogString = await readFileSync(path.join(__dirname, '..', 'changelog.md'), 'UTF-8')
+      // parse the string of the file to html
+      remark()
+  .use(recommended)
+  .use(html)
+  .process(changeLogString, function(err, file) {
+    console.error(report(err || file))
+    // console.log(String(file))
+    // output the changelog html
+    const htmlFile = String(file);
+    return res.send(String(file))
+  })
+    });
 
     return {httpServer, server, app}
   } catch (error) {
