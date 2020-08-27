@@ -717,7 +717,7 @@ const mutation = {
         const hraData = await hra.findById(req.user.currentHra);
 
         if (!hraData) {
-          throw new Error('You cannot submit without starting accessment');
+          throw new Error('You cannot submit without starting assessment');
         }
 
         const currentResponse = hraData.questionAndResponse;

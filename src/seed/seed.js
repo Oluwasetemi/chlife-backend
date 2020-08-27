@@ -106,7 +106,7 @@ async function loadData() {
         '\n👎👎👎👎👎👎👎👎 Error! The Error info is below but if you are importing sample data make sure to drop the existing database first with.\n\n\t npm run blowitallaway\n\n\n'
       )}`
     );
-    console.log(e);
+    console.log(e.message);
     process.exit();
   }
 }
@@ -124,6 +124,7 @@ async function loadData() {
     }
   } catch (error) {
     console.error(error.message);
+    console.error(error.stack);
     process.exit('');
     // throw new Error(error.message);
   }

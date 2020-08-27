@@ -26,7 +26,16 @@ const resolvers = {
       }
       return hraDataObject;
     },
-    currentHra: async parent => Hra.findById(parent.currentHra),
+    currentHra: async parent => {
+      const hra = await Hra.findById(parent.currentHra);
+
+      if (!hra) {
+        // eslint-disable-next-line no-shadow
+        const hra = null;
+        return hra;
+      }
+      return hra;
+    },
   },
 };
 
