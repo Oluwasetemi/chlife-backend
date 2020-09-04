@@ -23,6 +23,7 @@ const {
   updateUser,
   findOneBasedOnQuery,
   deleteUserByEmail,
+  findUserById,
 } = require('../services/user');
 
 const {
@@ -191,6 +192,26 @@ const mutation = {
     await userExists.save();
     // return a message
     return { message: 'User Activated' };
+  },
+  async suspendCompany(_, { id }, { req }) {
+    // must be  done by an admin
+    if (!req.userId) {
+      throw new Error('You must be logged In');
+    }
+
+    if (req.user.type !== 'SUPERADMIN') {
+      throw new Error('You do not have the permission to do this');
+    }
+    // confirm the validity of the activationToken
+    const userExists = await findUserById(id);
+    if (!userExists) {
+      throw new Error('Invalid activation');
+    }
+    // update the user
+    userExists.suspended = true;
+    await userExists.save();
+    // return a message
+    return { message: 'User Suspended ' };
   },
   async setEmployeeLimit(_, { amount, id }, { req }) {
     // must be done by an admin
@@ -901,7 +922,7 @@ const mutation = {
           resetPasswordExpires,
           resetLink: `${
             process.env.FRONTEND_URL
-          }/reset?resetToken=${resetPasswordToken}`,
+          }/onboarding/employee/:token=${resetPasswordToken}`,
         });
       }
 

@@ -5,6 +5,8 @@ const casual = require('casual');
 
 // import the models
 const User = require('../models/user');
+const Hra = require('../models/hra');
+const Reward = require('../models/reward');
 // import helper methods
 const { hash } = require('../utils/auth');
 const { r, g, b, w, c, m, y, k } = require('../utils/color');
@@ -18,8 +20,8 @@ if (process.env.NODE_ENV === 'test') {
 async function deleteData() {
   console.log('😢😢 Goodbye Data...');
   await User.deleteMany();
-  // await Review.deleteMany()
-  // await User.deleteMany()
+  await Reward.deleteMany();
+  await Hra.deleteMany();
   console.log(
     `${g('Data Deleted. To load sample data, run\n\n\t npm run seed\n\n')}`
   );

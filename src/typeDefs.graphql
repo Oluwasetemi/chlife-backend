@@ -1,819 +1,823 @@
 scalar DateTime
 
 enum UserEnum {
-    INDIVIDUAL
-    EMPLOYEE
-    COMPANY
-    SUPERADMIN
-    ADMIN
+	INDIVIDUAL
+	EMPLOYEE
+	COMPANY
+	SUPERADMIN
+	ADMIN
 }
 
 enum UserEnumAlone {
-    INDIVIDUAL
-    EMPLOYEE
-    COMPANY
+	INDIVIDUAL
+	EMPLOYEE
+	COMPANY
 }
 
 enum GenderEnum {
-    MALE
-    FEMALE
+	MALE
+	FEMALE
 }
 
 enum SourceEnum {
-    EMAIL
-    GOOGLE
+	EMAIL
+	GOOGLE
 }
 
 enum ActivityEnum {
-    HIGH
-    MEDIUM
-    LOW
-    VERYACTIVE
-    SOMEWHATACTIVE
-    LOWACTIVITY
+	HIGH
+	MEDIUM
+	LOW
+	VERYACTIVE
+	SOMEWHATACTIVE
+	LOWACTIVITY
 }
 
 enum HraInputSectionsEnum {
-    ACTIVITIES
-    BASIC_INFORMATION
-    BLOOD_PRESSURE
-    CHRONIC
-    COUGH_AND_HAND_HYGIENE
-    DEMOGRAPHICS
-    DENTAL_HEARING_VISION
-    DIABETES
-    DRIVING
-    FALLS
-    GENDER_SPECIFIC
-    GENERAL
-    HEALTH_HISTORY
-    HOME_SAFETY
-    IMMUNIZATIONS
-    MEDICAL_CONDITIONS
-    MEDICATIONS
-    MENTAL_HEALTH
-    MOBILITY
-    NUTRITION
-    NUTRITIONII
-    OTHER
-    PHYSICAL
-    PREVENTION
-    REVIEW
-    SLEEP
-    SMOKING
-    SOMATIC
-    STRESS
-    SUGAR
-    SUPPORT
-    TACTICAL
-    TOS
-    TOS_FITNESSFAIR
+	ACTIVITIES
+	BASIC_INFORMATION
+	BLOOD_PRESSURE
+	CHRONIC
+	COUGH_AND_HAND_HYGIENE
+	DEMOGRAPHICS
+	DENTAL_HEARING_VISION
+	DIABETES
+	DRIVING
+	FALLS
+	GENDER_SPECIFIC
+	GENERAL
+	HEALTH_HISTORY
+	HOME_SAFETY
+	IMMUNIZATIONS
+	MEDICAL_CONDITIONS
+	MEDICATIONS
+	MENTAL_HEALTH
+	MOBILITY
+	NUTRITION
+	NUTRITIONII
+	OTHER
+	PHYSICAL
+	PREVENTION
+	REVIEW
+	SLEEP
+	SMOKING
+	SOMATIC
+	STRESS
+	SUGAR
+	SUPPORT
+	TACTICAL
+	TOS
+	TOS_FITNESSFAIR
 }
 
 type Message {
-    message: String
+	message: String
 }
 
 type HraMessage {
-    message: String
-    percentageProgress: Int
-    reportId: String
+	message: String
+	percentageProgress: Int
+	reportId: String
 }
 
 type Values {
-    id: String!
-    label: String
-    hide: [String]
-    show: [String]
+	id: String!
+	label: String
+	hide: [String]
+	show: [String]
 }
 
 type ShowHide {
-    low: Int
-    show: [String]
-    high: Int
-    hide: [String]
-    sum: [String]
+	low: Int
+	show: [String]
+	high: Int
+	hide: [String]
+	sum: [String]
 }
 
 type QuestionInput {
-    type: String!
-    values: [Values]
-    units: String
-    min: Int
-    max: Int
-    showhide: [ShowHide]
-    allow_decimals: Boolean
-    maxvariable: Boolean
+	type: String!
+	values: [Values]
+	units: String
+	min: Int
+	max: Int
+	showhide: [ShowHide]
+	allow_decimals: Boolean
+	maxvariable: Boolean
 }
 
 type Question {
-    id: String
-    label: String
-    prompt: String
-    input: [QuestionInput]
-    required: Boolean
-    system_of_measurement: String
-    counterpart: String
-    default_deactive: Boolean
+	id: String
+	label: String
+	prompt: String
+	input: [QuestionInput]
+	required: Boolean
+	system_of_measurement: String
+	counterpart: String
+	default_deactive: Boolean
 }
 
 type Options {
-    top_submit_button: Boolean
+	top_submit_button: Boolean
 }
 
 type HRA {
-    id: String!
-    label: String
-    dynamic: String
-    options: Options
-    prompt: String
-    q: [Question]
-    qCount: Int
+	id: String!
+	label: String
+	dynamic: String
+	options: Options
+	prompt: String
+	q: [Question]
+	qCount: Int
 }
 
 type QuestionAndResponse {
-    age_in_years: String
-    arrested_dui: String
-    bicycle_helmet_usage: String
-    binge_drinking: String
-    blood_glucose_mml: String
-    blood_glucose: String
-    blood_pressure_estimated: String
-    blood_pressure_measured_high_number: String
-    blood_pressure_measured_low_number: String
-    blood_pressure_medication: String
-    body_frame_size: String
-    butter: String
-    caffeine: String
-    charcoal_broiled: String
-    chh_cough: String
-    chh_fever: String
-    chh_hands: String
-    chh_interact: String
-    chh_sbreath: String
-    cholesterol_check: String
-    cholesterol_level_mml: String
-    cholesterol_level: String
-    cholesterol_level_estimated: String
-    cholesterol_medication: String
-    colon_cancer_screening: String
-    commercial_driver: String
-    cross_contamination: String
-    daily_cigars: String
-    daily_marajuana: String
-    daily_pipes: String
-    daily_shisha: String
-    desserts: String
-    diabetes_status: String
-    difficulties_piling_up: String
-    distracted_driving: String
-    drinking_and_driving: String
-    driving_speed: String
-    education: String
-    fast_food: String
-    felt_confident: String
-    filling_forms: String
-    fish: String
-    fruit: String
-    fruits_and_vegetables: String
-    GADa: String
-    GADb: String
-    GADc: String
-    GADd: String
-    GADe: String
-    GADf: String
-    GADg: String
-    gainful_employment: String
-    going_your_way: String
-    gross_weight: String
-    hb1ac_check: String
-    hdl_cholesterol_estimated: String
-    hdl_cholesterol_mml: String
-    hdl_cholesterol: String
-    health_information_interest: String
-    heart_attack: String
-    heart_disease: String
-    height_cm: String
-    height_feet: String
-    height_inches: String
-    height: String
-    helmet_usage: String
-    high_cholesterol_food: String
-    hispanic_origin: String
-    home_safety: String
-    household_income: String
-    hysterectomy: String
-    insurance_coverage: String
-    junk_food: String
-    last_mammogram: String
-    marital_status: String
-    misfortune: String
-    overall_health: String
-    pap_smear_test: String
-    PHQa: String
-    PHQb: String
-    PHQc: String
-    PHQd: String
-    PHQe: String
-    PHQf: String
-    PHQg: String
-    PHQh: String
-    PHQi: String
-    protein: String
-    race: String
-    readiness_to_eat_healthier: String
-    readiness_to_exercise_more: String
-    readiness_to_quit_smoking: String
-    readiness_to_reduce_alcohol_usage: String
-    resting_heart_rate: String
-    road_rage: String
-    safety_belt_usage: String
-    save_key: String
-    sex: String
-    sleep1: String
-    sleep2: String
-    sleep3: String
-    sleep4: String
-    smokeless_tobacco: String
-    smoking: String
-    soft_drinks: String
-    state_of_residence: String
-    still_smoke: String
-    stroke: String
-    sugar_beverage: String
-    travel_by_automobile_km: String
-    travel_by_automobile: String
-    travel_by_motorcycle_km: String
-    travel_by_motorcycle: String
-    triglycerides: String
-    type_of_license: String
-    typical_travel_method: String
-    unable_to_control: String
-    used_to_smoke_cigarettes_day: String
-    used_to_smoke_cigars_day: String
-    used_to_smoke_pipes_day: String
-    vaping_freq: String
-    vaping: String
-    vegetables: String
-    weekly_alcohol_beer: String
-    weekly_alcohol_mixed_drinks: String
-    weekly_alcohol_wine_coolers: String
-    weekly_alcohol_wine: String
-    weekly_physical_activity: String
-    weight_kg: String
-    weight: String
-    years_as_driver: String
-    years_since_quitting_months: String
-    years_since_quitting_years: String
+	age_in_years: String
+	arrested_dui: String
+	bicycle_helmet_usage: String
+	binge_drinking: String
+	blood_glucose_mml: String
+	blood_glucose: String
+	blood_pressure_estimated: String
+	blood_pressure_measured_high_number: String
+	blood_pressure_measured_low_number: String
+	blood_pressure_medication: String
+	body_frame_size: String
+	butter: String
+	caffeine: String
+	charcoal_broiled: String
+	chh_cough: String
+	chh_fever: String
+	chh_hands: String
+	chh_interact: String
+	chh_sbreath: String
+	cholesterol_check: String
+	cholesterol_level_mml: String
+	cholesterol_level: String
+	cholesterol_level_estimated: String
+	cholesterol_medication: String
+	colon_cancer_screening: String
+	commercial_driver: String
+	cross_contamination: String
+	daily_cigars: String
+	daily_marajuana: String
+	daily_pipes: String
+	daily_shisha: String
+	desserts: String
+	diabetes_status: String
+	difficulties_piling_up: String
+	distracted_driving: String
+	drinking_and_driving: String
+	driving_speed: String
+	education: String
+	fast_food: String
+	felt_confident: String
+	filling_forms: String
+	fish: String
+	fruit: String
+	fruits_and_vegetables: String
+	GADa: String
+	GADb: String
+	GADc: String
+	GADd: String
+	GADe: String
+	GADf: String
+	GADg: String
+	gainful_employment: String
+	going_your_way: String
+	gross_weight: String
+	hb1ac_check: String
+	hdl_cholesterol_estimated: String
+	hdl_cholesterol_mml: String
+	hdl_cholesterol: String
+	health_information_interest: String
+	heart_attack: String
+	heart_disease: String
+	height_cm: String
+	height_feet: String
+	height_inches: String
+	height: String
+	helmet_usage: String
+	high_cholesterol_food: String
+	hispanic_origin: String
+	home_safety: String
+	household_income: String
+	hysterectomy: String
+	insurance_coverage: String
+	junk_food: String
+	last_mammogram: String
+	marital_status: String
+	misfortune: String
+	overall_health: String
+	pap_smear_test: String
+	PHQa: String
+	PHQb: String
+	PHQc: String
+	PHQd: String
+	PHQe: String
+	PHQf: String
+	PHQg: String
+	PHQh: String
+	PHQi: String
+	protein: String
+	race: String
+	readiness_to_eat_healthier: String
+	readiness_to_exercise_more: String
+	readiness_to_quit_smoking: String
+	readiness_to_reduce_alcohol_usage: String
+	resting_heart_rate: String
+	road_rage: String
+	safety_belt_usage: String
+	save_key: String
+	sex: String
+	sleep1: String
+	sleep2: String
+	sleep3: String
+	sleep4: String
+	smokeless_tobacco: String
+	smoking: String
+	soft_drinks: String
+	state_of_residence: String
+	still_smoke: String
+	stroke: String
+	sugar_beverage: String
+	travel_by_automobile_km: String
+	travel_by_automobile: String
+	travel_by_motorcycle_km: String
+	travel_by_motorcycle: String
+	triglycerides: String
+	type_of_license: String
+	typical_travel_method: String
+	unable_to_control: String
+	used_to_smoke_cigarettes_day: String
+	used_to_smoke_cigars_day: String
+	used_to_smoke_pipes_day: String
+	vaping_freq: String
+	vaping: String
+	vegetables: String
+	weekly_alcohol_beer: String
+	weekly_alcohol_mixed_drinks: String
+	weekly_alcohol_wine_coolers: String
+	weekly_alcohol_wine: String
+	weekly_physical_activity: String
+	weight_kg: String
+	weight: String
+	years_as_driver: String
+	years_since_quitting_months: String
+	years_since_quitting_years: String
 }
 
 type Hra {
-    _id: String!
-    questionAndResponse: QuestionAndResponse
-    ghmReference: String
-    reportId: String
-    stage: String
-    percentageProgress: Int
-    createdAt: DateTime
-    updatedAt: DateTime
+	_id: String!
+	questionAndResponse: QuestionAndResponse
+	ghmReference: String
+	reportId: String
+	stage: String
+	percentageProgress: Int
+	createdAt: DateTime
+	updatedAt: DateTime
 }
 
 type InBodyStructure {
-    value: String!
+	value: String!
 }
 
 type InBody {
-    _id: String!
-    inBodyData: InBodyStructure
-    inBodyReference: String
-    createdAt: DateTime
-    updatedAt: DateTime
+	_id: String!
+	inBodyData: InBodyStructure
+	inBodyReference: String
+	createdAt: DateTime
+	updatedAt: DateTime
 }
 
 type Appointment {
-    _id: String!
-    subject: String
-    description: String
-    appointmentTime: String
-    type: String
-    professsional: String
-    createdAt: DateTime
-    updatedAt: DateTime
+	_id: String!
+	subject: String
+	description: String
+	appointmentTime: String
+	type: String
+	professsional: String
+	createdAt: DateTime
+	updatedAt: DateTime
 }
 
 type ExerciseBody {
-    value: String!
+	value: String!
 }
 
 type Exercise {
-    _id: String!
-    title: String
-    description: String
-    body: ExerciseBody
-    type: String
-    category: String
-    advice: String
-    createdAt: DateTime
-    updatedAt: DateTime
+	_id: String!
+	title: String
+	description: String
+	body: ExerciseBody
+	type: String
+	category: String
+	advice: String
+	createdAt: DateTime
+	updatedAt: DateTime
 }
 
 type MealPlanStructure {
-    value: String!
+	value: String!
 }
 
 type MealPlan {
-    _id: String!
-    title: String
-    description: String
-    meealPlanStructure: MealPlanStructure
-    type: String
-    category: String
-    advice: String
-    createdAt: DateTime
-    updatedAt: DateTime
+	_id: String!
+	title: String
+	description: String
+	meealPlanStructure: MealPlanStructure
+	type: String
+	category: String
+	advice: String
+	createdAt: DateTime
+	updatedAt: DateTime
 }
 
 type User {
-    _id: String!
-    name: String!
-    email: String!
-    representativeEmail: String
-    mobile: String
-    """
-    A secure password should possess characters 0-9, A-Z alphanumeric symbols
-    """
-    password: String
-    type: UserEnum!
-    image: String
-    gender: GenderEnum
-    nationality: String
-    dob: DateTime
-    occupation: String
-    address: String
-    token: String
-    resetPasswordExpires: String
-    activationToken: String
-    resetPasswordToken: String
-    invitedBy: User
-    adminVerified: Boolean
-    source: SourceEnum
-    suspended: Boolean
-    """
-    total reward point for certain activities
-    """
-    totalRewardPoints: Int
-    weight: Int
-    height: Int
-    activity: ActivityEnum
-    department: String
-    branch: String
-    company: User
-    companyName: String
-    companyUrl: String
-    companySize: Int!
-    employeeLimit: Int!
-    """
-    Health risk assessment(2 per year, 1 every 6 month)
-    """
-    hra: [Hra]
-    currentHra: Hra
-    currentReward: Reward
-    """
-    user schedule apointment (2 only - inBody and Professional)
-    """
-    appointments: [Appointment]
-    exercises: [Exercise]
-    mealPlan: MealPlan
-    inBody: [InBody]
-    createdAt: DateTime
-    updatedAt: DateTime
+	_id: String!
+	name: String!
+	email: String!
+	representativeEmail: String
+	mobile: String
+	"""
+	A secure password should possess characters 0-9, A-Z alphanumeric symbols
+	"""
+	password: String
+	type: UserEnum!
+	image: String
+	gender: GenderEnum
+	nationality: String
+	dob: DateTime
+	occupation: String
+	address: String
+	token: String
+	resetPasswordExpires: String
+	activationToken: String
+	resetPasswordToken: String
+	invitedBy: User
+	adminVerified: Boolean
+	source: SourceEnum
+	suspended: Boolean
+	"""
+	total reward point for certain activities
+	"""
+	totalRewardPoints: Int
+	weight: Int
+	height: Int
+	activity: ActivityEnum
+	department: String
+	branch: String
+	company: User
+	companyName: String
+	companyUrl: String
+	companySize: Int!
+	employeeLimit: Int!
+	"""
+	Health risk assessment(2 per year, 1 every 6 month)
+	"""
+	hra: [Hra]
+	currentHra: Hra
+	currentReward: Reward
+	"""
+	user schedule apointment (2 only - inBody and Professional)
+	"""
+	appointments: [Appointment]
+	exercises: [Exercise]
+	mealPlan: MealPlan
+	inBody: [InBody]
+	createdAt: DateTime
+	updatedAt: DateTime
 }
 
 type Asset {
-    name: String
-    url: String
+	name: String
+	url: String
 }
 
 type Contentful {
-    id: String!
-    title: String!
-    body: String!
-    createdAt: DateTime
-    tags: String
-    author: String!
-    authorRole: String
-    asset: Asset
+	id: String!
+	title: String!
+	body: String!
+	createdAt: DateTime
+	tags: String
+	author: String!
+	authorRole: String
+	asset: Asset
 }
 
 type Reward {
-    _id: String
-    title: String!
-    description: String
-    startDate: DateTime
-    endDate: DateTime
-    isClosed: Boolean
+	_id: String
+	title: String!
+	description: String
+	startDate: DateTime
+	endDate: DateTime
+	isClosed: Boolean
 }
 
 type Leaderboard {
-    id: String
-    name: String
-    department: String
-    branch: String
-    points: Int
+	id: String
+	name: String
+	department: String
+	branch: String
+	points: Int
 }
 
 type Query {
-    """
-    Query to get the authenticated user
-    """
-    me: User
-    """
-    Fetch users
-    """
-    users: [User]!
-    """
-    Fetch users by their type: should be accessible
-    """
-    usersByType(type: UserEnum): [User]!
-    """
-    Fetch user by id: should be accessible
-    """
-    userById(id: String): User!
-    """
-    Fetch All Blogpost
-    """
-    fetchAllBlogPostByCount(first: Int!): [Contentful]
-    """
-    Fetch contentful blog post by count
-    """
-    fetchBlogPostByCount: [Contentful]
-    """
-    Fetch contentful blog post by latest
-    """
-    fetchBlogPostByLatest(count: Int!): [Contentful]
-    """
-    Fetch similar contentful blog post by tags
-    """
-    fetchSimilarBlogPostByLatest(tag: String!): [Contentful]
-    """
-    Fetch a single blogpost
-    """
-    fetchOneBlogPost: Contentful
-    """
-    Mutation to fetch HRA question based on
-    """
-    fetchHraQuestion(input: HraInputSectionsEnum): HRA!
-    """
-    Fetch the current response of the user currently logged in
-    """
-    currentUserResponse: Hra
-    """
-    Fetch the employee who registered under a company
-    """
-    fetchEmployeeOfACompany: [User]
-    """
-    search employee
-    """
-    searchEmployee(searchInput: String): [User]
-    """
-    fetch one active reward
-    """
-    fetchCurrentReward: Reward
-    """
-    fetch all closed reward
-    """
-    fetchAllClosedReward: [Reward]
-    """
-    fetch a company current leaderboard
-    """
-    fetchLeaderBoardCompany: [Leaderboard]
+	"""
+	Query to get the authenticated user
+	"""
+	me: User
+	"""
+	Fetch users
+	"""
+	users: [User]!
+	"""
+	Fetch users by their type: should be accessible
+	"""
+	usersByType(type: UserEnum): [User]!
+	"""
+	Fetch user by id: should be accessible
+	"""
+	userById(id: String): User!
+	"""
+	Fetch All Blogpost
+	"""
+	fetchAllBlogPostByCount(first: Int!): [Contentful]
+	"""
+	Fetch contentful blog post by count
+	"""
+	fetchBlogPostByCount: [Contentful]
+	"""
+	Fetch contentful blog post by latest
+	"""
+	fetchBlogPostByLatest(count: Int!): [Contentful]
+	"""
+	Fetch similar contentful blog post by tags
+	"""
+	fetchSimilarBlogPostByLatest(tag: String!): [Contentful]
+	"""
+	Fetch a single blogpost
+	"""
+	fetchOneBlogPost: Contentful
+	"""
+	Mutation to fetch HRA question based on
+	"""
+	fetchHraQuestion(input: HraInputSectionsEnum): HRA!
+	"""
+	Fetch the current response of the user currently logged in
+	"""
+	currentUserResponse: Hra
+	"""
+	Fetch the employee who registered under a company
+	"""
+	fetchEmployeeOfACompany: [User]
+	"""
+	search employee
+	"""
+	searchEmployee(searchInput: String): [User]
+	"""
+	fetch one active reward
+	"""
+	fetchCurrentReward: Reward
+	"""
+	fetch all closed reward
+	"""
+	fetchAllClosedReward: [Reward]
+	"""
+	fetch a company current leaderboard
+	"""
+	fetchLeaderBoardCompany: [Leaderboard]
 }
 
 input updateUserInput {
-    firstName: String
-    lastName: String
-    gender: GenderEnum
-    dob: DateTime
-    weight: Int
-    height: Int
-    company: String
-    activity: ActivityEnum
+	firstName: String
+	lastName: String
+	gender: GenderEnum
+	dob: DateTime
+	weight: Int
+	height: Int
+	company: String
+	activity: ActivityEnum
 }
 
 input updateUserPasswordInput {
-    oldPassword: String!
-    newPassword: String!
-    confirmPassword: String!
+	oldPassword: String!
+	newPassword: String!
+	confirmPassword: String!
 }
 
 input signUpEmployeeInput {
-    firstName: String!
-    lastName: String!
-    email: String!
-    gender: GenderEnum!
-    dob: DateTime!
-    weight: Int
-    height: Int
-    company: String
-    department: String
-    branch: String
-    activity: ActivityEnum
-    password: String
+	firstName: String!
+	lastName: String!
+	email: String!
+	gender: GenderEnum!
+	dob: DateTime!
+	weight: Int
+	height: Int
+	company: String
+	department: String
+	branch: String
+	activity: ActivityEnum
+	password: String
 }
 
 """
 The full definition of the register company input
 """
 input signUpCompanyInput {
-    firstName: String!
-    lastName: String!
-    jobTitle: String
-    designation: String
-    """
-    This should be used for signin
-    """
-    organizationEmail: String!
-    """
-    This should be used for contact purpose
-    """
-    representativeEmail: String!
-    organizationName: String!
-    organizationUrl: String
-    organizationAddress: String
-    organizationSize: Int!
-    password: String!
+	firstName: String!
+	lastName: String!
+	jobTitle: String
+	designation: String
+	"""
+	This should be used for signin
+	"""
+	organizationEmail: String!
+	"""
+	This should be used for contact purpose
+	"""
+	representativeEmail: String
+	organizationName: String!
+	organizationUrl: String
+	organizationAddress: String
+	organizationSize: Int
+	password: String!
 }
 
 input addEmployeeInput {
-    firstName: String!
-    lastName: String!
-    email: String!
-    department: String
-    branch: String
+	firstName: String!
+	lastName: String!
+	email: String!
+	department: String
+	branch: String
 }
 
 input createRewardInput {
-    title: String!
-    description: String!
-    startDate: DateTime!
-    endDate: DateTime!
+	title: String!
+	description: String!
+	startDate: DateTime!
+	endDate: DateTime!
 }
 
 input updateRewardInput {
-    id: String!
-    title: String!
-    description: String
-    startDate: DateTime
-    endDate: DateTime
+	id: String!
+	title: String!
+	description: String
+	startDate: DateTime
+	endDate: DateTime
 }
 
 enum stageEnum {
-    RESPONSE
-    UPDATE_RESPONSE
-    PREVIEW
-    SUBMIT
-    SUBMITTED
+	RESPONSE
+	UPDATE_RESPONSE
+	PREVIEW
+	SUBMIT
+	SUBMITTED
 }
 
 input HRAResponseInput {
-    age_in_years: String
-    arrested_dui: String
-    bicycle_helmet_usage: String
-    binge_drinking: String
-    blood_glucose_mml: String
-    blood_glucose: String
-    blood_pressure_estimated: String
-    blood_pressure_measured_high_number: String
-    blood_pressure_measured_low_number: String
-    blood_pressure_medication: String
-    body_frame_size: String
-    butter: String
-    caffeine: String
-    charcoal_broiled: String
-    chh_cough: String
-    chh_fever: String
-    chh_hands: String
-    chh_interact: String
-    chh_sbreath: String
-    cholesterol_check: String
-    cholesterol_level_mml: String
-    cholesterol_level: String
-    cholesterol_level_estimated: String
-    cholesterol_medication: String
-    colon_cancer_screening: String
-    commercial_driver: String
-    cross_contamination: String
-    daily_cigars: String
-    daily_marajuana: String
-    daily_pipes: String
-    daily_shisha: String
-    desserts: String
-    diabetes_status: String
-    difficulties_piling_up: String
-    distracted_driving: String
-    drinking_and_driving: String
-    driving_speed: String
-    education: String
-    fast_food: String
-    felt_confident: String
-    filling_forms: String
-    fish: String
-    fruit: String
-    fruits_and_vegetables: String
-    GADa: String
-    GADb: String
-    GADc: String
-    GADd: String
-    GADe: String
-    GADf: String
-    GADg: String
-    gainful_employment: String
-    going_your_way: String
-    gross_weight: String
-    hb1ac_check: String
-    hdl_cholesterol_estimated: String
-    hdl_cholesterol_mml: String
-    hdl_cholesterol: String
-    health_information_interest: String
-    heart_attack: String
-    heart_disease: String
-    height_cm: String
-    height_feet: String
-    height_inches: String
-    height: String
-    helmet_usage: String
-    high_cholesterol_food: String
-    hispanic_origin: String
-    home_safety: String
-    household_income: String
-    hysterectomy: String
-    insurance_coverage: String
-    junk_food: String
-    last_mammogram: String
-    marital_status: String
-    misfortune: String
-    overall_health: String
-    pap_smear_test: String
-    PHQa: String
-    PHQb: String
-    PHQc: String
-    PHQd: String
-    PHQe: String
-    PHQf: String
-    PHQg: String
-    PHQh: String
-    PHQi: String
-    protein: String
-    race: String
-    readiness_to_eat_healthier: String
-    readiness_to_exercise_more: String
-    readiness_to_quit_smoking: String
-    readiness_to_reduce_alcohol_usage: String
-    resting_heart_rate: String
-    road_rage: String
-    safety_belt_usage: String
-    save_key: String
-    sex: String
-    sleep1: String
-    sleep2: String
-    sleep3: String
-    sleep4: String
-    smokeless_tobacco: String
-    smoking: String
-    soft_drinks: String
-    stage: stageEnum!
-    state_of_residence: String
-    still_smoke: String
-    stroke: String
-    sugar_beverage: String
-    travel_by_automobile_km: String
-    travel_by_automobile: String
-    travel_by_motorcycle_km: String
-    travel_by_motorcycle: String
-    triglycerides: String
-    type_of_license: String
-    typical_travel_method: String
-    unable_to_control: String
-    used_to_smoke_cigarettes_day: String
-    used_to_smoke_cigars_day: String
-    used_to_smoke_pipes_day: String
-    vaping_freq: String
-    vaping: String
-    vegetables: String
-    weekly_alcohol_beer: String
-    weekly_alcohol_mixed_drinks: String
-    weekly_alcohol_wine_coolers: String
-    weekly_alcohol_wine: String
-    weekly_physical_activity: String
-    weight_kg: String
-    weight: String
-    years_as_driver: String
-    years_since_quitting_months: String
-    years_since_quitting_years: String
+	age_in_years: String
+	arrested_dui: String
+	bicycle_helmet_usage: String
+	binge_drinking: String
+	blood_glucose_mml: String
+	blood_glucose: String
+	blood_pressure_estimated: String
+	blood_pressure_measured_high_number: String
+	blood_pressure_measured_low_number: String
+	blood_pressure_medication: String
+	body_frame_size: String
+	butter: String
+	caffeine: String
+	charcoal_broiled: String
+	chh_cough: String
+	chh_fever: String
+	chh_hands: String
+	chh_interact: String
+	chh_sbreath: String
+	cholesterol_check: String
+	cholesterol_level_mml: String
+	cholesterol_level: String
+	cholesterol_level_estimated: String
+	cholesterol_medication: String
+	colon_cancer_screening: String
+	commercial_driver: String
+	cross_contamination: String
+	daily_cigars: String
+	daily_marajuana: String
+	daily_pipes: String
+	daily_shisha: String
+	desserts: String
+	diabetes_status: String
+	difficulties_piling_up: String
+	distracted_driving: String
+	drinking_and_driving: String
+	driving_speed: String
+	education: String
+	fast_food: String
+	felt_confident: String
+	filling_forms: String
+	fish: String
+	fruit: String
+	fruits_and_vegetables: String
+	GADa: String
+	GADb: String
+	GADc: String
+	GADd: String
+	GADe: String
+	GADf: String
+	GADg: String
+	gainful_employment: String
+	going_your_way: String
+	gross_weight: String
+	hb1ac_check: String
+	hdl_cholesterol_estimated: String
+	hdl_cholesterol_mml: String
+	hdl_cholesterol: String
+	health_information_interest: String
+	heart_attack: String
+	heart_disease: String
+	height_cm: String
+	height_feet: String
+	height_inches: String
+	height: String
+	helmet_usage: String
+	high_cholesterol_food: String
+	hispanic_origin: String
+	home_safety: String
+	household_income: String
+	hysterectomy: String
+	insurance_coverage: String
+	junk_food: String
+	last_mammogram: String
+	marital_status: String
+	misfortune: String
+	overall_health: String
+	pap_smear_test: String
+	PHQa: String
+	PHQb: String
+	PHQc: String
+	PHQd: String
+	PHQe: String
+	PHQf: String
+	PHQg: String
+	PHQh: String
+	PHQi: String
+	protein: String
+	race: String
+	readiness_to_eat_healthier: String
+	readiness_to_exercise_more: String
+	readiness_to_quit_smoking: String
+	readiness_to_reduce_alcohol_usage: String
+	resting_heart_rate: String
+	road_rage: String
+	safety_belt_usage: String
+	save_key: String
+	sex: String
+	sleep1: String
+	sleep2: String
+	sleep3: String
+	sleep4: String
+	smokeless_tobacco: String
+	smoking: String
+	soft_drinks: String
+	stage: stageEnum!
+	state_of_residence: String
+	still_smoke: String
+	stroke: String
+	sugar_beverage: String
+	travel_by_automobile_km: String
+	travel_by_automobile: String
+	travel_by_motorcycle_km: String
+	travel_by_motorcycle: String
+	triglycerides: String
+	type_of_license: String
+	typical_travel_method: String
+	unable_to_control: String
+	used_to_smoke_cigarettes_day: String
+	used_to_smoke_cigars_day: String
+	used_to_smoke_pipes_day: String
+	vaping_freq: String
+	vaping: String
+	vegetables: String
+	weekly_alcohol_beer: String
+	weekly_alcohol_mixed_drinks: String
+	weekly_alcohol_wine_coolers: String
+	weekly_alcohol_wine: String
+	weekly_physical_activity: String
+	weight_kg: String
+	weight: String
+	years_as_driver: String
+	years_since_quitting_months: String
+	years_since_quitting_years: String
 }
 
 type Mutation {
-    """
-    Mutation to login a user
-    """
-    login(email: String!, password: String!): User!
-    """
-    Mutation to login a user putting into consideration userType
-    """
-    loginWithUserType(
-        email: String!
-        password: String!
-        accountType: UserEnum = INDIVIDUAL
-    ): User!
-    """
-    Admin - activate a company account
-    """
-    activateCompany(activationToken: String!): Message!
-    """
-    Admin - set the company limit
-    """
-    setEmployeeLimit(amount: Int!, id: String!): Message!
-    """
-    Mutation to generate the google auth url the frontend can user to handle the google sign on for an individual
-    """
-    generateGoogleAuthUrl: String!
-    """
-    Mutation to complete the individual signup process by passing in a google code
-    """
-    signupLoginWithGoogleCode(code: String): User!
-    """
-    Mutation to complete the individual signup process by passing in a google access_token
-    """
-    signupLoginWithGoogleAccessToken(access_token: String): User!
-    """
-    OnBoard Employes, Individual should use this as their signup page
-    """
-    signup(input: signUpEmployeeInput): User!
-    """
-    Mutation to add new admin
-    """
-    addNewAdmin(email: String): Message!
-    """
-    Mutation to remove new admin
-    """
-    removeNewAdmin(email: String): Message!
-    """
-    this should only be used by a choose_life admin
-    """
-    adminOnBoardCompany(input: signUpCompanyInput): User!
-    """
-    OnBoard Company -> this can only be done by chooselife addmin
-    """
-    registerCompany(
-        """
-        Input that is needed to register a company
-        """
-        input: signUpCompanyInput
-    ): Message!
-    """
-    Mutation to initiate a password reset request
-    """
-    requestResetPassword(email: String): Message!
-    """
-    Mutation to reset password
-    """
-    resetPassword(
-        resetToken: String!
-        password: String
-        confirmPassword: String
-    ): User!
+	"""
+	Mutation to login a user
+	"""
+	login(email: String!, password: String!): User!
+	"""
+	Mutation to login a user putting into consideration userType
+	"""
+	loginWithUserType(
+		email: String!
+		password: String!
+		accountType: UserEnum = INDIVIDUAL
+	): User!
+	"""
+	Admin - activate a company account
+	"""
+	activateCompany(activationToken: String!): Message!
+	"""
+	Admin - suspend a company account
+	"""
+	suspendCompany(id: String!): Message!
+	"""
+	Admin - set the company limit
+	"""
+	setEmployeeLimit(amount: Int!, id: String!): Message!
+	"""
+	Mutation to generate the google auth url the frontend can user to handle the google sign on for an individual
+	"""
+	generateGoogleAuthUrl: String!
+	"""
+	Mutation to complete the individual signup process by passing in a google code
+	"""
+	signupLoginWithGoogleCode(code: String): User!
+	"""
+	Mutation to complete the individual signup process by passing in a google access_token
+	"""
+	signupLoginWithGoogleAccessToken(access_token: String): User!
+	"""
+	OnBoard Employes, Individual should use this as their signup page
+	"""
+	signup(input: signUpEmployeeInput): User!
+	"""
+	Mutation to add new admin
+	"""
+	addNewAdmin(email: String): Message!
+	"""
+	Mutation to remove new admin
+	"""
+	removeNewAdmin(email: String): Message!
+	"""
+	this should only be used by a choose_life admin
+	"""
+	adminOnBoardCompany(input: signUpCompanyInput): User!
+	"""
+	OnBoard Company -> this can only be done by chooselife addmin
+	"""
+	registerCompany(
+		"""
+		Input that is needed to register a company
+		"""
+		input: signUpCompanyInput
+	): Message!
+	"""
+	Mutation to initiate a password reset request
+	"""
+	requestResetPassword(email: String): Message!
+	"""
+	Mutation to reset password
+	"""
+	resetPassword(
+		resetToken: String!
+		password: String
+		confirmPassword: String
+	): User!
 
-    """
-    resend reset password email
-    """
-    resendResetPasswordRequestMail(
-        email: String
-        resetPasswordToken: String
-    ): Message!
-    """
-    submit HRA response
-    """
-    submitHRAResponse(input: HRAResponseInput): HraMessage!
-    """
-    Update the user profile
-    """
-    updateUser(input: updateUserInput): User
-    """
-    Update the user's password
-    """
-    updateUserPassword(input: updateUserPasswordInput): Message!
-    """
-    Add a new users to a company
-    """
-    addEmployeeToACompany(input: [addEmployeeInput]): Message!
-    """
+	"""
+	resend reset password email
+	"""
+	resendResetPasswordRequestMail(
+		email: String
+		resetPasswordToken: String
+	): Message!
+	"""
+	submit HRA response
+	"""
+	submitHRAResponse(input: HRAResponseInput): HraMessage!
+	"""
+	Update the user profile
+	"""
+	updateUser(input: updateUserInput): User
+	"""
+	Update the user's password
+	"""
+	updateUserPassword(input: updateUserPasswordInput): Message!
+	"""
+	Add a new users to a company
+	"""
+	addEmployeeToACompany(input: [addEmployeeInput]): Message!
+	"""
 
-    """
-    companyCreateReward(input: createRewardInput): Message!
-    companyUpdateReward(input: updateRewardInput): Reward!
-    closeOneReward(id: String): Message!
+	"""
+	companyCreateReward(input: createRewardInput): Message!
+	companyUpdateReward(input: updateRewardInput): Reward!
+	closeOneReward(id: String): Message!
 }
 
 type Subscription {
-    notification: Message
+	notification: Message
 }

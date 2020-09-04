@@ -31,3 +31,9 @@
 3. `fetchCurrentReward`
 4. `fetchAllClosedReward`
 5. `fetchLeaderBoardCompany`
+
+## v0.1.2
+
+- Add a new mutation `suspendCompany` to the mutation list.
+- update the email link inside the `addEmployeeToACompany` mutation
+- Add delete other models in the `seed.js` - Reward and Hra.
