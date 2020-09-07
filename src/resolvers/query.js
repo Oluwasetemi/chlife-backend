@@ -55,6 +55,10 @@ const query = {
         throw new Error('You must be logged In');
       }
 
+      if (req.user.type !== 'SUPERADMIN') {
+        throw new Error('You do not have the permission to do this');
+      }
+
       if (id) {
         const user = await findUserById(id);
 
@@ -76,6 +80,10 @@ const query = {
       throw new Error('You must be logged In');
     }
 
+    if (req.user.type !== 'SUPERADMIN') {
+      throw new Error('You do not have the permission to do this');
+    }
+
     // this should be protected for only admin
     const users = await findAllUsers({});
 
@@ -89,6 +97,10 @@ const query = {
     // must be done by an admin
     if (!req.userId) {
       throw new Error('You must be logged In');
+    }
+
+    if (req.user.type !== 'SUPERADMIN') {
+      throw new Error('You do not have the permission to do this');
     }
 
     // this should be protected for only admin
@@ -105,6 +117,16 @@ const query = {
       // check whether the user is logged in
       if (!req.user || !req.userId) {
         throw new Error('You must be logged In');
+      }
+
+      // check if the user is activated and not suspended
+      if (req.user && req.user.adminVerified === false) {
+        throw new Error('Account is not activated');
+      }
+
+      // check if the user is activated and not suspended
+      if (req.user && req.user.suspended === true) {
+        throw new Error('Account is suspend, contact your company');
       }
 
       let questions = await readFileSync(
@@ -163,7 +185,7 @@ const query = {
         qCount: (resultData.q && resultData.q.length) || null,
       };
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       throw new Error(error.message);
     }
   },
@@ -173,11 +195,21 @@ const query = {
       throw new Error('You must be logged In');
     }
 
+    // check if the user is activated and not suspended
+    if (req.user && req.user.adminVerified === false) {
+      throw new Error('Account is not activated');
+    }
+
+    // check if the user is activated and not suspended
+    if (req.user && req.user.suspended === true) {
+      throw new Error('Account is suspend, contact your company');
+    }
+
     const userHraId = req.user.currentHra;
 
     return hra.findById(userHraId);
   },
-  async fetchEmployeeOfACompany(_, args, { req }) {
+  async fetchEmployeesOfACompany(_, args, { req }) {
     try {
       // must be done by an admin
       if (!req.userId) {
@@ -188,11 +220,61 @@ const query = {
         throw new Error('You do not have the permission to do this');
       }
 
-      const companyEmployees = await findBasedOnQuery({ company: req.userId });
+      // check if the user is activated and not suspended
+      if (req.user && req.user.adminVerified === false) {
+        throw new Error('Account is not activated');
+      }
+
+      // check if the user is activated and not suspended
+      if (req.user && req.user.suspended === true) {
+        throw new Error('Account is suspend, contact your company');
+      }
+
+      let companyEmployees = await findBasedOnQuery({ company: req.userId });
 
       return companyEmployees;
     } catch (error) {
-      console.log(error);
+      // console.log(error);
+      throw new Error(error.message);
+    }
+  },
+  async fetchEmployeesOfACompanyByCategory(_, {by}, { req }) {
+    try {
+      // must be done by an admin
+      if (!req.userId) {
+        throw new Error('You must be logged In');
+      }
+
+      if (req.user.type !== 'COMPANY') {
+        throw new Error('You do not have the permission to do this');
+      }
+
+      // check if the user is activated and not suspended
+      if (req.user && req.user.adminVerified === false) {
+        throw new Error('Account is not activated');
+      }
+
+      // check if the user is activated and not suspended
+      if (req.user && req.user.suspended === true) {
+        throw new Error('Account is suspend, contact your company');
+      }
+
+      let companyEmployees
+      if (by === 'PENDING') {
+        companyEmployees = await findBasedOnQuery({ company: req.userId, adminVerified: false });
+      }
+
+      if (by === 'ACTIVE') {
+        companyEmployees = await findBasedOnQuery({ company: req.userId, adminVerified: true, suspended: false });
+      }
+
+      if (by === 'SUSPENDED') {
+        companyEmployees = await findBasedOnQuery({ company: req.userId, adminVerified: true, suspended: true });
+      }
+
+      return companyEmployees;
+    } catch (error) {
+      // console.log(error);
       throw new Error(error.message);
     }
   },
@@ -207,11 +289,21 @@ const query = {
         throw new Error('You do not have the permission to do this');
       }
 
+      // check if the user is activated and not suspended
+      if (req.user && req.user.adminVerified === false) {
+        throw new Error('Account is not activated');
+      }
+
+      // check if the user is activated and not suspended
+      if (req.user && req.user.suspended === true) {
+        throw new Error('Account is suspend, contact your company');
+      }
+
       const searchedCompanyEmployees = await search(searchTerm);
 
       return searchedCompanyEmployees;
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       throw new Error(error.message);
     }
   },
@@ -226,13 +318,23 @@ const query = {
         throw new Error('You do not have the permission to do this');
       }
 
+      // check if the user is activated and not suspended
+      if (req.user && req.user.adminVerified === false) {
+        throw new Error('Account is not activated');
+      }
+
+      // check if the user is activated and not suspended
+      if (req.user && req.user.suspended === true) {
+        throw new Error('Account is suspend, contact your company');
+      }
+
       const currentReward = await findOneRewardBasedOnQuery({
         _id: req.user.currentReward,
       });
 
       return currentReward;
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       throw new Error(error.message);
     }
   },
@@ -247,6 +349,16 @@ const query = {
         throw new Error('You do not have the permission to do this');
       }
 
+      // check if the user is activated and not suspended
+      if (req.user && req.user.adminVerified === false) {
+        throw new Error('Account is not activated');
+      }
+
+      // check if the user is activated and not suspended
+      if (req.user && req.user.suspended === true) {
+        throw new Error('Account is suspend, contact your company');
+      }
+
       const closedRewards = await findAllRewards({
         createdBy: req.userId,
         isClosed: false,
@@ -254,7 +366,7 @@ const query = {
 
       return closedRewards;
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       throw new Error(error.message);
     }
   },
@@ -267,6 +379,16 @@ const query = {
 
       if (req.user.type !== 'COMPANY') {
         throw new Error('You do not have the permission to do this');
+      }
+
+      // check if the user is activated and not suspended
+      if (req.user && req.user.adminVerified === false) {
+        throw new Error('Account is not activated');
+      }
+
+      // check if the user is activated and not suspended
+      if (req.user && req.user.suspended === true) {
+        throw new Error('Account is suspend, contact your company');
       }
 
       const allEmployee = await findAllUsers({
@@ -289,7 +411,7 @@ const query = {
 
       return leaderBoard;
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       throw new Error(error.message);
     }
   },

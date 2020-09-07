@@ -24,6 +24,7 @@ const {
   findOneBasedOnQuery,
   deleteUserByEmail,
   findUserById,
+  removeUser
 } = require('../services/user');
 
 const {
@@ -68,6 +69,13 @@ const mutation = {
         throw new Error('User creation was not successful');
       }
 
+      // generate token
+      const token = await sign(user._id);
+
+      if (!token) {
+        throw new Error('Token generation error');
+      }
+
       // send email to the new user
       await send({
         filename: 'individual_welcome',
@@ -77,7 +85,7 @@ const mutation = {
         name: user.name,
       });
 
-      const result = { ...user._doc, password: null };
+      const result = { ...user._doc, password: null, token };
 
       // console.log(args);
       return result;
@@ -172,6 +180,31 @@ const mutation = {
       throw new Error(error.message);
     }
   },
+  async resendAdminActivationRequestMail(_, { email }) {
+    try {
+      const user = await findOneBasedOnQuery({
+        email,
+      });
+
+      if (!user) {
+        throw new Error(`No such user found for email ${email}`);
+      }
+
+      // resend email
+      // send email to chooselife admin
+      await send({
+        filename: 'company_welcome_admin',
+        to: process.env.CHOOSELIFE_ADMIN_EMAIL,
+        subject: 'A new company just registered',
+        name: user.name,
+        loginLink: `${process.env.FRONTEND_URL}/login`,
+      });
+
+      return { message: 'Admin has been notified. Thanks' };
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  },
   async activateCompany(_, { activationToken }, { req }) {
     // must be  done by an admin
     if (!req.userId) {
@@ -188,7 +221,7 @@ const mutation = {
     }
     // update the user
     userExists.activationToken = null;
-    userExists.adminverified = true;
+    userExists.adminVerified = true;
     await userExists.save();
     // return a message
     return { message: 'User Activated' };
@@ -205,13 +238,107 @@ const mutation = {
     // confirm the validity of the activationToken
     const userExists = await findUserById(id);
     if (!userExists) {
-      throw new Error('Invalid activation');
+      throw new Error('Invalid suspension process');
+    }
+
+    if (userExists.suspended === true) {
+      throw new Error('user suspended already')
     }
     // update the user
     userExists.suspended = true;
     await userExists.save();
     // return a message
     return { message: 'User Suspended ' };
+  },
+  async unSuspendCompany(_, { id }, { req }) {
+    // must be  done by an admin
+    if (!req.userId) {
+      throw new Error('You must be logged In');
+    }
+
+    if (req.user.type !== 'SUPERADMIN') {
+      throw new Error('You do not have the permission to do this');
+    }
+    // confirm the validity of the activationToken
+    const userExists = await findUserById(id);
+    if (!userExists) {
+      throw new Error('Invalid suspension process');
+    }
+
+    if (userExists.suspended === false) {
+      throw new Error('user not suspended already')
+    }
+    // update the user
+    userExists.suspended = false;
+    await userExists.save();
+    // return a message
+    return { message: 'User Suspended ' };
+  },
+  async suspendEmployee(_, { id }, { req }) {
+    // must be  done by an admin
+    if (!req.userId) {
+      throw new Error('You must be logged In');
+    }
+
+    if (req.user.type !== 'COMPANY') {
+      throw new Error('You do not have the permission to do this');
+    }
+    // confirm the validity of the activationToken
+    const userExists = await findUserById(id);
+    if (!userExists) {
+      throw new Error('Invalid suspension process');
+    }
+    if (userExists.suspended === true) {
+      throw new Error('user suspended already')
+    }
+    // update the user
+    userExists.suspended = true;
+    await userExists.save();
+    // return a message
+    return { message: 'User Suspended ' };
+  },
+  async unSuspendEmployee(_, { id }, { req }) {
+    // must be  done by an admin
+    if (!req.userId) {
+      throw new Error('You must be logged In');
+    }
+
+    if (req.user.type !== 'COMPANY') {
+      throw new Error('You do not have the permission to do this');
+    }
+    // confirm the validity of the activationToken
+    const userExists = await findUserById(id);
+    if (!userExists) {
+      throw new Error('Invalid suspension process');
+    }
+
+    if (userExists.suspended === false) {
+      throw new Error('user not suspended already')
+    }
+
+    // update the user
+    userExists.suspended = false;
+    await userExists.save();
+    // return a message
+    return { message: 'User not suspended ' };
+  },
+  async removeEmployee(_, { id }, { req }) {
+    // must be  done by an admin
+    if (!req.userId) {
+      throw new Error('You must be logged In');
+    }
+
+    if (req.user.type !== 'COMPANY') {
+      throw new Error('You do not have the permission to do this');
+    }
+    // confirm the validity of the activationToken
+    const userExists = await removeUser(id);
+
+    if (!userExists) {
+      throw new Error('Invalid removal process');
+    }
+    // return a message
+    return { message: 'User Removed ' };
   },
   async setEmployeeLimit(_, { amount, id }, { req }) {
     // must be done by an admin
@@ -512,7 +639,7 @@ const mutation = {
       return { ...user, token };
     }
 
-    gUser.adminverified = true;
+    gUser.adminVerified = true;
     gUser.password = await hash('123456');
     gUser.type = 'INDIVIDUAL';
 
@@ -564,7 +691,7 @@ const mutation = {
       return { ...user, token };
     }
 
-    gUser.adminverified = true;
+    gUser.adminVerified = true;
     gUser.password = await hash('123456');
     gUser.type = 'INDIVIDUAL';
 
@@ -668,6 +795,16 @@ const mutation = {
       // check whether the user is logged in
       if (!req.userId) {
         throw new Error('You must be logged In');
+      }
+
+      // check if the user is activated and not suspended
+      if (req.user && req.user.adminVerified === false) {
+        throw new Error('Account is not activated');
+      }
+
+      // check if the user is activated and not suspended
+      if (req.user && req.user.suspended === true) {
+        throw new Error('Account is suspend, contact your company');
       }
 
       // if the user does not have currentHra
@@ -804,6 +941,16 @@ const mutation = {
         throw new Error('You must be logged In');
       }
 
+      // check if the user is activated and not suspended
+      if (req.user && req.user.adminVerified === false) {
+        throw new Error('Account is not activated');
+      }
+
+      // check if the user is activated and not suspended
+      if (req.user && req.user.suspended === true) {
+        throw new Error('Account is suspend, contact your company');
+      }
+
       let name;
       // split former name
       const [first, last] = req.user.name.split(' ');
@@ -828,7 +975,7 @@ const mutation = {
 
       return updatedUser;
     } catch (error) {
-      console.log(error.message);
+      // console.log(error.message);
       throw new Error('Server Error');
     }
   },
@@ -839,9 +986,19 @@ const mutation = {
         throw new Error('You must be logged In');
       }
 
+      // check if the user is activated and not suspended
+      if (req.user && req.user.adminVerified === false) {
+        throw new Error('Account is not activated');
+      }
+
+      // check if the user is activated and not suspended
+      if (req.user && req.user.suspended === true) {
+        throw new Error('Account is suspend, contact your company');
+      }
+
       const { oldPassword, newPassword, confirmPassword } = input;
       // validate data
-      // comfirm  old_password match
+      // confirm  old_password match
       const matched = await match(oldPassword, req.user.password);
 
       if (!matched) {
@@ -867,7 +1024,7 @@ const mutation = {
         return { message: 'Password update successful' };
       }
     } catch (error) {
-      console.log(error.message);
+      // console.log(error.message);
       throw new Error('Server Error');
     }
   },
@@ -880,6 +1037,21 @@ const mutation = {
 
       if (req.user.type !== 'COMPANY') {
         throw new Error('You do not have the permission to do this');
+      }
+
+      // check if the user is activated and not suspended
+      if (req.user && req.user.adminVerified === false) {
+        throw new Error('Account is not activated');
+      }
+
+      // check if the user is activated and not suspended
+      if (req.user && req.user.suspended === true) {
+        throw new Error('Account is suspend, contact your company');
+      }
+
+      // check the size limit
+      if (req.user && req.user.employeeLimit >= req.user.companySize) {
+        throw new Error('You need to contact ChooseLife');
       }
 
       // create the user with their email and set their company details
@@ -903,15 +1075,17 @@ const mutation = {
           branch: each.branch,
           department: each.department,
           type: 'EMPLOYEE',
-          invitedBy: req.userId,
-          adminverified: true,
+          adminVerified: false,
           password,
           resetPasswordExpires,
           resetPasswordToken,
+          invitedBy: req.userId
         });
 
         // save the newly created user in an array
         newUsers.push(user);
+
+
 
         // send email to new user
         await send({
@@ -922,16 +1096,21 @@ const mutation = {
           resetPasswordExpires,
           resetLink: `${
             process.env.FRONTEND_URL
-          }/onboarding/employee/:token=${resetPasswordToken}`,
+          }/onboarding/employee/token=${resetPasswordToken}`,
         });
       }
+
+      // TODO: update the company the size
+      await updateUser({ _id: req.userId }, { companySize: req.user.companySize + input.length })
 
       // send email to add the newly added users
       return {
         message: `${input.length} employee has been added to your company`,
       };
     } catch (error) {
-      console.log(error);
+      if (error.code === 11000) {
+        throw new Error(`Cannot create user with ${Object.keys(error.keyValue)[0]} value ${error.keyValue['email']} because a user with that email exist`)
+      }
       throw new Error(error.message);
     }
   },
@@ -944,6 +1123,16 @@ const mutation = {
 
       if (req.user.type !== 'COMPANY') {
         throw new Error('You do not have the permission to do this');
+      }
+
+      // check if the user is activated and not suspended
+      if (req.user && req.user.adminVerified === false) {
+        throw new Error('Account is not activated');
+      }
+
+      // check if the user is activated and not suspended
+      if (req.user && req.user.suspended === true) {
+        throw new Error('Account is suspend, contact your company');
       }
 
       // check if any open reward still exist
@@ -968,7 +1157,7 @@ const mutation = {
 
       return { message: 'Reward created successfully' };
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       throw new Error(error.message);
     }
   },
@@ -981,6 +1170,16 @@ const mutation = {
 
       if (req.user.type !== 'COMPANY') {
         throw new Error('You do not have the permission to do this');
+      }
+
+      // check if the user is activated and not suspended
+      if (req.user && req.user.adminVerified === false) {
+        throw new Error('Account is not activated');
+      }
+
+      // check if the user is activated and not suspended
+      if (req.user && req.user.suspended === true) {
+        throw new Error('Account is suspend, contact your company');
       }
 
       const dataToUpdate = Object.defineProperties(
@@ -997,7 +1196,7 @@ const mutation = {
       }
       return reward;
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       throw new Error(error.message);
     }
   },
@@ -1012,6 +1211,16 @@ const mutation = {
         throw new Error('You do not have the permission to do this');
       }
 
+      // check if the user is activated and not suspended
+      if (req.user && req.user.adminVerified === false) {
+        throw new Error('Account is not activated');
+      }
+
+      // check if the user is activated and not suspended
+      if (req.user && req.user.suspended === true) {
+        throw new Error('Account is suspend, contact your company');
+      }
+
       const reward = await updateReward({ _id: id }, { isClosed: true });
 
       if (!reward) {
@@ -1019,7 +1228,7 @@ const mutation = {
       }
       return { message: 'Reward closed successfully' };
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       throw new Error(error.message);
     }
   },

@@ -12,6 +12,8 @@ exports.findUserById = id => User.findById(id);
 
 exports.findAllUsers = (query = {}) => User.find(query);
 
+exports.removeUser = id => User.findByIdAndRemove(id);
+
 exports.updateUser = (query, data) =>
   User.findOneAndUpdate(query, data, { new: true, runValidators: true });
 

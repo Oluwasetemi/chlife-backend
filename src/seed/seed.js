@@ -45,7 +45,7 @@ async function seedAdminData() {
     suspended: false,
     companyName: 'Fitnessfair',
     companyUrl: 'https://chooselife-wellness.com',
-    companySize: 200,
+    companySize: 10000000,
     hra: [],
     appointments: [],
     exercises: [],

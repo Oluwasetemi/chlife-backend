@@ -3,10 +3,10 @@ const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
 
-const mongooseErrorHandler = require('mongoose-mongodb-errors');
+// const mongooseErrorHandler = require('mongoose-mongodb-errors');
 
 // A plugin to transform mongodb like errors (E.G. "11000 - duplicate key") into Mongoose ValidationError instances
-mongoose.plugin(mongooseErrorHandler);
+// mongoose.plugin(mongooseErrorHandler);
 
 // check if the uri of the database was setup in the env variable
 if (!process.env.DATABASE_URL) {

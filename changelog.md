@@ -24,7 +24,7 @@
 3. `companyUpdateReward`
 4. `closeOneReward`
 
--   update query with new resolvers
+- update query with new resolvers
 
 1. `fetchEmployeeOfACompany`
 2. `searchEmployee`
@@ -37,3 +37,15 @@
 - Add a new mutation `suspendCompany` to the mutation list.
 - update the email link inside the `addEmployeeToACompany` mutation
 - Add delete other models in the `seed.js` - Reward and Hra.
+
+## v0.1.3
+
+- Remove the use of `mongoose-error-plugin` - It an internal change to change the duplicate error for emails.
+- add `FetchEmployeesOfACompanyEnum` enum for the new `fetchEmployeesOfACompanyByCategory` query to fetch the employees working with a company various category like PENDING = adminVerified: false, ACTIVE = adminVerified: true & suspended: false, SUSPENDED = adminVerified: true & suspended: true
+- Remove the `organizationSize: Int` from the graphQL schema.
+- Deprecate the `adminOnBoardCompany` mutation.
+- Add the following mutation to schema and resolver - `suspendCompany` && `unSuspendCompany` and `suspendEmployee` && `unSuspendEmployee`.
+- Add `resendAdminActivationRequestMail` mutation to the schema to resendEmail to the admin if he delay activation of a company account and setting EmployeeLimit.
+- Add support to be able to nest into `company` in the User schema since a company is also a user.
+- Protect every endpoint(Query, Mutation) using the `adminVerified` field and `suspended` field.
+- Add `removeUser` to the user services.

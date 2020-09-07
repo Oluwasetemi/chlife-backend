@@ -7,6 +7,11 @@ enum UserEnum {
 	SUPERADMIN
 	ADMIN
 }
+enum FetchEmployeesOfACompanyEnum {
+	PENDING
+	ACTIVE
+	SUSPENDED
+}
 
 enum UserEnumAlone {
 	INDIVIDUAL
@@ -389,6 +394,12 @@ type User {
 	updatedAt: DateTime
 }
 
+type AddCountToUser {
+	totaCount: Int
+}
+
+union UserWithCount = User | AddCountToUser
+
 type Asset {
 	name: String
 	url: String
@@ -470,7 +481,11 @@ type Query {
 	"""
 	Fetch the employee who registered under a company
 	"""
-	fetchEmployeeOfACompany: [User]
+	fetchEmployeesOfACompany: [User]
+	"""
+	Fetch the employee who registered under a company
+	"""
+	fetchEmployeesOfACompanyByCategory(by: FetchEmployeesOfACompanyEnum): [User]
 	"""
 	search employee
 	"""
@@ -540,7 +555,6 @@ input signUpCompanyInput {
 	organizationName: String!
 	organizationUrl: String
 	organizationAddress: String
-	organizationSize: Int
 	password: String!
 }
 
@@ -734,6 +748,22 @@ type Mutation {
 	"""
 	suspendCompany(id: String!): Message!
 	"""
+	Admin - unsuspend a company account
+	"""
+	unSuspendCompany(id: String!): Message!
+	"""
+	Employee - suspend a employee account
+	"""
+	suspendEmployee(id: String!): Message!
+	"""
+	Employee - unsuspend a employee account
+	"""
+	unSuspendEmployee(id: String!): Message!
+	"""
+	Company - suspend a company account
+	"""
+	removeEmployee(id: String!): Message!
+	"""
 	Admin - set the company limit
 	"""
 	setEmployeeLimit(amount: Int!, id: String!): Message!
@@ -764,7 +794,7 @@ type Mutation {
 	"""
 	this should only be used by a choose_life admin
 	"""
-	adminOnBoardCompany(input: signUpCompanyInput): User!
+	adminOnBoardCompany(input: signUpCompanyInput): User! @deprecated
 	"""
 	OnBoard Company -> this can only be done by chooselife addmin
 	"""
@@ -773,6 +803,15 @@ type Mutation {
 		Input that is needed to register a company
 		"""
 		input: signUpCompanyInput
+	): Message!
+	"""
+	Resend mail to admin to activate the company chooselife accoount
+	"""
+	resendAdminActivationRequestMail(
+		"""
+		Email of the user requesting the reset
+		"""
+		email: String
 	): Message!
 	"""
 	Mutation to initiate a password reset request
