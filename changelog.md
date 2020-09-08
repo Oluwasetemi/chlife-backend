@@ -54,3 +54,10 @@
 
 - fix the typo bug in the message string the 4 `suspend` mutation returns
 - Add new query for `fetchPendingCompany` to fetch companies not yet activated.
+
+## v0.1.5
+
+- update all the registration mutation to send token to enable instant login
+- Change the return type of the registerCompany from `Message` to `MessageWithToken`
+- Clean up an error with `addEmployeeToACompany` (the condition to check the plan the user company paid chooselife for by checking employeeLimit against  companySize, if companySize is greater or equal to employeeLimit, contact the admin)
+- Update the urlLink we are sending the new employee to from the `addEmployeeToACompany` mutation.

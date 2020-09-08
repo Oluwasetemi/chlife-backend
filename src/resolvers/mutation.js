@@ -147,6 +147,13 @@ const mutation = {
         throw new Error('User creation was not successful');
       }
 
+      // generate token
+      const token = await sign(user._id);
+
+      if (!token) {
+        throw new Error('Token generation error');
+      }
+
       // send email to the new company
       await send({
         filename: 'company_welcome',
@@ -172,6 +179,7 @@ const mutation = {
       const result = {
         message:
           'Company registered successfully? Check your email for further process',
+        token
       };
 
       // console.log(args);
@@ -551,7 +559,7 @@ const mutation = {
         name: user.name,
         resetLink: `${
           process.env.FRONTEND_URL
-        }/reset?resetToken=${resetPasswordToken}`,
+        }/reset_password/${resetPasswordToken}`,
       });
 
       return { message: 'Thanks.Successful' };
@@ -1050,7 +1058,7 @@ const mutation = {
       }
 
       // check the size limit
-      if (req.user && req.user.employeeLimit >= req.user.companySize) {
+      if (req.user && req.user.companySize >= req.user.employeeLimit) {
         throw new Error('You need to contact ChooseLife');
       }
 
@@ -1096,7 +1104,7 @@ const mutation = {
           resetPasswordExpires,
           resetLink: `${
             process.env.FRONTEND_URL
-          }/onboarding/employee/token=${resetPasswordToken}`,
+          }/onboarding/employee/${resetPasswordToken}`,
         });
       }
 

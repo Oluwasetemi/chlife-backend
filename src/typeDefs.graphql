@@ -79,6 +79,11 @@ type Message {
 	message: String
 }
 
+type MessageWithToken {
+	message: String,
+	token: String
+}
+
 type HraMessage {
 	message: String
 	percentageProgress: Int
@@ -807,7 +812,7 @@ type Mutation {
 		Input that is needed to register a company
 		"""
 		input: signUpCompanyInput
-	): Message!
+	): MessageWithToken!
 	"""
 	Resend mail to admin to activate the company chooselife accoount
 	"""
