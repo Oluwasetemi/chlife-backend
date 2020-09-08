@@ -272,7 +272,7 @@ const mutation = {
     userExists.suspended = false;
     await userExists.save();
     // return a message
-    return { message: 'User Suspended ' };
+    return { message: 'User is not suspended anymore' };
   },
   async suspendEmployee(_, { id }, { req }) {
     // must be  done by an admin

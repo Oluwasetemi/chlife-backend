@@ -49,3 +49,8 @@
 - Add support to be able to nest into `company` in the User schema since a company is also a user.
 - Protect every endpoint(Query, Mutation) using the `adminVerified` field and `suspended` field.
 - Add `removeUser` to the user services.
+
+## v0.1.4
+
+- fix the typo bug in the message string the 4 `suspend` mutation returns
+- Add new query for `fetchPendingCompany` to fetch companies not yet activated.

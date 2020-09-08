@@ -278,6 +278,65 @@ const query = {
       throw new Error(error.message);
     }
   },
+  async fetchPendingCompany(_, args, { req }) {
+    try {
+      // must be done by an admin
+      if (!req.userId) {
+        throw new Error('You must be logged In');
+      }
+
+      if (req.user.type !== 'SUPERADMIN') {
+        throw new Error('You do not have the permission to do this');
+      }
+
+      let companyEmployees = await findBasedOnQuery({ type: 'COMPANY', adminVerified: false });
+
+      return companyEmployees;
+    } catch (error) {
+      // console.log(error);
+      throw new Error(error.message);
+    }
+  },
+  async fetchEmployeesOfACompanyByCategory(_, {by}, { req }) {
+    try {
+      // must be done by an admin
+      if (!req.userId) {
+        throw new Error('You must be logged In');
+      }
+
+      if (req.user.type !== 'COMPANY') {
+        throw new Error('You do not have the permission to do this');
+      }
+
+      // check if the user is activated and not suspended
+      if (req.user && req.user.adminVerified === false) {
+        throw new Error('Account is not activated');
+      }
+
+      // check if the user is activated and not suspended
+      if (req.user && req.user.suspended === true) {
+        throw new Error('Account is suspend, contact your company');
+      }
+
+      let companyEmployees
+      if (by === 'PENDING') {
+        companyEmployees = await findBasedOnQuery({ company: req.userId, adminVerified: false });
+      }
+
+      if (by === 'ACTIVE') {
+        companyEmployees = await findBasedOnQuery({ company: req.userId, adminVerified: true, suspended: false });
+      }
+
+      if (by === 'SUSPENDED') {
+        companyEmployees = await findBasedOnQuery({ company: req.userId, adminVerified: true, suspended: true });
+      }
+
+      return companyEmployees;
+    } catch (error) {
+      // console.log(error);
+      throw new Error(error.message);
+    }
+  },
   async searchEmployee(_, { searchTerm }, { req }) {
     try {
       // must be done by an admin

@@ -483,6 +483,10 @@ type Query {
 	"""
 	fetchEmployeesOfACompany: [User]
 	"""
+	Fetch the pending company - Admin only route
+	"""
+	fetchPendingCompany: [User]
+	"""
 	Fetch the employee who registered under a company
 	"""
 	fetchEmployeesOfACompanyByCategory(by: FetchEmployeesOfACompanyEnum): [User]
