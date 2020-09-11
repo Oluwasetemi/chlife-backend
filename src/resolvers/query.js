@@ -135,7 +135,17 @@ const query = {
       );
 
       function formatDate(str) {
-        return dateFns.formatISO(new Date(str), { representation: 'date' });
+        try {
+          let res = dateFns.formatISO(new Date(str), { representation: 'date' });
+
+          if (!res) {
+            return false
+          }
+          return  res;
+
+        } catch (error) {
+          return false
+        }
       }
 
       const options = {
@@ -151,10 +161,10 @@ const query = {
             req.user.gender
           }",\n    "get_questionnaire.dob": "${formatDate(
             req.user.dob
-          )}",\n    "get_questionnaire.race_ethinicity": "choose an answer",\n    "get_questionnaire.hispanic_origin": "choose an answer",\n    "get_questionnaire.home_address": "${
-            req.user.address
+          ) || ''}",\n    "get_questionnaire.race_ethinicity": "choose an answer",\n    "get_questionnaire.hispanic_origin": "choose an answer",\n    "get_questionnaire.home_address": "${
+            req.user.address || ''
           }",\n    "get_questionnaire.work_address": "",\n    "get_questionnaire.organization_name": "${
-            req.user.company
+            req.user.company || ''
           }"\n}`,
           signer: 'e650303e-e1e1-11e6-b68a-42010af00005@api.ghmcorp.com',
           signature:

@@ -595,6 +595,7 @@ const mutation = {
           resetPasswordToken: null,
           resetPasswordExpires: null,
           password: hashedPassword,
+          adminVerified: true
         }
       );
       // 6. Generate JWT

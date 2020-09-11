@@ -61,3 +61,8 @@
 - Change the return type of the registerCompany from `Message` to `MessageWithToken`
 - Clean up an error with `addEmployeeToACompany` (the condition to check the plan the user company paid chooselife for by checking employeeLimit against  companySize, if companySize is greater or equal to employeeLimit, contact the admin)
 - Update the urlLink we are sending the new employee to from the `addEmployeeToACompany` mutation.
+
+## v0.1.6
+
+- update the `resetPassword` mutation to verify an employee when activating their account.
+- Fix this bug [https://cdn.discordapp.com/attachments/727956924766748812/753380732956704799/unknown.png](Invalid time) - caused from not returning any data for `dob` of a user from attempting to format the date of birth of the user.
