@@ -859,8 +859,9 @@ type Mutation {
 	"""
 	addEmployeeToACompany(input: [addEmployeeInput]): Message!
 	"""
-
+	Resend the email sent to employee while company is adding employee to their company
 	"""
+	resendCompanyAddEmployeeEmail(id: String!): Message!
 	companyCreateReward(input: createRewardInput): Message!
 	companyUpdateReward(input: updateRewardInput): Reward!
 	closeOneReward(id: String): Message!

@@ -1123,6 +1123,51 @@ const mutation = {
       throw new Error(error.message);
     }
   },
+  async resendCompanyAddEmployeeEmail(_, { id }, { req }) {
+    try {
+      // must be done by an admin
+      // if (!req.userId) {
+      //   throw new Error('You must be logged In');
+      // }
+
+      // if (req.user.type !== 'EMPLOYEE') {
+      //   throw new Error('You do not have the permission to do this');
+      // }
+
+      const user = await findUserById(id);
+
+      if (!user) {
+        throw new Error('Invalid user💀');
+      }
+
+      if (user.resetPasswordExpires > Date.now()) {
+        throw new Error('Check your email and Your password reset link has not expired')
+      }
+
+      user.resetPasswordExpires = Date.now() + (3600000 * 3); // 3 hr from now
+
+      await user.save();
+
+      // send email to new user
+      await send({
+        filename: 'company_add_new_resend',
+        to: user.email,
+        subject: 'Details to add you to company resent',
+        type: user.type,
+        resetPasswordExpires: user.resetPasswordExpires,
+        resetLink: `${
+          process.env.FRONTEND_URL
+        }/onboarding/employee/${user.resetPasswordToken}`,
+      });
+
+      // send email to add the newly added users
+      return {
+        message: `Email resent to your email`,
+      };
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  },
   async companyCreateReward(parent, { input }, { req }) {
     try {
       // must be done by an admin

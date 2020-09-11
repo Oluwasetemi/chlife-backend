@@ -66,3 +66,7 @@
 
 - update the `resetPassword` mutation to verify an employee when activating their account.
 - Fix this bug [https://cdn.discordapp.com/attachments/727956924766748812/753380732956704799/unknown.png](Invalid time) - caused from not returning any data for `dob` of a user from attempting to format the date of birth of the user.
+
+## v0.1.7
+
+- create a new mutation to regenerate password reset token and resend the email to our employee during `addEmployeeToACompany`.
