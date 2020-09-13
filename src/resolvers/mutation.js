@@ -745,7 +745,7 @@ const mutation = {
       resetPasswordToken,
       resetPasswordExpires,
       type: 'ADMIN',
-      adminverified: true,
+      adminVerified: true,
       invitedBy: req.userId,
     };
 
@@ -836,7 +836,7 @@ const mutation = {
         // update the user with his current hra
         await updateUser(
           { _id: req.userId },
-          { $push: { hra: hraData._id }, currentHra: hraData._id }
+          { $push: { hra: hraData._id }, currentHra: hraData._id, totalRewardPoints: req.user.totalRewardPoints + 50 }
         );
 
         return { message: 'Response Saved Successfully', percentageProgress };
@@ -866,6 +866,11 @@ const mutation = {
         hraData.percentageProgress = percentageProgress;
 
         await hraData.save();
+
+        await updateUser(
+          { _id: req.userId },
+          { totalRewardPoints: req.user.totalRewardPoints + 50 }
+        );
 
         return { message: 'Response Updated Successfully', percentageProgress };
       }
@@ -923,7 +928,7 @@ const mutation = {
         await hraData.save();
 
         // update the current user:set the currentHra to null
-        await updateUser({ _id: req.userId }, { currentHra: null });
+        await updateUser({ _id: req.userId }, { currentHra: null, totalRewardPoints: req.user.totalRewardPoints + 500 });
 
         const notification = {
           message: 'hra submitted successfully',

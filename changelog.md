@@ -70,3 +70,8 @@
 ## v0.1.7
 
 - create a new mutation to regenerate password reset token and resend the email to our employee during `addEmployeeToACompany`.
+
+## v0.1.8
+
+- create a new query `fetchAllRewards` and `fetchOneReward` to fetch all the reward on the platform.
+- Implement the `totalRewardPoints` to work in the user schema, and after every submit of response 50 points is given to the user and for final Submission 500 points is given to the user.

@@ -504,9 +504,17 @@ type Query {
 	"""
 	fetchCurrentReward: Reward
 	"""
+	fetch one reward by ID
+	"""
+	fetchOneReward: Reward
+	"""
 	fetch all closed reward
 	"""
 	fetchAllClosedReward: [Reward]
+	"""
+	fetch all rewards both closed and open
+	"""
+	fetchAllRewards: [Reward]
 	"""
 	fetch a company current leaderboard
 	"""

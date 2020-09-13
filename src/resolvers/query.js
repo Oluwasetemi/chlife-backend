@@ -200,24 +200,28 @@ const query = {
     }
   },
   async currentUserResponse(_, args, { req }) {
-    // check whether the user is logged in
-    if (!req.userId) {
-      throw new Error('You must be logged In');
+    try {
+      // check whether the user is logged in
+      if (!req.userId) {
+        throw new Error('You must be logged In');
+      }
+
+      // check if the user is activated and not suspended
+      if (req.user && req.user.adminVerified === false) {
+        throw new Error('Account is not activated');
+      }
+
+      // check if the user is activated and not suspended
+      if (req.user && req.user.suspended === true) {
+        throw new Error('Account is suspend, contact your company');
+      }
+
+      const userHraId = req.user.currentHra;
+
+      return hra.findById(userHraId);
+    } catch (error) {
+      throw new Error(e.message)
     }
-
-    // check if the user is activated and not suspended
-    if (req.user && req.user.adminVerified === false) {
-      throw new Error('Account is not activated');
-    }
-
-    // check if the user is activated and not suspended
-    if (req.user && req.user.suspended === true) {
-      throw new Error('Account is suspend, contact your company');
-    }
-
-    const userHraId = req.user.currentHra;
-
-    return hra.findById(userHraId);
   },
   async fetchEmployeesOfACompany(_, args, { req }) {
     try {
@@ -242,6 +246,10 @@ const query = {
 
       let companyEmployees = await findBasedOnQuery({ company: req.userId });
 
+      if (!companyEmployees) {
+        throw new Error('No data found');
+      }
+
       return companyEmployees;
     } catch (error) {
       // console.log(error);
@@ -280,6 +288,10 @@ const query = {
 
       if (by === 'SUSPENDED') {
         companyEmployees = await findBasedOnQuery({ company: req.userId, adminVerified: true, suspended: true });
+      }
+
+      if (!companyEmployees) {
+        throw new Error('No data found');
       }
 
       return companyEmployees;
@@ -301,6 +313,10 @@ const query = {
 
       let companyEmployees = await findBasedOnQuery({ type: 'COMPANY', adminVerified: false });
 
+      if (!companyEmployees) {
+        throw new Error('No data found');
+      }
+
       return companyEmployees;
     } catch (error) {
       // console.log(error);
@@ -339,6 +355,10 @@ const query = {
 
       if (by === 'SUSPENDED') {
         companyEmployees = await findBasedOnQuery({ company: req.userId, adminVerified: true, suspended: true });
+      }
+
+      if (!companyEmployees) {
+        throw new Error('No data found');
       }
 
       return companyEmployees;
@@ -369,6 +389,10 @@ const query = {
       }
 
       const searchedCompanyEmployees = await search(searchTerm);
+
+      if (!searchedCompanyEmployees) {
+        throw new Error('No data found');
+      }
 
       return searchedCompanyEmployees;
     } catch (error) {
@@ -401,6 +425,45 @@ const query = {
         _id: req.user.currentReward,
       });
 
+      if (!currentReward) {
+        throw new Error('No current reward');
+      }
+
+      return currentReward;
+    } catch (error) {
+      // console.log(error);
+      throw new Error(error.message);
+    }
+  },
+  async fetchOneReward(_, {id}, { req }) {
+    try {
+      // must be done by an admin
+      if (!req.userId) {
+        throw new Error('You must be logged In');
+      }
+
+      // if (req.user.type !== 'COMPANY') {
+      //   throw new Error('You do not have the permission to do this');
+      // }
+
+      // check if the user is activated and not suspended
+      if (req.user && req.user.adminVerified === false) {
+        throw new Error('Account is not activated');
+      }
+
+      // check if the user is activated and not suspended
+      if (req.user && req.user.suspended === true) {
+        throw new Error('Account is suspend, contact your company');
+      }
+
+      const currentReward = await findOneRewardBasedOnQuery({
+        _id: id,
+      });
+
+      if (!currentReward) {
+        throw new Error('No reward with that ID found')
+      }
+
       return currentReward;
     } catch (error) {
       // console.log(error);
@@ -430,8 +493,12 @@ const query = {
 
       const closedRewards = await findAllRewards({
         createdBy: req.userId,
-        isClosed: false,
+        isClosed: true,
       });
+
+      if (!closedRewards) {
+        throw new Error('No closed reward found');
+      }
 
       return closedRewards;
     } catch (error) {
@@ -439,14 +506,14 @@ const query = {
       throw new Error(error.message);
     }
   },
-  async fetchLeaderBoardCompany(_, args, { req }) {
+  async fetchAllRewards(_, args, { req }) {
     try {
       // must be done by an admin
       if (!req.userId) {
         throw new Error('You must be logged In');
       }
 
-      if (req.user.type !== 'COMPANY') {
+      if (req.user.type !== 'SUPERADMIN') {
         throw new Error('You do not have the permission to do this');
       }
 
@@ -460,9 +527,53 @@ const query = {
         throw new Error('Account is suspend, contact your company');
       }
 
+      const rewards = await findAllRewards({});
+
+      if (!rewards) {
+        throw new Error('No reward found');
+      }
+
+      return rewards;
+    } catch (error) {
+      // console.log(error);
+      throw new Error(error.message);
+    }
+  },
+  async fetchLeaderBoardCompany(_, args, { req }) {
+    try {
+      // must be done by an admin
+      if (!req.userId) {
+        throw new Error('You must be logged In');
+      }
+
+      // if (req.user.type !== 'COMPANY') {
+      //   throw new Error('You do not have the permission to do this');
+      // }
+
+      // check if the user is activated and not suspended
+      if (req.user && req.user.adminVerified === false) {
+        throw new Error('Account is not activated');
+      }
+
+      // check if the user is activated and not suspended
+      if (req.user && req.user.suspended === true) {
+        throw new Error('Account is suspend, contact your company');
+      }
+
+      let value;
+      if (req.user.type === 'EMPLOYEE') {
+        value = req.user.company;
+      } else {
+        value = req.userId;
+      }
+
       const allEmployee = await findAllUsers({
-        company: req.userId,
+        company: value,
       });
+
+      if (!allEmployee) {
+        throw new Error('No data returned')
+      }
 
       const cleanAllEmployee = JSON.parse(JSON.stringify(allEmployee));
 
@@ -477,6 +588,9 @@ const query = {
 
         leaderBoard.push(copy);
       }
+
+      // sort leaderBoard
+      leaderBoard.sort((value1, value2) => value2.points - value1.points)
 
       return leaderBoard;
     } catch (error) {
