@@ -24,7 +24,7 @@ const {
   findOneBasedOnQuery,
   deleteUserByEmail,
   findUserById,
-  removeUser
+  removeUser,
 } = require('../services/user');
 
 const {
@@ -35,6 +35,7 @@ const {
 
 const { hash, match, sign } = require('../utils/auth');
 const { send } = require('../mail/mail');
+const { createAppointment } = require('../services/appointment');
 
 // all the mutation
 const mutation = {
@@ -179,7 +180,7 @@ const mutation = {
       const result = {
         message:
           'Company registered successfully? Check your email for further process',
-        token
+        token,
       };
 
       // console.log(args);
@@ -250,7 +251,7 @@ const mutation = {
     }
 
     if (userExists.suspended === true) {
-      throw new Error('user suspended already')
+      throw new Error('user suspended already');
     }
     // update the user
     userExists.suspended = true;
@@ -274,7 +275,7 @@ const mutation = {
     }
 
     if (userExists.suspended === false) {
-      throw new Error('user not suspended already')
+      throw new Error('user not suspended already');
     }
     // update the user
     userExists.suspended = false;
@@ -297,7 +298,7 @@ const mutation = {
       throw new Error('Invalid suspension process');
     }
     if (userExists.suspended === true) {
-      throw new Error('user suspended already')
+      throw new Error('user suspended already');
     }
     // update the user
     userExists.suspended = true;
@@ -321,7 +322,7 @@ const mutation = {
     }
 
     if (userExists.suspended === false) {
-      throw new Error('user not suspended already')
+      throw new Error('user not suspended already');
     }
 
     // update the user
@@ -595,7 +596,7 @@ const mutation = {
           resetPasswordToken: null,
           resetPasswordExpires: null,
           password: hashedPassword,
-          adminVerified: true
+          adminVerified: true,
         }
       );
       // 6. Generate JWT
@@ -836,7 +837,11 @@ const mutation = {
         // update the user with his current hra
         await updateUser(
           { _id: req.userId },
-          { $push: { hra: hraData._id }, currentHra: hraData._id, totalRewardPoints: req.user.totalRewardPoints + 50 }
+          {
+            $push: { hra: hraData._id },
+            currentHra: hraData._id,
+            totalRewardPoints: req.user.totalRewardPoints + 50,
+          }
         );
 
         return { message: 'Response Saved Successfully', percentageProgress };
@@ -928,7 +933,13 @@ const mutation = {
         await hraData.save();
 
         // update the current user:set the currentHra to null
-        await updateUser({ _id: req.userId }, { currentHra: null, totalRewardPoints: req.user.totalRewardPoints + 500 });
+        await updateUser(
+          { _id: req.userId },
+          {
+            currentHra: null,
+            totalRewardPoints: req.user.totalRewardPoints + 500,
+          }
+        );
 
         const notification = {
           message: 'hra submitted successfully',
@@ -1093,13 +1104,11 @@ const mutation = {
           password,
           resetPasswordExpires,
           resetPasswordToken,
-          invitedBy: req.userId
+          invitedBy: req.userId,
         });
 
         // save the newly created user in an array
         newUsers.push(user);
-
-
 
         // send email to new user
         await send({
@@ -1115,7 +1124,10 @@ const mutation = {
       }
 
       // TODO: update the company the size
-      await updateUser({ _id: req.userId }, { companySize: req.user.companySize + input.length })
+      await updateUser(
+        { _id: req.userId },
+        { companySize: req.user.companySize + input.length }
+      );
 
       // send email to add the newly added users
       return {
@@ -1123,7 +1135,11 @@ const mutation = {
       };
     } catch (error) {
       if (error.code === 11000) {
-        throw new Error(`Cannot create user with ${Object.keys(error.keyValue)[0]} value ${error.keyValue['email']} because a user with that email exist`)
+        throw new Error(
+          `Cannot create user with ${Object.keys(error.keyValue)[0]} value ${
+            error.keyValue.email
+          } because a user with that email exist`
+        );
       }
       throw new Error(error.message);
     }
@@ -1146,10 +1162,12 @@ const mutation = {
       }
 
       if (user.resetPasswordExpires > Date.now()) {
-        throw new Error('Check your email and Your password reset link has not expired')
+        throw new Error(
+          'Check your email and Your password reset link has not expired'
+        );
       }
 
-      user.resetPasswordExpires = Date.now() + (3600000 * 3); // 3 hr from now
+      user.resetPasswordExpires = Date.now() + 3600000 * 3; // 3 hr from now
 
       await user.save();
 
@@ -1160,9 +1178,9 @@ const mutation = {
         subject: 'Details to add you to company resent',
         type: user.type,
         resetPasswordExpires: user.resetPasswordExpires,
-        resetLink: `${
-          process.env.FRONTEND_URL
-        }/onboarding/employee/${user.resetPasswordToken}`,
+        resetLink: `${process.env.FRONTEND_URL}/onboarding/employee/${
+          user.resetPasswordToken
+        }`,
       });
 
       // send email to add the newly added users
@@ -1288,6 +1306,18 @@ const mutation = {
       return { message: 'Reward closed successfully' };
     } catch (error) {
       // console.log(error);
+      throw new Error(error.message);
+    }
+  },
+  async createAppointmentMutation(parent, args, { req }) {
+    try {
+      const { date, time } = args;
+      const [y, M, d] = date.split('/');
+      const [h, m] = time.split(':');
+      const dateObj = new Date(date);
+      // form the datetime object from the date and time separate variables
+      const appointment = await createAppointment(args);
+    } catch (error) {
       throw new Error(error.message);
     }
   },

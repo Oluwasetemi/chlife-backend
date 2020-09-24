@@ -75,12 +75,17 @@ enum HraInputSectionsEnum {
 	TOS_FITNESSFAIR
 }
 
+enum Appointmentenum {
+	INBODY
+	PROFESSIONAL
+}
+
 type Message {
 	message: String
 }
 
 type MessageWithToken {
-	message: String,
+	message: String
 	token: String
 }
 
@@ -302,10 +307,11 @@ type InBody {
 
 type Appointment {
 	_id: String!
-	subject: String
+	title: String
+	purpose: String
 	description: String
 	appointmentTime: String
-	type: String
+	type: Appointmentenum
 	professsional: String
 	createdAt: DateTime
 	updatedAt: DateTime
@@ -606,6 +612,34 @@ enum stageEnum {
 	SUBMITTED
 }
 
+input AppointmentInput {
+	title: String!
+	"""
+	the main reason for creating the appointment
+	"""
+	purpose: String
+	"""
+	give a clear description on the appointment
+	"""
+	description: String
+	"""
+	the date for the appointment in string
+	"""
+	date: String!
+	"""
+	the time for the appointment in string
+	"""
+	time: String!
+	"""
+	the type of the appointment ranging from inbody, professional
+	"""
+	type: Appointmentenum
+	"""
+	the name or email of the professional
+	"""
+	professional: String
+}
+
 input HRAResponseInput {
 	age_in_years: String
 	arrested_dui: String
@@ -873,6 +907,10 @@ type Mutation {
 	companyCreateReward(input: createRewardInput): Message!
 	companyUpdateReward(input: updateRewardInput): Reward!
 	closeOneReward(id: String): Message!
+	"""
+	create an Appointment
+	"""
+	createAppointmentMutation(input: AppointmentInput): Message!
 }
 
 type Subscription {

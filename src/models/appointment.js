@@ -3,7 +3,11 @@ const mongoose = require('mongoose'); // Erase if already required
 // Declare the Schema of the Mongo model
 const appointmentSchema = new mongoose.Schema(
   {
-    subject: {
+    title: {
+      type: String,
+      required: true,
+    },
+    purpose: {
       type: String,
       required: true,
     },
