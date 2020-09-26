@@ -23,7 +23,7 @@ async function deleteData() {
   await Reward.deleteMany();
   await Hra.deleteMany();
   console.log(
-    `${g('Data Deleted. To load sample data, run\n\n\t npm run seed\n\n')}`
+    `${g('Data Deleted. To load sample data, run\n\n\t npm run seed\n\n')}`,
   );
   process.exit();
 }
@@ -105,8 +105,8 @@ async function loadData() {
   } catch (e) {
     console.log(
       `${r(
-        '\n👎👎👎👎👎👎👎👎 Error! The Error info is below but if you are importing sample data make sure to drop the existing database first with.\n\n\t npm run blowitallaway\n\n\n'
-      )}`
+        '\n👎👎👎👎👎👎👎👎 Error! The Error info is below but if you are importing sample data make sure to drop the existing database first with.\n\n\t npm run blowitallaway\n\n\n',
+      )}`,
     );
     console.log(e.message);
     process.exit();

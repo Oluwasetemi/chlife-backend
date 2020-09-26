@@ -20,7 +20,7 @@ if (process.env.NODE_ENV === 'test' && !process.env.DATABASE_TEST_URL) {
 }
 
 // Connecting to the database
-const connection = async url => {
+const connection = async (url) => {
   try {
     const con = await mongoose.connect(url, {
       useNewUrlParser: true,

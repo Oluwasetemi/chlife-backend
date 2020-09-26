@@ -12,12 +12,12 @@ const resolvers = {
   DateTime: new GraphQLScalarType({
     name: 'DateTime',
     description: 'A valid date time value.',
-    parseValue: value => new Date(value),
-    serialize: value => new Date(value).toISOString(),
-    parseLiteral: ast => ast.value,
+    parseValue: (value) => new Date(value),
+    serialize: (value) => new Date(value).toISOString(),
+    parseLiteral: (ast) => ast.value,
   }),
   User: {
-    hra: async parent => {
+    hra: async (parent) => {
       //  filter out the array of hra_id and try to populate it
       const hraList = JSON.parse(JSON.stringify(parent.hra));
       const hraDataObject = [];
@@ -27,7 +27,7 @@ const resolvers = {
       }
       return hraDataObject;
     },
-    currentHra: async parent => {
+    currentHra: async (parent) => {
       const hra = await Hra.findById(parent.currentHra);
 
       if (!hra) {
@@ -37,7 +37,7 @@ const resolvers = {
       }
       return hra;
     },
-    company: async parent => {
+    company: async (parent) => {
       const user = await User.findById(parent.company);
 
       if (!user) {
@@ -49,7 +49,7 @@ const resolvers = {
     },
   },
   UserWithCount: {
-    __resolveType(obj, context, info){
+    __resolveType(obj, context, info) {
       if (obj.type) {
         return 'User';
       }

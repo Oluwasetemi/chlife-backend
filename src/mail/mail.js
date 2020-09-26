@@ -15,7 +15,7 @@ if (!process.env.SMTP_FROM_EMAIL && !process.env.SMTP_FROM_NAME) {
 
 const mailjet = require('node-mailjet').connect(
   process.env.MAILJET_API_KEY,
-  process.env.MAILJET_SECRET_KEY
+  process.env.MAILJET_SECRET_KEY,
 );
 
 /* const transport = nodemailer.createTransport({
@@ -30,7 +30,7 @@ const mailjet = require('node-mailjet').connect(
 const generateHTML = (filename, options = {}) => {
   const html = pug.renderFile(
     path.join(__dirname, `/templates/${filename}.pug`),
-    options
+    options,
   );
   const inlined = juice(html);
   return inlined;
@@ -49,7 +49,7 @@ const generateHTML = (filename, options = {}) => {
  * })
  * @returns {obj} result of sending mail and the message (mail content)
  */
-exports.send = async options => {
+exports.send = async (options) => {
   try {
     const html = generateHTML(options.filename, options);
     const text = htmlToText.fromString(html);
@@ -76,7 +76,7 @@ exports.send = async options => {
   }
 };
 
-const makeANiceEmail = text => `
+const makeANiceEmail = (text) => `
     <div class="email" styles="
         border: 1px solid black;
         padding: 20px;

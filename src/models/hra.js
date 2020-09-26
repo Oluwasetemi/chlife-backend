@@ -23,7 +23,7 @@ const hraSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 // Export the model

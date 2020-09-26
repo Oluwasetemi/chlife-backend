@@ -28,7 +28,7 @@ function createConnection(url) {
   return new google.auth.OAuth2(
     process.env.GOOGLE_CLIENT_ID,
     process.env.GOOGLE_CLIENT_SECRET,
-    url
+    url,
   );
 }
 
@@ -69,7 +69,7 @@ function urlGoogle() {
  * @param {string} code uri encoded auth token
  * @returns {object} google user profile
  */
-const getGoogleAccountFromCode = async code => {
+const getGoogleAccountFromCode = async (code) => {
   try {
     const url = encodeURI('https://chooselife.com/app');
     const auth = createConnection(url);
@@ -98,7 +98,7 @@ const getGoogleAccountFromCode = async code => {
   } catch (error) {
     if (error.message === 'invalid_grant')
       throw new Error(
-        'The generated authorization code can only be used once. Regenerate another authorization code'
+        'The generated authorization code can only be used once. Regenerate another authorization code',
       );
     throw new Error(error);
   }

@@ -1,0 +1,13 @@
+node_modules
+.vscode
+coverage
+changelog.md
+README.md
+input.js
+question.js
+submit_response.graphql
+ghm-hra-questions.json
+package-lock.json
+package.json
+responseSample.json
+task-definition.json

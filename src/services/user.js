@@ -15,15 +15,15 @@ exports.findAllUsers = (query = {}) => User.find(query);
 exports.removeUser = (id) => User.findByIdAndRemove(id);
 
 exports.updateUser = (query, data) =>
-    User.findOneAndUpdate(query, data, { new: true, runValidators: true });
+  User.findOneAndUpdate(query, data, { new: true, runValidators: true });
 
 exports.deleteUserByEmail = (email) => User.deleteOne({ email });
 
 exports.search = async ({ searchInput, id }) => {
-    const user = await User.find(
-        { $text: { $search: searchInput }, company: id },
-        { score: { $meta: 'textScore' } }
-    ).sort({ score: { $meta: 'textScore' } });
+  const user = await User.find(
+    { $text: { $search: searchInput }, company: id },
+    { score: { $meta: 'textScore' } },
+  ).sort({ score: { $meta: 'textScore' } });
 
-    return user;
+  return user;
 };

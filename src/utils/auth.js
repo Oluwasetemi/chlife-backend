@@ -14,7 +14,7 @@ if (!process.env.TOKEN_SECRET) {
  * @returns {string} token - for authenticating the user.
  */
 
-exports.sign = id =>
+exports.sign = (id) =>
   new Promise((resolve, reject) => {
     jwt.sign({ id }, process.env.TOKEN_SECRET, (err, token) => {
       if (err) return reject(err);
@@ -30,7 +30,7 @@ exports.sign = id =>
  * @returns {object} decoded - authenticated user details.
  */
 
-exports.verify = token =>
+exports.verify = (token) =>
   new Promise((resolve, reject) => {
     jwt.verify(token, process.env.TOKEN_SECRET, (err, decoded) => {
       if (err) return reject(err);
@@ -45,7 +45,7 @@ exports.verify = token =>
  * @param {string} password - user password.
  * @returns {Promise(string)} hashed - a hashed password
  */
-exports.hash = password => {
+exports.hash = (password) => {
   const saltRounds = 10;
   return new Promise((resolve, reject) => {
     bcrypt.hash(password, saltRounds, (err, hashed) => {
