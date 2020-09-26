@@ -14,7 +14,7 @@
 			"console": "integratedTerminal",
 			"internalConsoleOptions": "neverOpen",
 			"skipFiles": ["<node_internals>/**"],
-			"envFile": "${workspaceFolder}/variables.env"
+			// "envFile": "${workspaceFolder}/variables.env"
 		},
 		{
 			"type": "node",

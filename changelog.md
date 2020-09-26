@@ -75,3 +75,24 @@
 
 - create a new query `fetchAllRewards` and `fetchOneReward` to fetch all the reward on the platform.
 - Implement the `totalRewardPoints` to work in the user schema, and after every submit of response 50 points is given to the user and for final Submission 500 points is given to the user.
+
+## v0.1.9
+
+- create a new mutation `createAppointmentMutation` to create appointment scheduled by employees. It sends an email to the chooselife admin.
+- Add new fields to the `QuestionAndResponse` and `HRAResponseInput` and to the data sent over to GHM appraise risk endpoint when submitting a HRA.
+  - bathing
+  - dressing
+  - eating
+  - out_of_bed
+  - walking
+  - getting_outside
+  - using_toilet
+  - meals
+  - shopping
+  - managing_money
+  - telephone
+  - heavy_housework
+  - light_housework
+  - out_of_house
+  - limit_crime
+- Fix bug (Not working) for the `SearchEmployee` query and updated the `search` service from the User service.

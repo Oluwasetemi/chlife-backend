@@ -1,0 +1,30 @@
+extends email-layout
+
+block content
+    h2 Title of appointment: #{title}
+    p Hello Admin!,
+
+    br
+    p A new appointment was created by
+        b  #{name}
+        |  on the platform.
+
+    p Here is the details if the appointment:
+    | Description:
+    b
+        em  #{description},
+    |  Time:
+    b  #{datetime},
+    |  Professional Name:
+    b  #{professional},
+    |  the Professional type will like to see:
+    b  #{type},
+    |  and the Purpose of the appointment:
+    b  #{purpose}.
+    br
+
+
+    br
+    p If you didn't request this email, please ignore it.
+    p Regards.
+    p Choose Life Team

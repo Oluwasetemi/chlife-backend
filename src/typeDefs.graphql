@@ -149,6 +149,7 @@ type HRA {
 type QuestionAndResponse {
 	age_in_years: String
 	arrested_dui: String
+	bathing: String
 	bicycle_helmet_usage: String
 	binge_drinking: String
 	blood_glucose_mml: String
@@ -167,9 +168,9 @@ type QuestionAndResponse {
 	chh_interact: String
 	chh_sbreath: String
 	cholesterol_check: String
+	cholesterol_level_estimated: String
 	cholesterol_level_mml: String
 	cholesterol_level: String
-	cholesterol_level_estimated: String
 	cholesterol_medication: String
 	colon_cancer_screening: String
 	commercial_driver: String
@@ -182,8 +183,10 @@ type QuestionAndResponse {
 	diabetes_status: String
 	difficulties_piling_up: String
 	distracted_driving: String
+	dressing: String
 	drinking_and_driving: String
 	driving_speed: String
+	eating: String
 	education: String
 	fast_food: String
 	felt_confident: String
@@ -199,6 +202,7 @@ type QuestionAndResponse {
 	GADf: String
 	GADg: String
 	gainful_employment: String
+	getting_outside: String
 	going_your_way: String
 	gross_weight: String
 	hb1ac_check: String
@@ -208,6 +212,7 @@ type QuestionAndResponse {
 	health_information_interest: String
 	heart_attack: String
 	heart_disease: String
+	heavy_housework: String
 	height_cm: String
 	height_feet: String
 	height_inches: String
@@ -221,8 +226,14 @@ type QuestionAndResponse {
 	insurance_coverage: String
 	junk_food: String
 	last_mammogram: String
+	light_housework: String
+	limit_crime: String
+	managing_money: String
 	marital_status: String
+	meals: String
 	misfortune: String
+	out_of_bed: String
+	out_of_house: String
 	overall_health: String
 	pap_smear_test: String
 	PHQa: String
@@ -245,6 +256,7 @@ type QuestionAndResponse {
 	safety_belt_usage: String
 	save_key: String
 	sex: String
+	shopping: String
 	sleep1: String
 	sleep2: String
 	sleep3: String
@@ -256,6 +268,7 @@ type QuestionAndResponse {
 	still_smoke: String
 	stroke: String
 	sugar_beverage: String
+	telephone: String
 	travel_by_automobile_km: String
 	travel_by_automobile: String
 	travel_by_motorcycle_km: String
@@ -267,9 +280,11 @@ type QuestionAndResponse {
 	used_to_smoke_cigarettes_day: String
 	used_to_smoke_cigars_day: String
 	used_to_smoke_pipes_day: String
+	using_toilet: String
 	vaping_freq: String
 	vaping: String
 	vegetables: String
+	walking: String
 	weekly_alcohol_beer: String
 	weekly_alcohol_mixed_drinks: String
 	weekly_alcohol_wine_coolers: String
@@ -395,7 +410,7 @@ type User {
 	currentHra: Hra
 	currentReward: Reward
 	"""
-	user schedule apointment (2 only - inBody and Professional)
+	user schedule appointment (2 only - inBody and Professional)
 	"""
 	appointments: [Appointment]
 	exercises: [Exercise]
@@ -643,6 +658,7 @@ input AppointmentInput {
 input HRAResponseInput {
 	age_in_years: String
 	arrested_dui: String
+	bathing: String
 	bicycle_helmet_usage: String
 	binge_drinking: String
 	blood_glucose_mml: String
@@ -661,9 +677,9 @@ input HRAResponseInput {
 	chh_interact: String
 	chh_sbreath: String
 	cholesterol_check: String
+	cholesterol_level_estimated: String
 	cholesterol_level_mml: String
 	cholesterol_level: String
-	cholesterol_level_estimated: String
 	cholesterol_medication: String
 	colon_cancer_screening: String
 	commercial_driver: String
@@ -676,8 +692,10 @@ input HRAResponseInput {
 	diabetes_status: String
 	difficulties_piling_up: String
 	distracted_driving: String
+	dressing: String
 	drinking_and_driving: String
 	driving_speed: String
+	eating: String
 	education: String
 	fast_food: String
 	felt_confident: String
@@ -693,6 +711,7 @@ input HRAResponseInput {
 	GADf: String
 	GADg: String
 	gainful_employment: String
+	getting_outside: String
 	going_your_way: String
 	gross_weight: String
 	hb1ac_check: String
@@ -702,6 +721,7 @@ input HRAResponseInput {
 	health_information_interest: String
 	heart_attack: String
 	heart_disease: String
+	heavy_housework: String
 	height_cm: String
 	height_feet: String
 	height_inches: String
@@ -715,8 +735,14 @@ input HRAResponseInput {
 	insurance_coverage: String
 	junk_food: String
 	last_mammogram: String
+	light_housework: String
+	limit_crime: String
+	managing_money: String
 	marital_status: String
+	meals: String
 	misfortune: String
+	out_of_bed: String
+	out_of_house: String
 	overall_health: String
 	pap_smear_test: String
 	PHQa: String
@@ -739,6 +765,7 @@ input HRAResponseInput {
 	safety_belt_usage: String
 	save_key: String
 	sex: String
+	shopping: String
 	sleep1: String
 	sleep2: String
 	sleep3: String
@@ -751,6 +778,7 @@ input HRAResponseInput {
 	still_smoke: String
 	stroke: String
 	sugar_beverage: String
+	telephone: String
 	travel_by_automobile_km: String
 	travel_by_automobile: String
 	travel_by_motorcycle_km: String
@@ -762,9 +790,11 @@ input HRAResponseInput {
 	used_to_smoke_cigarettes_day: String
 	used_to_smoke_cigars_day: String
 	used_to_smoke_pipes_day: String
+	using_toilet: String
 	vaping_freq: String
 	vaping: String
 	vegetables: String
+	walking: String
 	weekly_alcohol_beer: String
 	weekly_alcohol_mixed_drinks: String
 	weekly_alcohol_wine_coolers: String
@@ -831,7 +861,7 @@ type Mutation {
 	"""
 	signupLoginWithGoogleAccessToken(access_token: String): User!
 	"""
-	OnBoard Employes, Individual should use this as their signup page
+	OnBoard Employees, Individual should use this as their signup page
 	"""
 	signup(input: signUpEmployeeInput): User!
 	"""
@@ -847,7 +877,7 @@ type Mutation {
 	"""
 	adminOnBoardCompany(input: signUpCompanyInput): User! @deprecated
 	"""
-	OnBoard Company -> this can only be done by chooselife addmin
+	OnBoard Company -> this can only be done by chooselife admin
 	"""
 	registerCompany(
 		"""
@@ -856,7 +886,7 @@ type Mutation {
 		input: signUpCompanyInput
 	): MessageWithToken!
 	"""
-	Resend mail to admin to activate the company chooselife accoount
+	Resend mail to admin to activate the company chooselife account
 	"""
 	resendAdminActivationRequestMail(
 		"""
