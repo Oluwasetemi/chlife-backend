@@ -96,3 +96,12 @@
   - out_of_house
   - limit_crime
 - Fix bug (Not working) for the `SearchEmployee` query and updated the `search` service from the User service.
+
+## v0.2.0
+
+- add new query to `userByIds` which accepts array of `ids` as input. Created `findUsersByIds` service as well.
+- add query `searchCompany` to search through company at Admin level.
+- add query `fetchAllEmailListSubscribers` to search through email subscribers list at Admin level.
+- add query `fetchAdminReport` to hit the GHM api - `get_reports` to fetch all the list individual hra report and add name and email to the data returned from our database.
+- add query `fetchCompanyReport` to hit the GHM api - `get_group_report_data` to fetch group of user_ids hra report and addd email and name to the data returned from our database.
+- create `subscribeToEmailList` , `activateSubscriber` and `unSubscribeFromEmailList` mutation for manipulating EmailSubscriber's List.

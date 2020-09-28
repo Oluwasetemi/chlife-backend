@@ -285,6 +285,7 @@ hr {
     .ExternalClass {
         width: 100%;
     }
+    
     .ExternalClass,
     .ExternalClass p,
     .ExternalClass span,
@@ -293,6 +294,7 @@ hr {
     .ExternalClass div {
         line-height: 100%;
     }
+
     .apple-link a {
         color: inherit !important;
         font-family: inherit !important;
@@ -301,11 +303,13 @@ hr {
         line-height: inherit !important;
         text-decoration: none !important;
     }
+
     .btn-primary table td:hover {
-        background-color: #00ffde !important;
+        background-color: rgb(46, 196, 182) !important;
     }
+
     .btn-primary a:hover {
-        background-color: #00ffde !important;
-        border-color: #00ffde !important;
+        background-color: rgb(46, 196, 182) !important;
+        border-color: rgb(46, 196, 182) !important;
     }
 }

@@ -1,0 +1,21 @@
+extends email-layout
+
+block content
+    h2 You just joined ChooseLife Email Subscribers List
+    p Hello!,
+
+    br
+    p You're welcome.
+
+    p You requested to be added to the chooselife email subscribers list. Click on the link below to confirm your email.
+
+    +button(activateLink, 'Activate new Subscribers List ->')
+
+    p
+      a(href=`${activateLink}`, target='_blank')= activateLink
+
+
+    br
+    p If you didn't request this email, please ignore it.
+    p Regards.
+    p Choose Life Team.

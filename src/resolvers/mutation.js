@@ -9,9 +9,14 @@ const { promisify } = require('util');
 const axios = require('axios').default;
 const request = require('request');
 
+const hra = require('../models/hra');
+
 const requestPromise = promisify(request);
 
-const hra = require('../models/hra');
+const GHM_BASE_API =
+  process.env.NODE_ENV === 'production'
+    ? process.env.GHM_PRODUCTION
+    : process.env.GHM_TEST;
 
 const {
   urlGoogle,
@@ -37,6 +42,12 @@ const {
 const { hash, match, sign } = require('../utils/auth');
 const { send } = require('../mail/mail');
 const { createAppointment } = require('../services/appointment');
+const {
+  createEmailSubscriber,
+  updateEmailSubScriber,
+  findOneEmailSubscriberByEmail,
+  findEmailSubScriberById,
+} = require('../services/emailSubscriber');
 
 // all the mutation
 const mutation = {
@@ -129,7 +140,7 @@ const mutation = {
       // set activation token
       const randomBytesPromisified = promisify(randomBytes);
       const activationToken = (await randomBytesPromisified(20)).toString(
-        'hex',
+        'hex'
       );
 
       const user = await createUser({
@@ -364,7 +375,7 @@ const mutation = {
     // update the company
     const updatedUser = await updateUser(
       { _id: id },
-      { employeeLimit: amount },
+      { employeeLimit: amount }
     );
     // return a message
     return { message: `Limit set for Company ${updatedUser.companyName}` };
@@ -400,7 +411,7 @@ const mutation = {
       // request reset password
       const randomBytesPromisified = promisify(randomBytes);
       const resetPasswordToken = (await randomBytesPromisified(20)).toString(
-        'hex',
+        'hex'
       );
       const resetPasswordExpires = Date.now() + 3600000; // 1 hr from now
 
@@ -450,7 +461,7 @@ const mutation = {
 
       if (!userExist) {
         throw new Error(
-          `User - ${(userExist && userExist.type) || ''} with email not found`,
+          `User - ${(userExist && userExist.type) || ''} with email not found`
         );
       }
 
@@ -518,12 +529,12 @@ const mutation = {
       // 2. set a reset token and expiry on that user
       const randomBytesPromisified = promisify(randomBytes);
       const resetPasswordToken = (await randomBytesPromisified(20)).toString(
-        'hex',
+        'hex'
       );
       const resetPasswordExpires = Date.now() + 3600000; // 1 hr from now
       const res = await updateUser(
         { email },
-        { resetPasswordExpires, resetPasswordToken },
+        { resetPasswordExpires, resetPasswordToken }
       );
 
       await send({
@@ -598,7 +609,7 @@ const mutation = {
           resetPasswordExpires: null,
           password: hashedPassword,
           adminVerified: true,
-        },
+        }
       );
       // 6. Generate JWT
       const token = await sign(user.id);
@@ -638,7 +649,7 @@ const mutation = {
     if (user) {
       if (user.type !== 'INDIVIDUAL') {
         throw new Error(
-          'User with this google account exist with another type.',
+          'User with this google account exist with another type.'
         );
       }
 
@@ -690,7 +701,7 @@ const mutation = {
     if (user) {
       if (user.type !== 'INDIVIDUAL') {
         throw new Error(
-          'User with this google account exist with another type.',
+          'User with this google account exist with another type.'
         );
       }
 
@@ -734,7 +745,7 @@ const mutation = {
 
     const randomBytesPromisified = promisify(randomBytes);
     const resetPasswordToken = (await randomBytesPromisified(20)).toString(
-      'hex',
+      'hex'
     );
     const resetPasswordExpires = Date.now() + 3600000; // 1 hr from now
 
@@ -825,7 +836,7 @@ const mutation = {
         //   calc the % of the submitted response(total: 111)
         //   length of the responseToBeSubmitted object / total * 100
         const percentageProgress = Math.round(
-          (Number(Object.keys(responseToBeSubmitted).length) / 111) * 100,
+          (Number(Object.keys(responseToBeSubmitted).length) / 111) * 100
         );
 
         const hraData = await hra.create({
@@ -842,7 +853,7 @@ const mutation = {
             $push: { hra: hraData._id },
             currentHra: hraData._id,
             totalRewardPoints: req.user.totalRewardPoints + 50,
-          },
+          }
         );
 
         return {
@@ -867,7 +878,7 @@ const mutation = {
         //   calc the % of the submitted response(total: 111)
         //   length of the responseToBeSubmitted object / total * 100
         const percentageProgress = Math.round(
-          (Number(Object.keys(responseToBeSubmitted).length) / 111) * 100,
+          (Number(Object.keys(responseToBeSubmitted).length) / 111) * 100
         );
 
         hraData.questionAndResponse = responseToBeSubmitted;
@@ -878,7 +889,7 @@ const mutation = {
 
         await updateUser(
           { _id: req.userId },
-          { totalRewardPoints: req.user.totalRewardPoints + 50 },
+          { totalRewardPoints: req.user.totalRewardPoints + 50 }
         );
 
         return {
@@ -908,155 +919,13 @@ const mutation = {
         // confirm if the data is clean enough to be submitted
         const options = {
           method: 'POST',
-          url: 'https://hra-api.ghmcorp.com/api/v2/appraise_risks',
+          url: `${GHM_BASE_API}/appraise_risks`,
           headers: {},
+          /* eslint-disable */
           formData: {
-            // eslint-disable-next-line prettier/prettier
-            json: `{"appraise_risks.client_id":"fitnessfair","appraise_risks.user_id":"${
-              req.userId
-            }","hra.app.units":"us_customary","hra.app.cholunits":"mg/dl","hra.app.hra_id":"midlife","save_key":"${req.userId ||
-              ''}","hra.q.age_in_years.a.years":"${currentResponse.age_in_years ||
-              'not answered'}","hra.q.arrested_dui.a.years":"${currentResponse.arrested_dui ||
-              'not answered'}","hra.q.bicycle_helmet_usage.a":"${currentResponse.bicycle_helmet_usage ||
-              'not answered'}","hra.q.binge_drinking.a.no":"${currentResponse.binge_drinking ||
-              'not answered'}","hra.q.binge_drinking.a":"${currentResponse.binge_drinking ||
-              'not answered'}","hra.q.blood_glucose.a":"${currentResponse.blood_glucose ||
-              'not answered'}","hra.q.blood_glucose_mml.a":"${currentResponse.blood_glucose_mml ||
-              'not answered'}","hra.q.blood_pressure_estimated.a":"${currentResponse.blood_pressure_estimated ||
-              'not answered'}","hra.q.blood_pressure_measured.a.high_number":"${currentResponse.blood_pressure_measured_high ||
-              'not answered'}","hra.q.blood_pressure_measured.a.low_number":"${currentResponse.blood_pressure_measured_low ||
-              'not answered'}","hra.q.blood_pressure_medication.a.0":"${currentResponse.blood_pressure_medication ||
-              'not answered'}","hra.q.blood_pressure_medication.a":"${currentResponse.blood_pressure_medication ||
-              'not answered'}","hra.q.body_frame_size.a":"${currentResponse.body_frame_size ||
-              'not answered'}","hra.q.butter.a":"${currentResponse.butter ||
-              'not answered'}","hra.q.caffeine.a":"${currentResponse.caffeine ||
-              'not answered'}","hra.q.charcoal_broiled.a":"${currentResponse.charcoal_broiled ||
-              'not answered'}","hra.q.chh_cough.a":"${currentResponse.chh_cough ||
-              'not answered'}","hra.q.chh_fever.a":"${currentResponse.chh_fever ||
-              'not answered'}","hra.q.chh_hands.a":"${currentResponse.chh_hands ||
-              'not answered'}","hra.q.chh_interact.a":"${currentResponse.chh_interact ||
-              'not answered'}","hra.q.chh_sbreath.a":"${currentResponse.chh_sbreath ||
-              'not answered'}","hra.q.cholesterol_check.a":"${currentResponse.cholesterol_check ||
-              'not answered'}","hra.q.cholesterol_level_mml.a":"${currentResponse.cholesterol_level_mml ||
-              'not answered'}","hra.q.cholesterol_level.a":"${currentResponse.cholesterol_level ||
-              'not answered'}","hra.q.cholesterol_level_estimated.a":"${currentResponse.cholesterol_level_estimated ||
-              'not answered'}","hra.q.colon_cancer_screening.a":"${currentResponse.colon_cancer_screening ||
-              'not answered'}","hra.q.commercial_driver.a":"${currentResponse.commercial_driver ||
-              'not answered'}","hra.q.cross_contamination.a":"${currentResponse.cross_contamination ||
-              'not answered'}","hra.q.cross_daily_cigars.a":"${currentResponse.cross_daily_cigars ||
-              'not answered'}","hra.q.cross_daily_marajuana.a":"${currentResponse.cross_daily_marajuana ||
-              'not answered'}","hra.q.cross_daily_pipes.a":"${currentResponse.cross_daily_pipes ||
-              'not answered'}","hra.q.cross_daily_shisha.a":"${currentResponse.cross_daily_shisha ||
-              'not answered'}","hra.q.desserts.a":"${currentResponse.desserts ||
-              'not answered'}","hra.q.diabetes_status.a.no":"${currentResponse.diabetes_status ||
-              'not answered'}","hra.q.diabetes_status.a":"${currentResponse.diabetes_status ||
-              'not answered'}","hra.q.difficulties_piling_up.a":"${currentResponse.difficulties_piling_up ||
-              'not answered'}","hra.q.distracted_driving.a.no":"${currentResponse.distracted_driving ||
-              'not answered'}","hra.q.distracted_driving.a":"${currentResponse.distracted_driving ||
-              'not answered'}","hra.q.drinking_and_driving.a.times_last month":"${currentResponse.drinking_and_driving ||
-              'not answered'}","hra.q.driving_speed.a":"${currentResponse.driving_speed ||
-              'not answered'}","hra.q.education.a":"${currentResponse.education ||
-              'not answered'}","hra.q.fast_food.a":"${currentResponse.fast_food ||
-              'not answered'}","hra.q.felt_confident.a":"${currentResponse.felt_confident ||
-              'not answered'}","hra.q.filling_forms.a":"${currentResponse.filling_forms ||
-              'not answered'}","hra.q.fish.a":"${currentResponse.fish ||
-              'not answered'}","hra.q.fruit.a":"${currentResponse.fruit ||
-              'not answered'}","hra.q.fruits_and_vegetables.a":"${currentResponse.fruits_and_vegetables ||
-              'not answered'}","hra.q.GADa.a":"${currentResponse.GADa ||
-              'not answered'}","hra.q.GADb.a":"${currentResponse.GADb ||
-              'not answered'}","hra.q.GADc.a":"${currentResponse.GADc ||
-              'not answered'}","hra.q.GADd.a":"${currentResponse.GADd ||
-              'not answered'}","hra.q.GADe.a":"${currentResponse.GADe ||
-              'not answered'}","hra.q.GADf.a":"${currentResponse.GADf ||
-              'not answered'}","hra.q.GADg.a":"${currentResponse.GADg ||
-              'not answered'}","hra.q.gainful_employment.a.no":"${currentResponse.gainful_employment ||
-              'not answered'}","hra.q.gainful_employment.a":"${currentResponse.gainful_employment ||
-              'not answered'}","hra.q.going_your_way.a":"${currentResponse.going_your_way ||
-              'not answered'}","hra.q.gross_weight.a":"${currentResponse.gross_weight ||
-              'not answered'}","hra.q.hb1ac_check.a":"${currentResponse.hb1ac_check ||
-              'not answered'}","hra.q.hdl_cholesterol_estimated.a":"${currentResponse.hdl_cholesterol_estimated ||
-              'not answered'}","hra.q.hdl_cholesterol_mml.a":"${currentResponse.hdl_cholesterol_mml ||
-              'not answered'}","hra.q.hdl_cholesterol.a":"${currentResponse.hdl_cholesterol ||
-              'not answered'}","hra.q.health_information_interest.a.yes":"${currentResponse.health_information_interest ||
-              'not answered'}","hra.q.health_information_interest.a":"${currentResponse.health_information_interest ||
-              'not answered'}","hra.q.heart_attack.a.no":"${currentResponse.heart_attack ||
-              'not answered'}","hra.q.heart_attack.a":"${currentResponse.heart_attack ||
-              'not answered'}","hra.q.heart_disease.a.no":"${currentResponse.heart_disease ||
-              'not answered'}","hra.q.heart_disease.a":"${currentResponse.heart_disease ||
-              'not answered'}","hra.q.height_cm.a.centemeters":"${currentResponse.height_cm ||
-              req.user.height ||
-              'not answered'}","hra.q.height.a.feet":"${currentResponse.height ||
-              'not answered'}","hra.q.height.a.inches":"${currentResponse.height ||
-              'not answered'}","hra.q.helmet_usage.a":"${currentResponse.helmet_usage ||
-              'not answered'}","hra.q.hispanic_origin.a":"${currentResponse.hispanic_origin ||
-              'not answered'}","hra.q.home_safety.a.yes":"${currentResponse.home_safety ||
-              'not answered'}","hra.q.home_safety.a":"${currentResponse.home_safety ||
-              'not answered'}","hra.q.household_income.a":"${currentResponse.household_income ||
-              'not answered'}","hra.q.hysterectomy.a":"${currentResponse.hysterectomy ||
-              'not answered'}","hra.q.insurance_coverage.a":"${currentResponse.insurance_coverage ||
-              'not answered'}","hra.q.junk_food.a":"${currentResponse.junk_food ||
-              'not answered'}","hra.q.last_mammogram.a":"${currentResponse.last_mammogram ||
-              'not answered'}","hra.q.marital_status.a":"${currentResponse.marital_status ||
-              'not answered'}","hra.q.misfortune.a":"${currentResponse.misfortune ||
-              'not answered'}","hra.q.overall_health.a":"${currentResponse.overall_health ||
-              'not answered'}","hra.q.pap_smear_test.a":"${currentResponse.pap_smear_test ||
-              'not answered'}","hra.q.PHQa.a":"${currentResponse.PHQa ||
-              'not answered'}","hra.q.PHQb.a":"${currentResponse.PHQb ||
-              'not answered'}","hra.q.PHQc.a":"${currentResponse.PHQc ||
-              'not answered'}","hra.q.PHQd.a":"${currentResponse.PHQd ||
-              'not answered'}","hra.q.PHQe.a":"${currentResponse.PHQe ||
-              'not answered'}","hra.q.PHQf.a":"${currentResponse.PHQf ||
-              'not answered'}","hra.q.PHQg.a":"${currentResponse.PHQg ||
-              'not answered'}","hra.q.PHQh.a":"${currentResponse.PHQh ||
-              'not answered'}","hra.q.PHQi.a":"${currentResponse.PHQi ||
-              'not answered'}","hra.q.protein.a":"${currentResponse.protein ||
-              'not answered'}","hra.q.race.a":"${currentResponse.race ||
-              'not answered'}","hra.q.readiness_to_eat_healthier.a":"${currentResponse.readiness_to_eat_healthier ||
-              'not answered'}","hra.q.readiness_to_exercise_more.a":"${currentResponse.readiness_to_exercise_more ||
-              'not answered'}","hra.q.readiness_to_quit_smoking.a":"${currentResponse.readiness_to_quit_smoking ||
-              'not answered'}","hra.q.readiness_to_reduce_alcohol_usage.a":"${currentResponse.readiness_to_reduce_alcohol_usage ||
-              'not answered'}","hra.q.resting_heart_rate.a.bpm":"${currentResponse.resting_heart_rate ||
-              'not answered'}","hra.q.safety_belt_usage.a.%":"${currentResponse.safety_belt_usage ||
-              'not answered'}","hra.q.sex.a":"${currentResponse.sex ||
-              req.user.gender.toLowerCase() ||
-              'not answered'}","hra.q.sleep1.a":"${currentResponse.sleep1 ||
-              'not answered'}","hra.q.sleep2.a":"${currentResponse.sleep2 ||
-              'not answered'}","hra.q.sleep3.a":"${currentResponse.sleep3 ||
-              'not answered'}","hra.q.sleep4.a":"${currentResponse.sleep4 ||
-              'not answered'}","hra.q.smokeless_tobacco.a.times_day":"${currentResponse.smokeless_tobacco ||
-              'not answered'}","hra.q.smoking.a.never_smoked":"${currentResponse.smoking ||
-              'not answered'}","hra.q.smoking.a":"${currentResponse.smoking ||
-              'not answered'}","hra.q.soft_drinks.a":"${currentResponse.soft_drinks ||
-              'not answered'}","hra.q.state_of_residence.a":"${currentResponse.state_of_residence ||
-              'not answered'}","hra.q.stroke.a.no":"${currentResponse.stroke ||
-              'not answered'}","hra.q.stroke.a":"${currentResponse.stroke ||
-              'not answered'}","hra.q.sugar_beverage.a":"${currentResponse.sugar_beverage ||
-              'not answered'}","hra.q.travel_by_automobile_km.a.,000 kilometers":"${currentResponse.travel_by_automobile_km ||
-              'not answered'}","hra.q.travel_by_automobile_km.a.,000_kilometers":"${currentResponse.travel_by_automobile_km ||
-              'not answered'}","hra.q.travel_by_automobile.a.,000_miles":"${currentResponse.travel_by_automobile ||
-              'not answered'}","hra.q.travel_by_motorcycle_km.a.,000 kilometers":"${currentResponse.travel_by_motorcycle_km ||
-              'not answered'}","hra.q.travel_by_motorcycle_km.a.,000_kilometers":"${currentResponse.travel_by_motorcycle_km ||
-              'not answered'}","hra.q.travel_by_motorcycle.a.,000_miles":"${currentResponse.travel_by_motorcycle ||
-              'not answered'}","hra.q.triglycerides.a":"${currentResponse.triglycerides ||
-              'not answered'}","hra.q.type_of_license.a":"${currentResponse.type_of_license ||
-              'not answered'}","hra.q.typical_travel_method.a":"${currentResponse.typical_travel_method ||
-              'not answered'}","hra.q.unable_to_control.a":"${currentResponse.unable_to_control ||
-              'not answered'}","hra.q.vaping.a.no":"${currentResponse.vaping ||
-              'not answered'}","hra.q.vaping.a":"${currentResponse.vaping ||
-              'not answered'}","hra.q.vegetables.a":"${currentResponse.vegetables ||
-              'not answered'}","hra.q.weekly_alcohol.a.beer":"${currentResponse.weekly_alcohol_beer ||
-              'not answered'}","hra.q.weekly_alcohol.a.mixed_drinks":"${currentResponse.weekly_alcohol_mixed_drinks ||
-              'not answered'}","hra.q.weekly_alcohol.a.wine_coolers":"${currentResponse.weekly_alcohol_wine_coolers ||
-              'not answered'}","hra.q.weekly_alcohol.a.wine":"${currentResponse.weekly_alcohol_wine ||
-              'not answered'}","hra.q.weekly_physical_activity.a":"${currentResponse.weekly_physical_activity ||
-              'not answered'}","hra.q.weight_kg.a.kilograms":"${currentResponse.weight_kg ||
-              req.user.weight ||
-              'not answered'}","hra.q.years_as_driver.a.kilograms":"${currentResponse.years_as_driver ||
-              'not answered'}","hra.q.years_since_quitting_months.a.kilograms":"${currentResponse.years_since_quitting_months ||
-              'not answered'}","hra.q.years_since_quitting_years.a.kilograms":"${currentResponse.years_since_quitting_years ||
-              'not answered'}","hra.q.weight.a.pounds":"${currentResponse.weight ||
-              'not answered'}"}`,
+            json: `{"appraise_risks.client_id":"fitnessfair","appraise_risks.user_id":"${ req.userId }","appraise_risks.company":"${ req.user.company }","hra.app.units":"us_customary","hra.app.cholunits":"mg/dl","hra.app.hra_id":"midlife","save_key":"${req.userId || ''}","hra.q.age_in_years.a.years":"${currentResponse.age_in_years || 'not answered'}","hra.q.arrested_dui.a.years":"${currentResponse.arrested_dui || 'not answered'}","hra.q.bicycle_helmet_usage.a":"${currentResponse.bicycle_helmet_usage || 'not answered'}","hra.q.binge_drinking.a.no":"${currentResponse.binge_drinking || 'not answered'}","hra.q.binge_drinking.a":"${currentResponse.binge_drinking || 'not answered'}","hra.q.blood_glucose.a":"${currentResponse.blood_glucose || 'not answered'}","hra.q.blood_glucose_mml.a":"${currentResponse.blood_glucose_mml || 'not answered'}","hra.q.blood_pressure_estimated.a":"${currentResponse.blood_pressure_estimated || 'not answered'}","hra.q.blood_pressure_measured.a.high_number":"${currentResponse.blood_pressure_measured_high || 'not answered'}","hra.q.blood_pressure_measured.a.low_number":"${currentResponse.blood_pressure_measured_low || 'not answered'}","hra.q.blood_pressure_medication.a.0":"${currentResponse.blood_pressure_medication || 'not answered'}","hra.q.blood_pressure_medication.a":"${currentResponse.blood_pressure_medication || 'not answered'}","hra.q.body_frame_size.a":"${currentResponse.body_frame_size || 'not answered'}","hra.q.butter.a":"${currentResponse.butter || 'not answered'}","hra.q.caffeine.a":"${currentResponse.caffeine || 'not answered'}","hra.q.charcoal_broiled.a":"${currentResponse.charcoal_broiled || 'not answered'}","hra.q.chh_cough.a":"${currentResponse.chh_cough || 'not answered'}","hra.q.chh_fever.a":"${currentResponse.chh_fever || 'not answered'}","hra.q.chh_hands.a":"${currentResponse.chh_hands || 'not answered'}","hra.q.chh_interact.a":"${currentResponse.chh_interact || 'not answered'}","hra.q.chh_sbreath.a":"${currentResponse.chh_sbreath || 'not answered'}","hra.q.cholesterol_check.a":"${currentResponse.cholesterol_check || 'not answered'}","hra.q.cholesterol_level_mml.a":"${currentResponse.cholesterol_level_mml || 'not answered'}","hra.q.cholesterol_level.a":"${currentResponse.cholesterol_level || 'not answered'}","hra.q.cholesterol_level_estimated.a":"${currentResponse.cholesterol_level_estimated || 'not answered'}","hra.q.colon_cancer_screening.a":"${currentResponse.colon_cancer_screening || 'not answered'}","hra.q.commercial_driver.a":"${currentResponse.commercial_driver || 'not answered'}","hra.q.cross_contamination.a":"${currentResponse.cross_contamination || 'not answered'}","hra.q.cross_daily_cigars.a":"${currentResponse.cross_daily_cigars || 'not answered'}","hra.q.cross_daily_marajuana.a":"${currentResponse.cross_daily_marajuana || 'not answered'}","hra.q.cross_daily_pipes.a":"${currentResponse.cross_daily_pipes || 'not answered'}","hra.q.cross_daily_shisha.a":"${currentResponse.cross_daily_shisha || 'not answered'}","hra.q.desserts.a":"${currentResponse.desserts || 'not answered'}","hra.q.diabetes_status.a.no":"${currentResponse.diabetes_status || 'not answered'}","hra.q.diabetes_status.a":"${currentResponse.diabetes_status || 'not answered'}","hra.q.difficulties_piling_up.a":"${currentResponse.difficulties_piling_up || 'not answered'}","hra.q.distracted_driving.a.no":"${currentResponse.distracted_driving || 'not answered'}","hra.q.distracted_driving.a":"${currentResponse.distracted_driving || 'not answered'}","hra.q.drinking_and_driving.a.times_last month":"${currentResponse.drinking_and_driving || 'not answered'}","hra.q.driving_speed.a":"${currentResponse.driving_speed || 'not answered'}","hra.q.education.a":"${currentResponse.education || 'not answered'}","hra.q.fast_food.a":"${currentResponse.fast_food || 'not answered'}","hra.q.felt_confident.a":"${currentResponse.felt_confident || 'not answered'}","hra.q.filling_forms.a":"${currentResponse.filling_forms || 'not answered'}","hra.q.fish.a":"${currentResponse.fish || 'not answered'}","hra.q.fruit.a":"${currentResponse.fruit || 'not answered'}","hra.q.fruits_and_vegetables.a":"${currentResponse.fruits_and_vegetables || 'not answered'}","hra.q.GADa.a":"${currentResponse.GADa || 'not answered'}","hra.q.GADb.a":"${currentResponse.GADb || 'not answered'}","hra.q.GADc.a":"${currentResponse.GADc || 'not answered'}","hra.q.GADd.a":"${currentResponse.GADd || 'not answered'}","hra.q.GADe.a":"${currentResponse.GADe || 'not answered'}","hra.q.GADf.a":"${currentResponse.GADf || 'not answered'}","hra.q.GADg.a":"${currentResponse.GADg || 'not answered'}","hra.q.gainful_employment.a.no":"${currentResponse.gainful_employment || 'not answered'}","hra.q.gainful_employment.a":"${currentResponse.gainful_employment || 'not answered'}","hra.q.going_your_way.a":"${currentResponse.going_your_way || 'not answered'}","hra.q.gross_weight.a":"${currentResponse.gross_weight || 'not answered'}","hra.q.hb1ac_check.a":"${currentResponse.hb1ac_check || 'not answered'}","hra.q.hdl_cholesterol_estimated.a":"${currentResponse.hdl_cholesterol_estimated || 'not answered'}","hra.q.hdl_cholesterol_mml.a":"${currentResponse.hdl_cholesterol_mml || 'not answered'}","hra.q.hdl_cholesterol.a":"${currentResponse.hdl_cholesterol || 'not answered'}","hra.q.health_information_interest.a.yes":"${currentResponse.health_information_interest || 'not answered'}","hra.q.health_information_interest.a":"${currentResponse.health_information_interest || 'not answered'}","hra.q.heart_attack.a.no":"${currentResponse.heart_attack || 'not answered'}","hra.q.heart_attack.a":"${currentResponse.heart_attack || 'not answered'}","hra.q.heart_disease.a.no":"${currentResponse.heart_disease || 'not answered'}","hra.q.heart_disease.a":"${currentResponse.heart_disease || 'not answered'}","hra.q.height_cm.a.centemeters":"${currentResponse.height_cm || req.user.height || 'not answered'}","hra.q.height.a.feet":"${currentResponse.height || 'not answered'}","hra.q.height.a.inches":"${currentResponse.height || 'not answered'}","hra.q.helmet_usage.a":"${currentResponse.helmet_usage || 'not answered'}","hra.q.hispanic_origin.a":"${currentResponse.hispanic_origin || 'not answered'}","hra.q.home_safety.a.yes":"${currentResponse.home_safety || 'not answered'}","hra.q.home_safety.a":"${currentResponse.home_safety || 'not answered'}","hra.q.household_income.a":"${currentResponse.household_income || 'not answered'}","hra.q.hysterectomy.a":"${currentResponse.hysterectomy || 'not answered'}","hra.q.insurance_coverage.a":"${currentResponse.insurance_coverage || 'not answered'}","hra.q.junk_food.a":"${currentResponse.junk_food || 'not answered'}","hra.q.last_mammogram.a":"${currentResponse.last_mammogram || 'not answered'}","hra.q.marital_status.a":"${currentResponse.marital_status || 'not answered'}","hra.q.misfortune.a":"${currentResponse.misfortune || 'not answered'}","hra.q.overall_health.a":"${currentResponse.overall_health || 'not answered'}","hra.q.pap_smear_test.a":"${currentResponse.pap_smear_test || 'not answered'}","hra.q.PHQa.a":"${currentResponse.PHQa || 'not answered'}","hra.q.PHQb.a":"${currentResponse.PHQb || 'not answered'}","hra.q.PHQc.a":"${currentResponse.PHQc || 'not answered'}","hra.q.PHQd.a":"${currentResponse.PHQd || 'not answered'}","hra.q.PHQe.a":"${currentResponse.PHQe || 'not answered'}","hra.q.PHQf.a":"${currentResponse.PHQf || 'not answered'}","hra.q.PHQg.a":"${currentResponse.PHQg || 'not answered'}","hra.q.PHQh.a":"${currentResponse.PHQh || 'not answered'}","hra.q.PHQi.a":"${currentResponse.PHQi || 'not answered'}","hra.q.protein.a":"${currentResponse.protein || 'not answered'}","hra.q.race.a":"${currentResponse.race || 'not answered'}","hra.q.readiness_to_eat_healthier.a":"${currentResponse.readiness_to_eat_healthier || 'not answered'}","hra.q.readiness_to_exercise_more.a":"${currentResponse.readiness_to_exercise_more || 'not answered'}","hra.q.readiness_to_quit_smoking.a":"${currentResponse.readiness_to_quit_smoking || 'not answered'}","hra.q.readiness_to_reduce_alcohol_usage.a":"${currentResponse.readiness_to_reduce_alcohol_usage || 'not answered'}","hra.q.resting_heart_rate.a.bpm":"${currentResponse.resting_heart_rate || 'not answered'}","hra.q.safety_belt_usage.a.%":"${currentResponse.safety_belt_usage || 'not answered'}","hra.q.sex.a":"${currentResponse.sex || req.user.gender.toLowerCase() || 'not answered'}","hra.q.sleep1.a":"${currentResponse.sleep1 || 'not answered'}","hra.q.sleep2.a":"${currentResponse.sleep2 || 'not answered'}","hra.q.sleep3.a":"${currentResponse.sleep3 || 'not answered'}","hra.q.sleep4.a":"${currentResponse.sleep4 || 'not answered'}","hra.q.smokeless_tobacco.a.times_day":"${currentResponse.smokeless_tobacco || 'not answered'}","hra.q.smoking.a.never_smoked":"${currentResponse.smoking || 'not answered'}","hra.q.smoking.a":"${currentResponse.smoking || 'not answered'}","hra.q.soft_drinks.a":"${currentResponse.soft_drinks || 'not answered'}","hra.q.state_of_residence.a":"${currentResponse.state_of_residence || 'not answered'}","hra.q.stroke.a.no":"${currentResponse.stroke || 'not answered'}","hra.q.stroke.a":"${currentResponse.stroke || 'not answered'}","hra.q.sugar_beverage.a":"${currentResponse.sugar_beverage || 'not answered'}","hra.q.travel_by_automobile_km.a.,000 kilometers":"${currentResponse.travel_by_automobile_km || 'not answered'}","hra.q.travel_by_automobile_km.a.,000_kilometers":"${currentResponse.travel_by_automobile_km || 'not answered'}","hra.q.travel_by_automobile.a.,000_miles":"${currentResponse.travel_by_automobile || 'not answered'}","hra.q.travel_by_motorcycle_km.a.,000 kilometers":"${currentResponse.travel_by_motorcycle_km || 'not answered'}","hra.q.travel_by_motorcycle_km.a.,000_kilometers":"${currentResponse.travel_by_motorcycle_km || 'not answered'}","hra.q.travel_by_motorcycle.a.,000_miles":"${currentResponse.travel_by_motorcycle || 'not answered'}","hra.q.triglycerides.a":"${currentResponse.triglycerides || 'not answered'}","hra.q.type_of_license.a":"${currentResponse.type_of_license || 'not answered'}","hra.q.typical_travel_method.a":"${currentResponse.typical_travel_method || 'not answered'}","hra.q.unable_to_control.a":"${currentResponse.unable_to_control || 'not answered'}","hra.q.vaping.a.no":"${currentResponse.vaping || 'not answered'}","hra.q.vaping.a":"${currentResponse.vaping || 'not answered'}","hra.q.vegetables.a":"${currentResponse.vegetables || 'not answered'}","hra.q.weekly_alcohol.a.beer":"${currentResponse.weekly_alcohol_beer || 'not answered'}","hra.q.weekly_alcohol.a.mixed_drinks":"${currentResponse.weekly_alcohol_mixed_drinks || 'not answered'}","hra.q.weekly_alcohol.a.wine_coolers":"${currentResponse.weekly_alcohol_wine_coolers || 'not answered'}","hra.q.weekly_alcohol.a.wine":"${currentResponse.weekly_alcohol_wine || 'not answered'}","hra.q.weekly_physical_activity.a":"${currentResponse.weekly_physical_activity || 'not answered'}","hra.q.weight_kg.a.kilograms":"${currentResponse.weight_kg || req.user.weight || 'not answered'}","hra.q.years_as_driver.a.kilograms":"${currentResponse.years_as_driver || 'not answered'}","hra.q.years_since_quitting_months.a.kilograms":"${currentResponse.years_since_quitting_months || 'not answered'}","hra.q.years_since_quitting_years.a.kilograms":"${currentResponse.years_since_quitting_years || 'not answered'}","hra.q.weight.a.pounds":"${currentResponse.weight || 'not answered'}", "hra.q.weight.a.bathing": "${currentResponse.bathing || 'not answered'}", "hra.q.weight.a.dressing": "${currentResponse.dressing || 'not answered'}", "hra.q.weight.a.eating": "${currentResponse.eating || 'not answered'}", "hra.q.weight.a.out_of_bed": "${currentResponse.out_of_bed || 'not answered'}", "hra.q.weight.a.walking": "${currentResponse.walking || 'not answered'}", "hra.q.weight.a.getting_outside": "${currentResponse.getting_outside || 'not answered'}", "hra.q.weight.a.using_toilet": "${currentResponse.using_toilet || 'not answered'}", "hra.q.weight.a.meals": "${currentResponse.meals || 'not answered'}", "hra.q.weight.a.shopping": "${currentResponse.shopping || 'not answered'}", "hra.q.weight.a.managing_money": "${currentResponse.managing_money || 'not answered'}", "hra.q.weight.a.telephone": "${currentResponse.telephone || 'not answered'}", "hra.q.weight.a.heavy_housework": "${currentResponse.heavy_housework || 'not answered'}", "hra.q.weight.a.light_housework": "${currentResponse.light_housework || 'not answered'}", "hra.q.weight.a.out_of_house": "${currentResponse.out_of_house || 'not answered'}","hra.q.weight.a.limit_crime": "${currentResponse.limit_crime || 'not answered'}"}`,
           },
+          /* eslint-enable */
         };
 
         // save the response somewhere
@@ -1088,7 +957,7 @@ const mutation = {
           {
             currentHra: null,
             totalRewardPoints: req.user.totalRewardPoints + 500,
-          },
+          }
         );
 
         const notification = {
@@ -1145,7 +1014,7 @@ const mutation = {
       // validate data
       const updatedUser = await updateUser(
         { _id: req.userId },
-        { ...input, name },
+        { ...input, name }
       );
 
       return updatedUser;
@@ -1189,7 +1058,7 @@ const mutation = {
         const newHashedPassword = await hash(newPassword);
         const updatedUser = await updateUser(
           { _id: req.userId },
-          { password: newHashedPassword },
+          { password: newHashedPassword }
         );
 
         if (!updatedUser) {
@@ -1237,7 +1106,7 @@ const mutation = {
         // request reset password
         const randomBytesPromisified = promisify(randomBytes);
         const resetPasswordToken = (await randomBytesPromisified(20)).toString(
-          'hex',
+          'hex'
         );
         const resetPasswordExpires = Date.now() + 3600000; // 1 hr from now
 
@@ -1276,7 +1145,7 @@ const mutation = {
       // TODO: update the company the size
       await updateUser(
         { _id: req.userId },
-        { companySize: req.user.companySize + input.length },
+        { companySize: req.user.companySize + input.length }
       );
 
       // send email to add the newly added users
@@ -1288,7 +1157,7 @@ const mutation = {
         throw new Error(
           `Cannot create user with ${Object.keys(error.keyValue)[0]} value ${
             error.keyValue.email
-          } because a user with that email exist`,
+          } because a user with that email exist`
         );
       }
       throw new Error(error.message);
@@ -1297,13 +1166,13 @@ const mutation = {
   async resendCompanyAddEmployeeEmail(_, { id }, { req }) {
     try {
       // must be done by an admin
-      // if (!req.userId) {
-      //   throw new Error('You must be logged In');
-      // }
+      if (!req.userId) {
+        throw new Error('You must be logged In');
+      }
 
-      // if (req.user.type !== 'EMPLOYEE') {
-      //   throw new Error('You do not have the permission to do this');
-      // }
+      if (req.user.type !== 'EMPLOYEE') {
+        throw new Error('You do not have the permission to do this');
+      }
 
       const user = await findUserById(id);
 
@@ -1313,10 +1182,9 @@ const mutation = {
 
       if (user.resetPasswordExpires > Date.now()) {
         throw new Error(
-          'Check your email and Your password reset link has not expired',
+          'Check your email and Your password reset link has not expired'
         );
       }
-
       user.resetPasswordExpires = Date.now() + 3600000 * 3; // 3 hr from now
 
       await user.save();
@@ -1370,7 +1238,7 @@ const mutation = {
 
       if (openedRewards && openedRewards.length !== 0) {
         throw new Error(
-          'You must closed the current reward before you are permitted to create another',
+          'You must closed the current reward before you are permitted to create another'
         );
       }
       const reward = await createReward({
@@ -1414,7 +1282,7 @@ const mutation = {
 
       const dataToUpdate = Object.defineProperties(
         {},
-        Object.getOwnPropertyDescriptors(input),
+        Object.getOwnPropertyDescriptors(input)
       );
 
       delete dataToUpdate.id;
@@ -1522,6 +1390,153 @@ const mutation = {
       return {
         message:
           'Appointment Scheduled, ChooseLife Representative will contact immediately ',
+      };
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  },
+  async subscribeToEmailList(parent, { input }, { req }) {
+    try {
+      // check whether the user is logged in
+      if (!req.userId) {
+        throw new Error('You must be logged In');
+      }
+
+      // check if the user is activated and not suspended
+      if (req.user && req.user.adminVerified === false) {
+        throw new Error('Account is not activated');
+      }
+
+      // check if the user is activated and not suspended
+      if (req.user && req.user.suspended === true) {
+        throw new Error('Account is suspend, contact your company');
+      }
+
+      // run a check to see if the email already exist in the list
+      const emailExist = await findOneEmailSubscriberByEmail(input.email);
+
+      if (emailExist) {
+        throw new Error('Data already exist');
+      }
+
+      const newEmailListSubscriber = await createEmailSubscriber(input);
+
+      if (!newEmailListSubscriber) {
+        throw new Error('No Problem creating an Email Subscriber ');
+      }
+
+      // send email to the new email subscriber
+      await send({
+        filename: 'email_subscriber',
+        to: newEmailListSubscriber.email,
+        subject: 'You just joined ChooseLife Email Subscribers List',
+        name: (req && req.user && req.user.name) || newEmailListSubscriber.name,
+        activateLink: `${
+          process.env.FRONTEND_URL
+        }/activate-emaillistsubscriber/${newEmailListSubscriber._id}`,
+      });
+
+      return {
+        message: 'Email Subscriber Added to List ',
+      };
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  },
+  async unSubscribeFromEmailList(parent, { id, reason = '' }, { req }) {
+    try {
+      // check whether the user is logged in
+      if (!req.userId) {
+        throw new Error('You must be logged In');
+      }
+
+      // check if the user is activated and not suspended
+      if (req.user && req.user.adminVerified === false) {
+        throw new Error('Account is not activated');
+      }
+
+      // check if the user is activated and not suspended
+      if (req.user && req.user.suspended === true) {
+        throw new Error('Account is suspend, contact your company');
+      }
+
+      // run a check to see if the email already exist in the list
+      const emailExist = await findEmailSubScriberById(id);
+
+      if (emailExist.removed) {
+        throw new Error('Already removed');
+      }
+
+      const removedEmailListSubscriber = await updateEmailSubScriber(
+        { _id: id },
+        { reason, removed: true }
+      );
+
+      if (!removedEmailListSubscriber) {
+        throw new Error('No Problem creating an Email Subscriber ');
+      }
+
+      // send email to the new email subscriber
+      await send({
+        filename: 'removed_email_subscriber',
+        to: removedEmailListSubscriber.email,
+        subject: 'You have been removed from ChooseLife Email Subscribers List',
+        name:
+          (req && req.user && req.user.name) || removedEmailListSubscriber.name,
+      });
+
+      return {
+        message: 'Email subscribers removed ',
+      };
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  },
+  async activateSubscriber(parent, { id }, { req }) {
+    try {
+      // check whether the user is logged in
+      if (!req.userId) {
+        throw new Error('You must be logged In');
+      }
+
+      // check if the user is activated and not suspended
+      if (req.user && req.user.adminVerified === false) {
+        throw new Error('Account is not activated');
+      }
+
+      // check if the user is activated and not suspended
+      if (req.user && req.user.suspended === true) {
+        throw new Error('Account is suspend, contact your company');
+      }
+
+      // run a check to see if the email already exist in the list
+      const emailExist = await findEmailSubScriberById(id);
+
+      if (emailExist.confirmed) {
+        throw new Error('Already confirmed');
+      }
+
+      const confirmedEmailListSubscriber = await updateEmailSubScriber(
+        { _id: id },
+        { confirmed: true }
+      );
+
+      if (!confirmedEmailListSubscriber) {
+        throw new Error('problem occurred. Try again');
+      }
+
+      // send email to the new email subscriber
+      await send({
+        filename: 'confirmed_email_subscriber',
+        to: confirmedEmailListSubscriber.email,
+        subject: 'You confirmed your ChooseLife Email Subscribers Addition',
+        name:
+          (req && req.user && req.user.name) ||
+          confirmedEmailListSubscriber.name,
+      });
+
+      return {
+        message: 'Emaillist subscriber confirmed ',
       };
     } catch (error) {
       throw new Error(error.message);

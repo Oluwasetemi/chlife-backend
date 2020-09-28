@@ -1,6 +1,7 @@
 /* eslint-disable no-inner-declarations */
 const { readFileSync } = require('fs');
 const path = require('path');
+const mongoose = require('mongoose');
 const { promisify } = require('util');
 const dateFns = require('date-fns');
 const request = require('request');
@@ -10,14 +11,22 @@ const {
   findAllUsers,
   findBasedOnQuery,
   search,
+  findUsersByIds,
 } = require('../services/user');
 const {
   findAllRewards,
   findOneRewardBasedOnQuery,
 } = require('../services/reward');
+const { findAllEmailSubscribers } = require('../services/emailSubscriber');
 const hra = require('../models/hra');
+const { Mongoose } = require('mongoose');
 
 const requestPromise = promisify(request);
+
+const GHM_BASE_API =
+  process.env.NODE_ENV === 'production'
+    ? process.env.GHM_PRODUCTION
+    : process.env.GHM_TEST;
 
 // all the query
 const query = {
@@ -74,6 +83,30 @@ const query = {
       throw new Error(e.message);
     }
   },
+  async userByIds(_, { ids }, { req }) {
+    try {
+      // must be done by an admin
+      if (!req.userId) {
+        throw new Error('You must be logged In');
+      }
+
+      if (req.user.type !== 'SUPERADMIN') {
+        throw new Error('You do not have the permission to do this');
+      }
+
+      if (Array.isArray(ids)) {
+        const users = await findUsersByIds(ids);
+
+        if (!users) {
+          throw new Error('No user found');
+        }
+
+        return users;
+      }
+    } catch (e) {
+      throw new Error(e.message);
+    }
+  },
   async users(parent, args, { req }) {
     // must be done by an admin
     if (!req.userId) {
@@ -99,12 +132,18 @@ const query = {
       throw new Error('You must be logged In');
     }
 
-    if (req.user.type !== 'SUPERADMIN') {
+    if (req.user.type !== 'SUPERADMIN' && req.user.type !== 'COMPANY') {
       throw new Error('You do not have the permission to do this');
     }
 
+    // eslint-disable-next-line
+    let query = { type };
+    if (req.user.type === 'COMPANY' && type === 'EMPLOYEE') {
+      query = { type, company: req.userId };
+    }
+
     // this should be protected for only admin
-    const users = await findAllUsers({ type });
+    const users = await findAllUsers(query);
 
     if (!users) {
       throw new Error('Users not found');
@@ -131,7 +170,7 @@ const query = {
 
       let questions = await readFileSync(
         path.join(__dirname, '../../ghm-hra-questions.json'),
-        'utf8',
+        'utf8'
       );
 
       function formatDate(str) {
@@ -151,24 +190,13 @@ const query = {
 
       const options = {
         method: 'POST',
-        url: 'https://hra-api.ghmcorp.com/api/v2/get_questionnaire',
+        url: `${GHM_BASE_API}/get_questionnaire`,
         headers: {},
+        /* eslint-disable */
         formData: {
-          json: `{\n    "get_questionnaire.client_id": "fitnessfair",\n    "get_questionnaire.user_id": "${
-            req.userId
-          }",\n    "get_questionnaire.hra_id": "default",\n    "get_questionnaire.org_id": "",\n    "get_questionnaire.name": "${
-            req.user.name
-          }",\n    "get_questionnaire.sex": "${
-            req.user.gender
-          }",\n    "get_questionnaire.dob": "${formatDate(req.user.dob) ||
-            ''}",\n    "get_questionnaire.race_ethinicity": "choose an answer",\n    "get_questionnaire.hispanic_origin": "choose an answer",\n    "get_questionnaire.home_address": "${req
-            .user.address ||
-            ''}",\n    "get_questionnaire.work_address": "",\n    "get_questionnaire.organization_name": "${req
-            .user.company || ''}"\n}`,
-          signer: 'e650303e-e1e1-11e6-b68a-42010af00005@api.ghmcorp.com',
-          signature:
-            '9f1c026cb6795e7a0a53ab33c7304053cae51eea5653d6faed59e9a5c0547aa8',
+          json: `{"get_questionnaire.client_id": "fitnessfair", "get_questionnaire.user_id": "${ req.userId }",    "get_questionnaire.hra_id": "default", "get_questionnaire.org_id": "","get_questionnaire.name": "${ req.user.name }","get_questionnaire.sex": "${ req.user.gender }",\n    "get_questionnaire.dob": "${formatDate(req.user.dob) || ''}","get_questionnaire.race_ethinicity": "choose an answer","get_questionnaire.hispanic_origin": "choose an answer","get_questionnaire.home_address": "${req .user.address || ''}","get_questionnaire.work_address": "","get_questionnaire.organization_name": "${req.user.company || ''}"}`,
         },
+        /* eslint-enable */
       };
 
       // promisifying the request
@@ -338,61 +366,6 @@ const query = {
       throw new Error(error.message);
     }
   },
-  async fetchEmployeesOfACompanyByCategory(_, { by }, { req }) {
-    try {
-      // must be done by an admin
-      if (!req.userId) {
-        throw new Error('You must be logged In');
-      }
-
-      if (req.user.type !== 'COMPANY') {
-        throw new Error('You do not have the permission to do this');
-      }
-
-      // check if the user is activated and not suspended
-      if (req.user && req.user.adminVerified === false) {
-        throw new Error('Account is not activated');
-      }
-
-      // check if the user is activated and not suspended
-      if (req.user && req.user.suspended === true) {
-        throw new Error('Account is suspend, contact your company');
-      }
-
-      let companyEmployees;
-      if (by === 'PENDING') {
-        companyEmployees = await findBasedOnQuery({
-          company: req.userId,
-          adminVerified: false,
-        });
-      }
-
-      if (by === 'ACTIVE') {
-        companyEmployees = await findBasedOnQuery({
-          company: req.userId,
-          adminVerified: true,
-          suspended: false,
-        });
-      }
-
-      if (by === 'SUSPENDED') {
-        companyEmployees = await findBasedOnQuery({
-          company: req.userId,
-          adminVerified: true,
-          suspended: true,
-        });
-      }
-
-      if (!companyEmployees) {
-        throw new Error('No data found');
-      }
-
-      return companyEmployees;
-    } catch (error) {
-      // console.log(error);
-      throw new Error(error.message);
-    }
-  },
   async searchEmployee(_, { searchInput }, { req }) {
     try {
       // must be done by an admin
@@ -424,6 +397,42 @@ const query = {
       }
 
       return searchedCompanyEmployees;
+    } catch (error) {
+      // console.log(error);
+      throw new Error(error.message);
+    }
+  },
+  async searchCompany(_, { searchInput }, { req }) {
+    try {
+      // must be done by an admin
+      if (!req.userId) {
+        throw new Error('You must be logged In');
+      }
+
+      if (req.user.type !== 'SUPERADMIN') {
+        throw new Error('You do not have the permission to do this');
+      }
+
+      // check if the user is activated and not suspended
+      if (req.user && req.user.adminVerified === false) {
+        throw new Error('Account is not activated');
+      }
+
+      // check if the user is activated and not suspended
+      if (req.user && req.user.suspended === true) {
+        throw new Error('Account is suspend, contact your company');
+      }
+
+      const searchedCompany = await search({
+        searchInput,
+        type: 'COMPANY',
+      });
+
+      if (!searchedCompany) {
+        throw new Error('No data found');
+      }
+
+      return searchedCompany;
     } catch (error) {
       // console.log(error);
       throw new Error(error.message);
@@ -622,6 +631,193 @@ const query = {
       leaderBoard.sort((value1, value2) => value2.points - value1.points);
 
       return leaderBoard;
+    } catch (error) {
+      // console.log(error);
+      throw new Error(error.message);
+    }
+  },
+  async fetchAllEmailListSubscribers(_, args, { req }) {
+    try {
+      // must be done by an admin
+      if (!req.userId) {
+        throw new Error('You must be logged In');
+      }
+
+      if (req.user.type !== 'SUPERADMIN') {
+        throw new Error('You do not have the permission to do this');
+      }
+
+      // check if the user is activated and not suspended
+      if (req.user && req.user.adminVerified === false) {
+        throw new Error('Account is not activated');
+      }
+
+      // check if the user is activated and not suspended
+      if (req.user && req.user.suspended === true) {
+        throw new Error('Account is suspend, contact your company');
+      }
+
+      const allEmailList = await findAllEmailSubscribers({});
+
+      if (!allEmailList) {
+        throw new Error('No data found');
+      }
+
+      return allEmailList;
+    } catch (error) {
+      // console.log(error);
+      throw new Error(error.message);
+    }
+  },
+  async fetchAdminReport(_, args, { req }) {
+    try {
+      // must be done by an admin
+      if (!req.userId) {
+        throw new Error('You must be logged In');
+      }
+
+      if (req.user.type !== 'SUPERADMIN') {
+        throw new Error('You do not have the permission to do this');
+      }
+
+      // check if the user is activated and not suspended
+      if (req.user && req.user.adminVerified === false) {
+        throw new Error('Account is not activated');
+      }
+
+      // check if the user is activated and not suspended
+      if (req.user && req.user.suspended === true) {
+        throw new Error('Account is suspend, contact your company');
+      }
+
+      const startTime = '2020-07-01';
+      const endTimeObject = new Date();
+      const endTimeStr = endTimeObject.toLocaleDateString();
+      const [m, d, y] = endTimeStr.split('/');
+
+      // use restructuring to arrange properly
+      // [y, m, d] = [m, d, y];
+
+      const endTimeReversed = [y, m, d].join('/');
+
+      const endTime = endTimeReversed.replace(/\//g, '-');
+
+      const options = {
+        method: 'POST',
+        url: `${GHM_BASE_API}/get_reports`,
+        headers: {},
+        formData: {
+          json: `{"get_reports.client_id":"fitnessfair","get_reports.start_time": "${startTime}","get_reports.end_time":"${endTime}"}`,
+        },
+      };
+      const res = await requestPromise(options);
+
+      if (res.statusCode !== 200) {
+        throw new Error('api request failed');
+      }
+
+      const { data } = JSON.parse(res.body);
+
+      // loop thru the api result to add the name, email to each object
+      const adminReportData = [];
+
+      for (const each of data) {
+        const isValid = mongoose.Types.ObjectId.isValid(each.user_id);
+        let user;
+        if (isValid) {
+          user = await findUserById(each.user_id);
+        }
+        each.name = (user && user.name) || 'no name';
+        each.email = (user && user.email) || 'no email';
+        adminReportData.push(each);
+      }
+
+      return { adminReportData, length: adminReportData.length };
+    } catch (error) {
+      // console.log(error);
+      throw new Error(error.message);
+    }
+  },
+  async fetchCompanyReport(_, args, { req }) {
+    try {
+      // must be done by an admin
+      if (!req.userId) {
+        throw new Error('You must be logged In');
+      }
+
+      if (req.user.type !== 'COMPANY') {
+        throw new Error('You do not have the permission to do this');
+      }
+
+      // check if the user is activated and not suspended
+      if (req.user && req.user.adminVerified === false) {
+        throw new Error('Account is not activated');
+      }
+
+      // check if the user is activated and not suspended
+      if (req.user && req.user.suspended === true) {
+        throw new Error('Account is suspend, contact your company');
+      }
+
+      const employees = await findAllUsers({
+        type: 'EMPLOYEE',
+        company: req.userId,
+      }).lean();
+
+      const employeesArr = [];
+      for (const each of employees) {
+        /* eslint-disable */
+        let str =  JSON.stringify(each._id);
+        employeesArr.push(str)
+        /* eslint-enable */
+      }
+
+      const startTime = '2020-07-01';
+      const endTimeObject = new Date();
+      const endTimeStr = endTimeObject.toLocaleDateString();
+      const [m, d, y] = endTimeStr.split('/');
+
+      // use restructuring to arrange properly
+      // [y, m, d] = [m, d, y];
+
+      const endTimeReversed = [y, m, d].join('/');
+
+      const endTime = endTimeReversed.replace(/\//g, '-');
+
+      const options = {
+        method: 'POST',
+        url: `${GHM_BASE_API}/get_group_report_data`,
+        headers: {},
+        /* eslint-disable */
+        formData: {
+          json: `{"get_group_report_data.client_id":"fitnessfair","get_group_report_data.user_ids":[${employeesArr}],"get_group_report_data.fields":["engine_input.sex","engine_input.age", "user_id", "report_id", "engine_timestamp"], "get_reports.start_time": "${startTime}","get_reports.end_time":"${endTime}"}`,
+        },
+        /* eslint-enable */
+      };
+      const res = await requestPromise(options);
+
+      if (res.statusCode !== 200) {
+        throw new Error('api request failed');
+      }
+
+      const { data } = JSON.parse(res.body);
+
+      // loop thru the api result to add the name, email to each object
+      const adminReportData = [];
+
+      for (const each of data) {
+        const isValid = mongoose.Types.ObjectId.isValid(each.user_id);
+        let user;
+        if (isValid) {
+          user = await findUserById(each.user_id);
+        }
+        each.name = (user && user.name) || 'no name';
+        each.email = (user && user.email) || 'no email';
+        adminReportData.push(each);
+        each.report_ts = each.engine_timestamp;
+      }
+
+      return { adminReportData, length: adminReportData.length };
     } catch (error) {
       // console.log(error);
       throw new Error(error.message);

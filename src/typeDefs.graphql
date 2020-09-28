@@ -146,6 +146,18 @@ type HRA {
 	qCount: Int
 }
 
+type EmailSubscriber {
+	name: String
+	email: String
+	removed: Boolean
+	removedReason: String
+}
+
+input EmailSubscriberInput {
+	name: String
+	email: String!
+}
+
 type QuestionAndResponse {
 	age_in_years: String
 	arrested_dui: String
@@ -459,6 +471,20 @@ type Leaderboard {
 	points: Int
 }
 
+type AdminReportData {
+	user_id: String
+	name: String
+	email: String
+	report_ts: String
+	user_age_in_years: String
+	report_id: String
+}
+
+type AdminReport {
+	adminReportData: [AdminReportData]!
+	length: Int!
+}
+
 type Query {
 	"""
 	Query to get the authenticated user
@@ -476,6 +502,10 @@ type Query {
 	Fetch user by id: should be accessible
 	"""
 	userById(id: String): User!
+	"""
+	Fetch users by ids: should be accessible
+	"""
+	userByIds(ids: [String]): [User]!
 	"""
 	Fetch All Blogpost
 	"""
@@ -521,6 +551,10 @@ type Query {
 	"""
 	searchEmployee(searchInput: String): [User]
 	"""
+	search companies by admin
+	"""
+	searchCompany(searchInput: String): [User]
+	"""
 	fetch one active reward
 	"""
 	fetchCurrentReward: Reward
@@ -540,6 +574,18 @@ type Query {
 	fetch a company current leaderboard
 	"""
 	fetchLeaderBoardCompany: [Leaderboard]
+	"""
+	fetch all the email subscribers
+	"""
+	fetchAllEmailListSubscribers: [EmailSubscriber]
+	"""
+	fetch all the admin report
+	"""
+	fetchAdminReport: AdminReport!
+	"""
+	fetch all the company report
+	"""
+	fetchCompanyReport: AdminReport!
 }
 
 input updateUserInput {
@@ -941,6 +987,18 @@ type Mutation {
 	create an Appointment
 	"""
 	createAppointmentMutation(input: AppointmentInput): Message!
+	"""
+	create an EmailList Subscriber
+	"""
+	subscribeToEmailList(input: EmailSubscriberInput): Message!
+	"""
+	activate a email subscriber request
+	"""
+	activateSubscriber(id: String!): Message!
+	"""
+	remove an EmailList Subscriber from Emailing List
+	"""
+	unSubscribeFromEmailList(id: String!, reason: String): Message!
 }
 
 type Subscription {
