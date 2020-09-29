@@ -38,6 +38,7 @@ const {
   createReward,
   updateReward,
   findAllRewards,
+  findRewardById,
 } = require('../services/reward');
 
 const { hash, match, sign } = require('../utils/auth');
@@ -1331,6 +1332,12 @@ const mutation = {
         throw new Error('Account is suspend, contact your company');
       }
 
+      // check if its closed before
+      const existingReward = await findRewardById(id);
+
+      if (existingReward.isClosed) {
+        throw new Error('Reward closed already');
+      }
       const reward = await updateReward({ _id: id }, { isClosed: true });
 
       if (!reward) {
