@@ -35,7 +35,7 @@ const rewardSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-  },
+  }
 );
 
 // Export the model

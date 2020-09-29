@@ -14,7 +14,7 @@ const inBodySchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-  },
+  }
 );
 
 // Export the model

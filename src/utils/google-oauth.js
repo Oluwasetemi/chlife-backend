@@ -99,7 +99,7 @@ const getGoogleAccountFromCode = async (code) => {
       throw new Error(
         'The generated authorization code can only be used once. Regenerate another authorization code'
       );
-    throw new Error(errr);
+    throw new Error(error);
   }
 };
 

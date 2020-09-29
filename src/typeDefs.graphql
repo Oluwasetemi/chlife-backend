@@ -424,13 +424,13 @@ type User {
 	companySize: Int!
 	employeeLimit: Int!
 	"""
-	Health risk assessment(2 per year, 1 every 6 month)
+	Health risk assessment(3 per year, 1 every 6 month)
 	"""
 	hra: [Hra]
 	currentHra: Hra
 	currentReward: Reward
 	"""
-	user schedule appointment (2 only - inBody and Professional)
+	user schedule appointment (2 only - inBody and Professional) - future implementations
 	"""
 	appointments: [Appointment]
 	exercises: [Exercise]
@@ -647,7 +647,7 @@ input signUpCompanyInput {
 	jobTitle: String
 	designation: String
 	"""
-	This should be used for signin
+	This should be used for sign-in
 	"""
 	organizationEmail: String!
 	"""

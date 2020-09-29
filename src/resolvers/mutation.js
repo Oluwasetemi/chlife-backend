@@ -1011,7 +1011,9 @@ const mutation = {
       }
 
       if (!input.firstName || !input.lastName) {
+        /* eslint-disable */
         name = req.user.name;
+        /* eslint-enable */
       }
 
       if (req.user.name && input.firstName) {

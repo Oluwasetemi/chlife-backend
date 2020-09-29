@@ -12,7 +12,7 @@ const color = [
     ...cols,
     [col[0]]: (f) => `\x1b[3${col[1]}m${f}\x1b[0m`,
   }),
-  {},
+  {}
 );
 
 // console.log(`${g('I')} ${w('love')} ${g('Nigeria')}`);

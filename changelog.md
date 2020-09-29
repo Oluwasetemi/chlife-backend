@@ -95,6 +95,13 @@
   - light_housework
   - out_of_house
   - limit_crime
+  - age_at_menarche
+  - age_of_bearing_first_child
+  - family_breast_cancer_history
+  - prostate_cancer_screening
+  - relatives_cancer
+  - unprotected_sex
+  - street_drugs
 - Fix bug (Not working) for the `SearchEmployee` query and updated the `search` service from the User service.
 
 ## v0.2.0

@@ -133,4 +133,4 @@ const inputs= {
   years_as_driver: '4',
   years_since_quitting_months: '4',
   years_since_quitting_years: '4',
-},
+}
