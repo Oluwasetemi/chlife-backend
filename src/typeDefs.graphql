@@ -166,7 +166,6 @@ type QuestionAndResponse {
 	relatives_cancer:String
 	unprotected_sex:String
 	street_drugs:String
-	age_at_menarche:String
 	age_in_years: String
 	arrested_dui: String
 	bathing: String
