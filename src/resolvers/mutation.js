@@ -31,6 +31,7 @@ const {
   deleteUserByEmail,
   findUserById,
   removeUser,
+  findAllUsers,
 } = require('../services/user');
 
 const {
@@ -1252,6 +1253,18 @@ const mutation = {
       // set the current reward by updating the company with her current reward
       await updateUser({ _id: req.userId }, { currentReward: reward._id });
 
+      // update all the employees of the company with the current reward
+      const employees = await findAllUsers({
+        type: 'EMPLOYEE',
+        company: req.userId,
+      }).lean();
+
+      for (const each of employees) {
+        /* eslint-disable */
+        await updateUser({ _id: each._id }, { currentReward: reward._id });
+        /* eslint-enable */
+      }
+
       return { message: 'Reward created successfully' };
     } catch (error) {
       // console.log(error);
@@ -1369,6 +1382,14 @@ const mutation = {
       }
 
       const datetime = format(appointmentData.appointmentTime, 'PPPPpppp');
+
+      // update the user with his appointment
+      await updateUser(
+        { _id: req.userId },
+        {
+          $push: { appointments: appointment._id },
+        }
+      );
 
       // send email to chooselife admin
       await send({

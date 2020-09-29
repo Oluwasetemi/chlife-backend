@@ -65,7 +65,7 @@
 ## v0.1.6
 
 - update the `resetPassword` mutation to verify an employee when activating their account.
-- Fix this bug [https://cdn.discordapp.com/attachments/727956924766748812/753380732956704799/unknown.png](Invalid time) - caused from not returning any data for `dob` of a user from attempting to format the date of birth of the user.
+- Fix this bug [Invalid time](https://cdn.discordapp.com/attachments/727956924766748812/753380732956704799/unknown.png) - caused from not returning any data for `dob` of a user from attempting to format the date of birth of the user.
 
 ## v0.1.7
 
@@ -105,3 +105,7 @@
 - add query `fetchAdminReport` to hit the GHM api - `get_reports` to fetch all the list individual hra report and add name and email to the data returned from our database.
 - add query `fetchCompanyReport` to hit the GHM api - `get_group_report_data` to fetch group of user_ids hra report and addd email and name to the data returned from our database.
 - create `subscribeToEmailList` , `activateSubscriber` and `unSubscribeFromEmailList` mutation for manipulating EmailSubscriber's List.
+
+## v0.2.1
+
+- Improved the `me` query to return `appointments` and `currentReward`

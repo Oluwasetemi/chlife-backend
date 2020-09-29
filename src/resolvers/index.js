@@ -1,6 +1,8 @@
 const { GraphQLScalarType } = require('graphql');
 const Hra = require('../models/hra');
 const User = require('../models/user');
+const Appointment = require('../models/appointment');
+const Reward = require('../models/reward');
 const Mutation = require('./mutation');
 const Query = require('./query');
 const Subscription = require('./subscription');
@@ -17,6 +19,16 @@ const resolvers = {
     parseLiteral: (ast) => ast.value,
   }),
   User: {
+    appointments: async (parent) => {
+      //  filter out the array of hra_id and try to populate it
+      const appointmentList = JSON.parse(JSON.stringify(parent.appointments));
+      const appointmentDataObject = [];
+      for (const each of appointmentList) {
+        const eachAppointment = await Appointment.findById(each);
+        appointmentDataObject.push(JSON.parse(JSON.stringify(eachAppointment)));
+      }
+      return appointmentDataObject;
+    },
     hra: async (parent) => {
       //  filter out the array of hra_id and try to populate it
       const hraList = JSON.parse(JSON.stringify(parent.hra));
@@ -36,6 +48,16 @@ const resolvers = {
         return hra;
       }
       return hra;
+    },
+    currentReward: async (parent) => {
+      const reward = await Reward.findById(parent.currentReward);
+
+      if (!reward) {
+        // eslint-disable-next-line no-shadow
+        const reward = null;
+        return reward;
+      }
+      return reward;
     },
     company: async (parent) => {
       const user = await User.findById(parent.company);

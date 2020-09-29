@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const { promisify } = require('util');
 const dateFns = require('date-fns');
 const request = require('request');
+
 const { verify } = require('../utils/auth');
 const {
   findUserById,
@@ -19,7 +20,6 @@ const {
 } = require('../services/reward');
 const { findAllEmailSubscribers } = require('../services/emailSubscriber');
 const hra = require('../models/hra');
-const { Mongoose } = require('mongoose');
 
 const requestPromise = promisify(request);
 
@@ -445,7 +445,7 @@ const query = {
         throw new Error('You must be logged In');
       }
 
-      if (req.user.type !== 'COMPANY') {
+      if (req.user.type !== 'COMPANY' && type === 'EMPLOYEE') {
         throw new Error('You do not have the permission to do this');
       }
 
