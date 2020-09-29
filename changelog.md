@@ -109,3 +109,4 @@
 ## v0.2.1
 
 - Improved the `me` query to return `appointments` and `currentReward`
+- Permissions of some queries and mutations updated. `fetchCurrentReward` and `usersByType`.
