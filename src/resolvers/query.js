@@ -445,7 +445,7 @@ const query = {
         throw new Error('You must be logged In');
       }
 
-      if (req.user.type !== 'COMPANY' && req.user.type === 'EMPLOYEE') {
+      if (req.user.type !== 'COMPANY' && req.user.type !== 'EMPLOYEE') {
         throw new Error('You do not have the permission to do this');
       }
 
