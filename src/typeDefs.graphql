@@ -159,6 +159,14 @@ input EmailSubscriberInput {
 }
 
 type QuestionAndResponse {
+	age_at_menarche:String
+	age_of_bearing_first_child:String
+	family_breast_cancer_history:String
+	prostate_cancer_screening:String
+	relatives_cancer:String
+	unprotected_sex:String
+	street_drugs:String
+	age_at_menarche:String
 	age_in_years: String
 	arrested_dui: String
 	bathing: String
@@ -702,6 +710,14 @@ input AppointmentInput {
 }
 
 input HRAResponseInput {
+	age_at_menarche:String
+	age_of_bearing_first_child:String
+	family_breast_cancer_history:String
+	prostate_cancer_screening:String
+	relatives_cancer:String
+	unprotected_sex:String
+	street_drugs:String
+	age_at_menarche:String
 	age_in_years: String
 	arrested_dui: String
 	bathing: String
