@@ -6,6 +6,8 @@ const { promisify } = require('util');
 const dateFns = require('date-fns');
 const request = require('request');
 
+const { cmToMeters, calculateBMI } = require('../utils/helpers');
+
 const { verify } = require('../utils/auth');
 const {
   findUserById,
@@ -818,6 +820,40 @@ const query = {
       }
 
       return { adminReportData, length: adminReportData.length };
+    } catch (error) {
+      // console.log(error);
+      throw new Error(error.message);
+    }
+  },
+  async BMI(_, args, { req }) {
+    try {
+      // must be done by an admin
+      if (!req.userId) {
+        throw new Error('You must be logged In');
+      }
+
+      if (req.user.type !== 'EMPLOYEE') {
+        throw new Error('You do not have the permission to do this');
+      }
+
+      // check if the user is activated and not suspended
+      if (req.user && req.user.adminVerified === false) {
+        throw new Error('Account is not activated');
+      }
+
+      // check if the user is activated and not suspended
+      if (req.user && req.user.suspended === true) {
+        throw new Error('Account is suspend, contact your company');
+      }
+
+      // check if the user is activated and not suspended
+      if (req.user.weight === 0 || req.user.height === 0) {
+        throw new Error('Please update you weight and height');
+      }
+
+      const bmi = calculateBMI(req.user.weight, cmToMeters(req.user.height));
+
+      return { ...bmi };
     } catch (error) {
       // console.log(error);
       throw new Error(error.message);

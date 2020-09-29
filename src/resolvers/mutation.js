@@ -979,7 +979,7 @@ const mutation = {
       throw new Error(error.message);
     }
   },
-  async updateUser(parent, { input }, { req }) {
+  async updateUserMutation(parent, { input }, { req }) {
     try {
       // check whether the user is logged in
       if (!req.userId) {
@@ -997,14 +997,28 @@ const mutation = {
       }
 
       let name;
+      let first;
+      let last;
       // split former name
-      const [first, last] = req.user.name.split(' ');
+      if (req.user.name) {
+        [first = '', last = ''] = req.user.name.split(' ');
+      } else if (!req.user.name && input.firstName) {
+        name = `${input.firstName} ${''}`;
+      } else if (!req.user.name && input.lastName) {
+        name = `${''} ${input.lastName}`;
+      } else {
+        throw new Error('update user name');
+      }
 
-      if (input.firstName) {
+      if (!input.firstName || !input.lastName) {
+        name = req.user.name;
+      }
+
+      if (req.user.name && input.firstName) {
         name = `${input.firstName} ${last}`;
       }
 
-      if (input.lastName) {
+      if (req.user.name && input.lastName) {
         name = `${first} ${input.lastName}`;
       }
 
@@ -1012,15 +1026,14 @@ const mutation = {
         name = `${input.firstName} ${input.lastName}`;
       }
 
+      const updateData = { name, ...input };
+
       // validate data
-      const updatedUser = await updateUser(
-        { _id: req.userId },
-        { ...input, name }
-      );
+      const updatedUser = await updateUser({ _id: req.userId }, updateData);
 
       return updatedUser;
     } catch (error) {
-      // console.log(error.message);
+      console.log(error.message);
       throw new Error('Server Error');
     }
   },

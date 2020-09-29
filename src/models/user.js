@@ -71,10 +71,12 @@ const userSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    // unit in KG
     weight: {
       type: Number,
       default: 0,
     },
+    // unit in CM
     height: {
       type: Number,
       default: 0,

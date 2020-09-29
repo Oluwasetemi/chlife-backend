@@ -386,7 +386,7 @@ type MealPlan {
 
 type User {
 	_id: String!
-	name: String!
+	name: String
 	email: String!
 	representativeEmail: String
 	mobile: String
@@ -413,8 +413,8 @@ type User {
 	total reward point for certain activities
 	"""
 	totalRewardPoints: Int
-	weight: Int
-	height: Int
+	weight: Float
+	height: Float
 	activity: ActivityEnum
 	department: String
 	branch: String
@@ -441,7 +441,7 @@ type User {
 }
 
 type AddCountToUser {
-	totaCount: Int
+	totalCount: Int
 }
 
 union UserWithCount = User | AddCountToUser
@@ -491,6 +491,12 @@ type AdminReportData {
 type AdminReport {
 	adminReportData: [AdminReportData]!
 	length: Int!
+}
+
+type BMI {
+	bmi: Float!
+	rating: String
+	ratingsMsg: String
 }
 
 type Query {
@@ -594,6 +600,10 @@ type Query {
 	fetch all the company report
 	"""
 	fetchCompanyReport: AdminReport!
+	"""
+	return BMI of a currentUser
+	"""
+	BMI: BMI!
 }
 
 input updateUserInput {
@@ -601,8 +611,8 @@ input updateUserInput {
 	lastName: String
 	gender: GenderEnum
 	dob: DateTime
-	weight: Int
-	height: Int
+	weight: Float
+	height: Float
 	company: String
 	activity: ActivityEnum
 }
@@ -982,7 +992,7 @@ type Mutation {
 	"""
 	Update the user profile
 	"""
-	updateUser(input: updateUserInput): User
+	updateUserMutation(input: updateUserInput): User
 	"""
 	Update the user's password
 	"""

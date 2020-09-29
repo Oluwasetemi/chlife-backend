@@ -110,3 +110,4 @@
 
 - Improved the `me` query to return `appointments` and `currentReward`
 - Permissions of some queries and mutations updated. `fetchCurrentReward` and `usersByType`.
+- Implement the BMI, weight and height utility functions. It can be found under the `BMI` query.

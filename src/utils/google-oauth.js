@@ -1,6 +1,5 @@
 const { google } = require('googleapis');
 const axios = require('axios');
-const casual = require('casual');
 
 /** **************** */
 /** CONFIGURATION * */
@@ -28,12 +27,12 @@ function createConnection(url) {
   return new google.auth.OAuth2(
     process.env.GOOGLE_CLIENT_ID,
     process.env.GOOGLE_CLIENT_SECRET,
-    url,
+    url
   );
 }
 
 /**
- * @summary generate a url
+ * @summary generatea url
  * @param {*} auth google auth object
  * @returns {string} return an authentication url
  */
@@ -98,9 +97,9 @@ const getGoogleAccountFromCode = async (code) => {
   } catch (error) {
     if (error.message === 'invalid_grant')
       throw new Error(
-        'The generated authorization code can only be used once. Regenerate another authorization code',
+        'The generated authorization code can only be used once. Regenerate another authorization code'
       );
-    throw new Error(error);
+    throw new Error(errr);
   }
 };
 
