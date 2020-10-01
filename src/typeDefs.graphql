@@ -702,11 +702,11 @@ input AppointmentInput {
 	"""
 	description: String
 	"""
-	the date for the appointment in string
+	the date for the appointment in string must match (DD/MM/YYYY)
 	"""
 	date: String!
 	"""
-	the time for the appointment in string
+	the time for the appointment in string must match (HH:MM) and not AM or PM format
 	"""
 	time: String!
 	"""
