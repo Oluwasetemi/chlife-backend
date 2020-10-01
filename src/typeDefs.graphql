@@ -347,7 +347,7 @@ type Appointment {
 	description: String
 	appointmentTime: String
 	type: Appointmentenum
-	professsional: String
+	professional: String
 	createdAt: DateTime
 	updatedAt: DateTime
 }
