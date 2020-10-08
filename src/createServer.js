@@ -1,5 +1,5 @@
 /* eslint-disable */
-const { ApolloServer, PubSub } = require('apollo-server-express');
+const { ApolloServer, PubSub, gql } = require('apollo-server-express');
 const express = require('express');
 const expressPlayground = require('graphql-playground-middleware-express')
   .default;
@@ -9,6 +9,7 @@ const html = require('remark-html');
 const report = require('vfile-reporter');
 const { readFileSync } = require('fs');
 const { createServer } = require('http');
+const { altairExpress } = require('altair-express-middleware');
 const path = require('path');
 
 const dbConnection = require('./db');
@@ -21,6 +22,12 @@ const typeDefs = readFileSync(
   path.join(__dirname, 'typeDefs.graphql'),
   'UTF-8',
 );
+
+const defaultQueries = readFileSync(
+  path.join(__dirname, '..', 'all_development_queries.graphql'),
+  'UTF-8',
+);
+
 if (!typeDefs) {
   console.log('Set up your typeDefs');
   return;
@@ -98,6 +105,13 @@ async function startServer() {
     });
 
     app.get('/graphiql', expressPlayground({ endpoint: '/graphql' }));
+
+    // Mount your altair GraphQL client
+    app.use('/altair', altairExpress({
+      endpointURL: '/graphql',
+      subscriptionsEndpoint: `ws://localhost:4000/subscriptions`,
+      initialQuery: defaultQueries,
+    }));
 
     app.get('/changelog', async (req, res) => {
       // read file

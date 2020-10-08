@@ -5,7 +5,7 @@ changelog.md
 README.md
 input.js
 question.js
-submit_response.graphql
+all_development_queries.graphql
 ghm-hra-questions.json
 package-lock.json
 package.json
