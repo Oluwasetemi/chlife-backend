@@ -17,6 +17,7 @@ const cors = require('cors');
 const { verify } = require('./utils/auth');
 const { findUserById } = require('./services/user');
 const resolvers = require('./resolvers');
+const ContentfulAPI = require('./utils/data-source/contentful');
 
 const typeDefs = readFileSync(
   path.join(__dirname, 'typeDefs.graphql'),
@@ -58,6 +59,11 @@ async function startServer() {
       introspection: true,
       debug: false,
       context: ({ req }) => ({ pubsub, db, req }),
+      dataSources: () => {
+        return {
+          contentfulAPI: new ContentfulAPI()
+        }
+      },
       engine: {
         reportSchema: true,
       },

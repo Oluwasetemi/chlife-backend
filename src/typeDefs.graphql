@@ -39,6 +39,13 @@ enum ActivityEnum {
 	LOWACTIVITY
 }
 
+enum Content_TypeEnum {
+	HEALTH
+	LIFESTYLE
+	FITNESS
+	NUTRITION
+}
+
 enum HraInputSectionsEnum {
 	ACTIVITIES
 	BASIC_INFORMATION
@@ -462,6 +469,13 @@ type Contentful {
 	asset: Asset
 }
 
+type AllContentful {
+	total: Int!
+	limit: Int!
+	skip: Int!
+	content: [Contentful]!
+}
+
 type Reward {
 	_id: String
 	title: String!
@@ -523,23 +537,15 @@ type Query {
 	"""
 	Fetch All Blogpost
 	"""
-	fetchAllBlogPostByCount(first: Int!): [Contentful]
+	fetchAllBlogPost(limit: Int! = 10, skip: Int! = 0): AllContentful!
 	"""
-	Fetch contentful blog post by count
+	Fetch All Blogpost by category
 	"""
-	fetchBlogPostByCount: [Contentful]
-	"""
-	Fetch contentful blog post by latest
-	"""
-	fetchBlogPostByLatest(count: Int!): [Contentful]
-	"""
-	Fetch similar contentful blog post by tags
-	"""
-	fetchSimilarBlogPostByLatest(tag: String!): [Contentful]
+	fetchAllBlogPostByCategory(limit: Int! = 10, skip: Int! = 0, content_type: Content_TypeEnum = NUTRITION): AllContentful!
 	"""
 	Fetch a single blogpost
 	"""
-	fetchOneBlogPost: Contentful
+	fetchOneBlogPost(id: String): Contentful
 	"""
 	Mutation to fetch HRA question based on
 	"""

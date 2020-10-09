@@ -1,3 +1,7 @@
+// @ts-check
+/* eslint-disable no-param-reassign */
+/* eslint-disable camelcase */
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-inner-declarations */
 const { readFileSync } = require('fs');
 const path = require('path');
@@ -5,6 +9,7 @@ const mongoose = require('mongoose');
 const { promisify } = require('util');
 const dateFns = require('date-fns');
 const request = require('request');
+const { documentToHtmlString } = require('@contentful/rich-text-html-renderer');
 
 const { cmToMeters, calculateBMI } = require('../utils/helpers');
 
@@ -196,7 +201,17 @@ const query = {
         headers: {},
         /* eslint-disable */
         formData: {
-          json: `{"get_questionnaire.client_id": "fitnessfair", "get_questionnaire.user_id": "${ req.userId }",    "get_questionnaire.hra_id": "default", "get_questionnaire.org_id": "","get_questionnaire.name": "${ req.user.name }","get_questionnaire.sex": "${ req.user.gender }",\n    "get_questionnaire.dob": "${formatDate(req.user.dob) || ''}","get_questionnaire.race_ethinicity": "choose an answer","get_questionnaire.hispanic_origin": "choose an answer","get_questionnaire.home_address": "${req .user.address || ''}","get_questionnaire.work_address": "","get_questionnaire.organization_name": "${req.user.company || ''}"}`,
+          json: `{"get_questionnaire.client_id": "fitnessfair", "get_questionnaire.user_id": "${
+            req.userId
+          }",    "get_questionnaire.hra_id": "default", "get_questionnaire.org_id": "","get_questionnaire.name": "${
+            req.user.name
+          }","get_questionnaire.sex": "${
+            req.user.gender
+          }",\n    "get_questionnaire.dob": "${formatDate(req.user.dob) ||
+            ''}","get_questionnaire.race_ethinicity": "choose an answer","get_questionnaire.hispanic_origin": "choose an answer","get_questionnaire.home_address": "${req
+            .user.address ||
+            ''}","get_questionnaire.work_address": "","get_questionnaire.organization_name": "${req
+            .user.company || ''}"}`,
         },
         /* eslint-enable */
       };
@@ -769,8 +784,8 @@ const query = {
       const employeesArr = [];
       for (const each of employees) {
         /* eslint-disable */
-        let str =  JSON.stringify(each._id);
-        employeesArr.push(str)
+        let str = JSON.stringify(each._id);
+        employeesArr.push(str);
         /* eslint-enable */
       }
 
@@ -858,6 +873,161 @@ const query = {
       // console.log(error);
       throw new Error(error.message);
     }
+  },
+  /* eslint-disable */
+  async fetchAllBlogPostByCategory(
+    _,
+    { content_type, limit, skip },
+    { dataSources },
+  ) {
+    /* eslint-enable */
+    const data = await dataSources.contentfulAPI.entriesByContentType(
+      content_type.toLowerCase(),
+      limit,
+      skip
+    );
+
+    if (!data) {
+      throw new Error('server error');
+    }
+
+    const { items } = data;
+    const entries = [];
+    for (const eachItem of items) {
+      if (typeof eachItem.fields.body !== 'string') {
+        eachItem.fields.body = documentToHtmlString(eachItem.fields.body);
+      }
+
+      let asset;
+      let url;
+      let name;
+
+      if (eachItem.fields.image) {
+        asset = await dataSources.contentfulAPI.singleAsset(
+          eachItem.fields.image.sys.id
+        );
+
+        if (!asset) {
+          throw new Error('server error');
+        }
+
+        url = `https:${asset.fields.file.url}`;
+        name = asset.fields.file.fileName;
+
+        asset = {
+          name,
+          url,
+        };
+      }
+
+      const entry = {
+        id: eachItem.sys.id,
+        ...eachItem.fields,
+        asset,
+      };
+
+      entries.push(entry);
+    }
+
+    return {
+      content: entries,
+      total: data.total,
+      limit: data.limit,
+      skip: data.skip,
+    };
+  },
+  /* eslint-disable */
+  async fetchAllBlogPost(_, { limit, skip }, { dataSources }) {
+    /* eslint-enable */
+    const data = await dataSources.contentfulAPI.entries(limit, skip);
+
+    if (!data) {
+      throw new Error('server error');
+    }
+
+    const { items } = data;
+    const entries = [];
+
+    for (const eachItem of items) {
+      if (typeof eachItem.fields.body !== 'string') {
+        eachItem.fields.body = documentToHtmlString(eachItem.fields.body);
+      }
+
+      let asset;
+      let url;
+      let name;
+      if (eachItem.fields.image) {
+        asset = await dataSources.contentfulAPI.singleAsset(
+          eachItem.fields.image.sys.id
+        );
+
+        if (!asset) {
+          throw new Error('server error');
+        }
+
+        url = `https:${asset.fields.file.url}`;
+        name = asset.fields.file.fileName;
+
+        asset = {
+          name,
+          url,
+        };
+      }
+
+      const entry = {
+        id: eachItem.sys.id,
+        ...eachItem.fields,
+        asset,
+      };
+      entries.push(entry);
+    }
+
+    return {
+      content: entries,
+      total: data.total,
+      limit: data.limit,
+      skip: data.skip,
+    };
+  },
+  async fetchOneBlogPost(_, { id }, { dataSources }) {
+    const data = await dataSources.contentfulAPI.entry(id);
+
+    if (!data) {
+      throw new Error('server error');
+    }
+
+    if (typeof data.fields.body !== 'string') {
+      data.fields.body = documentToHtmlString(data.fields.body);
+    }
+
+    let asset;
+    let url;
+    let name;
+    if (data.fields.image) {
+      asset = await dataSources.contentfulAPI.singleAsset(
+        data.fields.image.sys.id
+      );
+
+      if (!asset) {
+        throw new Error('server error');
+      }
+
+      url = `https:${asset.fields.file.url}`;
+      name = asset.fields.file.fileName;
+
+      asset = {
+        name,
+        url,
+      };
+    }
+
+    const entry = {
+      id: data.sys.id,
+      ...data.fields,
+      asset,
+    };
+
+    return entry;
   },
 };
 

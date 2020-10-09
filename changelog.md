@@ -118,3 +118,9 @@
 - Improved the `me` query to return `appointments` and `currentReward`
 - Permissions of some queries and mutations updated. `fetchCurrentReward` and `usersByType`.
 - Implement the BMI, weight and height utility functions. It can be found under the `BMI` query.
+
+## v0.2.2
+
+- Add `altair-express-middleware` to the express middleware mounted on the route `/altair`.
+- Created the `contentfulAPI` `REST Data Source` which stores all the interaction with the contentful API.
+- Created additional queries to fetch a single blogpost using its id `fetchOneBlogPost`, `fetchAllBlogPost` and `fetchAllBlogPostByCategory`
