@@ -18,6 +18,7 @@ const { verify } = require('./utils/auth');
 const { findUserById } = require('./services/user');
 const resolvers = require('./resolvers');
 const ContentfulAPI = require('./utils/data-source/contentful');
+const WgerdeAPI = require('./utils/data-source/wgerde');
 
 const typeDefs = readFileSync(
   path.join(__dirname, 'typeDefs.graphql'),
@@ -61,7 +62,8 @@ async function startServer() {
       context: ({ req }) => ({ pubsub, db, req }),
       dataSources: () => {
         return {
-          contentfulAPI: new ContentfulAPI()
+          contentfulAPI: new ContentfulAPI(),
+          wgerdotdeAPI: new WgerdeAPI(),
         }
       },
       engine: {
