@@ -5,7 +5,9 @@ const { RESTDataSource } = require('apollo-datasource-rest');
 class ContentfulAPI extends RESTDataSource {
   constructor() {
     super();
-    this.baseURL = 'https://cdn.contentful.com/spaces/5hjwwulwe9dr';
+    this.baseURL = `https://cdn.contentful.com/spaces/${
+      process.env.CONTENTFUL_SPACE_ID
+    }`;
   }
 
   willSendRequest(request) {
@@ -15,7 +17,7 @@ class ContentfulAPI extends RESTDataSource {
     // );
     request.headers.set(
       'Authorization',
-      'Bearer e4pQyyfWlmyx2xkt5AN0XOUcLwV5q-E_QrWeMdDA4J4'
+      `Bearer ${process.env.CONTENTFUL_ACCESS_TOKEN}`
     );
   }
 

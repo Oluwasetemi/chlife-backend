@@ -65,10 +65,14 @@ function calculateBMI(weight, height) {
   return { bmi: bmi.toPrecision(3), rating, ratingsMsg };
 }
 
+const toCamelCase = (str) =>
+  str.trim().replace(/[-_\s]+(.)?/g, (_, c) => (c ? c.toUpperCase() : ''));
+
 module.exports = {
   poundsToKg,
   kgToPounds,
   feetInchesToCm,
   cmToMeters,
   calculateBMI,
+  toCamelCase,
 };
