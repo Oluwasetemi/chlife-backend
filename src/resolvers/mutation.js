@@ -834,7 +834,7 @@ const mutation = {
       if (!req.user.currentHra) {
         // user are only allowed to do 3 hra within a year
         let userPopulatedData;
-        if (req.user.hra.length > 3) {
+        if (req.user.hra.length > 3 && process.env.NODE_ENV === 'production') {
           // confirm whether the new one they are about to do now falls with a year(365 days) with the current 3 they have do before using the first and current one to check
           // fetch user data and populate the hra field
           userPopulatedData = await findUserByIdPopulated(req.userId).lean();
