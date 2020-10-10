@@ -668,8 +668,8 @@ input signUpEmployeeInput {
 	firstName: String!
 	lastName: String!
 	email: String!
-	gender: GenderEnum!
-	dob: DateTime!
+	gender: GenderEnum
+	dob: DateTime
 	weight: Int
 	height: Int
 	company: String
