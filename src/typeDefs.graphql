@@ -513,6 +513,37 @@ type BMI {
 	ratingsMsg: String
 }
 
+type Wgerde {
+	workout: String
+    day: String
+    daysofweek: String
+    equipment: String
+    exercise: String
+    exercisecategory: String
+    exercisecomment: String
+    exerciseimage: String
+    exerciseinfo: String
+    ingredient: String
+    ingredientweightunit: String
+    language: String
+    license: String
+    meal: String
+    mealitem: String
+    muscle: String
+    nutritionplan: String
+    schedule: String
+    schedulestep: String
+    set: String
+    setting: String
+    settingRepetitionunit: String
+    settingWeightunit: String
+    userprofile: String
+    weightentry: String
+    weightunit: String
+    workoutlog: String
+    workoutsession: String
+}
+
 type Query {
 	"""
 	Query to get the authenticated user
@@ -606,6 +637,10 @@ type Query {
 	fetch all the company report
 	"""
 	fetchCompanyReport: AdminReport!
+	"""
+	fetch all the wgerde API endpoints report
+	"""
+	fetchAllExerciseEndpoints: Wgerde
 	"""
 	return BMI of a currentUser
 	"""

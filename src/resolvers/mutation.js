@@ -3,7 +3,7 @@
 /* eslint-disable camelcase */
 const validator = require('validator');
 const casual = require('casual');
-const format = require('date-fns/format');
+const { format, differenceInCalendarDays } = require('date-fns');
 const { randomBytes } = require('crypto');
 const { promisify } = require('util');
 const axios = require('axios').default;
@@ -32,6 +32,7 @@ const {
   findUserById,
   removeUser,
   findAllUsers,
+  findUserByIdPopulated,
 } = require('../services/user');
 
 const {
@@ -831,6 +832,38 @@ const mutation = {
 
       // if the user does not have currentHra
       if (!req.user.currentHra) {
+        // user are only allowed to do 3 hra within a year
+        let userPopulatedData;
+        if (req.user.hra.length > 3) {
+          // confirm whether the new one they are about to do now falls with a year(365 days) with the current 3 they have do before using the first and current one to check
+          // fetch user data and populate the hra field
+          userPopulatedData = await findUserByIdPopulated(req.userId).lean();
+
+          // slice the last 3 out of the user's hra;
+          const recentThreeHra = userPopulatedData.hra.slice(-3);
+
+          // compare the date of the first with the date.now();
+          const timeOfTheFirstHra = recentThreeHra[0].createdAt;
+
+          // calculate the difference in the timeOfTheFirstHra and new Date()
+          const dateDifference = differenceInCalendarDays(
+            new Date(),
+            timeOfTheFirstHra
+          );
+
+          // if the dateDifference is less than 365 then the user cannot take another HRA till (365 - dateDifference) format
+          // if otherwise they can continue the process of doing another HRA.
+          const nextDate =
+            Date.now() + (365 - dateDifference) * (1000 * 60 * 60 * 24);
+          if (dateDifference < 365) {
+            throw new Error(
+              `You can only take 3 HRA within a year, contact ChooseLife Admin(${
+                process.env.CHOOSELIFE_ADMIN_EMAIL
+              }). Your next hra will only happen in ${365 -
+                dateDifference} days on ${format(nextDate, 'PPP')}`
+            );
+          }
+        }
         const responseToBeSubmitted = { ...input, stage: null };
         delete responseToBeSubmitted.stage;
         //   calc the % of the submitted response(total: 111)

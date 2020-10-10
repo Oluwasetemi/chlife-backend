@@ -1,4 +1,4 @@
-// @ts-check
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable no-param-reassign */
 /* eslint-disable camelcase */
 /* eslint-disable no-unused-vars */
@@ -11,7 +11,7 @@ const dateFns = require('date-fns');
 const request = require('request');
 const { documentToHtmlString } = require('@contentful/rich-text-html-renderer');
 
-const { cmToMeters, calculateBMI } = require('../utils/helpers');
+const { cmToMeters, calculateBMI, toCamelCase } = require('../utils/helpers');
 
 const { verify } = require('../utils/auth');
 const {
@@ -158,7 +158,7 @@ const query = {
 
     return users;
   },
-  async fetchHraQuestion(_, { input }, { req }) {
+  async fetchHraQuestion(_, { input }, { req, dataSources }) {
     try {
       // check whether the user is logged in
       if (!req.user || !req.userId) {
@@ -217,7 +217,6 @@ const query = {
       };
 
       // promisifying the request
-
       const result = await requestPromise(options);
 
       if (result.statusCode !== 200) {
@@ -1028,6 +1027,31 @@ const query = {
     };
 
     return entry;
+  },
+  async fetchAllExerciseEndpoints(_, args, { dataSources }) {
+    const allApi = await dataSources.wgerdotdeAPI.test();
+
+    if (!allApi) {
+      throw new Error('server error');
+    }
+
+    /* eslint-disable */
+      for (let i in allApi) {
+        if (allApi.hasOwnProperty(i)) {
+          if (i === 'setting-repetitionunit') {
+            i = toCamelCase(i);
+            allApi[i] = allApi['setting-repetitionunit'];
+          }
+          if (i === 'setting-weightunit') {
+            i = toCamelCase(i);
+            allApi[i] = allApi['setting-weightunit'];
+          }
+        }
+      }
+
+    /* eslint-enable */
+
+    return allApi;
   },
 };
 
