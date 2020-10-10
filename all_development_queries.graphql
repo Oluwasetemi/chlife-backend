@@ -166,7 +166,7 @@ query CURRENT_RESPONSE_QUERY {
 mutation UPDATE_USER_MUTATION {
   updateUserMutation(input: {weight: 89, height: 175, firstName: "Temi"}) {
     _id
-     name
+    name
   }
 }
 
@@ -395,6 +395,97 @@ query mutation_LOGIN_MUTAT716 {
     bmi
     rating
     ratingsMsg
+  }
+}
+
+query mutation_LOGIN_MUTAT277 {
+  fetchAllBlogPostByCategory(content_type: HEALTH) {
+    total
+    skip
+    limit
+    content {
+      id
+      title
+      body
+      createdAt
+      tags
+      author
+      authorRole
+      asset {
+        name
+        url
+      }
+    }
+  }
+}
+
+query mutation_LOGIN_MUTAT278 {
+  fetchAllBlogPost {
+    total
+    skip
+    limit
+    content {
+      id
+      title
+      body
+      createdAt
+      tags
+      author
+      authorRole
+      asset {
+        name
+        url
+      }
+    }
+  }
+}
+
+query mutation_LOGIN_MUTAT2790 {
+  fetchOneBlogPost(id: "7znnZDHTNZL7jngy2BjULO") {
+    id
+    title
+    body
+    createdAt
+    tags
+    author
+    authorRole
+    asset {
+      name
+      url
+    }
+  }
+}
+
+query mutation_LOGIN_MUTAT239 {
+  fetchAllExerciseEndpoints {
+    workout
+          day
+          daysofweek
+          equipment
+          exercise
+          exercisecategory
+          exercisecomment
+          exerciseimage
+          exerciseinfo
+          ingredient
+          ingredientweightunit
+          language
+          license
+          meal
+          mealitem
+          muscle
+          nutritionplan
+          schedule
+          schedulestep
+          set
+          setting
+          settingRepetitionunit
+          settingWeightunit
+          userprofile
+          weightentry
+          weightunit
+          workoutlog
+          workoutsession
   }
 }
 
