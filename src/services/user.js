@@ -10,6 +10,8 @@ exports.findBasedOnQuery = (data) => User.find(data);
 
 exports.findUserById = (id) => User.findById(id);
 
+exports.findUserByIdPopulated = (id) => User.findById(id).populate('hra');
+
 exports.findUsersByIds = async (ids) => {
   const result = [];
   for (const each of ids) {
