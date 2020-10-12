@@ -482,6 +482,11 @@ const mutation = {
         throw new Error('Token generation error');
       }
 
+      await updateUser(
+        { _id: userExist._id },
+        { totalRewardPoints: userExist.totalRewardPoints + 5 }
+      );
+
       const result = { ...userExist._doc, token, password: null };
 
       return result;
@@ -1144,7 +1149,9 @@ const mutation = {
 
       // check the size limit
       if (req.user && req.user.companySize >= req.user.employeeLimit) {
-        throw new Error('You need to contact ChooseLife');
+        throw new Error(
+          'You have exceeded your registered limit, contact Chooselife to add more'
+        );
       }
 
       // create the user with their email and set their company details
@@ -1209,7 +1216,7 @@ const mutation = {
           } because a user with that email exist`
         );
       }
-      throw new Error(error.message);
+      throw new Error('Cannot add employees');
     }
   },
   async resendCompanyAddEmployeeEmail(_, { id }, { req }) {
