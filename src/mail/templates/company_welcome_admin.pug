@@ -1,10 +1,14 @@
 extends email-layout
 
 block content
+  .subject
     h2 A new company just registered
+
+  .body
+    img(src="https://res.cloudinary.com/drnqdd87d/image/upload/q_auto,r_0/a_0/v1604448094/chooselife/shalom-mwenesi-JOx7sRRpqhI-unsplashchooselife-welcome.png", alt="welcome to chooselife")
+
     p Hello Admin!,
 
-    br
     p A new company
     | b #{companyName}
     | just registered on the platform.
@@ -16,7 +20,6 @@ block content
     p
       a(href=`${loginLink}`, target='_blank')= loginLink
 
-    br
     p If you didn't request this email, please ignore it.
     p Regards.
     p Choose Life Team

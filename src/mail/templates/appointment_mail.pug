@@ -1,30 +1,32 @@
 extends email-layout
 
 block content
-    h2 Title of appointment: #{title}
-    p Hello Admin!,
+    .subject
+        h2 Title of appointment: #{title}
 
-    br
-    p A new appointment was created by
-        b  #{name}
-        |  on the platform.
+    .body
+        img(src="https://res.cloudinary.com/drnqdd87d/image/upload/q_auto,r_0/a_0/v1604448094/chooselife/shalom-mwenesi-JOx7sRRpqhI-unsplashchooselife-welcome.png", alt="welcome to chooselife")
 
-    p Here is the details if the appointment:
-    | Description:
-    b
-        em  #{description},
-    |  Time:
-    b  #{datetime},
-    |  Professional Name:
-    b  #{professional},
-    |  the Professional type will like to see:
-    b  #{type},
-    |  and the Purpose of the appointment:
-    b  #{purpose}.
-    br
+        p Hello Admin!,
+
+        p A new appointment was created by
+            b  #{name}
+            |  on the platform.
+
+        p Here is the details if the appointment:
+        | Description:
+        b
+            em  #{description},
+        |  Time:
+        b  #{datetime},
+        |  Professional Name:
+        b  #{professional},
+        |  the Professional type will like to see:
+        b  #{type},
+        |  and the Purpose of the appointment:
+        b  #{purpose}.
 
 
-    br
-    p If you didn't request this email, please ignore it.
-    p Regards.
-    p Choose Life Team
+        p If you didn't request this email, please ignore it.
+        p Regards.
+        p Choose Life Team

@@ -124,3 +124,22 @@
 - Add `altair-express-middleware` to the express middleware mounted on the route `/altair`.
 - Created the `contentfulAPI` `REST Data Source` which stores all the interaction with the contentful API.
 - Created additional queries to fetch a single blogpost using its id `fetchOneBlogPost`, `fetchAllBlogPost` and `fetchAllBlogPostByCategory`
+
+## v0.2.3
+
+- Created the `wgerdeAPI` `REST Data Source` which stores all the interaction with the wgerde API.
+- add a new query `fetchAllExerciseEndpoints` for wgerde rest data source
+- add the new logic to allow user to only do 3 hra test within a year and remove the contentful services completely in favour of the contentful datasource
+- 🐛 FIX: the check to do 3 hra within a year should only happen in production
+- 📦 NEW: update the altair default queries
+- 🐛 FIX: remove compulsory flag on gender and dob on the `signUpEmployeeInput`
+- fix the bug in the email template `company_welcome`
+- give the user 5 points per login
+- 📦 NEW: update the variable.env.sample
+
+## v0.2.4
+
+- Create a new query to `fetchOneExercise` based on it `id` from wgerdeAPI.
+<!-- - Set up eslint, prettier, husky and lint-staged for static testing analysis -->
+- Update all the mail templates to reflect the new figma designs for transactional emails.
+- Set up scripts to convert `pug` email templates to `html` and to test email sending. NB if you will be testing any email template that use external values via interpolation you will need to pass the script -O options.json. options.json will contain the JSON values that need to be passed to the pug template while rending. 

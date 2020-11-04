@@ -1,10 +1,14 @@
 extends email-layout
 
 block content
+  .subject
     h2 Welcome to Choose Life
+
+  .body
+    img(src="https://res.cloudinary.com/drnqdd87d/image/upload/q_auto,r_0/a_0/v1604448094/chooselife/shalom-mwenesi-JOx7sRRpqhI-unsplashchooselife-welcome.png", alt="welcome to chooselife")
+
     p Hello #{name.split(' ')[0]}!,
 
-    br
     p Welcome to the choose life as an #{type}.
 
     p
@@ -12,7 +16,6 @@ block content
 
     p Our team should reach out to you  for information.
 
-    br
     p If you didn't request this email, please ignore it.
     p Regards.
     p Choose Life Team
