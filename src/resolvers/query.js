@@ -1053,6 +1053,38 @@ const query = {
 
     return allApi;
   },
+  async fetchOneExercise(_, { id }, { dataSources }) {
+    const oneExercise = await dataSources.wgerdotdeAPI.exercise(id);
+
+    if (!oneExercise) {
+      throw new Error('server error');
+    }
+
+    const oneExerciseImage = await dataSources.wgerdotdeAPI.exerciseImage(id);
+
+    if (!oneExerciseImage) {
+      throw new Error('server error');
+    }
+    // fetch its image
+
+    /* eslint-disable */
+      for (let i in allApi) {
+        if (allApi.hasOwnProperty(i)) {
+          if (i === 'setting-repetitionunit') {
+            i = toCamelCase(i);
+            allApi[i] = allApi['setting-repetitionunit'];
+          }
+          if (i === 'setting-weightunit') {
+            i = toCamelCase(i);
+            allApi[i] = allApi['setting-weightunit'];
+          }
+        }
+      }
+
+    /* eslint-enable */
+
+    return allApi;
+  },
 };
 
 module.exports = query;

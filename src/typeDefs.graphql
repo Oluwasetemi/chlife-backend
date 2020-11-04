@@ -166,6 +166,19 @@ input EmailSubscriberInput {
 	email: String!
 }
 
+type Exercise {
+	id: Int
+    status: String
+    description: String!
+    name: String,
+    name_original: String
+    creation_date: String
+    uuid: String
+    category: Int
+    muscles: [String]
+    equipment: [String]
+}
+
 type QuestionAndResponse {
 	age_at_menarche:String
 	age_of_bearing_first_child:String
@@ -355,22 +368,6 @@ type Appointment {
 	appointmentTime: String
 	type: Appointmentenum
 	professional: String
-	createdAt: DateTime
-	updatedAt: DateTime
-}
-
-type ExerciseBody {
-	value: String!
-}
-
-type Exercise {
-	_id: String!
-	title: String
-	description: String
-	body: ExerciseBody
-	type: String
-	category: String
-	advice: String
 	createdAt: DateTime
 	updatedAt: DateTime
 }
@@ -641,6 +638,10 @@ type Query {
 	fetch all the wgerde API endpoints report
 	"""
 	fetchAllExerciseEndpoints: Wgerde
+	"""
+	fetch one exercise from the wgerde API
+	"""
+	fetchOneExercise(id: Int): [Exercise]
 	"""
 	return BMI of a currentUser
 	"""

@@ -21,7 +21,7 @@
         "seed": "node src/seed/seed.js",
         "blowitallaway": "node src/seed/seed.js --delete",
         "email": "echo \"you must have pug-cli installed globally to convert all the pug template to html!NB Always change the templates/email-template-name\" && pug -w src/mail/templates/confirmed_email_subscriber.pug -o src/mail/html",
-        "test:email": "node src/mail/templates/test.js"
+        "test:email": "node src/mail/templates/test-email.js"
     },
     "keywords": [
         "graphql",
