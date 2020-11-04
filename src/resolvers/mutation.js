@@ -1201,7 +1201,7 @@ const mutation = {
       // update the company the size
       await updateUser(
         { _id: req.userId },
-        { companySize: req.user.companySize + input.length }
+        { companySize: parseInt(req.user.companySize) + parseInt(input.length) }
       );
 
       // send email to add the newly added users
