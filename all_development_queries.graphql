@@ -459,33 +459,62 @@ query mutation_LOGIN_MUTAT2790 {
 query mutation_LOGIN_MUTAT239 {
   fetchAllExerciseEndpoints {
     workout
-          day
-          daysofweek
-          equipment
-          exercise
-          exercisecategory
-          exercisecomment
-          exerciseimage
-          exerciseinfo
-          ingredient
-          ingredientweightunit
-          language
-          license
-          meal
-          mealitem
-          muscle
-          nutritionplan
-          schedule
-          schedulestep
-          set
-          setting
-          settingRepetitionunit
-          settingWeightunit
-          userprofile
-          weightentry
-          weightunit
-          workoutlog
-          workoutsession
+    day
+    daysofweek
+    equipment
+    exercise
+    exercisecategory
+    exercisecomment
+    exerciseimage
+    exerciseinfo
+    ingredient
+    ingredientweightunit
+    language
+    license
+    meal
+    mealitem
+    muscle
+    nutritionplan
+    schedule
+    schedulestep
+    set
+    setting
+    settingRepetitionunit
+    settingWeightunit
+    userprofile
+    weightentry
+    weightunit
+    workoutlog
+    workoutsession
+  }
+}
+
+query FETCH_ALL_EXERCISE {
+  fetchAllExercise {
+      id
+      image
+      exercise {
+            name
+      }
+  }
+}
+
+query FETCH_ONE_EXERCISE {
+     fetchOneExercise(id: 183) {
+          id
+          image
+     }
+}
+
+query mutation_LOGIN_MUTAT998 {
+  fetchWgerAPIData {
+      message
+  }
+}
+
+query mutation_LOGIN_MUTAT100 {
+  removeWgerAPIData {
+      message
   }
 }
 
@@ -674,5 +703,3 @@ fragment responseQuestion on QuestionAndResponse {
   years_since_quitting_months
   years_since_quitting_years
 }
-
-
