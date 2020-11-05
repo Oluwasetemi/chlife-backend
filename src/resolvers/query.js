@@ -27,6 +27,12 @@ const {
 } = require('../services/reward');
 const { findAllEmailSubscribers } = require('../services/emailSubscriber');
 const hra = require('../models/hra');
+const {
+  insertManyExercise,
+  removeAllExercise,
+  oneExercise,
+  allExercise,
+} = require('../services/exercise');
 
 const requestPromise = promisify(request);
 
@@ -1036,54 +1042,123 @@ const query = {
     }
 
     /* eslint-disable */
-      for (let i in allApi) {
-        if (allApi.hasOwnProperty(i)) {
-          if (i === 'setting-repetitionunit') {
-            i = toCamelCase(i);
-            allApi[i] = allApi['setting-repetitionunit'];
-          }
-          if (i === 'setting-weightunit') {
-            i = toCamelCase(i);
-            allApi[i] = allApi['setting-weightunit'];
-          }
+    for (let i in allApi) {
+      if (allApi.hasOwnProperty(i)) {
+        if (i === 'setting-repetitionunit') {
+          i = toCamelCase(i);
+          allApi[i] = allApi['setting-repetitionunit'];
+        }
+        if (i === 'setting-weightunit') {
+          i = toCamelCase(i);
+          allApi[i] = allApi['setting-weightunit'];
         }
       }
+    }
 
     /* eslint-enable */
 
     return allApi;
   },
-  async fetchOneExercise(_, { id }, { dataSources }) {
-    const oneExercise = await dataSources.wgerdotdeAPI.exercise(id);
+  async fetchAllExercise() {
+    const exercise = await allExercise();
 
-    if (!oneExercise) {
-      throw new Error('server error');
+    if (!exercise) {
+      throw new Error('Could not fetch Exercise');
     }
 
-    const oneExerciseImage = await dataSources.wgerdotdeAPI.exerciseImage(id);
+    return exercise;
+  },
+  async fetchWgerAPIData(_, args, { dataSources }) {
+    const size = 50;
+    // fetch all the exercise list 224
+    const allExerciseList = [];
+    const exerciseList = await dataSources.wgerdotdeAPI.exerciseList(size);
+    allExerciseList.push(...exerciseList.results);
 
-    if (!oneExerciseImage) {
-      throw new Error('server error');
+    if (allExerciseList.length < exerciseList.count) {
+      const howManyTime = Math.ceil(exerciseList.count / size);
+
+      for (let i = 1; i < howManyTime; i += 1) {
+        const remainingExerciseList = await dataSources.wgerdotdeAPI.exerciseList(
+          size,
+          size * i
+        );
+        allExerciseList.push(...remainingExerciseList.results);
+      }
     }
-    // fetch its image
 
-    /* eslint-disable */
-      for (let i in allApi) {
-        if (allApi.hasOwnProperty(i)) {
-          if (i === 'setting-repetitionunit') {
-            i = toCamelCase(i);
-            allApi[i] = allApi['setting-repetitionunit'];
-          }
-          if (i === 'setting-weightunit') {
-            i = toCamelCase(i);
-            allApi[i] = allApi['setting-weightunit'];
-          }
-        }
+    // fetch exercise image
+    const allExerciseImageList = [];
+    const exerciseImageList = await dataSources.wgerdotdeAPI.exerciseImageList(
+      size
+    );
+    allExerciseImageList.push(...exerciseImageList.results);
+
+    if (allExerciseImageList.length < exerciseImageList.count) {
+      const howManyTime = Math.ceil(exerciseImageList.count / size);
+
+      for (let i = 1; i < howManyTime; i += 1) {
+        const remainingExerciseImage = await dataSources.wgerdotdeAPI.exerciseImageList(
+          size,
+          size * i
+        );
+        allExerciseImageList.push(...remainingExerciseImage.results);
+      }
+    }
+
+    // loop thru exercise image and find the respective exercise and match them by id
+    const fullExercise = [];
+    for (const exerciseImage of allExerciseImageList) {
+      // find the exercise
+      const foundExercise = allExerciseList.find(
+        (exercise) => exercise.id === exerciseImage.exercise
+      );
+
+      if (!foundExercise) {
+        exerciseImage.exercise = 'no exercise';
       }
 
-    /* eslint-enable */
+      // combine the data
+      exerciseImage.exercise = foundExercise;
+      // push data
+      fullExercise.push(exerciseImage);
+    }
 
-    return allApi;
+    // clean the data
+    const cleanFullExercise = fullExercise.filter((each) =>
+      Boolean(each.exercise)
+    );
+
+    if (!cleanFullExercise) {
+      throw new Error('server error');
+    }
+
+    // push the data to our database
+    const result = await insertManyExercise(cleanFullExercise);
+
+    if (!result) {
+      throw new Error('failed to insert data to db');
+    }
+
+    return { message: 'Data saved in the DB successfully' };
+  },
+  async removeWgerAPIData() {
+    const result = await removeAllExercise();
+
+    if (!result) {
+      throw new Error('api failed');
+    }
+
+    return { message: 'Data removed in the DB successfully' };
+  },
+  async fetchOneExercise(_, { id }) {
+    const exercise = await oneExercise(id);
+
+    if (!exercise) {
+      throw new Error('Could not fetch Exercise');
+    }
+
+    return exercise;
   },
 };
 

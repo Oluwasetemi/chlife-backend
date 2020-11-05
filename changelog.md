@@ -142,4 +142,9 @@
 - Create a new query to `fetchOneExercise` based on it `id` from wgerdeAPI.
 <!-- - Set up eslint, prettier, husky and lint-staged for static testing analysis -->
 - Update all the mail templates to reflect the new figma designs for transactional emails.
-- Set up scripts to convert `pug` email templates to `html` and to test email sending. NB if you will be testing any email template that use external values via interpolation you will need to pass the script -O options.json. options.json will contain the JSON values that need to be passed to the pug template while rending. 
+- Set up scripts to convert `pug` email templates to `html` and to test email sending. NB if you will be testing any email template that use external values via interpolation you will need to pass the script -O options.json. options.json will contain the JSON values that need to be passed to the pug template while rending.
+
+## v0.2.5
+
+- Create a new query to `fetchAllExercise` using data extracted from wgerdeAPI.
+- Create two query `fetchWgerAPIData` and `removeWgerAPIData` for fetching al the wgerdeAPI into the database

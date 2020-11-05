@@ -166,17 +166,30 @@ input EmailSubscriberInput {
 	email: String!
 }
 
+type ExerciseObject {
+	id: ID!
+	license_author: String
+	status: String
+	name: String
+	name_original: String
+	creation_date: String
+	uuid: String
+	license: Int
+	category: Int
+	language: Int
+	muscle: [Int]
+	muscles_secondary: [Int]
+	equipment: [Int]
+}
+
 type Exercise {
-	id: Int
-    status: String
-    description: String!
-    name: String,
-    name_original: String
-    creation_date: String
-    uuid: String
-    category: Int
-    muscles: [String]
-    equipment: [String]
+	id: ID
+	image: String
+	is_main: String!
+	license: String,
+	license_author: String
+	status: String
+	exercise: ExerciseObject
 }
 
 type QuestionAndResponse {
@@ -641,11 +654,14 @@ type Query {
 	"""
 	fetch one exercise from the wgerde API
 	"""
-	fetchOneExercise(id: Int): [Exercise]
+	fetchOneExercise(id: Int): Exercise
 	"""
 	return BMI of a currentUser
 	"""
 	BMI: BMI!
+	fetchWgerAPIData: Message!
+	fetchAllExercise: [Exercise]!
+	removeWgerAPIData: Message!
 }
 
 input updateUserInput {

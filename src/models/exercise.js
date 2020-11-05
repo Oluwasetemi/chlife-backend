@@ -3,32 +3,28 @@ const mongoose = require('mongoose'); // Erase if already required
 // Declare the Schema of the Mongo model
 const exerciseSchema = new mongoose.Schema(
   {
-    title: {
+    id: {
       type: String,
-      required: true,
     },
-    description: {
+    image: {
       type: String,
-      required: true,
     },
-    body: {
+    is_main: {
       // the object of name, videolink, imagelink
       type: mongoose.Schema.Types.Mixed,
-      required: true,
     },
-    type: {
+    license: {
       type: String,
-      enum: ['INBODY', 'PROFESSIONAL'],
-      required: true,
     },
-    category: {
+    license_author: {
       type: String,
-      enum: ['INBODY', 'PROFESSIONAL'],
-      required: true,
     },
-    advice: {
+    status: {
       type: String,
       trim: true,
+    },
+    exercise: {
+      type: mongoose.Schema.Types.Mixed,
     },
   },
   {
