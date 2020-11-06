@@ -491,30 +491,30 @@ query mutation_LOGIN_MUTAT239 {
 
 query FETCH_ALL_EXERCISE {
   fetchAllExercise {
-      id
-      image
-      exercise {
-            name
-      }
+    id
+    image
+    exercise {
+      name
+    }
   }
 }
 
 query FETCH_ONE_EXERCISE {
-     fetchOneExercise(id: 183) {
-          id
-          image
-     }
+  fetchOneExercise(id: 183) {
+    id
+    image
+  }
 }
 
 query mutation_LOGIN_MUTAT998 {
   fetchWgerAPIData {
-      message
+    message
   }
 }
 
 query mutation_LOGIN_MUTAT100 {
   removeWgerAPIData {
-      message
+    message
   }
 }
 

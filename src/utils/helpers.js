@@ -68,6 +68,16 @@ function calculateBMI(weight, height) {
 const toCamelCase = (str) =>
   str.trim().replace(/[-_\s]+(.)?/g, (_, c) => (c ? c.toUpperCase() : ''));
 
+function clean(obj) {
+  Object.keys(obj).forEach((key) => {
+    if (Object.prototype.toString.call(obj[key])) {
+      if (obj[key] === null || obj[key] === undefined) {
+        delete obj[key];
+      }
+    }
+  });
+}
+
 module.exports = {
   poundsToKg,
   kgToPounds,
@@ -75,4 +85,5 @@ module.exports = {
   cmToMeters,
   calculateBMI,
   toCamelCase,
+  clean,
 };

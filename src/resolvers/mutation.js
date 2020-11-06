@@ -52,6 +52,8 @@ const {
   findEmailSubScriberById,
 } = require('../services/emailSubscriber');
 
+const { clean } = require('../utils/helpers');
+
 // all the mutation
 const mutation = {
   async signup(_, args) {
@@ -1067,6 +1069,9 @@ const mutation = {
       }
 
       const updateData = { name, ...input };
+
+      // remove null fields
+      clean(updateData);
 
       // validate data
       const updatedUser = await updateUser({ _id: req.userId }, updateData);
