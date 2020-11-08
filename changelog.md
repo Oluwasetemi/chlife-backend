@@ -111,7 +111,7 @@
 - add query `fetchAllEmailListSubscribers` to search through email subscribers list at Admin level.
 - add query `fetchAdminReport` to hit the GHM api - `get_reports` to fetch all the list individual hra report and add name and email to the data returned from our database.
 - add query `fetchCompanyReport` to hit the GHM api - `get_group_report_data` to fetch group of user_ids hra report and addd email and name to the data returned from our database.
-- create `subscribeToEmailList` , `activateSubscriber` and `unSubscribeFromEmailList` mutation for manipulating EmailSubscriber's List.
+- create `subscribeToEmailList` , `activateSubscriber` and `unSubscribeFromEmailList` mutation for manipulating EmailSubscriber"s List.
 
 ## v0.2.1
 

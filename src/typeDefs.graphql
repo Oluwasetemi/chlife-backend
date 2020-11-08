@@ -393,7 +393,7 @@ type MealPlan {
 	_id: String!
 	title: String
 	description: String
-	meealPlanStructure: MealPlanStructure
+	mealPlanStructure: MealPlanStructure
 	type: String
 	category: String
 	advice: String

@@ -28,7 +28,7 @@ exports.oneExercise = async (id) => {
   const exercise = await Exercise.findOne({ id });
 
   if (!exercise) {
-    throw new Error(' could not fetch exercise data');
+    throw new Error('could not fetch exercise data');
   }
 
   return exercise;
@@ -38,7 +38,7 @@ exports.allExercise = async () => {
   const exercise = await Exercise.find({});
 
   if (!exercise) {
-    throw new Error(' could not fetch exercise data');
+    throw new Error('could not fetch exercise data');
   }
 
   return exercise;
