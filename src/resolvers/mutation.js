@@ -1216,6 +1216,8 @@ const mutation = {
     } catch (error) {
       console.log(error.message);
       if (error.code === 11000) {
+        console.log(typeof Object.keys(error.keyValue));
+        console.log(Object.keys(error.keyValue)[0]);
         throw new Error(
           `Cannot create user with ${Object.keys(error.keyValue)[0]} value ${
             error.keyValue.email
