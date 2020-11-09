@@ -1159,6 +1159,15 @@ const mutation = {
         );
       }
 
+      if (
+        parseInt(req.user.companySize) + input.length >=
+        req.user.employeeLimit
+      ) {
+        throw new Error(
+          'You have exceeded your registered limit, contact Chooselife to add more'
+        );
+      }
+
       // create the user with their email and set their company details
       const newUsers = [];
       for (const each of input) {
@@ -1214,14 +1223,9 @@ const mutation = {
         message: `${input.length} employee has been added to your company`,
       };
     } catch (error) {
-      console.log(error.message);
       if (error.code === 11000) {
-        console.log(typeof Object.keys(error.keyValue));
-        console.log(Object.keys(error.keyValue)[0]);
         throw new Error(
-          `Cannot create user with email value ${
-            error.keyValue.email
-          } because a user with that email exist`
+          `One of the email you're trying to add is an employee already `
         );
       }
       throw new Error(error.message);
