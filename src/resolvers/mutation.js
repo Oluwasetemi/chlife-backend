@@ -1219,7 +1219,7 @@ const mutation = {
         console.log(typeof Object.keys(error.keyValue));
         console.log(Object.keys(error.keyValue)[0]);
         throw new Error(
-          `Cannot create user with ${Object.keys(error.keyValue)[0]} value ${
+          `Cannot create user with email value ${
             error.keyValue.email
           } because a user with that email exist`
         );
