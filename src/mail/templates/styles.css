@@ -63,12 +63,11 @@ table td {
 }
 
 .logo {
-    padding: 15px;
+    padding: 0;
 }
 
 .logo img {
     margin-left: 25px;
-    margin-top: 10px;
     width: 100px;
 }
 
@@ -153,25 +152,14 @@ a {
 /* -------------------------------------
     BUTTONS
 ------------------------------------- */
-.btn {
-    box-sizing: border-box;
+.btn table {
     width: 100%;
 }
-.btn > tbody > tr > td {
-    padding-bottom: 15px;
-}
-.btn table {
-    width: auto;
-}
 .btn table td {
-    background-color: #ffffff;
-    border-radius: 5px;
     text-align: center;
 }
 .btn a {
-    background-color: #ffffff;
-    border: solid 1px #151515;
-    border-radius: 5px;
+    background-color: #2EC4B6;
     box-sizing: border-box;
     color: #151515;
     cursor: pointer;
@@ -184,14 +172,15 @@ a {
     text-transform: capitalize;
 }
 
-.btn-primary table td {
-    background-color: #151515;
+.btn-primary a {
+    background-color: #2EC4B6;
+    border-color: #4a7e79;
+    color: #ffffff;
 }
 
-.btn-primary a {
-    background-color: #151515;
-    border-color: #151515;
-    color: #ffffff;
+.btn td {
+    background: #2EC4B6;
+    border-radius: 8px;
 }
 
 /* -------------------------------------
@@ -305,7 +294,9 @@ hr {
     background: #2EC4B6;
     box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    transform: matrix(-1, 0, 0, 1, 0, 0);
+    box-sizing: border-box;
+    width: 60%;
+    margin-bottom: 10px;
 }
 
 .subject {
@@ -326,8 +317,6 @@ hr {
 
 .body img {
     max-width: 100%;
-    margin-bottom: 20px;
-    border: 2px solid transparent;
 }
 
 .footer {
@@ -375,14 +364,5 @@ hr {
         font-weight: inherit !important;
         line-height: inherit !important;
         text-decoration: none !important;
-    }
-
-    .btn-primary table td:hover {
-        background-color: rgb(46, 196, 182) !important;
-    }
-
-    .btn-primary a:hover {
-        background-color: rgb(46, 196, 182) !important;
-        border-color: rgb(46, 196, 182) !important;
     }
 }

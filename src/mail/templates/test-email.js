@@ -5,9 +5,20 @@ const { send } = require('../mail');
   // send email to the new user
   try {
     await send({
-      filename: 'confirmed_email_subscriber',
-      to: 'setemiojo@gmail.com',
+      filename: 'request-reset',
+      to: 'temi@mailinator.com',
       subject: 'Test Email',
+      title: 'mr X',
+      name: 'setemi ojo',
+      companyName: 'dev Team',
+      resetLink: 'https://oluwasetemi.dev',
+      activateLink: 'https://oluwasetemi.dev',
+      loginLink: 'https://oluwasetemi.dev',
+      description: 'description',
+      datetime: '12/02/1993',
+      professional: 'Dr Sohci',
+      type: 'Done',
+      purpose: 'We need to eat',
     });
     console.log('Email Sent 💌');
   } catch (error) {
