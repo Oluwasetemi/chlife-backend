@@ -1179,7 +1179,7 @@ const mutation = {
           'hex'
         );
         const resetPasswordExpires = Date.now() + 3600000; // 1 hr from now
-
+        console.log(each.email);
         const user = await createUser({
           name: `${each.firstName.trim()} ${each.lastName.trim()}`,
           email: each.email.trim(),
@@ -1223,6 +1223,7 @@ const mutation = {
         message: `${input.length} employee has been added to your company`,
       };
     } catch (error) {
+      console.log(error.message);
       if (error.code === 11000) {
         throw new Error(
           `One of the email you're trying to add is an employee already `
