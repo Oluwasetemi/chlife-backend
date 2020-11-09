@@ -1214,6 +1214,7 @@ const mutation = {
         message: `${input.length} employee has been added to your company`,
       };
     } catch (error) {
+      console.log(error.message);
       if (error.code === 11000) {
         throw new Error(
           `Cannot create user with ${Object.keys(error.keyValue)[0]} value ${
