@@ -477,6 +477,7 @@ type Contentful {
 	author: String!
 	authorRole: String
 	asset: Asset
+	feature: String
 }
 
 type AllContentful {
