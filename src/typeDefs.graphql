@@ -410,6 +410,10 @@ type MealPlanData {
 	day22: MealSection
 	day23: MealSection
 	day24: MealSection
+	day25: MealSection
+	day26: MealSection
+	day27: MealSection
+	day28: MealSection
 }
 
 type MealSection {
