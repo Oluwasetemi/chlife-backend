@@ -1,705 +1,964 @@
 mutation LOGIN_MUTATION {
-  login(email: "company1.member2@mailinator.com", password: "123456") {
-    ...userGragment
-    company {
-      _id
-    }
-    companyName
-    companyUrl
-    totalRewardPoints
-    weight
-    height
-    activity
-    gender
-    hra {
-      ghmReference
-    }
-  }
+     login(email: "company1.member2@mailinator.com", password: "123456") {
+          ...userGragment
+          company {
+               _id
+          }
+          companyName
+          companyUrl
+          totalRewardPoints
+          weight
+          height
+          activity
+          gender
+          hra {
+               ghmReference
+          }
+     }
 }
 
 query FETCH_USERS_TYPE {
-  usersByType(type: EMPLOYEE) {
-    name
-    email
-    _id
-    activationToken
-    adminVerified
-    company {
-      _id
-    }
-  }
+     usersByType(type: EMPLOYEE) {
+          name
+          email
+          _id
+          activationToken
+          adminVerified
+          company {
+               _id
+          }
+     }
 }
 
 query ALL_USERS {
-  users {
-    ...userGragment
-  }
+     users {
+          ...userGragment
+     }
 }
 
 query ME_QUERY {
-  me {
-    ...userGragment
-    company {
-      name
-    }
-    hra {
-      _id
-      reportId
-      ghmReference
-      percentageProgress
-      stage
-    }
-    currentHra {
-      _id
-      stage
-    }
-    currentReward {
-      _id
-      title
-    }
-    appointments {
-      _id
-      title
-    }
-  }
+     me {
+          ...userGragment
+          company {
+               name
+          }
+          hra {
+               _id
+               reportId
+               ghmReference
+               percentageProgress
+               stage
+          }
+          currentHra {
+               _id
+               stage
+          }
+          currentReward {
+               _id
+               title
+          }
+          appointments {
+               _id
+               title
+          }
+          mealPlan {
+               _id
+               mealPlanData {
+                    day1 {
+                         Breakfast
+                         Lunch
+                         Dinner
+                         Snacks
+                    }
+               }
+          }
+     }
 }
 
 query FECH_QUESTION_MUTATION {
-  fetchHraQuestion(input: BASIC_INFORMATION) {
-    id
-    label
-    dynamic
-    options {
-      top_submit_button
-    }
-    prompt
-    qCount
-    q {
-      id
-      label
-      prompt
-      required
-      system_of_measurement
-      counterpart
-      default_deactive
-      input {
-        type
-        units
-        min
-        max
-        allow_decimals
-        maxvariable
-        showhide {
-          low
-          high
-          show
-          sum
-          hide
-        }
-        values {
+     fetchHraQuestion(input: BASIC_INFORMATION) {
           id
           label
-          hide
-          show
-        }
-      }
-    }
-  }
+          dynamic
+          options {
+               top_submit_button
+          }
+          prompt
+          qCount
+          q {
+               id
+               label
+               prompt
+               required
+               system_of_measurement
+               counterpart
+               default_deactive
+               input {
+                    type
+                    units
+                    min
+                    max
+                    allow_decimals
+                    maxvariable
+                    showhide {
+                         low
+                         high
+                         show
+                         sum
+                         hide
+                    }
+                    values {
+                         id
+                         label
+                         hide
+                         show
+                    }
+               }
+          }
+     }
 }
 
 mutation SIGNUP_MUTATION {
-  signup(input: {firstName: "Temi", lastName: "Ope", email: "temi@mailinator.com", gender: MALE, dob: "12/02/1993", weight: 200, height: 300, activity: LOW, password: "123456"}) {
-    ...userGragment
-  }
+     signup(
+          input: {
+               firstName: "Temi"
+               lastName: "Ope"
+               email: "temi@mailinator.com"
+               gender: MALE
+               dob: "12/02/1993"
+               weight: 200
+               height: 300
+               activity: LOW
+               password: "123456"
+          }
+     ) {
+          ...userGragment
+     }
 }
 
 mutation SIGNUP_COMPANY_MUTATION {
-  registerCompany(input: {firstName: "Kolade", lastName: "Ope", organizationEmail: "company1@mailinator.com", representativeEmail: "company1@mailinator.com", organizationName: "company1", organizationUrl: "https://company1.com", organizationAddress: "Abuja", password: "123456", jobTitle: "COO"}) {
-    message
-  }
+     registerCompany(
+          input: {
+               firstName: "Kolade"
+               lastName: "Ope"
+               organizationEmail: "company1@mailinator.com"
+               representativeEmail: "company1@mailinator.com"
+               organizationName: "company1"
+               organizationUrl: "https://company1.com"
+               organizationAddress: "Abuja"
+               password: "123456"
+               jobTitle: "COO"
+          }
+     ) {
+          message
+     }
 }
 
 mutation SUBMIT_RESPONSE_1 {
-  submitHRAResponse(input: {stage: RESPONSE, save_key: "1", sex: "male", body_frame_size: "small", height_cm: "180", weight_kg: "90"}) {
-    message
-    percentageProgress
-    reportId
-  }
+     submitHRAResponse(
+          input: {
+               stage: RESPONSE
+               save_key: "1"
+               sex: "male"
+               body_frame_size: "small"
+               height_cm: "180"
+               weight_kg: "90"
+          }
+     ) {
+          message
+          percentageProgress
+          reportId
+     }
 }
 
 mutation SUBMIT_RESPONSE {
-  submitHRAResponse(input: {stage: UPDATE_RESPONSE, fruit: "2", PHQa: "1", health_information_interest: "yes", height: "5", junk_food: "2", gainful_employment: "no", chh_sbreath: "no", sleep2: "2", weight_kg: "30.39", PHQb: "0", bicycle_helmet_usage: "less than 25%", hispanic_origin: "no", blood_pressure_medication: "0", binge_drinking: "no", safety_belt_usage: "47", travel_by_motorcycle_km: "4.8", vaping: "no", diabetes_status: "no", marital_status: "widowed", desserts: "0", sleep3: "3", weekly_alcohol_beer: "3", weekly_alcohol_wine: "3", weekly_alcohol_wine_coolers: "3", weekly_alcohol_mixed_drinks: "3", GADa: "1", resting_heart_rate: "90", readiness_to_eat_healthier: "4", GADb: "1", misfortune: "no", soft_drinks: "1", smoking: "never_smoked", travel_by_motorcycle: "3", cholesterol_check: "no", chh_cough: "no", home_safety: "yes", distracted_driving: "no", chh_interact: "yes", household_income: "$30,000-$39,999", unable_to_control: "4", stroke: "no", butter: "0", overall_health: "poor", typical_travel_method: "walk", height_cm: "165.1", weight: "67", education: "high school graduate", weekly_physical_activity: "at least 3 times per week", smokeless_tobacco: "0", filling_forms: "2", sleep4: "1", race: "african", going_your_way: "3", drinking_and_driving: "2"}) {
-    message
-    percentageProgress
-  }
+     submitHRAResponse(
+          input: {
+               stage: UPDATE_RESPONSE
+               fruit: "2"
+               PHQa: "1"
+               health_information_interest: "yes"
+               height: "5"
+               junk_food: "2"
+               gainful_employment: "no"
+               chh_sbreath: "no"
+               sleep2: "2"
+               weight_kg: "30.39"
+               PHQb: "0"
+               bicycle_helmet_usage: "less than 25%"
+               hispanic_origin: "no"
+               blood_pressure_medication: "0"
+               binge_drinking: "no"
+               safety_belt_usage: "47"
+               travel_by_motorcycle_km: "4.8"
+               vaping: "no"
+               diabetes_status: "no"
+               marital_status: "widowed"
+               desserts: "0"
+               sleep3: "3"
+               weekly_alcohol_beer: "3"
+               weekly_alcohol_wine: "3"
+               weekly_alcohol_wine_coolers: "3"
+               weekly_alcohol_mixed_drinks: "3"
+               GADa: "1"
+               resting_heart_rate: "90"
+               readiness_to_eat_healthier: "4"
+               GADb: "1"
+               misfortune: "no"
+               soft_drinks: "1"
+               smoking: "never_smoked"
+               travel_by_motorcycle: "3"
+               cholesterol_check: "no"
+               chh_cough: "no"
+               home_safety: "yes"
+               distracted_driving: "no"
+               chh_interact: "yes"
+               household_income: "$30,000-$39,999"
+               unable_to_control: "4"
+               stroke: "no"
+               butter: "0"
+               overall_health: "poor"
+               typical_travel_method: "walk"
+               height_cm: "165.1"
+               weight: "67"
+               education: "high school graduate"
+               weekly_physical_activity: "at least 3 times per week"
+               smokeless_tobacco: "0"
+               filling_forms: "2"
+               sleep4: "1"
+               race: "african"
+               going_your_way: "3"
+               drinking_and_driving: "2"
+          }
+     ) {
+          message
+          percentageProgress
+     }
 }
 
 mutation SUBMIT_RESPONSE_2 {
-  submitHRAResponse(input: {stage: UPDATE_RESPONSE, helmet_usage: "less than 25%", sleep1: "1", protein: "2", driving_speed: "more than 15 mph over limit", heart_disease: "no", blood_pressure_measured_low_number: "70", blood_pressure_measured_high_number: "100", age_in_years: "27", heart_attack: "no", fast_food: "0", readiness_to_reduce_alcohol_usage: "2", state_of_residence: "ks", travel_by_automobile: "104", vegetables: "1", chh_fever: "no", insurance_coverage: "Veterans, TRICARE", chh_hands: "many_times", blood_pressure_medication: "0"}) {
-    message
-    percentageProgress
-  }
+     submitHRAResponse(
+          input: {
+               stage: UPDATE_RESPONSE
+               helmet_usage: "less than 25%"
+               sleep1: "1"
+               protein: "2"
+               driving_speed: "more than 15 mph over limit"
+               heart_disease: "no"
+               blood_pressure_measured_low_number: "70"
+               blood_pressure_measured_high_number: "100"
+               age_in_years: "27"
+               heart_attack: "no"
+               fast_food: "0"
+               readiness_to_reduce_alcohol_usage: "2"
+               state_of_residence: "ks"
+               travel_by_automobile: "104"
+               vegetables: "1"
+               chh_fever: "no"
+               insurance_coverage: "Veterans, TRICARE"
+               chh_hands: "many_times"
+               blood_pressure_medication: "0"
+          }
+     ) {
+          message
+          percentageProgress
+     }
 }
 
 mutation SUBMIT_RESPONSE_3 {
-  submitHRAResponse(input: {stage: SUBMIT}) {
-    message
-    percentageProgress
-    reportId
-  }
+     submitHRAResponse(input: { stage: SUBMIT }) {
+          message
+          percentageProgress
+          reportId
+     }
 }
 
 query CURRENT_RESPONSE_QUERY {
-  currentUserResponse {
-    _id
-    questionAndResponse {
-      ...responseQuestion
-    }
-    ghmReference
-    reportId
-    percentageProgress
-    createdAt
-    updatedAt
-  }
+     currentUserResponse {
+          _id
+          questionAndResponse {
+               ...responseQuestion
+          }
+          ghmReference
+          reportId
+          percentageProgress
+          createdAt
+          updatedAt
+     }
 }
 
 mutation UPDATE_USER_MUTATION {
-  updateUserMutation(input: {weight: 89, height: 175, firstName: "Temi"}) {
-    _id
-    name
-  }
+     updateUserMutation(
+          input: {
+               firstName: "Kenny"
+               lastName: "Adigun"
+               activity: SOMEWHATACTIVE
+               weight: 0
+               height: 0
+               gender: null
+               dob: null
+          }
+     ) {
+          _id
+          name
+     }
 }
 
 mutation CREATE_COMPANY_MUTATION {
-  registerCompany(input: {firstName: "Peter 3", lastName: "Silubi", organizationName: "Sunday and sons", organizationEmail: "sundayandsons@mailinator.com", representativeEmail: "sundayandsons@mailinator.com", jobTitle: "HR", password: "123456"}) {
-    message
-  }
+     registerCompany(
+          input: {
+               firstName: "Peter 3"
+               lastName: "Silubi"
+               organizationName: "Sunday and sons"
+               organizationEmail: "sundayandsons@mailinator.com"
+               representativeEmail: "sundayandsons@mailinator.com"
+               jobTitle: "HR"
+               password: "123456"
+          }
+     ) {
+          message
+     }
 }
 
 query FETCH_USERS_TYPE3 {
-  userById(id: "5f5b3e2e1fe5b6e0cb0f5ee0") {
-    name
-    activationToken
-  }
+     userById(id: "5f5b3e2e1fe5b6e0cb0f5ee0") {
+          name
+          activationToken
+     }
 }
 
 mutation ACTIVATE_COMPANY_MUTATION {
-  activateCompany(activationToken: "e87c5135cb24dc3993da4bd7a4b36b437165751b") {
-    message
-  }
+     activateCompany(
+          activationToken: "e87c5135cb24dc3993da4bd7a4b36b437165751b"
+     ) {
+          message
+     }
 }
 
 mutation SET_LIMIT_MUTATION {
-  setEmployeeLimit(amount: 10, id: "5f5b3e2e1fe5b6e0cb0f5ee0") {
-    message
-  }
+     setEmployeeLimit(amount: 30, id: "5f5b3e2e1fe5b6e0cb0f5ee0") {
+          message
+     }
 }
 
-mutation ADD_EMPLOYEE_COMPANY {
-  addEmployeeToACompany(input: [{lastName: "Team", firstName: "New Company", email: "company1.member1@mailinator.com", department: "HR", branch: "Abuja"}, {lastName: "Team", firstName: " Company 3", email: "company1.member2@mailinator.com", department: "HR", branch: "Abuja"}, {lastName: "Team", firstName: " Company 3", email: "company1.member3@mailinator.com", department: "HR", branch: "Abuja"}]) {
-    message
-  }
+mutation ADD_EMPLOYEE_COMPANY($input: [addEmployeeInput]) {
+     addEmployeeToACompany(input: $input) {
+          message
+     }
 }
 
 mutation CREATE_COMPANY_REWARD {
-  companyCreateReward(input: {title: "Test Reward", description: "A test reward", startDate: "2020-08-18", endDate: "2020-12-31"}) {
-    message
-  }
+     companyCreateReward(
+          input: {
+               title: "Test Reward"
+               description: "A test reward"
+               startDate: "2020-08-18"
+               endDate: "2020-12-31"
+          }
+     ) {
+          message
+     }
 }
 
 mutation UPDATE_COMPANY_REWARD {
-  companyUpdateReward(input: {id: "5f5de253116fb3311289f713", title: "Test Reward Updated", description: "A test reward", startDate: "2020-08-13", endDate: "2020-12-31"}) {
-    _id
-    title
-  }
+     companyUpdateReward(
+          input: {
+               id: "5f5de253116fb3311289f713"
+               title: "Test Reward Updated"
+               description: "A test reward"
+               startDate: "2020-08-13"
+               endDate: "2020-12-31"
+          }
+     ) {
+          _id
+          title
+     }
 }
 
 mutation CLOSE_COMPANY_REWARD {
-  closeOneReward(id: "5f5de253116fb3311289f713") {
-    message
-  }
+     closeOneReward(id: "5f5de253116fb3311289f713") {
+          message
+     }
 }
 
 mutation RESET_PASSWORD_MUTATION {
-  resetPassword(resetToken: "7c610fb6194bd60c706e596a908036f1a1cb19ec", password: "123456", confirmPassword: "123456") {
-    ...userGragment
-  }
+     resetPassword(
+          resetToken: "7c610fb6194bd60c706e596a908036f1a1cb19ec"
+          password: "123456"
+          confirmPassword: "123456"
+     ) {
+          ...userGragment
+     }
 }
 
 query FETCH_EMPLOYEE_COMPANY_QUERY {
-  fetchEmployeesOfACompany {
-    ...userGragment
-    company {
-      _id
-      name
-      type
-    }
-  }
+     fetchEmployeesOfACompany {
+          ...userGragment
+          company {
+               _id
+               name
+               type
+          }
+     }
 }
 
 query FETCH_EMPLOYEE_COMPANY_QUERY2 {
-  fetchEmployeesOfACompanyByCategory(by: PENDING) {
-    ...userGragment
-    company {
-      _id
-      name
-      type
-    }
-  }
+     fetchEmployeesOfACompanyByCategory(by: PENDING) {
+          ...userGragment
+          company {
+               _id
+               name
+               type
+          }
+     }
 }
 
 mutation SUSPEND_EMPLOYEE_MUTATION {
-  suspendEmployee(id: "5f55dfcd73053623daa04632") {
-    message
-  }
+     suspendEmployee(id: "5f55dfcd73053623daa04632") {
+          message
+     }
 }
 
 mutation REMOVE_EMPLOYEE_MUTATION {
-  removeEmployee(id: "5f55f835562b5446f4714222") {
-    message
-  }
+     removeEmployee(id: "5f55f835562b5446f4714222") {
+          message
+     }
 }
 
 mutation UNSUSPEND_EMPLOYEE_MUTATION {
-  unSuspendEmployee(id: "5f55dfcd73053623daa04632") {
-    message
-  }
+     unSuspendEmployee(id: "5f55dfcd73053623daa04632") {
+          message
+     }
 }
 
 query FETCH_PENDING_COMPANY_QUERY {
-  fetchPendingCompany {
-    ...userGragment
-  }
+     fetchPendingCompany {
+          ...userGragment
+     }
 }
 
 mutation MUTATION_RESEND_EMPLOYEES {
-  resendCompanyAddEmployeeEmail(id: "5f5b3f531fe5b6e0cb0f5ee7") {
-    message
-  }
+     resendCompanyAddEmployeeEmail(id: "5f5b3f531fe5b6e0cb0f5ee7") {
+          message
+     }
 }
 
 query FETCHALL_REWARDS_QWERY {
-  fetchAllRewards {
-    _id
-    title
-    description
-    startDate
-    endDate
-    isClosed
-  }
+     fetchAllRewards {
+          _id
+          title
+          description
+          startDate
+          endDate
+          isClosed
+     }
 }
 
 query FETCH_CURRENT_REWARD_QUERY {
-  fetchCurrentReward {
-    _id
-    title
-    description
-    startDate
-    endDate
-    isClosed
-  }
+     fetchCurrentReward {
+          _id
+          title
+          description
+          startDate
+          endDate
+          isClosed
+     }
 }
 
 query FETCH_CLOSED_REWARD_QUERY {
-  fetchAllClosedReward {
-    _id
-    title
-    description
-    startDate
-    endDate
-    isClosed
-  }
+     fetchAllClosedReward {
+          _id
+          title
+          description
+          startDate
+          endDate
+          isClosed
+     }
 }
 
 query FETCH_LEADERBOARD_QUERY {
-  fetchLeaderBoardCompany {
-    id
-    name
-    department
-    branch
-    points
-  }
+     fetchLeaderBoardCompany {
+          id
+          name
+          department
+          branch
+          points
+     }
 }
 
 query FETCH_USERSBYIDS_QUERY {
-  userByIds(ids: ["5f5b22e399d428cf9972e2c5", "5f5b22e399d428cf9972e2c6", "5f5b22e399d428cf9972e2c7", "5f5b22e399d428cf9972e2c8"]) {
-    _id
-    name
-  }
+     userByIds(
+          ids: [
+               "5f5b22e399d428cf9972e2c5"
+               "5f5b22e399d428cf9972e2c6"
+               "5f5b22e399d428cf9972e2c7"
+               "5f5b22e399d428cf9972e2c8"
+          ]
+     ) {
+          _id
+          name
+     }
 }
 
 query mutation_LOGIN_MUTAT915 {
-  searchEmployee(searchInput: "mailinator") {
-    ...userGragment
-  }
+     searchEmployee(searchInput: "mailinator") {
+          ...userGragment
+     }
 }
 
 query mutation_LOGIN_MUTAT916 {
-  searchCompany(searchInput: "company1") {
-    ...userGragment
-  }
+     searchCompany(searchInput: "company1") {
+          ...userGragment
+     }
 }
 
 mutation SUBMIT_APPOINTMENT {
-  createAppointmentMutation(input: {title: "greetings", purpose: "talking", description: "I need help", date: "12/11/2020", time: "11:50", type: INBODY, professional: "professsional"}) {
-    message
-  }
+     createAppointmentMutation(
+          input: {
+               title: "greetings"
+               purpose: "talking"
+               description: "I need help"
+               date: "12/11/2020"
+               time: "11:50"
+               type: INBODY
+               professional: "professsional"
+          }
+     ) {
+          message
+     }
 }
 
 query mutation_LOGIN_MUTAT840 {
-  fetchAdminReport {
-    adminReportData {
-      name
-      user_id
-      email
-      report_ts
-      report_id
-    }
-    length
-  }
+     fetchAdminReport {
+          adminReportData {
+               name
+               user_id
+               email
+               report_ts
+               report_id
+          }
+          length
+     }
 }
 
 query mutation_LOGIN_MUTAT841 {
-  fetchCompanyReport {
-    adminReportData {
-      name
-      user_id
-      email
-      report_ts
-      report_id
-    }
-    length
-  }
+     fetchCompanyReport {
+          adminReportData {
+               name
+               user_id
+               email
+               report_ts
+               report_id
+          }
+          length
+     }
 }
 
 mutation mutation_LOGIN_MUTAT671 {
-  subscribeToEmailList(input: {email: "temi4@mailinator.com", name: ""}) {
-    message
-  }
+     subscribeToEmailList(input: { email: "temi4@mailinator.com", name: "" }) {
+          message
+     }
 }
 
 mutation mutation_LOGIN_MUTAT958 {
-  activateSubscriber(id: "5f71f8ad3f4b525cb68742f6") {
-    message
-  }
+     activateSubscriber(id: "5f71f8ad3f4b525cb68742f6") {
+          message
+     }
 }
 
 mutation mutation_LOGIN_MUTAT337 {
-  unSubscribeFromEmailList(id: "5f71f8ad3f4b525cb68742f6", reason: "I am not doing anymore") {
-    message
-  }
+     unSubscribeFromEmailList(
+          id: "5f71f8ad3f4b525cb68742f6"
+          reason: "I am not doing anymore"
+     ) {
+          message
+     }
 }
 
 query mutation_LOGIN_MUTAT716 {
-  BMI {
-    bmi
-    rating
-    ratingsMsg
-  }
+     BMI {
+          bmi
+          rating
+          ratingsMsg
+     }
 }
 
 query mutation_LOGIN_MUTAT277 {
-  fetchAllBlogPostByCategory(content_type: HEALTH) {
-    total
-    skip
-    limit
-    content {
-      id
-      title
-      body
-      createdAt
-      tags
-      author
-      authorRole
-      asset {
-        name
-        url
-      }
-    }
-  }
+     fetchAllBlogPostByCategory(content_type: FITNESS) {
+          total
+          skip
+          limit
+          content {
+               id
+               title
+               body
+               createdAt
+               tags
+               author
+               authorRole
+               asset {
+                    name
+                    url
+               }
+               feature
+          }
+     }
 }
 
 query mutation_LOGIN_MUTAT278 {
-  fetchAllBlogPost {
-    total
-    skip
-    limit
-    content {
-      id
-      title
-      body
-      createdAt
-      tags
-      author
-      authorRole
-      asset {
-        name
-        url
-      }
-    }
-  }
+     fetchAllBlogPost {
+          total
+          skip
+          limit
+          content {
+               id
+               title
+               body
+               createdAt
+               tags
+               author
+               authorRole
+               asset {
+                    name
+                    url
+               }
+               feature
+          }
+     }
+}
+
+query FETCH_FEATURED_BLOGPOST {
+     fetchAllFeaturedBlogPost {
+          total
+          skip
+          limit
+          content {
+               id
+               title
+               body
+               createdAt
+               tags
+               author
+               authorRole
+               asset {
+                    name
+                    url
+               }
+               feature
+          }
+     }
 }
 
 query mutation_LOGIN_MUTAT2790 {
-  fetchOneBlogPost(id: "7znnZDHTNZL7jngy2BjULO") {
-    id
-    title
-    body
-    createdAt
-    tags
-    author
-    authorRole
-    asset {
-      name
-      url
-    }
-  }
+     fetchOneBlogPost(id: "7znnZDHTNZL7jngy2BjULO") {
+          id
+          title
+          body
+          createdAt
+          tags
+          author
+          authorRole
+          asset {
+               name
+               url
+          }
+     }
 }
 
 query mutation_LOGIN_MUTAT239 {
-  fetchAllExerciseEndpoints {
-    workout
-    day
-    daysofweek
-    equipment
-    exercise
-    exercisecategory
-    exercisecomment
-    exerciseimage
-    exerciseinfo
-    ingredient
-    ingredientweightunit
-    language
-    license
-    meal
-    mealitem
-    muscle
-    nutritionplan
-    schedule
-    schedulestep
-    set
-    setting
-    settingRepetitionunit
-    settingWeightunit
-    userprofile
-    weightentry
-    weightunit
-    workoutlog
-    workoutsession
-  }
+     fetchAllExerciseEndpoints {
+          workout
+          day
+          daysofweek
+          equipment
+          exercise
+          exercisecategory
+          exercisecomment
+          exerciseimage
+          exerciseinfo
+          ingredient
+          ingredientweightunit
+          language
+          license
+          meal
+          mealitem
+          muscle
+          nutritionplan
+          schedule
+          schedulestep
+          set
+          setting
+          settingRepetitionunit
+          settingWeightunit
+          userprofile
+          weightentry
+          weightunit
+          workoutlog
+          workoutsession
+     }
 }
 
 query FETCH_ALL_EXERCISE {
-  fetchAllExercise {
-    id
-    image
-    exercise {
-      name
-    }
-  }
+     fetchAllExercise {
+          id
+          image
+          exercise {
+               name
+          }
+     }
 }
 
 query FETCH_ONE_EXERCISE {
-  fetchOneExercise(id: 183) {
-    id
-    image
-  }
+     fetchOneExercise(id: 183) {
+          id
+          image
+     }
 }
 
 query mutation_LOGIN_MUTAT998 {
-  fetchWgerAPIData {
-    message
-  }
+     fetchWgerAPIData {
+          message
+     }
 }
 
 query mutation_LOGIN_MUTAT100 {
-  removeWgerAPIData {
-    message
-  }
+     removeWgerAPIData {
+          message
+     }
+}
+
+query fetchMealPlanOptions {
+     fetchMealOptions {
+          food
+     }
+}
+
+mutation generateMealPlan {
+     generateMealPlan(
+          userChoice: ["Egg", "Beef", "Chicken", "Turkey", "Fish"]
+     ) {
+          day1 {
+               Breakfast
+               Lunch
+               Dinner
+               Snacks
+          }
+          day2 {
+               Breakfast
+               Lunch
+               Dinner
+               Snacks
+          }
+          day3 {
+               Breakfast
+               Lunch
+               Dinner
+               Snacks
+          }
+     }
+}
+query FetchMealPlan {
+     fetchMealPlan {
+          _id
+          mealPlanData {
+               day1 {
+                    Breakfast
+                    Lunch
+                    Dinner
+                    Snacks
+               }
+          }
+     }
+}
+
+mutation RESET_MEAL_PLAN {
+     ResetMealPlan {
+          message
+     }
 }
 
 fragment userGragment on User {
-  _id
-  name
-  email
-  representativeEmail
-  mobile
-  password
-  type
-  image
-  gender
-  nationality
-  dob
-  occupation
-  address
-  token
-  resetPasswordExpires
-  activationToken
-  resetPasswordToken
-  adminVerified
-  source
-  suspended
-  totalRewardPoints
-  weight
-  height
-  activity
-  department
-  branch
-  companyName
-  companyUrl
-  companySize
-  employeeLimit
-  createdAt
-  updatedAt
+     _id
+     name
+     email
+     representativeEmail
+     mobile
+     password
+     type
+     image
+     gender
+     nationality
+     dob
+     occupation
+     address
+     token
+     resetPasswordExpires
+     activationToken
+     resetPasswordToken
+     adminVerified
+     source
+     suspended
+     totalRewardPoints
+     weight
+     height
+     activity
+     department
+     branch
+     companyName
+     companyUrl
+     companySize
+     employeeLimit
+     createdAt
+     updatedAt
 }
 
 fragment responseQuestion on QuestionAndResponse {
-  age_in_years
-  arrested_dui
-  bathing
-  bicycle_helmet_usage
-  binge_drinking
-  blood_glucose_mml
-  blood_glucose
-  blood_pressure_estimated
-  blood_pressure_measured_high_number
-  blood_pressure_measured_low_number
-  blood_pressure_medication
-  body_frame_size
-  butter
-  caffeine
-  charcoal_broiled
-  chh_cough
-  chh_fever
-  chh_hands
-  chh_interact
-  chh_sbreath
-  cholesterol_check
-  cholesterol_level_estimated
-  cholesterol_level_mml
-  cholesterol_level
-  cholesterol_medication
-  colon_cancer_screening
-  commercial_driver
-  cross_contamination
-  daily_cigars
-  daily_marajuana
-  daily_pipes
-  daily_shisha
-  desserts
-  diabetes_status
-  difficulties_piling_up
-  distracted_driving
-  dressing
-  drinking_and_driving
-  driving_speed
-  eating
-  education
-  fast_food
-  felt_confident
-  filling_forms
-  fish
-  fruit
-  fruits_and_vegetables
-  GADa
-  GADb
-  GADc
-  GADd
-  GADe
-  GADf
-  GADg
-  gainful_employment
-  getting_outside
-  going_your_way
-  gross_weight
-  hb1ac_check
-  hdl_cholesterol_estimated
-  hdl_cholesterol_mml
-  hdl_cholesterol
-  health_information_interest
-  heart_attack
-  heart_disease
-  heavy_housework
-  height_cm
-  height_feet
-  height_inches
-  height
-  helmet_usage
-  high_cholesterol_food
-  hispanic_origin
-  home_safety
-  household_income
-  hysterectomy
-  insurance_coverage
-  junk_food
-  last_mammogram
-  light_housework
-  limit_crime
-  managing_money
-  marital_status
-  meals
-  misfortune
-  out_of_bed
-  out_of_house
-  overall_health
-  pap_smear_test
-  PHQa
-  PHQb
-  PHQc
-  PHQd
-  PHQe
-  PHQf
-  PHQg
-  PHQh
-  PHQi
-  protein
-  race
-  readiness_to_eat_healthier
-  readiness_to_exercise_more
-  readiness_to_quit_smoking
-  readiness_to_reduce_alcohol_usage
-  resting_heart_rate
-  road_rage
-  safety_belt_usage
-  save_key
-  sex
-  shopping
-  sleep1
-  sleep2
-  sleep3
-  sleep4
-  smokeless_tobacco
-  smoking
-  soft_drinks
-  state_of_residence
-  still_smoke
-  stroke
-  sugar_beverage
-  telephone
-  travel_by_automobile_km
-  travel_by_automobile
-  travel_by_motorcycle_km
-  travel_by_motorcycle
-  triglycerides
-  type_of_license
-  typical_travel_method
-  unable_to_control
-  used_to_smoke_cigarettes_day
-  used_to_smoke_cigars_day
-  used_to_smoke_pipes_day
-  using_toilet
-  vaping_freq
-  vaping
-  vegetables
-  walking
-  weekly_alcohol_beer
-  weekly_alcohol_mixed_drinks
-  weekly_alcohol_wine_coolers
-  weekly_alcohol_wine
-  weekly_physical_activity
-  weight_kg
-  weight
-  years_as_driver
-  years_since_quitting_months
-  years_since_quitting_years
+     age_in_years
+     arrested_dui
+     bathing
+     bicycle_helmet_usage
+     binge_drinking
+     blood_glucose_mml
+     blood_glucose
+     blood_pressure_estimated
+     blood_pressure_measured_high_number
+     blood_pressure_measured_low_number
+     blood_pressure_medication
+     body_frame_size
+     butter
+     caffeine
+     charcoal_broiled
+     chh_cough
+     chh_fever
+     chh_hands
+     chh_interact
+     chh_sbreath
+     cholesterol_check
+     cholesterol_level_estimated
+     cholesterol_level_mml
+     cholesterol_level
+     cholesterol_medication
+     colon_cancer_screening
+     commercial_driver
+     cross_contamination
+     daily_cigars
+     daily_marajuana
+     daily_pipes
+     daily_shisha
+     desserts
+     diabetes_status
+     difficulties_piling_up
+     distracted_driving
+     dressing
+     drinking_and_driving
+     driving_speed
+     eating
+     education
+     fast_food
+     felt_confident
+     filling_forms
+     fish
+     fruit
+     fruits_and_vegetables
+     GADa
+     GADb
+     GADc
+     GADd
+     GADe
+     GADf
+     GADg
+     gainful_employment
+     getting_outside
+     going_your_way
+     gross_weight
+     hb1ac_check
+     hdl_cholesterol_estimated
+     hdl_cholesterol_mml
+     hdl_cholesterol
+     health_information_interest
+     heart_attack
+     heart_disease
+     heavy_housework
+     height_cm
+     height_feet
+     height_inches
+     height
+     helmet_usage
+     high_cholesterol_food
+     hispanic_origin
+     home_safety
+     household_income
+     hysterectomy
+     insurance_coverage
+     junk_food
+     last_mammogram
+     light_housework
+     limit_crime
+     managing_money
+     marital_status
+     meals
+     misfortune
+     out_of_bed
+     out_of_house
+     overall_health
+     pap_smear_test
+     PHQa
+     PHQb
+     PHQc
+     PHQd
+     PHQe
+     PHQf
+     PHQg
+     PHQh
+     PHQi
+     protein
+     race
+     readiness_to_eat_healthier
+     readiness_to_exercise_more
+     readiness_to_quit_smoking
+     readiness_to_reduce_alcohol_usage
+     resting_heart_rate
+     road_rage
+     safety_belt_usage
+     save_key
+     sex
+     shopping
+     sleep1
+     sleep2
+     sleep3
+     sleep4
+     smokeless_tobacco
+     smoking
+     soft_drinks
+     state_of_residence
+     still_smoke
+     stroke
+     sugar_beverage
+     telephone
+     travel_by_automobile_km
+     travel_by_automobile
+     travel_by_motorcycle_km
+     travel_by_motorcycle
+     triglycerides
+     type_of_license
+     typical_travel_method
+     unable_to_control
+     used_to_smoke_cigarettes_day
+     used_to_smoke_cigars_day
+     used_to_smoke_pipes_day
+     using_toilet
+     vaping_freq
+     vaping
+     vegetables
+     walking
+     weekly_alcohol_beer
+     weekly_alcohol_mixed_drinks
+     weekly_alcohol_wine_coolers
+     weekly_alcohol_wine
+     weekly_physical_activity
+     weight_kg
+     weight
+     years_as_driver
+     years_since_quitting_months
+     years_since_quitting_years
 }
