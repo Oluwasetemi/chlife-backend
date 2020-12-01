@@ -6,6 +6,8 @@ README.md
 input.js
 question.js
 # all_development_queries.graphql
+ghm-hra-questions-female.json
+ghm-hra-questions-male.json
 ghm-hra-questions.json
 package-lock.json
 package.json

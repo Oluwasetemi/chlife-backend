@@ -5,13 +5,13 @@ const mealPlanSchema = new mongoose.Schema(
   {
     title: {
       type: String,
-      required: true,
+      trim: true,
     },
     description: {
       type: String,
-      required: true,
+      trim: true,
     },
-    mealPlanStructure: {
+    mealPlanData: {
       // the object of day timeOfTheDay food
       /*
       monday: {breakfast: '', lunch: '', dinner: '' }
@@ -20,18 +20,8 @@ const mealPlanSchema = new mongoose.Schema(
       sunday: {breakfast: '', lunch: '', dinner: '' }
       */
       type: mongoose.Schema.Types.Mixed,
-      required: true,
     },
-    type: {
-      type: String,
-      enum: ['INBODY', 'PROFESSIONAL'],
-      required: true,
-    },
-    category: {
-      type: String,
-      enum: ['INBODY', 'PROFESSIONAL'],
-      required: true,
-    },
+    advice: String,
   },
   {
     timestamps: true,
@@ -39,4 +29,4 @@ const mealPlanSchema = new mongoose.Schema(
 );
 
 // Export the model
-module.exports = mongoose.model('Appointment', mealPlanSchema);
+module.exports = mongoose.model('Mealplan', mealPlanSchema);

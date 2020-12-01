@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-param-reassign */
 /* eslint-disable camelcase */
@@ -14,6 +15,9 @@ const { documentToHtmlString } = require('@contentful/rich-text-html-renderer');
 const { cmToMeters, calculateBMI, toCamelCase } = require('../utils/helpers');
 
 const { verify } = require('../utils/auth');
+const { readMealPlan, getOptions } = require('../utils/mealplan');
+const { findOneMealPlan } = require('../services/mealplan');
+
 const {
   findUserById,
   findAllUsers,
@@ -185,6 +189,14 @@ const query = {
         path.join(__dirname, '../../ghm-hra-questions.json'),
         'utf8'
       );
+      const questionsMale = await readFileSync(
+        path.join(__dirname, '../../ghm-hra-questions-male.json'),
+        'utf8'
+      );
+      const questionsFemale = await readFileSync(
+        path.join(__dirname, '../../ghm-hra-questions-female.json'),
+        'utf8'
+      );
 
       function formatDate(str) {
         try {
@@ -217,7 +229,9 @@ const query = {
             ''}","get_questionnaire.race_ethinicity": "choose an answer","get_questionnaire.hispanic_origin": "choose an answer","get_questionnaire.home_address": "${req
             .user.address ||
             ''}","get_questionnaire.work_address": "","get_questionnaire.organization_name": "${req
-            .user.company || ''}"}`,
+            .user.companyName || ''}", "get_questionnaire.org_id": "${
+            req.user.company
+          }"}`,
         },
         /* eslint-enable */
       };
@@ -229,7 +243,16 @@ const query = {
         throw new Error('api request failed');
       }
 
-      questions = JSON.parse(questions);
+      /* eslint-disable */
+      questions = JSON.parse(
+        req.user.gender === 'MALE'
+          ? questionsMale
+          : req.user.gender === 'FEMALE'
+          ? questionsFemale
+          : questions,
+      );
+      /* eslint-enable */
+
       const inputLowerCase = input.toLowerCase();
 
       const resultData = questions.find((each) => {
@@ -994,6 +1017,62 @@ const query = {
       skip: data.skip,
     };
   },
+  /* eslint-disable */
+  async fetchAllFeaturedBlogPost(_, { limit = 30, skip = 0 }, { dataSources }) {
+    /* eslint-enable */
+    const data = await dataSources.contentfulAPI.entries(limit, skip);
+
+    if (!data) {
+      throw new Error('server error');
+    }
+
+    const { items } = data;
+    let entries = [];
+
+    for (const eachItem of items) {
+      if (typeof eachItem.fields.body !== 'string') {
+        eachItem.fields.body = documentToHtmlString(eachItem.fields.body);
+      }
+
+      let asset;
+      let url;
+      let name;
+      if (eachItem.fields.image) {
+        asset = await dataSources.contentfulAPI.singleAsset(
+          eachItem.fields.image.sys.id
+        );
+
+        if (!asset) {
+          throw new Error('server error');
+        }
+
+        url = `https:${asset.fields.file.url}`;
+        name = asset.fields.file.fileName;
+
+        asset = {
+          name,
+          url,
+        };
+      }
+
+      const entry = {
+        id: eachItem.sys.id,
+        ...eachItem.fields,
+        asset,
+      };
+      entries.push(entry);
+    }
+
+    // filter the entries for the one that has featured
+    entries = entries.filter((entry) => entry.feature === 'Featured');
+
+    return {
+      content: entries,
+      total: entries.length,
+      limit: data.limit,
+      skip: data.skip,
+    };
+  },
   async fetchOneBlogPost(_, { id }, { dataSources }) {
     const data = await dataSources.contentfulAPI.entry(id);
 
@@ -1159,6 +1238,33 @@ const query = {
     }
 
     return exercise;
+  },
+  fetchMealOptions() {
+    const mealPlanJson = readMealPlan('/mealPlan.json');
+
+    if (mealPlanJson) {
+      const mealOptions = getOptions(mealPlanJson);
+
+      if (!mealOptions) {
+        throw new Error('No meal options available, Check the mealPlan JSON');
+      }
+
+      return { food: mealOptions };
+    }
+  },
+  async fetchMealPlan(_, args, { req }) {
+    // check whether the user is logged in
+    if (!req.userId) {
+      throw new Error('You must be logged In');
+    }
+
+    const mealPlan = await findOneMealPlan(req.user.mealPlan);
+
+    if (!mealPlan) {
+      throw new Error('User have not generated a mealPlan');
+    }
+
+    return mealPlan;
   },
 };
 

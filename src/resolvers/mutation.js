@@ -10,6 +10,7 @@ const axios = require('axios').default;
 const request = require('request');
 
 const hra = require('../models/hra');
+const { createMealPlan } = require('../services/mealplan');
 
 const requestPromise = promisify(request);
 
@@ -22,6 +23,8 @@ const {
   urlGoogle,
   getGoogleAccountFromCode,
 } = require('../utils/google-oauth');
+
+const { readMealPlan, createRandomMealPlan } = require('../utils/mealplan');
 
 const {
   findOneByEmail,
@@ -1635,6 +1638,41 @@ const mutation = {
     } catch (error) {
       throw new Error(error.message);
     }
+  },
+  async generateMealPlan(_, args, { req }) {
+    // check whether the user is logged in
+    if (!req.userId) {
+      throw new Error('You must be logged In');
+    }
+    const mealPlanJson = readMealPlan('/mealPlan.json');
+
+    if (!mealPlanJson) {
+      throw new Error('Check the meal plan JSON');
+    }
+    const mealPlanResult = createRandomMealPlan(mealPlanJson, args.userChoice);
+
+    if (!mealPlanResult) {
+      throw new Error('Error in meal in creation');
+    }
+
+    // save the mealPlan into the DB
+    const mealPlanSaved = await createMealPlan({
+      mealPlanData: mealPlanResult,
+    });
+    // update the user
+    await updateUser({ _id: req.userId }, { mealPlan: mealPlanSaved._id });
+
+    return mealPlanResult;
+  },
+  async ResetMealPlan(_, args, { req }) {
+    // check whether the user is logged in
+    if (!req.userId) {
+      throw new Error('You must be logged In');
+    }
+
+    await updateUser({ _id: req.userId }, { mealPlan: null });
+
+    return { message: 'Meal plan reset successfully' };
   },
 };
 

@@ -385,20 +385,52 @@ type Appointment {
 	updatedAt: DateTime
 }
 
-type MealPlanStructure {
-	value: String!
+type MealPlanData {
+	day1: MealSection
+	day2: MealSection
+	day3: MealSection
+	day4: MealSection
+	day5: MealSection
+	day6: MealSection
+	day7: MealSection
+	day8: MealSection
+	day9: MealSection
+	day10: MealSection
+	day11: MealSection
+	day12: MealSection
+	day13: MealSection
+	day14: MealSection
+	day15: MealSection
+	day16: MealSection
+	day17: MealSection
+	day18: MealSection
+	day19: MealSection
+	day20: MealSection
+	day21: MealSection
+	day22: MealSection
+	day23: MealSection
+	day24: MealSection
+}
+
+type MealSection {
+	Breakfast: String
+	Lunch: String
+	Dinner: String
+	Snacks: String
 }
 
 type MealPlan {
 	_id: String!
 	title: String
 	description: String
-	mealPlanStructure: MealPlanStructure
-	type: String
-	category: String
+	mealPlanData: MealPlanData
 	advice: String
 	createdAt: DateTime
 	updatedAt: DateTime
+}
+
+type MealOptions {
+	food: [String]
 }
 
 type User {
@@ -526,33 +558,33 @@ type BMI {
 
 type Wgerde {
 	workout: String
-    day: String
-    daysofweek: String
-    equipment: String
-    exercise: String
-    exercisecategory: String
-    exercisecomment: String
-    exerciseimage: String
-    exerciseinfo: String
-    ingredient: String
-    ingredientweightunit: String
-    language: String
-    license: String
-    meal: String
-    mealitem: String
-    muscle: String
-    nutritionplan: String
-    schedule: String
-    schedulestep: String
-    set: String
-    setting: String
-    settingRepetitionunit: String
-    settingWeightunit: String
-    userprofile: String
-    weightentry: String
-    weightunit: String
-    workoutlog: String
-    workoutsession: String
+	day: String
+	daysofweek: String
+	equipment: String
+	exercise: String
+	exercisecategory: String
+	exercisecomment: String
+	exerciseimage: String
+	exerciseinfo: String
+	ingredient: String
+	ingredientweightunit: String
+	language: String
+	license: String
+	meal: String
+	mealitem: String
+	muscle: String
+	nutritionplan: String
+	schedule: String
+	schedulestep: String
+	set: String
+	setting: String
+	settingRepetitionunit: String
+	settingWeightunit: String
+	userprofile: String
+	weightentry: String
+	weightunit: String
+	workoutlog: String
+	workoutsession: String
 }
 
 type Query {
@@ -580,6 +612,10 @@ type Query {
 	Fetch All Blogpost
 	"""
 	fetchAllBlogPost(limit: Int! = 10, skip: Int! = 0): AllContentful!
+	"""
+	fetch all featured blog post
+	"""
+	fetchAllFeaturedBlogPost: AllContentful!
 	"""
 	Fetch All Blogpost by category
 	"""
@@ -663,6 +699,8 @@ type Query {
 	fetchWgerAPIData: Message!
 	fetchAllExercise: [Exercise]!
 	removeWgerAPIData: Message!
+	fetchMealOptions: MealOptions
+	fetchMealPlan: MealPlan
 }
 
 input updateUserInput {
@@ -1083,6 +1121,14 @@ type Mutation {
 	remove an EmailList Subscriber from Emailing List
 	"""
 	unSubscribeFromEmailList(id: String!, reason: String): Message!
+	"""
+	generate meal plan
+	"""
+	generateMealPlan(userChoice: [String]): MealPlanData
+	"""
+	Reset a logged in user meal plan
+	"""
+	ResetMealPlan: Message
 }
 
 type Subscription {

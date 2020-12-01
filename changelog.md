@@ -147,4 +147,11 @@
 ## v0.2.5
 
 - Create a new query to `fetchAllExercise` using data extracted from wgerdeAPI.
-- Create two query `fetchWgerAPIData` and `removeWgerAPIData` for fetching al the wgerdeAPI into the database
+- Create two query `fetchWgerAPIData` and `removeWgerAPIData` for fetching all the wgerdeAPI into the database
+
+## v0.2.6
+
+- Create a new query to `fetchAllFeaturedBlogPost` using data extracted from contentful to fetch blogpost that are featured.
+- Create two query `fetchMealOptions` and `fetchMealPlan` for fetching mealOptions and the current logged in user mealplan.
+- Create two mutation `generateMealPlan` and `ResetMealPlan` for creating mealplan and the resetting a logged in user mealplan.
+- The fetch Question API has male and female Question option depending on the gender of the user or show default if the user has updated their gender

@@ -1,6 +1,7 @@
 const { GraphQLScalarType } = require('graphql');
 const Hra = require('../models/hra');
 const User = require('../models/user');
+const Mealplan = require('../models/mealplan');
 const Appointment = require('../models/appointment');
 const Reward = require('../models/reward');
 const Mutation = require('./mutation');
@@ -68,6 +69,16 @@ const resolvers = {
         return user;
       }
       return user;
+    },
+    mealPlan: async (parent) => {
+      const mealplan = await Mealplan.findById(parent.mealPlan);
+
+      if (!mealplan) {
+        // eslint-disable-next-line no-shadow
+        const mealplan = null;
+        return mealplan;
+      }
+      return mealplan;
     },
   },
   UserWithCount: {

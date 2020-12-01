@@ -112,6 +112,29 @@
 				"required": true
 			},
 			{
+				"id": "height",
+				"label": "Height",
+				"prompt": "Without shoes, no fractions.",
+				"input": [
+					{
+						"type": "number",
+						"units": "feet",
+						"min": 2,
+						"max": 7
+					},
+
+					{
+						"type": "number",
+						"units": "inches",
+						"min": 0,
+						"max": 11
+					}
+				],
+				"required": true,
+				"system_of_measurement": "us_customary",
+				"counterpart": "height_cm"
+			},
+			{
 				"id": "height_cm",
 				"label": "Height",
 				"prompt": "Without shoes, no fractions.",
@@ -126,6 +149,22 @@
 				"required": true,
 				"system_of_measurement": "metric",
 				"counterpart": "height"
+			},
+			{
+				"id": "weight",
+				"label": "Weight",
+				"prompt": "Without shoes, no fractions.",
+				"input": [
+					{
+						"type": "number",
+						"units": "pounds",
+						"min": 50,
+						"max": 700
+					}
+				],
+				"required": true,
+				"system_of_measurement": "us_customary",
+				"counterpart": "weight_kg"
 			},
 			{
 				"id": "weight_kg",
@@ -236,6 +275,20 @@
 		"label": "Blood Pressure",
 		"prompt": "Please answer the following questions.",
 		"q": [
+			{
+				"id": "blood_pressure_medication",
+				"label": "Blood Pressure Medication",
+				"prompt": "Are you taking blood pressure medication?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{ "id": "1", "label": "Yes" },
+							{ "id": "0", "label": "No" }
+						]
+					}
+				]
+			},
 			{
 				"id": "blood_pressure_measured",
 				"label": "Blood Pressure",
@@ -419,6 +472,22 @@
 				"counterpart": "hdl_cholesterol_mml"
 			},
 			{
+				"id": "hdl_cholesterol_mml",
+				"label": "HDL Cholesterol",
+				"prompt": "What is your HDL cholesterol level (based on a blood test)? Leave it blank if you don't remember.",
+				"input": [
+					{
+						"type": "number",
+						"units": "mm/l",
+						"min": 1,
+						"max": 7,
+						"allow_decimals": true
+					}
+				],
+				"system_of_measurement": "mm/l",
+				"counterpart": "hdl_cholesterol"
+			},
+			{
 				"id": "cholesterol_level_estimated",
 				"label": "Estimate Cholesterol Level",
 				"prompt": "A physician told me that my total cholesterol was:",
@@ -472,6 +541,22 @@
 				],
 				"system_of_measurement": "mg/dl",
 				"counterpart": "blood_glucose_mml"
+			},
+			{
+				"id": "blood_glucose_mml",
+				"label": "Blood sugar",
+				"prompt": "What is the result of your most recent blood sugar test (non-fasting blood glucose)?",
+				"input": [
+					{
+						"type": "number",
+						"units": "mm/l",
+						"min": 2,
+						"max": 20,
+						"allow_decimals": true
+					}
+				],
+				"system_of_measurement": "mm/l",
+				"counterpart": "blood_glucose"
 			},
 			{
 				"id": "triglycerides",
@@ -1142,122 +1227,7 @@
 		"label": "Gender Specific",
 		"prompt": "Please Answer the Following Questions",
 		"q": [
-			{
-				"id": "age_at_menarche",
-				"label": "First Menstrual Period Age",
-				"prompt": "At what age did you have your first menstrual period?",
-				"input": [
-					{
-						"type": "number",
-						"units": "years old",
-						"min": 5,
-						"max": 20,
-						"maxvariable": "hra.q.age_in_years.a.years"
-					}
-				]
-			},
 
-			{
-				"id": "age_of_bearing_first_child",
-				"label": "Age of Bearing First Child",
-				"prompt": "How old were you when your first child was born? (If no children, write 0)",
-				"input": [
-					{
-						"type": "number",
-						"units": "years old",
-						"min": 0,
-						"max": 50,
-						"maxvariable": "hra.q.age_in_years.a.years"
-					}
-				]
-			},
-
-			{
-				"id": "last_mammogram",
-				"label": "Last Mammogram",
-				"prompt": "How long has it been since your last breast x-ray (mammogram)?",
-				"input": [
-					{
-						"type": "select",
-						"values": [
-							{
-								"id": "not answered",
-								"label": "choose an answer"
-							},
-							{
-								"id": "less than 1 year ago",
-								"label": "Less than 1 year ago"
-							},
-							{ "id": "1 year ago", "label": "1 year ago" },
-							{ "id": "2 years ago", "label": "2 years ago" },
-							{
-								"id": "3 or more years ago",
-								"label": "3 or more years ago"
-							},
-							{ "id": "never", "label": "Never" }
-						]
-					}
-				]
-			},
-			{
-				"id": "family_breast_cancer_history",
-				"label": "Family Breast Cancer History",
-				"prompt": "How many women in your natural family (mother and sisters only) have had breast cancer?",
-				"input": [
-					{
-						"type": "number",
-						"units": "women",
-						"min": 0,
-						"max": 10
-					}
-				]
-			},
-			{
-				"id": "hysterectomy",
-				"label": "Hysterectomy",
-				"prompt": "Have you had a hysterectomy operation?",
-				"input": [
-					{
-						"type": "select",
-						"values": [
-							{
-								"id": "not answered",
-								"label": "choose an answer"
-							},
-							{ "id": "yes", "label": "Yes" },
-							{ "id": "no", "label": "No" },
-							{ "id": "not sure", "label": "Not sure" }
-						]
-					}
-				]
-			},
-			{
-				"id": "pap_smear_test",
-				"label": "Pap Smear Test",
-				"prompt": "How long has it been since you had a pap test and/or pelvic exam?",
-				"input": [
-					{
-						"type": "select",
-						"values": [
-							{
-								"id": "not answered",
-								"label": "choose an answer"
-							},
-							{
-								"id": "less than 1 year ago",
-								"label": "Less than 1 year ago"
-							},
-							{ "id": "1 year ago", "label": "1 year ago" },
-							{ "id": "2 years ago", "label": "2 years ago" },
-							{
-								"id": "3 or more years ago",
-								"label": "3 or more years ago"
-							},
-							{ "id": "never", "label": "Never" }
-						]
-					}
-				]
-			},
 			{
 				"id": "colon_cancer_screening",
 				"label": "Colon Cancer Screening",
@@ -4504,6 +4474,52 @@
 				]
 			},
 			{
+				"id": "helmet_usage",
+				"label": "Helmet Usage",
+				"prompt": "If you ride a motorcycle or all-terrain vehicle (ATV), what percent of the time do you wear a helmet?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{ "id": "75% to 100%", "label": "75% to 100%" },
+							{ "id": "25% to 74%", "label": "25% to 74%" },
+							{ "id": "less than 25%", "label": "less than 25%" },
+							{
+								"id": "does not apply to me",
+								"label": "does not apply to me"
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "bicycle_helmet_usage",
+				"label": "Bicycle Helmet Usage",
+				"prompt": "If you ride a Bicycle, what percent of the time do you wear a helmet?",
+				"input": [
+					{
+						"type": "select",
+						"values": [
+							{
+								"id": "not answered",
+								"label": "choose an answer"
+							},
+							{ "id": "75% to 100%", "label": "75% to 100%" },
+							{ "id": "25% to 74%", "label": "25% to 74%" },
+							{ "id": "less than 25%", "label": "less than 25%" },
+							{
+								"id": "does not apply to me",
+								"label": "does not apply to me"
+							}
+						]
+					}
+				]
+			},
+			{
 				"id": "resting_heart_rate",
 				"label": "Resting Heart Rate",
 				"prompt": "What is your resting heart rate in beats per minute?(If you don't know it, you can measure it now! Using two fingers, locate your pulse on your neck or your wrist. Count the beats until one minute is up on a watch or clock.)",
@@ -4513,6 +4529,48 @@
 						"units": "bpm",
 						"min": 40,
 						"max": 100
+					}
+				]
+			},
+			{
+				"id": "rollerblades",
+				"label": "Rollerblades, Scooters, or Skateboards",
+				"prompt": "Do you frequently use rollerblades, motor scooters or skateboards to get around?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
+						]
+					}
+				]
+			},
+			{
+				"id": "headphones_in_traffic",
+				"label": "Headphones in Traffic",
+				"prompt": "Do you walk in heavy traffic areas while using headphones or earbuds?",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
+						]
+					}
+				]
+			},
+			{
+				"id": "thrill_seeker",
+				"label": "Thrill Seeker",
+				"prompt": "Are you a thrill seeker? (Hang-gliding, sky-diving, bungee jumping, motocross etc.)",
+				"input": [
+					{
+						"type": "radio",
+						"values": [
+							{ "id": "yes", "label": "Yes" },
+							{ "id": "no", "label": "No" }
+						]
 					}
 				]
 			}
