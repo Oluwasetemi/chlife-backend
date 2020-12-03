@@ -21,6 +21,10 @@ const mealPlanSchema = new mongoose.Schema(
       */
       type: mongoose.Schema.Types.Mixed,
     },
+    userChoice: {
+      // choice of the user who created the mealplan
+      type: mongoose.Schema.Types.Mixed,
+    },
     advice: String,
   },
   {

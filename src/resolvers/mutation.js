@@ -1658,6 +1658,7 @@ const mutation = {
     // save the mealPlan into the DB
     const mealPlanSaved = await createMealPlan({
       mealPlanData: mealPlanResult,
+      userChoice: args.userChoice,
     });
     // update the user
     await updateUser({ _id: req.userId }, { mealPlan: mealPlanSaved._id });
