@@ -464,7 +464,7 @@ const mutation = {
   async login(_, args) {
     try {
       const userExist = await findOneBasedOnQuery({
-        email: args.email,
+        email: args.email.toLowerCase(),
       });
 
       if (!userExist) {
