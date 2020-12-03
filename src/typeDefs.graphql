@@ -106,8 +106,14 @@ type HraMessage {
 type Values {
 	id: String!
 	label: String
+	unitlabel: UnitLabel
 	hide: [String]
 	show: [String]
+}
+
+type UnitLabel {
+	us_customary: String
+	metric: String
 }
 
 type ShowHide {
