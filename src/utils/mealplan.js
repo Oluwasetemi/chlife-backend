@@ -19,7 +19,6 @@ const meal_plan = {
         'Note - all forms of protein- 30g (1/2 cup) - 120 calories (without oil), Baked potatoes – 120g – 480calories, Mixed veggies, leafy green or tomatoes sauce –500g =  100calories',
       ],
     },
-
     Lunch: {
       Beef: [
         'Meal: Baked sweet potatoes. Mixed veggies: Onions, ginger garlic, bell papers ,carrots , green beans. Tomato sauce: Garlic, onions, basil, tomatoes, chili pepper. Protein: Beef',
@@ -50,7 +49,6 @@ const meal_plan = {
         'Egg- 20g = 80 calories, Pawpaw - 500g = 100 calories, 1 slice bread = 65 calories, 1 link chicken, Sausage = 100calories, 1 strip of Bacon = 42 calories, One cup of Mushrooms = 21 calories, 1 quarter can oF sardine = 65calories',
       ],
     },
-
     Dinner: {
       Fish: [
         'Steamed vegetables – carrots, cauliflower, green peas, ginger, garlic, bell papers (red, yellow, green) & Fish',
@@ -78,13 +76,11 @@ const meal_plan = {
         'Steamed veggies -1000g -100calories, Egg -30g-120calories, Turkey -30g-120calories, Pork -30g-120calories, Beef-30g-120calories, Fish -30g-120calories, Shrimps -30g-120calories, Chicken -30g-120calories',
       ],
     },
-
     Snacks: {
       Default: ['Mixed Nuts -20g- 80calories'],
       Information: ['Mixed Nuts -20g- 80calories'],
     },
   },
-
   Day_two: {
     Breakfast: {
       Egg: [
@@ -110,7 +106,6 @@ const meal_plan = {
         'Egg - 20g= 80 calories, Pawpaw- 500g = 100 calories,1 sliced bread = 65 calories, 1 link chicken, Sausage = 100calories, 1 strip of Bacon = 42 calories, One cup Mushrooms = 21 calories, 1 quarter can of Sardine = 65calories',
       ],
     },
-
     Lunch: {
       Egg: ['Beans and plantain pottage with vegetables & Eggs'],
       Chicken: ['Beans and plantain pottage with vegetables & Chicken'],
@@ -124,7 +119,6 @@ const meal_plan = {
         'Note – all forms of protein – 30g – 120 calories –(without oil), Beans – 100g – 400calories –cooked without oil, Plantain -25g (boiled) - 100calories, Vegetables – 400g – 80 calories, Total calories – 700',
       ],
     },
-
     Dinner: {
       Fish: ['Pepper soup – uziza leaf & Fish'],
       Chicken: ['Pepper soup – uziza leaf & Chopped Chicken'],
@@ -137,13 +131,11 @@ const meal_plan = {
         'Beef – 60g – 240kcalories, Fish – 60g- uziza leaf, Chicken – 60g – 240kcalories, Pork- 60g- 240calories, Turkey – 60g-240kcalories',
       ],
     },
-
     Snacks: {
       Default: ['Cucumber 1 medium(150g)- 20calories'],
       Information: ['Cucumber 1 medium(150g)- 20calories'],
     },
   },
-
   Day_three: {
     Breakfast: {
       Egg: [
@@ -161,7 +153,6 @@ const meal_plan = {
         '1 cup of Banana smoothie = 224 calories, 1 cup of green smoothie = 83 calories, 1 glass of soymilk = 127 calories, 1/2 cup of Oat granola =  195 calories, 1 Cup Unsweetened oat= 156 calories, 1 cup Quaker oat= 158 calories, 1 cup cereal = 100 calories, 1 Egg= 78 calories, 1 cup of Greek Yogurt = 59 calories',
       ],
     },
-
     Lunch: {
       Meat: ['Jollof rice (basmati), Salad & Meat'],
       Beef: ['Jollof rice (basmati), Salad & Beef'],
@@ -186,7 +177,6 @@ const meal_plan = {
         'Note – all forms of protein – 30g – 120 calories, Rice – 125g – 500calories (boiled), Seasonal salad - 400g – 80calories',
       ],
     },
-
     Dinner: {
       Fish: ['Boiled plantain & garden egg sauces & Fish'],
       Chicken: ['Boiled plantain & garden egg sauces & grilled Chicken'],
@@ -202,13 +192,11 @@ const meal_plan = {
         'Fish -30g- 120calories, Boiled Plantain 30g-120 calories, Garden Egg- 25g- 100 calories, Egg- 30g -120 calories, Turkey - 30g-120 calories, Pork- 30g-120 calories, Chicken - 30g- 120calories, Shrimps-30g - 120calories',
       ],
     },
-
     Snacks: {
       Default: ['Pawpaw- 100g – 32calories'],
       Information: ['Pawpaw- 100g – 32calories'],
     },
   },
-
   Day_four: {
     Breakfast: {
       Fish: ['Honey sweetened Pap, Moi Moi & grilled fish'],
@@ -221,7 +209,6 @@ const meal_plan = {
         'Pap- 20g = 80 calories, moimoi - 50g = 200 calories, Fish - 30g = 120 calories, 1 link Sausage = 100 calories, 1 boiled egg = 78calories, 1 chicken thigh - 238 calories',
       ],
     },
-
     Lunch: {
       Beef: ['Amala (White or Black) with Okra Soup & Mixed Vegetables & Beef'],
       Fish: ['Amala (White or Black) with Okra Soup & Mixed Vegetables & Fish'],
@@ -240,7 +227,6 @@ const meal_plan = {
         'Note – all forms of protein – 30g- 120calories Amala – 125g -  500calories, Okra soup with vegetables – 400g – 80calories, Total calories - 700',
       ],
     },
-
     Dinner: {
       Beef: [
         'Moi- moi & veggies –(mixed veggies –carrots, peas, corn, sweet paper, garlic & ginger) & Beef',
@@ -269,13 +255,11 @@ const meal_plan = {
         'Beef- 30g- 120calories, Moi-moi- 25g- 100calories, Veggies – 600g – 120 calories, Egg - 600g- 120calories, Turkey - 600g- 120calories, Pork - 30g- 120calories, Chicken - 30g- 120calories, Shrimps - 30g- 120calories, Fish - 30g- 120calories',
       ],
     },
-
     Snacks: {
       Default: ['Banana -1 medium size -100g -139calories'],
       Information: ['Banana -1 medium size -100g -139calories'],
     },
   },
-
   Day_five: {
     Breakfast: {
       Fish: [
@@ -299,7 +283,6 @@ const meal_plan = {
         'Unripe plantain - 50g = 200 calories, Vegetables - 20g = 80 calories, Fish- 30g = 120 calories, 85g of grilled turkey = 177 calories, 85g of grilled Chicken breast = 110 calories, 85g Shrimp= 85 calories',
       ],
     },
-
     Lunch: {
       Meat: ['Plantain flour swallow Edikaikong soup (Oil free) & Meat'],
       Beef: ['Plantain flour swallow Edikaikong soup (Oil free) & Beef'],
@@ -315,7 +298,6 @@ const meal_plan = {
         'Note – all forms of protein – 30g – 120 calories, Plantain Flour Swallow – 125g – 244 calories, Edikaikong soup – 400g – 300 calories, 1 Apple = 95 calories',
       ],
     },
-
     Dinner: {
       Fish: [
         'Seasonal vegetable stir-fry  (Carrot, green beans, garlic, ginger, bell paper, cucumber) & Fish',
@@ -343,13 +325,11 @@ const meal_plan = {
         'Turkey  – 30g- 120calories, Vegetables – 1100g – 220calories, Pork – 30g- 120calories, Shrimps  – 30g- 120calories, Fish  – 30g- 120calories, Beef – 30g- 120calories, Chicken- 30g- 120calories',
       ],
     },
-
     Snacks: {
       Default: ['Apple -60 calories'],
       Information: ['Apple -60 calories'],
     },
   },
-
   Day_six: {
     Breakfast: {
       Sausage: [
@@ -375,7 +355,6 @@ const meal_plan = {
         '1/2 cup of  Quinoa= 114 calories, Fish- 30g = 120 calories, 85g of grilled turkey= 177 calories, 85g of grilled Chicken breast =110 calories, 85g Shrimp=  85 calories, 1/5 Avocado= 64 calories, 1 cup diced watermelon= 30 calories, 1 cup diced Pineapple = 1 serving of steamed mixed Vegetable= 50 calories',
       ],
     },
-
     Lunch: {
       Beef: [
         'Boiled, baked or roasted Yam with Garden egg sauce & mushroom & Beef',
@@ -406,7 +385,6 @@ const meal_plan = {
         'Note- all forms of protein-30g- 120calories, Boiled yam-125g- 500calories, Garden egg sauce with mushroom -400g -80calories, Total calories - 700',
       ],
     },
-
     Dinner: {
       Fish: ['Vegetable salad – all green & Fish'],
       Chicken: ['Vegetable salad – all green & Chicken'],
@@ -420,21 +398,21 @@ const meal_plan = {
         'Egg -30g- 120calories, Salad- 1100g- 220calories, Turkey -30g- 120calories, pork-30g- 120calories, Chicken -30g- 120calories, Beef-30g- 120calories',
       ],
     },
-
     Snacks: {
       Default: ['Carrots -1 medium size - 60g - 29 calories'],
       Information: ['Carrots - 1 medium size -60g - 29 calories'],
     },
   },
-
   Day_seven: {
     Breakfast: {
       Sausage: [
         'Quinoa, mixed veggie, avocado, pineapple, watermelon fruit & sausages',
       ],
-      Bacon: [''],
+      Bacon: [
+        'Quinoa, mixed veggie, avocado, pineapple, watermelon fruit & bacon',
+      ],
       Mushrooms: [
-        'Quinoa, mixed veggie, avocado, pineapple, watermelon fruit & sausage',
+        'Quinoa, mixed veggie, avocado, pineapple, watermelon fruit & mushroom',
       ],
       Options: ['Sausage', 'Bacon', 'Mushrooms'],
       Default: [
@@ -444,7 +422,6 @@ const meal_plan = {
         'Per Banana Pancake= 40 calories, A glass of unsweetened yogurt = 59 calories, 1 Sausage = 100 calories, 1 strip Bacon = 42 calories, 1 cup Mushrooms =  21 calories',
       ],
     },
-
     Lunch: {
       Beef: ['Moi-moi, Sauteed vegetables & Beef'],
       Fish: ['Moi-moi, Sauteed vegetables & Fish'],
@@ -461,7 +438,6 @@ const meal_plan = {
         'Note- all forms of protein-30g -120g, Moi-moi – 125g – 500calories, Sauteed vegetables-200g- 40 calories, 2  Banana- 200g- 40 calories, Total calories - 700',
       ],
     },
-
     Dinner: {
       Fish: [
         'Greek salads – kale, red bell pepper, green bell pepper, red onions, cucumber  - Dressing with extra virgin olive oil or coconut oil , lemon, mince garlic, black paper, pinch sea salt ) & Fish',
@@ -492,14 +468,12 @@ const meal_plan = {
         'Egg  -30g -120calories, Greek Salad- 1100g- 220calories, Turkey  -30g -120calories, Pork  -30g -120calories, Chicken -30g -120calories, Shrimps -30g -120calories, Fish  -30g -120calories, Pineapple – 100g -46calories, Beef -30g -120calories',
       ],
     },
-
     Snacks: {
       Default: ['Pineapple – 100g -46calories'],
       Information: ['Pineapple – 100g -46calories'],
     },
   },
 };
-
 /* eslint-enable */
 
 // read and write json
@@ -525,7 +499,7 @@ const readMealPlan = (filename) => {
   }
 };
 
-// writeMealPlan(meal_plan, 'mealPlan.json');
+writeMealPlan(meal_plan, 'mealPlan.json');
 // mealPlanObject = readMealPlan('mealPlan.json');
 // console.log(mealPlanObject);
 

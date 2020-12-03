@@ -112,29 +112,6 @@
 				"required": true
 			},
 			{
-				"id": "height",
-				"label": "Height",
-				"prompt": "Without shoes, no fractions.",
-				"input": [
-					{
-						"type": "number",
-						"units": "feet",
-						"min": 2,
-						"max": 7
-					},
-
-					{
-						"type": "number",
-						"units": "inches",
-						"min": 0,
-						"max": 11
-					}
-				],
-				"required": true,
-				"system_of_measurement": "us_customary",
-				"counterpart": "height_cm"
-			},
-			{
 				"id": "height_cm",
 				"label": "Height",
 				"prompt": "Without shoes, no fractions.",
@@ -149,22 +126,6 @@
 				"required": true,
 				"system_of_measurement": "metric",
 				"counterpart": "height"
-			},
-			{
-				"id": "weight",
-				"label": "Weight",
-				"prompt": "Without shoes, no fractions.",
-				"input": [
-					{
-						"type": "number",
-						"units": "pounds",
-						"min": 50,
-						"max": 700
-					}
-				],
-				"required": true,
-				"system_of_measurement": "us_customary",
-				"counterpart": "weight_kg"
 			},
 			{
 				"id": "weight_kg",
@@ -431,22 +392,6 @@
 				"counterpart": "cholesterol_level_mml"
 			},
 			{
-				"id": "cholesterol_level_mml",
-				"label": "Cholesterol Level",
-				"prompt": "What is your total cholesterol level (based on a blood test)? Leave it blank if you don't remember.",
-				"input": [
-					{
-						"type": "number",
-						"units": "mm/l",
-						"min": 5,
-						"max": 20,
-						"allow_decimals": true
-					}
-				],
-				"system_of_measurement": "mm/l",
-				"counterpart": "cholesterol_level"
-			},
-			{
 				"id": "hdl_cholesterol",
 				"label": "HDL Cholesterol",
 				"prompt": "What is your HDL cholesterol level (based on a blood test)? Leave it blank if you don't remember.",
@@ -471,22 +416,7 @@
 				"system_of_measurement": "mg/dl",
 				"counterpart": "hdl_cholesterol_mml"
 			},
-			{
-				"id": "hdl_cholesterol_mml",
-				"label": "HDL Cholesterol",
-				"prompt": "What is your HDL cholesterol level (based on a blood test)? Leave it blank if you don't remember.",
-				"input": [
-					{
-						"type": "number",
-						"units": "mm/l",
-						"min": 1,
-						"max": 7,
-						"allow_decimals": true
-					}
-				],
-				"system_of_measurement": "mm/l",
-				"counterpart": "hdl_cholesterol"
-			},
+
 			{
 				"id": "cholesterol_level_estimated",
 				"label": "Estimate Cholesterol Level",
@@ -541,22 +471,6 @@
 				],
 				"system_of_measurement": "mg/dl",
 				"counterpart": "blood_glucose_mml"
-			},
-			{
-				"id": "blood_glucose_mml",
-				"label": "Blood sugar",
-				"prompt": "What is the result of your most recent blood sugar test (non-fasting blood glucose)?",
-				"input": [
-					{
-						"type": "number",
-						"units": "mm/l",
-						"min": 2,
-						"max": 20,
-						"allow_decimals": true
-					}
-				],
-				"system_of_measurement": "mm/l",
-				"counterpart": "blood_glucose"
 			},
 			{
 				"id": "triglycerides",

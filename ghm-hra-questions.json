@@ -378,22 +378,6 @@
 				"counterpart": "cholesterol_level_mml"
 			},
 			{
-				"id": "cholesterol_level_mml",
-				"label": "Cholesterol Level",
-				"prompt": "What is your total cholesterol level (based on a blood test)? Leave it blank if you don't remember.",
-				"input": [
-					{
-						"type": "number",
-						"units": "mm/l",
-						"min": 5,
-						"max": 20,
-						"allow_decimals": true
-					}
-				],
-				"system_of_measurement": "mm/l",
-				"counterpart": "cholesterol_level"
-			},
-			{
 				"id": "hdl_cholesterol",
 				"label": "HDL Cholesterol",
 				"prompt": "What is your HDL cholesterol level (based on a blood test)? Leave it blank if you don't remember.",
