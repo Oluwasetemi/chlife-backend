@@ -766,66 +766,6 @@
 		"prompt": "Please answer the following questions",
 		"q": [
 			{
-				"id": "travel_by_automobile",
-				"label": "Travel Miles by Automobile",
-				"prompt": "In the next 12 months, how many thousands of miles will you probably travel by car, SUV, truck or van? (Average is 12,000 - 15,000 miles)",
-				"input": [
-					{
-						"type": "number",
-						"units": ",000 miles",
-						"min": 0,
-						"max": 300
-					}
-				],
-				"system_of_measurement": "us_customary",
-				"counterpart": "travel_by_automobile_km"
-			},
-			{
-				"id": "travel_by_automobile_km",
-				"label": "Travel Kilometers by Automobile",
-				"prompt": "In the next 12 months, how many thousands of kilometers will you probably travel by car, SUV, truck or van? (Average is 20,000 - 24,000 kilometers)",
-				"input": [
-					{
-						"type": "number",
-						"units": ",000 kilometers",
-						"min": 0,
-						"max": 500
-					}
-				],
-				"system_of_measurement": "metric",
-				"counterpart": "travel_by_automobile"
-			},
-			{
-				"id": "travel_by_motorcycle",
-				"label": "Travel Miles by Motorcycle",
-				"prompt": "In the next 12 months, how many thousands of miles will you probably travel by motorcycle?",
-				"input": [
-					{
-						"type": "number",
-						"units": ",000 miles",
-						"min": 0,
-						"max": 20
-					}
-				],
-				"system_of_measurement": "us_customary",
-				"counterpart": "travel_by_motorcycle_km"
-			},
-			{
-				"id": "travel_by_motorcycle_km",
-				"label": "Travel Kilometers by Motorcycle",
-				"prompt": "In the next 12 months, how many thousands of kilometers will you probably travel by motorcycle?",
-				"input": [
-					{
-						"type": "number",
-						"units": ",000 kilometers",
-						"min": 0,
-						"max": 30
-					}
-				],
-				"system_of_measurement": "metric",
-				"counterpart": "travel_by_motorcycle"
-			},
-			{
 				"id": "typical_travel_method",
 				"label": "Travel Method",
 				"prompt": "On a typical day, how do you usually travel?",
@@ -1052,20 +992,6 @@
 				]
 			},
 			{
-				"id": "road_rage",
-				"label": "Road Rage",
-				"prompt": "Have you ever had a driving-related altercation (road-rage) in which you have exited your vehicle?",
-				"input": [
-					{
-						"type": "radio",
-						"values": [
-							{ "id": "yes", "label": "Yes" },
-							{ "id": "no", "label": "No" }
-						]
-					}
-				]
-			},
-			{
 				"id": "commercial_driver",
 				"label": "Commercial Driver",
 				"prompt": "Are you currently a commercial or professional driver?",
@@ -1084,53 +1010,6 @@
 								"hide": ["type_of_license", "years_as_driver"]
 							}
 						]
-					}
-				]
-			},
-			{
-				"id": "gross_weight",
-				"label": "Gross weight of 26,000",
-				"prompt": "Do you operate a vehicle with a gross vehicle weight rating of 26,000 pounds or more? ",
-				"input": [
-					{
-						"type": "radio",
-						"values": [
-							{ "id": "yes", "label": "Yes" },
-							{ "id": "no", "label": "No" }
-						]
-					}
-				]
-			},
-			{
-				"id": "type_of_license",
-				"label": "Type of Commercial License",
-				"prompt": "What type of commercial driver’s license do you have?",
-				"input": [
-					{
-						"type": "select",
-						"values": [
-							{ "id": "a", "label": "Class A" },
-							{ "id": "b", "label": " Class B" },
-							{ "id": "c", "label": " Class C" },
-							{ "id": "other", "label": "Other" },
-							{
-								"id": "do not have",
-								"label": "Do not have a commercial driver's license"
-							}
-						]
-					}
-				]
-			},
-			{
-				"id": "years_as_driver",
-				"label": "Years of Commercial Driver",
-				"prompt": "How many years have you been working as a commercial or professional driver?",
-				"input": [
-					{
-						"type": "number",
-						"units": "years",
-						"min": 0,
-						"max": 80
 					}
 				]
 			}
@@ -1824,42 +1703,6 @@
 		"prompt": "",
 		"q": [
 			{
-				"id": "fruits_and_vegetables",
-				"label": "Healthy Food",
-				"prompt": "Do you eat at least 5 servings of fruits and/or vegetables per day?",
-				"input": [
-					{
-						"type": "radio",
-						"values": [
-							{
-								"id": "yes",
-								"label": "Yes",
-								"hide": "readiness_to_eat_healthier"
-							},
-							{
-								"id": "no",
-								"label": "No",
-								"show": "readiness_to_eat_healthier"
-							}
-						]
-					}
-				]
-			},
-			{
-				"id": "high_cholesterol_food",
-				"label": "High Cholesterol Food",
-				"prompt": "Do you eat foods every day that are high in cholesterol or fat, such as fatty meat, cheese, or fried food?",
-				"input": [
-					{
-						"type": "radio",
-						"values": [
-							{ "id": "yes", "label": "Yes" },
-							{ "id": "no", "label": "No" }
-						]
-					}
-				]
-			},
-			{
 				"id": "fast_food",
 				"label": "Fast Food",
 				"prompt": "How many times a week did you eat fast food meals or snacks?",
@@ -1966,7 +1809,7 @@
 			{
 				"id": "protein",
 				"label": "High Protein Foods",
-				"prompt": "How many times a week did you eat beans (like pinto or black beans), chicken or fish?",
+				"prompt": "How many times a week did you eat beans (like brown or white beans), chicken or fish?",
 				"input": [
 					{
 						"type": "select",
@@ -2002,44 +1845,6 @@
 				]
 			},
 			{
-				"id": "desserts",
-				"label": "Desserts",
-				"prompt": "How many times a week did you eat desserts and other sweets that are unhealthy (high sugar, high fat)?",
-				"input": [
-					{
-						"type": "select",
-						"values": [
-							{
-								"id": "not answered",
-								"label": "choose an answer"
-							},
-							{ "id": "0", "label": "1 time or less" },
-							{ "id": "1", "label": "2-3 times" },
-							{ "id": "2", "label": "4 or more" }
-						]
-					}
-				]
-			},
-			{
-				"id": "butter",
-				"label": "Butter",
-				"prompt": "How much butter or margarine (or meat fat) do you use to season or put on vegetables, potatoes, or bread?",
-				"input": [
-					{
-						"type": "select",
-						"values": [
-							{
-								"id": "not answered",
-								"label": "choose an answer"
-							},
-							{ "id": "0", "label": "Very Little" },
-							{ "id": "1", "label": "Some" },
-							{ "id": "2", "label": "A lot" }
-						]
-					}
-				]
-			},
-			{
 				"id": "sugar_beverage",
 				"label": "Sugar-Sweetened Beverage",
 				"prompt": "Do you drink more than two sugar-sweetened beverages per week?",
@@ -2057,48 +1862,6 @@
 				"id": "caffeine",
 				"label": "Caffeine",
 				"prompt": "Do you consume more than two doses of caffeine per day (in soft drinks, coffee, chocolate or other products)?",
-				"input": [
-					{
-						"type": "radio",
-						"values": [
-							{ "id": "yes", "label": "Yes" },
-							{ "id": "no", "label": "No" }
-						]
-					}
-				]
-			},
-			{
-				"id": "fish",
-				"label": "Fish Meals",
-				"prompt": "Do you eat more than two fish meals per week?",
-				"input": [
-					{
-						"type": "radio",
-						"values": [
-							{ "id": "yes", "label": "Yes" },
-							{ "id": "no", "label": "No" }
-						]
-					}
-				]
-			},
-			{
-				"id": "charcoal_broiled",
-				"label": "Charcoal Broiled Burgers",
-				"prompt": "Do you eat more than one charcoal broiled meal per week (on average) including Burger King or Dairy Queen Burgers?",
-				"input": [
-					{
-						"type": "radio",
-						"values": [
-							{ "id": "yes", "label": "Yes" },
-							{ "id": "no", "label": "No" }
-						]
-					}
-				]
-			},
-			{
-				"id": "cross_contamination",
-				"label": "Cross Contamination",
-				"prompt": "Are you meticulous in preventing cross-contamination in the kitchen/barbeque grill (e.g. chicken juice)?",
 				"input": [
 					{
 						"type": "radio",
@@ -4436,20 +4199,6 @@
 		"prompt": "Please answer the following questions",
 		"q": [
 			{
-				"id": "home_safety",
-				"label": "Home Safety",
-				"prompt": "Do you feel safe in your home?",
-				"input": [
-					{
-						"type": "radio",
-						"values": [
-							{ "id": "yes", "label": "Yes" },
-							{ "id": "no", "label": "No" }
-						]
-					}
-				]
-			},
-			{
 				"id": "overall_health",
 				"label": "Overall Health",
 				"prompt": "How would you describe your overall physical health?",
@@ -4503,52 +4252,6 @@
 				]
 			},
 			{
-				"id": "helmet_usage",
-				"label": "Helmet Usage",
-				"prompt": "If you ride a motorcycle or all-terrain vehicle (ATV), what percent of the time do you wear a helmet?",
-				"input": [
-					{
-						"type": "select",
-						"values": [
-							{
-								"id": "not answered",
-								"label": "choose an answer"
-							},
-							{ "id": "75% to 100%", "label": "75% to 100%" },
-							{ "id": "25% to 74%", "label": "25% to 74%" },
-							{ "id": "less than 25%", "label": "less than 25%" },
-							{
-								"id": "does not apply to me",
-								"label": "does not apply to me"
-							}
-						]
-					}
-				]
-			},
-			{
-				"id": "bicycle_helmet_usage",
-				"label": "Bicycle Helmet Usage",
-				"prompt": "If you ride a Bicycle, what percent of the time do you wear a helmet?",
-				"input": [
-					{
-						"type": "select",
-						"values": [
-							{
-								"id": "not answered",
-								"label": "choose an answer"
-							},
-							{ "id": "75% to 100%", "label": "75% to 100%" },
-							{ "id": "25% to 74%", "label": "25% to 74%" },
-							{ "id": "less than 25%", "label": "less than 25%" },
-							{
-								"id": "does not apply to me",
-								"label": "does not apply to me"
-							}
-						]
-					}
-				]
-			},
-			{
 				"id": "resting_heart_rate",
 				"label": "Resting Heart Rate",
 				"prompt": "What is your resting heart rate in beats per minute?(If you don't know it, you can measure it now! Using two fingers, locate your pulse on your neck or your wrist. Count the beats until one minute is up on a watch or clock.)",
@@ -4558,48 +4261,6 @@
 						"units": "bpm",
 						"min": 40,
 						"max": 100
-					}
-				]
-			},
-			{
-				"id": "rollerblades",
-				"label": "Rollerblades, Scooters, or Skateboards",
-				"prompt": "Do you frequently use rollerblades, motor scooters or skateboards to get around?",
-				"input": [
-					{
-						"type": "radio",
-						"values": [
-							{ "id": "yes", "label": "Yes" },
-							{ "id": "no", "label": "No" }
-						]
-					}
-				]
-			},
-			{
-				"id": "headphones_in_traffic",
-				"label": "Headphones in Traffic",
-				"prompt": "Do you walk in heavy traffic areas while using headphones or earbuds?",
-				"input": [
-					{
-						"type": "radio",
-						"values": [
-							{ "id": "yes", "label": "Yes" },
-							{ "id": "no", "label": "No" }
-						]
-					}
-				]
-			},
-			{
-				"id": "thrill_seeker",
-				"label": "Thrill Seeker",
-				"prompt": "Are you a thrill seeker? (Hang-gliding, sky-diving, bungee jumping, motocross etc.)",
-				"input": [
-					{
-						"type": "radio",
-						"values": [
-							{ "id": "yes", "label": "Yes" },
-							{ "id": "no", "label": "No" }
-						]
 					}
 				]
 			}
