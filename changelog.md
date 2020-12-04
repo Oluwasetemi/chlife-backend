@@ -155,3 +155,14 @@
 - Create two query `fetchMealOptions` and `fetchMealPlan` for fetching mealOptions and the current logged in user mealplan.
 - Create two mutation `generateMealPlan` and `ResetMealPlan` for creating mealplan and the resetting a logged in user mealplan.
 - The fetch Question API has male and female Question option depending on the gender of the user or show default if the user has updated their gender
+
+## v0.2.7
+
+- 7f96531 - 📦 NEW: modify meal plan to save user choice.
+- 9004e45 - 📦 NEW: fix the HRA Question
+- 1261eb7 - FIX: allow login email to be case insensitive.
+- 1a4e991 - add unitlabel type to typeDefs.
+- 588fc09 - 🐛 FIX: the empty string bug with bacon option
+- c25bbac - 📦 NEW: update the mealPlanData typeDe
+- f4887b8 - 📦 NEW: update the development queries for the altair Route
+- Create contact us mutation

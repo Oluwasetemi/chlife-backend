@@ -3,6 +3,8 @@
  * @param {float} poundsValue takes in a value in pounds(lbs)
  * @return {float} Returns single value in kgs
  */
+const sanitizeHtml = require('sanitize-html');
+
 function poundsToKg(poundsValue) {
   return (parseFloat(poundsValue) * 0.45359237).toPrecision(4);
 }
@@ -78,6 +80,8 @@ function clean(obj) {
   });
 }
 
+const sanitize = (str) => sanitizeHtml(str);
+
 module.exports = {
   poundsToKg,
   kgToPounds,
@@ -86,4 +90,5 @@ module.exports = {
   calculateBMI,
   toCamelCase,
   clean,
+  sanitize,
 };

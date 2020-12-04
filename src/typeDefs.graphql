@@ -1139,6 +1139,10 @@ type Mutation {
 	Reset a logged in user meal plan
 	"""
 	ResetMealPlan: Message
+	"""
+	Contact us page
+	"""
+	ContactUs(firstName: String, lastName: String, companyName: String, email: String, phone: String, message: String): Message
 }
 
 type Subscription {
