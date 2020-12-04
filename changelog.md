@@ -166,3 +166,8 @@
 - c25bbac - 📦 NEW: update the mealPlanData typeDe
 - f4887b8 - 📦 NEW: update the development queries for the altair Route
 - Create contact us mutation
+
+## v0.2.8
+
+- When you removeEmployee subtract 1 from the total Employee count
+- Set frontend url to netlify staging link

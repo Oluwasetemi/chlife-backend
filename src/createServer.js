@@ -44,7 +44,7 @@ async function startServer() {
     }
 
     if (process.env.NODE_ENV === 'development') {
-      process.env.FRONTEND_URL = 'http://localhost:9998';
+      process.env.FRONTEND_URL = process.env.FRONTEND_URL;
     }
     // setup the database
     const db = dbConnection(dbUrl);

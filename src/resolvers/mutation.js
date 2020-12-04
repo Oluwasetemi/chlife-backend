@@ -364,11 +364,23 @@ const mutation = {
     // confirm the validity of the activationToken
     const userExists = await removeUser(id);
 
+    // update the company the size
+    await updateUser(
+      {
+        _id: req.userId,
+      },
+      {
+        companySize: parseInt(req.user.companySize) - 1,
+      }
+    );
+
     if (!userExists) {
       throw new Error('Invalid removal process');
     }
     // return a message
-    return { message: 'User Removed ' };
+    return {
+      message: 'User Removed ',
+    };
   },
   async setEmployeeLimit(_, { amount, id }, { req }) {
     // must be done by an admin
