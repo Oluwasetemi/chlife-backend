@@ -8,6 +8,7 @@ const { randomBytes } = require('crypto');
 const { promisify } = require('util');
 const axios = require('axios').default;
 const request = require('request');
+const sanitize = require('sanitize-html');
 
 const hra = require('../models/hra');
 const { createMealPlan } = require('../services/mealplan');
@@ -56,7 +57,6 @@ const {
 } = require('../services/emailSubscriber');
 
 const { clean } = require('../utils/helpers');
-const sanitize = require('sanitize-html');
 
 // all the mutation
 const mutation = {
@@ -568,7 +568,9 @@ const mutation = {
         to: user.email,
         subject: 'Your Password Reset Token',
         name: user.name,
-        resetLink: `${process.env.FRONTEND_URL}/reset/${resetPasswordToken}`,
+        resetLink: `${
+          process.env.FRONTEND_URL
+        }/reset?resetToken=${resetPasswordToken}`,
       });
 
       return { message: 'Thanks. Request for Password Reset successful' };
