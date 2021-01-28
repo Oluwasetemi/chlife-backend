@@ -630,7 +630,7 @@ const mutation = {
         }`,
       });
 
-      return { message: 'Password Reset Mail Reset Successful' };
+      return { message: 'Password Reset Mail Resent Successful' };
     } catch (error) {
       throw new Error(error.message);
     }
