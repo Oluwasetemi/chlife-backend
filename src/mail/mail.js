@@ -13,9 +13,9 @@ if (!process.env.SENDGRID_SECRET_KEY) {
 
 sgMail.setApiKey(process.env.SENDGRID_SECRET_KEY);
 
-if (!process.env.MAILJET_API_KEY && !process.env.MAILJET_SECRET_KEY) {
-  throw new Error('Enter the secret key of the mailjet');
-}
+// if (!process.env.MAILJET_API_KEY && !process.env.MAILJET_SECRET_KEY) {
+//   throw new Error('Enter the secret key of the mailjet');
+// }
 
 if (!process.env.SMTP_FROM_EMAIL && !process.env.SMTP_FROM_NAME) {
   throw new Error('Enter the secret key of the mailjet sender email and name');
