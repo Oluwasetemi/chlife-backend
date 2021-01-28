@@ -625,7 +625,7 @@ const mutation = {
         to: user.email,
         subject: 'Your Password Reset Token Resent',
         name: user.name,
-        resetLink: `${process.env.FRONTEND_URL}/reset_password/${
+        resetLink: `${process.env.FRONTEND_URL}/reset_password?resetToken=${
           user.resetPasswordToken
         }`,
       });
