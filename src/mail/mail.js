@@ -3,7 +3,15 @@ const path = require('path');
 const pug = require('pug');
 const juice = require('juice');
 const htmlToText = require('html-to-text');
+
 // const nodemailer = require('nodemailer');
+const sgMail = require('@sendgrid/mail');
+
+if (!process.env.SENDGRID_SECRET_KEY) {
+  throw new Error('Enter the secret key of sendgrid');
+}
+
+sgMail.setApiKey(process.env.SENDGRID_SECRET_KEY);
 
 if (!process.env.MAILJET_API_KEY && !process.env.MAILJET_SECRET_KEY) {
   throw new Error('Enter the secret key of the mailjet');
@@ -13,10 +21,10 @@ if (!process.env.SMTP_FROM_EMAIL && !process.env.SMTP_FROM_NAME) {
   throw new Error('Enter the secret key of the mailjet sender email and name');
 }
 
-const mailjet = require('node-mailjet').connect(
-  process.env.MAILJET_API_KEY,
-  process.env.MAILJET_SECRET_KEY
-);
+// const mailjet = require('node-mailjet').connect(
+//   process.env.MAILJET_API_KEY,
+//   process.env.MAILJET_SECRET_KEY
+// );
 
 /* const transport = nodemailer.createTransport({
   host: process.env.MAIL_HOST,
@@ -55,21 +63,19 @@ exports.send = async (options) => {
     const text = htmlToText.fromString(html);
 
     const mailOptions = {
-      From: {
-        Email: process.env.SMTP_FROM_EMAIL,
-        Name: process.env.SMTP_FROM_NAME,
+      from: {
+        email: process.env.SMTP_FROM_EMAIL,
+        name: process.env.SMTP_FROM_NAME,
       },
-      To: [{ Email: options.to, Name: 'Choose Life' }],
-      Subject: options.subject || 'XXXXXXX-XXXX',
-      TextPart: text,
-      HTMLPart: html,
+      to: [{ email: options.to }],
+      subject: options.subject || 'Email from Choose Life',
+      text,
+      html,
     };
 
-    const result = await mailjet
-      .post('send', { version: 'v3.1' })
-      .request({ Messages: [mailOptions] });
+    const res = await sgMail.send(mailOptions);
 
-    return { result, message: text };
+    return res;
   } catch (error) {
     console.log(error.message);
     throw new Error('problem sending email📪');

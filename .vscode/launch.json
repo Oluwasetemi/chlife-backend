@@ -8,12 +8,13 @@
 			"type": "node",
 			"request": "launch",
 			"name": "nodemon",
-			"runtimeExecutable": "nodemon",
+			"runtimeExecutable": "${workspaceFolder}/node_modules/nodemon/bin/nodemon.js",
 			"program": "${workspaceFolder}/src/index.js",
 			"restart": true,
 			"console": "integratedTerminal",
 			"internalConsoleOptions": "neverOpen",
-			"skipFiles": ["<node_internals>/**"],
+			"skipFiles": ["<node_internals>/**", "mealPlan.json"],
+			"runtimeArgs": ["-V", "--ignore", "mealPlan.json"]
 			// "envFile": "${workspaceFolder}/variables.env"
 		},
 		{

@@ -171,3 +171,7 @@
 
 - When you removeEmployee subtract 1 from the total Employee count
 - Set frontend url to netlify staging link
+
+## v0.2.9
+
+- Update the `resendResetPasswordRequestMail` mutation to use only email.

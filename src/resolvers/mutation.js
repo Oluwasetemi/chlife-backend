@@ -570,7 +570,7 @@ const mutation = {
         name: user.name,
         resetLink: `${
           process.env.FRONTEND_URL
-        }/reset?resetToken=${resetPasswordToken}`,
+        }/reset_password?resetToken=${resetPasswordToken}`,
       });
 
       return { message: 'Thanks. Request for Password Reset successful' };
@@ -578,16 +578,45 @@ const mutation = {
       throw new Error(error.message);
     }
   },
-  async resendResetPasswordRequestMail(_, { email, resetPasswordToken }) {
+  async resendResetPasswordRequestMail(_, { email }) {
     try {
       const user = await findOneBasedOnQuery({
         email,
-        resetPasswordToken,
-        resetPasswordExpires: { $gt: Date.now() },
       });
 
       if (!user) {
-        throw new Error(`No such user found for email ${email}`);
+        throw new Error(`Server Error`);
+      }
+
+      if (!user.resetPasswordToken) {
+        throw new Error(`Please reset your password`);
+      }
+
+      // check whether token has not expired
+      if (!(user.resetPasswordExpires > Date.now())) {
+        const randomBytesPromisified = promisify(randomBytes);
+        const resetPasswordToken = (await randomBytesPromisified(20)).toString(
+          'hex'
+        );
+        const resetPasswordExpires = Date.now() + 3600000; // 1 hr from now
+
+        user.resetPasswordToken = resetPasswordToken;
+        user.resetPasswordExpires = resetPasswordExpires;
+
+        const updatedUser = await user.save();
+
+        // resend email
+        await send({
+          filename: 'request-reset',
+          to: updatedUser.email,
+          subject: 'Your Password Reset Token Resent',
+          name: updatedUser.name,
+          resetLink: `${process.env.FRONTEND_URL}/reset_password?resetToken=${
+            updatedUser.resetPasswordToken
+          }`,
+        });
+
+        return { message: 'Password Reset Mail Reset Successful' };
       }
 
       // resend email
@@ -596,12 +625,12 @@ const mutation = {
         to: user.email,
         subject: 'Your Password Reset Token Resent',
         name: user.name,
-        resetLink: `${
-          process.env.FRONTEND_URL
-        }/reset_password/${resetPasswordToken}`,
+        resetLink: `${process.env.FRONTEND_URL}/reset_password/${
+          user.resetPasswordToken
+        }`,
       });
 
-      return { message: 'Thanks.Successful' };
+      return { message: 'Password Reset Mail Reset Successful' };
     } catch (error) {
       throw new Error(error.message);
     }
@@ -1265,7 +1294,7 @@ const mutation = {
       return updatedUser;
     } catch (error) {
       console.log(error.message);
-      throw new Error('Server Error');
+      throw new Error(error.message || 'Server Error');
     }
   },
   async updateUserPassword(parent, { input }, { req }) {

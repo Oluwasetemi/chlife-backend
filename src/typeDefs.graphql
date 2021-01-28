@@ -1090,7 +1090,6 @@ type Mutation {
 	"""
 	resendResetPasswordRequestMail(
 		email: String
-		resetPasswordToken: String
 	): Message!
 	"""
 	submit HRA response
