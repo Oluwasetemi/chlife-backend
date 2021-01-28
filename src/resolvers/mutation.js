@@ -1343,7 +1343,7 @@ const mutation = {
       }
     } catch (error) {
       // console.log(error.message);
-      throw new Error('Server Error');
+      throw new Error(error.message || 'Server Error');
     }
   },
   async addEmployeeToACompany(_, { input }, { req }) {
