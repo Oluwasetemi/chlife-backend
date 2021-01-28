@@ -616,7 +616,7 @@ const mutation = {
           }`,
         });
 
-        return { message: 'Password Reset Mail Reset Successful' };
+        return { message: 'Password Reset Mail Resent Successful' };
       }
 
       // resend email
