@@ -1526,6 +1526,12 @@ const mutation = {
           'You must closed the current reward before you are permitted to create another'
         );
       }
+
+      // check the startTime and the endTime
+      if (new Date(input.startDate) > new Date(input.endDate)) {
+        throw new Error('start date must not be greater than end date');
+      }
+
       const reward = await createReward({
         ...input,
         createdBy: req.userId,
