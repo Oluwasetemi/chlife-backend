@@ -16,11 +16,16 @@ if (!process.env.TOKEN_SECRET) {
 
 exports.sign = (id) =>
   new Promise((resolve, reject) => {
-    jwt.sign({ id }, process.env.TOKEN_SECRET, (err, token) => {
-      if (err) return reject(err);
+    jwt.sign(
+      { id },
+      process.env.TOKEN_SECRET,
+      { expiresIn: process.env.EXPIRES },
+      (err, token) => {
+        if (err) return reject(err);
 
-      return resolve(token);
-    });
+        return resolve(token);
+      }
+    );
   });
 
 /**
