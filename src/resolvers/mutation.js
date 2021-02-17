@@ -1455,7 +1455,7 @@ const mutation = {
         throw new Error('You must be logged In');
       }
 
-      if (req.user.type !== 'EMPLOYEE') {
+      if (req.user.type !== 'COMPANY') {
         throw new Error('You do not have the permission to do this');
       }
 
@@ -1464,15 +1464,6 @@ const mutation = {
       if (!user) {
         throw new Error('Invalid user💀');
       }
-
-      if (user.resetPasswordExpires > Date.now()) {
-        throw new Error(
-          'Check your email and Your password reset link has not expired'
-        );
-      }
-      user.resetPasswordExpires = Date.now() + 3600000 * 3; // 3 hr from now
-
-      await user.save();
 
       // send email to new user
       await send({
