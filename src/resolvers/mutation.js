@@ -1466,7 +1466,7 @@ const mutation = {
       }
 
       // if the user token has expired? generate a new token
-      if (!(user.resetPasswordExpires > Date.now())) {
+      if (user.resetPasswordExpires < Date.now()) {
         // request reset password
         const randomBytesPromisified = promisify(randomBytes);
         const resetPasswordToken = (await randomBytesPromisified(20)).toString(
@@ -1475,7 +1475,7 @@ const mutation = {
         const resetPasswordExpires = Date.now() + 3600000; // 1 hr from now
 
         await updateUser(
-          { _id: req.userId },
+          { _id: id },
           {
             resetPasswordToken,
             resetPasswordExpires,
