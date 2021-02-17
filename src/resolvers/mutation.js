@@ -1367,6 +1367,13 @@ const mutation = {
         throw new Error('Account is suspend, contact your company');
       }
 
+      // if input length is 0
+      if (input.length === 0) {
+        throw new Error(
+          'Cannot add employee when the employee data you are trying to add is empty'
+        );
+      }
+
       // check the size limit
       if (req.user && req.user.companySize >= req.user.employeeLimit) {
         throw new Error(
@@ -1547,7 +1554,7 @@ const mutation = {
 
       if (openedRewards && openedRewards.length !== 0) {
         throw new Error(
-          'You must closed the current reward before you are permitted to create another'
+          'You can only create one reward for your employees within a certain duration. Close the current reward before creating another'
         );
       }
 
