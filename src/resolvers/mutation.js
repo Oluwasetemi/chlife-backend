@@ -1465,6 +1465,39 @@ const mutation = {
         throw new Error('Invalid user💀');
       }
 
+      // if the user token has expired? generate a new token
+      if (!(user.resetPasswordExpires > Date.now())) {
+        // request reset password
+        const randomBytesPromisified = promisify(randomBytes);
+        const resetPasswordToken = (await randomBytesPromisified(20)).toString(
+          'hex'
+        );
+        const resetPasswordExpires = Date.now() + 3600000; // 1 hr from now
+
+        await updateUser(
+          { _id: req.userId },
+          {
+            resetPasswordToken,
+            resetPasswordExpires,
+          }
+        );
+        // send email to new user
+        await send({
+          filename: 'company_add_new_resend',
+          to: user.email,
+          subject: 'Details to add you to company resent',
+          type: user.type,
+          resetPasswordExpires,
+          resetLink: `${
+            process.env.FRONTEND_URL
+          }/onboarding/employee/${resetPasswordToken}`,
+        });
+
+        // send email to add the newly added users
+        return {
+          message: `Email resent to your email`,
+        };
+      }
       // send email to new user
       await send({
         filename: 'company_add_new_resend',
