@@ -520,6 +520,8 @@ type Contentful {
 	authorRole: String
 	asset: Asset
 	feature: String
+	imageCaption: String
+	imageCredit: String
 }
 
 type AllContentful {

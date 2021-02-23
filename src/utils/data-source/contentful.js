@@ -23,7 +23,7 @@ class ContentfulAPI extends RESTDataSource {
 
   async entry(id) {
     const data = await this.get(
-      `/entries/${id}?select=sys.id,fields.title,fields.body,fields.createdAt,fields.tags,fields.author,fields.authorRole,fields.feature`
+      `/entries/${id}?select=sys.id,fields.title,fields.body,fields.createdAt,fields.tags,fields.author,fields.authorRole,fields.feature,fields.imageCaption,fields.imageCredit`
     );
     const entries = JSON.parse(data);
     return entries;
@@ -31,7 +31,7 @@ class ContentfulAPI extends RESTDataSource {
 
   async entriesByContentType(content_type = 'fitness', limit = 10, skip = 0) {
     const data = await this.get(
-      `/entries?content_type=${content_type}&limit=${limit}&skip=${skip}&select=sys.id,fields.title,fields.body,fields.createdAt,fields.tags,fields.author,fields.authorRole,fields.image,fields.feature`
+      `/entries?content_type=${content_type}&limit=${limit}&skip=${skip}&select=sys.id,fields.title,fields.body,fields.createdAt,fields.tags,fields.author,fields.authorRole,fields.image,fields.feature,fields.imageCaption,fields.imageCredit`
     );
     const entries = JSON.parse(data);
     return entries;
