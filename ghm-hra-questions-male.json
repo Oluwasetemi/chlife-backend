@@ -2894,7 +2894,7 @@
 			{
 				"id": "chh_interact",
 				"label": "",
-				"prompt": "Do work or other activities require you to interact with other people in person? ",
+				"prompt": "Does your work or other activities require you to interact with other people in person? ",
 				"input": [
 					{
 						"type": "select",
