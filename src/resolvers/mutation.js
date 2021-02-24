@@ -56,7 +56,7 @@ const {
   findEmailSubScriberById,
 } = require('../services/emailSubscriber');
 
-const { clean } = require('../utils/helpers');
+const { clean, capitalize } = require('../utils/helpers');
 
 // all the mutation
 const mutation = {
@@ -674,7 +674,7 @@ const mutation = {
         filename: 'reset-successful',
         to: user.email,
         subject: 'Password Reset Successful',
-        name: user.name,
+        name: capitalize(user.name.split(' ')[0]),
       });
 
       // 8. return the new user
@@ -1431,6 +1431,10 @@ const mutation = {
           resetLink: `${
             process.env.FRONTEND_URL
           }/onboarding/employee/${resetPasswordToken}`,
+          name: user.name
+            .split(' ')
+            .map(capitalize)
+            .join(' '),
         });
       }
 
