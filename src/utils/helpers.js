@@ -82,6 +82,8 @@ function clean(obj) {
 
 const sanitize = (str) => sanitizeHtml(str);
 
+const capitalize = (name) => name[0].toUpperCase() + name.slice(1);
+
 module.exports = {
   poundsToKg,
   kgToPounds,
@@ -91,4 +93,5 @@ module.exports = {
   toCamelCase,
   clean,
   sanitize,
+  capitalize,
 };
