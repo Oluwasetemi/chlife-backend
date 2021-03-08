@@ -73,6 +73,10 @@ exports.send = async (options) => {
       html,
     };
 
+    if (process.env.NODE_ENV === 'test') {
+      return;
+    }
+
     const res = await sgMail.send(mailOptions);
 
     return res;

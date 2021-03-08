@@ -219,7 +219,7 @@ const query = {
         headers: {},
         /* eslint-disable */
         formData: {
-          json: `{"get_questionnaire.client_id": "fitnessfair", "get_questionnaire.user_id": "${
+          json: `{"get_questionnaire.client_id": "${process.env.GHM_CLIENT_FINAL}", "get_questionnaire.user_id": "${
             req.userId
           }",    "get_questionnaire.hra_id": "default", "get_questionnaire.org_id": "","get_questionnaire.name": "${
             req.user.name
@@ -752,7 +752,9 @@ const query = {
         url: `${GHM_BASE_API}/get_reports`,
         headers: {},
         formData: {
-          json: `{"get_reports.client_id":"fitnessfair","get_reports.start_time": "${startTime}","get_reports.end_time":"${endTime}"}`,
+          json: `{"get_reports.client_id":"${
+            process.env.GHM_CLIENT_FINAL
+          }","get_reports.start_time": "${startTime}","get_reports.end_time":"${endTime}"}`,
         },
       };
       const res = await requestPromise(options);
@@ -835,7 +837,9 @@ const query = {
         headers: {},
         /* eslint-disable */
         formData: {
-          json: `{"get_group_report_data.client_id":"fitnessfair","get_group_report_data.user_ids":[${employeesArr}],"get_group_report_data.fields":["engine_input.sex","engine_input.age", "user_id", "report_id", "engine_timestamp"], "get_reports.start_time": "${startTime}","get_reports.end_time":"${endTime}"}`,
+          json: `{"get_group_report_data.client_id":"${
+            process.env.GHM_CLIENT_FINAL
+          }","get_group_report_data.user_ids":[${employeesArr}],"get_group_report_data.fields":["engine_input.sex","engine_input.age", "user_id", "report_id", "engine_timestamp"], "get_reports.start_time": "${startTime}","get_reports.end_time":"${endTime}"}`,
         },
         /* eslint-enable */
       };
