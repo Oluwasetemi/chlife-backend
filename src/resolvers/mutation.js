@@ -1010,7 +1010,9 @@ const mutation = {
           headers: {},
           /* eslint-disable */
           formData: {
-            json: `{"appraise_risks.client_id":"fitnessfair","appraise_risks.user_id":"${
+            json: `{"appraise_risks.client_id":"${
+              process.env.GHM_CLIENT_FINAL
+            }","appraise_risks.user_id":"${
               req.userId
             }","appraise_risks.company":"${
               req.user.company

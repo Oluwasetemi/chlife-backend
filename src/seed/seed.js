@@ -7,6 +7,10 @@ const casual = require('casual');
 const User = require('../models/user');
 const Hra = require('../models/hra');
 const Reward = require('../models/reward');
+const Appointment = require('../models/appointment');
+const EmailSubscribers = require('../models/emailSubscribers');
+const Exercise = require('../models/exercise');
+const MealPlan = require('../models/mealplan');
 // import helper methods
 const { hash } = require('../utils/auth');
 const { r, g, b, w, c, m, y, k } = require('../utils/color');
@@ -22,6 +26,10 @@ async function deleteData() {
   await User.deleteMany();
   await Reward.deleteMany();
   await Hra.deleteMany();
+  await Appointment.deleteMany();
+  await Exercise.deleteMany();
+  await EmailSubscribers.deleteMany();
+  await MealPlan.deleteMany();
   console.log(
     `${g('Data Deleted. To load sample data, run\n\n\t npm run seed\n\n')}`
   );
@@ -31,13 +39,12 @@ async function deleteData() {
 async function seedAdminData() {
   // the main admin
   const adminData = {
-    name: 'ChooseLife Admin',
+    name: process.env.CHOOSELIFE_ADMIN_NAME,
     email: process.env.CHOOSELIFE_ADMIN_EMAIL,
-    mobile: '+2348055112244',
+    mobile: process.env.CHOOSELIFE_ADMIN_PHONE,
     password: await hash('123456'),
     type: 'SUPERADMIN',
-    image: 'https://via.placeholder.com/350',
-    gender: 'MALE',
+    gender: 'FEMALE',
     nationality: 'nigeria',
     address: 'A valid address',
     adminVerified: true,
@@ -50,8 +57,8 @@ async function seedAdminData() {
     appointments: [],
     exercises: [],
     inBody: [],
-    createdAt: '2020-06-15T18:49:12.756Z',
-    updatedAt: '2020-06-15T18:49:12.756Z',
+    createdAt: new Date(),
+    updatedAt: new Date(),
   };
 
   // create data
@@ -96,7 +103,7 @@ async function createUserJSON() {
 async function loadData() {
   try {
     console.log(`${m('Seeding in progress')}`);
-    await User.insertMany(await createUserJSON());
+    // await User.insertMany(await createUserJSON());
     // await Review.insertMany(reviews)
     // await User.insertMany(users)
     await seedAdminData();

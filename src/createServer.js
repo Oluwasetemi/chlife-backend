@@ -1,5 +1,10 @@
 /* eslint-disable */
-const { ApolloServer, PubSub, gql } = require('apollo-server-express');
+const {
+  ApolloServer,
+  PubSub,
+  gql,
+} = require('apollo-server-express');
+const { ApolloServerPluginSchemaReporting } = require('apollo-server-core');
 const express = require('express');
 const expressPlayground = require('graphql-playground-middleware-express')
   .default;
@@ -25,6 +30,7 @@ const typeDefs = readFileSync(
   'UTF-8',
 );
 
+
 const defaultQueries = readFileSync(
   path.join(__dirname, '..', 'all_development_queries.graphql'),
   'UTF-8',
@@ -32,7 +38,7 @@ const defaultQueries = readFileSync(
 
 if (!typeDefs) {
   console.log('Set up your typeDefs');
-  return;
+  // return;
 }
 
 async function startServer() {
@@ -64,11 +70,9 @@ async function startServer() {
         return {
           contentfulAPI: new ContentfulAPI(),
           wgerdotdeAPI: new WgerdeAPI(),
-        }
+        };
       },
-      engine: {
-        reportSchema: true,
-      },
+      plugins: [ApolloServerPluginSchemaReporting()],
     });
 
     httpServer = createServer(app);
