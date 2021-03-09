@@ -2,16 +2,15 @@ require('dotenv').config({ path: 'variables.env' });
 const createServer = require('./createServer');
 
 (async () => {
-  try {
-    const { httpServer, server } = await createServer();
+  const { httpServer, server } = await createServer();
 
-    if (process.env.NODE_ENV !== 'test') {
-      httpServer.listen(
-        {
-          port: process.env.PORT || 4000,
-        },
-        () =>
-          /* eslint-disable */
+  if (process.env.NODE_ENV !== 'test') {
+    httpServer.listen(
+      {
+        port: process.env.PORT || 4000,
+      },
+      () =>
+        /* eslint-disable */
         console.log(
           `GraphQL Server running at http://localhost:${process.env.PORT}${
             server.graphqlPath
@@ -20,10 +19,6 @@ const createServer = require('./createServer');
           }`,
         ),
       /* eslint-enable */
-      );
-    }
-  } catch (e) {
-    console.error(e.stack);
-    console.log(e.message);
+    );
   }
 })();
