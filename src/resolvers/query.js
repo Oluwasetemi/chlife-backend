@@ -766,7 +766,7 @@ const query = {
       const { data } = JSON.parse(res.body);
 
       // loop thru the api result to add the name, email to each object
-      const adminReportData = [];
+      let adminReportData = [];
 
       for (const each of data) {
         const isValid = mongoose.Types.ObjectId.isValid(each.user_id);
@@ -778,6 +778,11 @@ const query = {
         each.email = (user && user.email) || 'no email';
         adminReportData.push(each);
       }
+
+      // filter out records with  name=`no name` and email=`no email`
+      adminReportData = adminReportData.filter(
+        (each) => each.name !== 'no name' && each.email !== 'no email'
+      );
 
       return { adminReportData, length: adminReportData.length };
     } catch (error) {

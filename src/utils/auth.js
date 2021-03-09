@@ -19,7 +19,12 @@ exports.sign = (id) =>
     jwt.sign(
       { id },
       process.env.TOKEN_SECRET,
-      { expiresIn: process.env.EXPIRES },
+      {
+        expiresIn:
+          process.env.NODE_ENV !== 'production'
+            ? '5000 days'
+            : process.env.EXPIRES,
+      },
       (err, token) => {
         if (err) return reject(err);
 
