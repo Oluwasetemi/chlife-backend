@@ -102,7 +102,7 @@ async function startServer() {
     } catch (error) {
       if (error.name === 'TokenExpiredError') {
         // throw new Error("Please login");
-        return res.status(401).json({errors: error})
+        return res.status(401).json({errors: error,data: null})
         // next(error);
       }
       console.log(error)
