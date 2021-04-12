@@ -1164,20 +1164,6 @@
 				]
 			},
 			{
-				"id": "prostate_cancer_screening",
-				"label": "Prostate Cancer Screening",
-				"prompt": "Have you talked to your doctor about being screened for prostate cancer?",
-				"input": [
-					{
-						"type": "radio",
-						"values": [
-							{ "id": "yes", "label": "Yes" },
-							{ "id": "no", "label": "No" }
-						]
-					}
-				]
-			},
-			{
 				"id": "relatives_cancer",
 				"label": "Relatives with cancer",
 				"prompt": "Has one or more of your first degree relatives ever had any form of cancer?",
