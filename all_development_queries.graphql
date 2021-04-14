@@ -962,3 +962,10 @@ fragment responseQuestion on QuestionAndResponse {
   years_since_quitting_months
   years_since_quitting_years
 }
+
+
+mutation mutation_Welcome_to_291 {
+  AllowUserToHaveUnlimitedHra(id: "") {
+    message
+  }
+}
