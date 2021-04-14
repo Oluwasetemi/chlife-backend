@@ -1,3 +1,4 @@
+const { boolean } = require('casual');
 const mongoose = require('mongoose'); // Erase if already required
 
 // Declare the Schema of the Mongo model
@@ -194,6 +195,10 @@ const userSchema = new mongoose.Schema(
         ref: 'InBody',
       },
     ],
+    allowUnLimitedHra: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,

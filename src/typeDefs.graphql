@@ -495,6 +495,7 @@ type User {
 	exercises: [Exercise]
 	mealPlan: MealPlan
 	inBody: [InBody]
+	allowUnLimitedHra: Boolean
 	createdAt: DateTime
 	updatedAt: DateTime
 }
@@ -1144,6 +1145,10 @@ type Mutation {
 	Contact us page
 	"""
 	ContactUs(firstName: String, lastName: String, companyName: String, email: String, phone: String, message: String): Message
+	"""
+	Allow user to have unlimited hra
+	"""
+	AllowUserToHaveUnlimitedHra(id: ID): Message
 }
 
 type Subscription {

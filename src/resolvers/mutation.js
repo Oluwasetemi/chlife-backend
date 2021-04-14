@@ -888,7 +888,11 @@ const mutation = {
       if (!req.user.currentHra) {
         // user are only allowed to do 3 hra within a year
         let userPopulatedData;
-        if (req.user.hra.length > 3 && process.env.NODE_ENV === 'production') {
+        if (
+          req.user.hra.length > 3 &&
+          process.env.NODE_ENV === 'production' &&
+          req.user.allowUnLimitedHra === 'false'
+        ) {
           // confirm whether the new one they are about to do now falls with a year(365 days) with the current 3 they have do before using the first and current one to check
           // fetch user data and populate the hra field
           userPopulatedData = await findUserByIdPopulated(req.userId).lean();
@@ -1806,6 +1810,26 @@ const mutation = {
     });
 
     return { message: 'Contact us message sent successfully' };
+  },
+  async AllowUserToHaveUnlimitedHra(_, { id }, { req }) {
+    // must be done by an admin
+    if (!req.userId) {
+      throw new Error('You must be logged In');
+    }
+
+    if (req.user.type !== 'SUPERADMIN') {
+      throw new Error('You do not have the permission to do this');
+    }
+
+    const user = await updateUser(id, { allowUnLimitedHra: true });
+
+    if (!user) {
+      throw new Error('Request not completed');
+    }
+
+    return {
+      message: 'The User with the ID not has unlimited access to take HRA test',
+    };
   },
 };
 
