@@ -965,6 +965,11 @@ const mutation = {
         if (!hraData) {
           throw new Error('Error while updating');
         }
+        Object.keys(input).forEach((item) => {
+          if (input[item] === 'not answered') {
+            delete input[item];
+          }
+        });
         const responseToBeSubmitted = {
           ...hraData.questionAndResponse,
           ...input,
