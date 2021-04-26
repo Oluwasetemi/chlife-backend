@@ -543,7 +543,9 @@
 									"still_smoke",
 									"daily_cigars",
 									"daily_pipes",
-									"readiness_to_quit_smoking"
+									"readiness_to_quit_smoking",
+									"daily_shisha",
+									"daily_marajuana"
 								]
 							},
 							{
@@ -553,7 +555,9 @@
 									"still_smoke",
 									"daily_cigars",
 									"daily_pipes",
-									"readiness_to_quit_smoking"
+									"readiness_to_quit_smoking",
+									"daily_shisha",
+									"daily_marajuana"
 								],
 								"show": [
 									"used_to_smoke",
@@ -680,7 +684,7 @@
 			{
 				"id": "daily_marajuana",
 				"label": "Daily Shisha",
-				"prompt": "How many times do you smoke shisha per day?",
+				"prompt": "How many times do you smoke marijuana per day?",
 				"input": [
 					{
 						"type": "number",
