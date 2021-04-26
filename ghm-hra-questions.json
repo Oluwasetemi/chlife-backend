@@ -456,19 +456,6 @@
 				],
 				"system_of_measurement": "mg/dl",
 				"counterpart": "blood_glucose_mml"
-			},
-			{
-				"id": "triglycerides",
-				"label": "Triglycerides",
-				"prompt": "What is your most recent triglycerides level?",
-				"input": [
-					{
-						"type": "number",
-						"units": "mg/dl",
-						"min": 40,
-						"max": 500
-					}
-				]
 			}
 		]
 	},

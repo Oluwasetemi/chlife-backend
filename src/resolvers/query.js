@@ -37,6 +37,7 @@ const {
   oneExercise,
   allExercise,
 } = require('../services/exercise');
+const User = require('../models/user');
 
 const requestPromise = promisify(request);
 
@@ -243,11 +244,22 @@ const query = {
         throw new Error('api request failed');
       }
 
+      const userWithCurrentHra = await User.findById(req.userId).populate(
+        'currentHra'
+      );
+
+      const genderFromDB = req.user.gender.toLowerCase();
+      const genderFromResponse =
+        userWithCurrentHra &&
+        userWithCurrentHra.currentHra &&
+        userWithCurrentHra.currentHra.questionAndResponse &&
+        userWithCurrentHra.currentHra.questionAndResponse.sex;
+
       /* eslint-disable */
       questions = JSON.parse(
-        req.user.gender === 'MALE'
+        genderFromDB === 'male' || genderFromResponse === 'male'
           ? questionsMale
-          : req.user.gender === 'FEMALE'
+          : genderFromDB === 'female' || genderFromResponse === 'male'
           ? questionsFemale
           : questions,
       );
