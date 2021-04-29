@@ -5,7 +5,7 @@ on:
     branches: [staging]
 
 jobs:
-  echo:
+  update-server:
     runs-on: ubuntu-latest
     steps:
       - name: Pull Latest Code

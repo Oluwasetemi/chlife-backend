@@ -1,5 +1,9 @@
 # This is the changelog of the Backend
 
+## v0.3.0
+
+- Set up GitHub actions workflow to update the production server.
+
 ## v0.2.9
 
 - Fix the lowerCase() not defined error when fetching the HRA
