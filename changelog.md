@@ -2,6 +2,7 @@
 
 ## v0.2.9
 
+- Fix the lowerCase() not defined error when fetching the HRA
 - Update the `resendResetPasswordRequestMail` mutation to use only email.
 - Add field `allowUnLimitedHra` to model and user schema.
 - Add Mutation `AllowUserToHaveUnlimitedHra` to mutation and only and admin can trigger it.

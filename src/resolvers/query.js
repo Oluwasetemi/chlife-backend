@@ -248,7 +248,8 @@ const query = {
         'currentHra'
       );
 
-      const genderFromDB = req.user.gender.toLowerCase();
+      const genderFromDB =
+        req.user && req.user.gender && req.user.gender.toLowerCase();
       const genderFromResponse =
         userWithCurrentHra &&
         userWithCurrentHra.currentHra &&

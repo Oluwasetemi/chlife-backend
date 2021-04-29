@@ -8,7 +8,15 @@ jobs:
   echo:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout source code
-        uses: actions/checkout@v2
-      - name: Echo Hello World
-        run: echo "Hello World"
+      - name: Pull Latest Code
+        uses: appleboy/ssh-action@v0.1.2
+        with:
+          host: ${{secrets.SSH_HOST}}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd ~/production-choose-life/ # navigate into the folder
+            sudo git pull origin staging # clone the repo into the 'app' folder
+            # npm install # install dependencies
+            pm2 restart 2 # start as a background service.
+            pm2 status
