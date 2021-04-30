@@ -27,3 +27,4 @@ jobs:
             # npm install # install dependencies
             pm2 restart 2 # start as a background service.
             pm2 status
+            curl -X POST https://api.netlify.com/build_hooks/608c2f14d46c3f009cadb20d # rebuild the frontend
