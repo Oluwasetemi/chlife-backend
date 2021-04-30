@@ -1,4 +1,4 @@
-name: Hello World
+name: Update Production Server
 
 on:
   push:
@@ -16,6 +16,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd ~/production-choose-life/ # navigate into the folder
+            sudo git reset --hard origin/staging
             sudo git pull origin staging # clone the repo into the 'app' folder
             if git diff-tree --name-only --no-commit-id ORIG_HEAD HEAD | grep --quiet 'package.json'; then
               echo "$(date): Running npm install because package.json changed"
@@ -26,4 +27,3 @@ jobs:
             # npm install # install dependencies
             pm2 restart 2 # start as a background service.
             pm2 status
-            sudo npm run test
