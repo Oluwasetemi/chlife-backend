@@ -1,6 +1,6 @@
 {
     "name": "choose-life-backend",
-    "version": "0.2.9",
+    "version": "0.3.0",
     "description": "Choose Life is a Solution focused wellness platform that helps clients track corporate wellness goals, statistics and returns on investment through the use of a platform that is tailored to the needs of employees health and fitness. The primary pillars of Choose Life are Health, Nutrition, Fitness and Lifestyle.",
     "main": "index.js",
     "repository": {
