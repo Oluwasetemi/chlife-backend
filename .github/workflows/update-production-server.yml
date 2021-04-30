@@ -17,6 +17,13 @@ jobs:
           script: |
             cd ~/production-choose-life/ # navigate into the folder
             sudo git pull origin staging # clone the repo into the 'app' folder
+            if git diff-tree --name-only --no-commit-id ORIG_HEAD HEAD | grep --quiet 'package.json'; then
+              echo "$(date): Running npm install because package.json changed"
+              npm install > /dev/null
+            else
+              echo "$(date): No changes in the package.json found"
+            fi
             # npm install # install dependencies
             pm2 restart 2 # start as a background service.
             pm2 status
+            sudo npm run is-test
