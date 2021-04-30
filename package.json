@@ -21,8 +21,7 @@
         "seed": "node src/seed/seed.js",
         "blowitallaway": "node src/seed/seed.js --delete",
         "email": "echo \"you must have pug-cli installed globally to convert all the pug template to html!NB Always change the templates/email-template-name\" && pug -w src/mail/templates/confirmed_email_subscriber.pug -o src/mail/html",
-        "test:email": "node src/mail/templates/test-email.js",
-        "test": "node is-ci.js"
+        "test:email": "node src/mail/templates/test-email.js"
     },
     "keywords": [
         "graphql",
@@ -52,7 +51,6 @@
         "graphql-cli": "^4.1.0",
         "graphql-playground-middleware-express": "^1.7.15",
         "html-to-text": "^5.1.1",
-        "is-ci": "^2.0.0",
         "jsonwebtoken": "^8.5.1",
         "juice": "^6.0.0",
         "mongoose": "^5.9.18",
